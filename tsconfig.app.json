@@ -23,7 +23,11 @@
     /* Alias */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@ui/*": ["src/ui/*"],
+      "@components/*": ["src/components/*"],
+      "@modules/*": ["src/modules/*"],
+      "@pages/*": ["src/pages/*"],
+      "@assets/*": ["src/app/assets/*"],
     }
   },
   "include": ["src"]

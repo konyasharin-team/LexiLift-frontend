@@ -12,7 +12,11 @@ export default defineConfig({
   envPrefix: 'APP_',
   resolve: {
     alias: {
-      '@': '/src',
+      '@ui': '/src/ui',
+      '@components': '/src/components',
+      '@modules': '/src/modules',
+      '@pages': '/src/pages',
+      '@assets': '/src/app/assets',
     },
   },
 });
