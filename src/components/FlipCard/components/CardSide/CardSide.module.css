@@ -1,0 +1,12 @@
+.side {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    backface-visibility: hidden;
+}
+
+.side_back {
+    transform: rotateX(-180deg);
+}
+

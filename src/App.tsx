@@ -1,7 +1,19 @@
 import { FC } from 'react';
+import { FlipCard, useFlipCard } from '@components/FlipCard';
 
 const App: FC = () => {
-  return <>123</>;
+  const [value, toggle] = useFlipCard();
+
+  return (
+    <>
+      <FlipCard
+        word={'back'}
+        translation={'translate'}
+        activeSide={value}
+        onClick={() => toggle()}
+      />
+    </>
+  );
 };
 
 export default App;

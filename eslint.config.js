@@ -29,6 +29,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'react-hooks/exhaustive-deps': 'off',
       'simple-import-sort/imports': [
         'warn',
         {
@@ -62,6 +63,12 @@ export default tseslint.config(
         {
           'default': 'allow',
           'rules': [
+            {
+              "from": 'modules',
+              "disallow": [
+              ],
+              "message": "Direct import is allowed only within the same folder or via index.ts"
+            },
             {
               'from': 'app',
               'disallow': [
@@ -127,7 +134,7 @@ export default tseslint.config(
         {
           'type': 'pages',
           'pattern': 'src/pages/**'
-        }
+        },
       ],
       'import/resolver': {
         'typescript': {
