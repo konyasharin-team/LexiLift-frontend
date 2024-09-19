@@ -1,38 +1,80 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
+import { CardSideHead } from '@components/FlipCard/components/CardSideHead/CardSideHead.tsx';
+import { FlipCardSide } from '@components/FlipCard/FlipCard.tsx';
 import {
+  Center,
   Flex,
+  Image,
   Paper,
   PaperProps,
   PolymorphicComponentProps,
+  Text,
 } from '@mantine/core';
+import clsx from 'clsx';
 
 import styles from './CardSide.module.css';
-import { FlipCardSide } from '@components/FlipCard/FlipCard.tsx';
-import clsx from 'clsx';
 
 export interface ICardSide
   extends PolymorphicComponentProps<'div', PaperProps> {
   text: string;
   side: FlipCardSide;
-  img?: string;
+  img?: {
+    url: string;
+    isVisible: boolean;
+  };
+  headContent?: ReactNode;
 }
 
-export const CardSide: FC<ICardSide> = ({ text, side, img, ...attributes }) => {
+export const CardSide: FC<ICardSide> = ({
+  text,
+  side,
+  img,
+  headContent,
+  ...attributes
+}) => {
   return (
     <Paper
-      shadow="xs"
+      shadow="md"
+      bg={'white.0'}
       p="xl"
       w={'100%'}
       h={'100%'}
+      radius={'lg'}
       className={clsx(
         styles.side,
-        side === 'back' ? styles.side_back : undefined,
+        side === 'back' ? styles.sideBack : undefined,
       )}
       {...attributes}
     >
-      <Flex justify={'center'} align={'center'} w={'100%'} h={'100%'}>
-        {text}
-      </Flex>
+      <CardSideHead>{headContent}</CardSideHead>
+      <Center w={'100%'} h={'100%'}>
+        <Flex
+          justify={'center'}
+          align={'center'}
+          direction={'column'}
+          w={'100%'}
+          h={'60%'}
+          pos={'relative'}
+          className={styles.content}
+        >
+          <Text fw={700} fz={'xl'} tt={'capitalize'}>
+            {text}
+          </Text>
+          {img ? (
+            <Image
+              radius={'lg'}
+              src={img.url}
+              maw={300}
+              mah={100}
+              fit={'contain'}
+              className={clsx(
+                styles.img,
+                img.isVisible ? styles.imgActive : styles.imgDisabled,
+              )}
+            />
+          ) : undefined}
+        </Flex>
+      </Center>
     </Paper>
   );
 };

@@ -1,26 +1,31 @@
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, useState } from 'react';
+import { FaImages } from 'react-icons/fa';
+import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import clsx from 'clsx';
 
-import { CardSide, ICardSide } from './components/CardSide/CardSide.tsx';
+import { CardSide } from './components/CardSide/CardSide.tsx';
 
 import styles from './FlipCard.module.css';
 
 export type FlipCardSide = 'front' | 'back';
 
-interface IFlipCard extends Pick<ICardSide, 'img'>, ComponentProps<'div'> {
+interface IFlipCard extends ComponentProps<'div'> {
   word: string;
   translation: string;
   activeSide: FlipCardSide;
+  translationImg?: string;
 }
 
 export const FlipCard: FC<IFlipCard> = ({
   word,
   translation,
   activeSide,
-  img,
+  translationImg,
   className,
   ...attributes
 }) => {
+  const [imgIsVisible, setImgIsVisible] = useState(false);
+
   return (
     <div
       className={clsx(
@@ -31,7 +36,20 @@ export const FlipCard: FC<IFlipCard> = ({
       {...attributes}
     >
       <CardSide text={word} side={'front'} />
-      <CardSide text={translation} side={'back'} />
+      <CardSide
+        text={translation}
+        side={'back'}
+        headContent={
+          <CardSideHeadButton onClick={() => setImgIsVisible(!imgIsVisible)}>
+            <FaImages size={24} />
+          </CardSideHeadButton>
+        }
+        img={
+          translationImg
+            ? { url: translationImg, isVisible: imgIsVisible }
+            : undefined
+        }
+      />
     </div>
   );
 };
