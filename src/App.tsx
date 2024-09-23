@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import AppLayout from '@components/AppLayout/AppLayout.tsx';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
 
 const App: FC = () => {
@@ -6,6 +7,7 @@ const App: FC = () => {
 
   return (
     <>
+      <AppLayout />
       <FlipCard
         word={'back'}
         translation={'translate'}

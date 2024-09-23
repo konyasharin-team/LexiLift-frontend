@@ -1,0 +1,11 @@
+.header {
+    transition: transform 400ms ease;
+}
+
+.header_pinned {
+    transform: translate3d(0, 0, 0);
+}
+
+.header_unpinned {
+    transform: translate3d(0, -110px, 0);
+}
