@@ -64,12 +64,6 @@ export default tseslint.config(
           'default': 'allow',
           'rules': [
             {
-              "from": 'modules',
-              "disallow": [
-              ],
-              "message": "Direct import is allowed only within the same folder or via index.ts"
-            },
-            {
               'from': 'app',
               'disallow': [
                 'pages',
