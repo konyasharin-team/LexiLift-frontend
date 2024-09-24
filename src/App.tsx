@@ -1,5 +1,9 @@
 import { FC } from 'react';
+
 import AppLayout from '@components/AppLayout/AppLayout.tsx';
+
+import testImg from '@assets/images/test-img.jpg';
+
 import { FlipCard, useFlipCard } from '@components/FlipCard';
 
 const App: FC = () => {
@@ -9,10 +13,12 @@ const App: FC = () => {
     <>
       <AppLayout />
       <FlipCard
-        word={'back'}
-        translation={'translate'}
+        word={'red'}
+        translation={'красный'}
+        translationImg={testImg}
         activeSide={value}
         onClick={() => toggle()}
+        style={{ marginLeft: '10px', marginTop: '10px' }}
       />
     </>
   );
