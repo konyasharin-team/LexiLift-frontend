@@ -9,3 +9,8 @@
 .header_unpinned {
     transform: translate3d(0, -110px, 0);
 }
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+}

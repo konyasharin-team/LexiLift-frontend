@@ -1,28 +1,34 @@
 import { FC } from 'react';
-import { Box, Portal, Text } from '@mantine/core';
+import { Box, Burger, Portal, Text } from '@mantine/core';
 import clsx from 'clsx';
 
 import styles from './Header.module.css';
 
 interface IHeaderProps {
   pinned: boolean;
-  data: {
-    title: string;
-  };
+  title: string;
+  toggle: () => void;
+  opened: boolean;
 }
 
-export const Header: FC<IHeaderProps> = ({ pinned, data }) => {
+export const Header: FC<IHeaderProps> = props => {
   return (
     <>
       <Portal>
         <Box
           className={clsx(
             styles.header,
-            pinned ? styles.header_pinned : styles.header_unpinned,
+            props.pinned ? styles.header_pinned : styles.header_unpinned,
           )}
         ></Box>
       </Portal>
-      <Text>{data.title}</Text>
+      <Text>{props.title}</Text>
+      <Burger
+        opened={props.opened}
+        onClick={props.toggle}
+        size="sm"
+        ml="auto"
+      />
     </>
   );
 };
