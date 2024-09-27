@@ -6,11 +6,14 @@ import { mainTheme } from './app/themes/mainTheme.ts';
 import App from './App.tsx';
 
 import '@mantine/core/styles.css';
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <MantineProvider theme={mainTheme}>
-      <App />
-    </MantineProvider>
+    <BrowserRouter>
+      <MantineProvider theme={mainTheme}>
+        <App />
+      </MantineProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

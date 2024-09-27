@@ -64,16 +64,6 @@ export default tseslint.config(
           'default': 'allow',
           'rules': [
             {
-              'from': 'app',
-              'disallow': [
-                'pages',
-                'modules',
-                'components',
-                'ui'
-              ],
-              'message': 'import in app scope from pages, modules, components, ui is forbidden'
-            },
-            {
               'from': 'ui',
               'disallow': [
                 'pages',
