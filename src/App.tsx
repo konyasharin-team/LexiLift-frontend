@@ -1,5 +1,9 @@
 import { FC } from 'react';
+
+import AppLayout from '@components/AppLayout/AppLayout.tsx';
+
 import testImg from '@assets/images/test-img.jpg';
+
 import { FlipCard, useFlipCard } from '@components/FlipCard';
 
 const App: FC = () => {
@@ -7,6 +11,7 @@ const App: FC = () => {
 
   return (
     <>
+      <AppLayout />
       <FlipCard
         word={'red'}
         translation={'красный'}
