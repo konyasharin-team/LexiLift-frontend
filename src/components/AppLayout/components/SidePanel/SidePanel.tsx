@@ -1,5 +1,6 @@
 import { Navbar } from '@components/AppLayout/components/SidePanel/components/Navbar/Navbar.tsx';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
+import KnowledgeTest from '@modules/KnowledgeTest/KnowledgeTest.tsx';
 import { AppShell, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
@@ -45,6 +46,7 @@ export const SidePanel = () => {
           activeSide={value}
           onClick={() => toggleCard()}
         />
+        <KnowledgeTest />
       </AppShell.Main>
     </AppShell>
   );
