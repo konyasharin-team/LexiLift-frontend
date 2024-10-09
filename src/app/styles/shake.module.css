@@ -6,10 +6,10 @@
         transform: translateX(-5px);
     }
     50% {
-        transform: translateX(5px);
+        transform: translateX(0);
     }
     75% {
-        transform: translateX(-5px);
+        transform: translateX(5px);
     }
     100% {
         transform: translateX(0);
@@ -17,5 +17,6 @@
 }
 
 .shake {
-    animation: shake 0.5s ease;
+    animation-name: shake;
+    animation-timing-function: ease;
 }

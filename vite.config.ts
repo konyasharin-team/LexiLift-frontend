@@ -18,6 +18,10 @@ export default defineConfig({
       '@pages': '/src/pages',
       '@assets': '/src/app/assets',
       '@styles': '/src/app/styles',
+      '@app-types': '/src/app/types',
+      '@hooks': '/src/app/hooks',
+      '@themes': '/src/app/themes',
+      '@store': '/src/app/store',
     },
   },
 });
