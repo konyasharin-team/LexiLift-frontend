@@ -1,6 +1,5 @@
 import { Navbar } from '@components/AppLayout/components/SidePanel/components/Navbar/Navbar.tsx';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
-import MatchTest from '@modules/MatchTest/MatchTest.tsx';
 import { AppShell, Flex } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
@@ -9,6 +8,7 @@ import { Header } from '../Header/Header';
 import { navbarConfiguration } from './components/Navbar/navbarConfiguration.ts';
 
 import styles from '../Header/Header.module.css';
+import { MatchTestPage } from '@pages/MatchTestPage.tsx';
 
 export const SidePanel = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -46,7 +46,7 @@ export const SidePanel = () => {
           activeSide={value}
           onClick={() => toggleCard()}
         />
-        <MatchTest />
+        <MatchTestPage />
       </AppShell.Main>
     </AppShell>
   );

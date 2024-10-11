@@ -22,6 +22,7 @@ export default defineConfig({
       '@hooks': '/src/app/hooks',
       '@themes': '/src/app/themes',
       '@store': '/src/app/store',
+      '@utils': '/src/app/utils',
     },
   },
 });

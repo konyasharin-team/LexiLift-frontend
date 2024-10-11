@@ -1,9 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { matchTestSlice } from '@store/entities/matchTest';
 
 export const store = configureStore({
   reducer: {
-    matchTest: matchTestSlice.reducer,
   },
 });
 

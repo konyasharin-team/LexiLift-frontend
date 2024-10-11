@@ -1,49 +1,42 @@
-import { FC, useRef } from 'react';
-import { useBoardDraggableItem } from '@components/Board';
-import { useDroppable } from '@dnd-kit/core';
-import { mergeRefs } from '@mantine/hooks';
-import {
-  MATCH_CARD_SHAKE_DURATION_SECONDS,
-  MATCH_CARD_SHAKE_ITERATIONS_COUNT,
-} from '@modules/MatchTest/components/DraggableMatchTestCard/constants.ts';
+import { FC, useEffect, useState } from 'react';
 import { MatchTestCard } from '@modules/MatchTest/components/MatchTestCard/MatchTestCard.tsx';
-import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
-import { useAppSelector } from '@store/hooks';
-import clsx from 'clsx';
-
-import shakeStyles from '@styles/shake.module.css';
 import {
-  isAnswerFromThisCard
-} from '@modules/MatchTest/utils/isAnswerFromThisCard.ts';
+  MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
+  MATCH_CARD_PAINT_ITERATIONS_TIME,
+  MATCH_CARD_SHAKE_ITERATIONS_TIME,
+} from '@modules/MatchTest/constants.ts';
+import { useDraggableMatchTestCard } from '@modules/MatchTest/hooks/useDraggableMatchTestCard.ts';
+import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
+import { IMatchTestAnimation } from '@modules/MatchTest/types/IMatchTestAnimation.ts';
 
-export const DraggableMatchTestCard: FC<IDraggableMatchTestCard> = props => {
-  const ref = useRef<HTMLElement>(null);
-  const {
-    ref: draggableRef,
-    style,
-    ...attributes
-  } = useBoardDraggableItem({
+import styles from './DraggableMatchTestCard.module.css';
+
+interface IDraggableMatchTestCardProps extends IDraggableMatchTestCard {
+  animation?: IMatchTestAnimation;
+}
+
+export const DraggableMatchTestCard: FC<
+  IDraggableMatchTestCardProps
+> = props => {
+  const { style, ...attributes } = useDraggableMatchTestCard({
     id: props.id,
     coordinates: props.coordinates,
   });
-  const { setNodeRef: setDropRef } = useDroppable({
-    id: props.id,
-  });
-  const { errors, success } = useAppSelector(state => state.matchTest);
+  const [className, setClassName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (props.animation) setClassName(styles[props.animation.type]);
+    else setClassName(null);
+  }, [props.animation]);
 
   return (
     <MatchTestCard
-      ref={mergeRefs(draggableRef, ref, setDropRef)}
       style={{
         ...style,
-        animationDuration: `${MATCH_CARD_SHAKE_DURATION_SECONDS}s`,
-        animationIterationCount: MATCH_CARD_SHAKE_ITERATIONS_COUNT,
+        animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS_TIME}s, ${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_SHAKE_ITERATIONS_TIME}s`,
+        animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS_TIME}, ${MATCH_CARD_SHAKE_ITERATIONS_TIME}`,
       }}
-      className={clsx([
-        errors.find(error => isAnswerFromThisCard(error, props.id))
-          ? shakeStyles.shake
-          : undefined,
-      ])}
+      className={className ?? undefined}
       {...attributes}
     >
       {props.value}

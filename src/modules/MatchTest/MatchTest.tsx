@@ -6,8 +6,7 @@ import { useInterval } from '@mantine/hooks';
 import { DraggableMatchTestCard } from '@modules/MatchTest/components/DraggableMatchTestCard/DraggableMatchTestCard.tsx';
 import { MatchTestCard } from '@modules/MatchTest/components/MatchTestCard/MatchTestCard.tsx';
 import { useMatchTest } from '@modules/MatchTest/hooks/useMatchTest.ts';
-
-import { getTestItemsByType } from '../../app/utils/tests/getTestItemsByType.ts';
+import { getTestItemsByType } from '@utils/tests';
 
 const wordPairs: IDictionaryItem[] = [
   {
@@ -37,7 +36,7 @@ const wordPairs: IDictionaryItem[] = [
 ];
 
 export const MatchTest = () => {
-  const { cards, setCards, boardRef, round, onDragEnd } =
+  const { cards, setCards, boardRef, round, onDragEnd, animations, start } =
     useMatchTest(wordPairs);
   const [errors, setErrors] = useState<number>(0);
   const [time, setTime] = useState(0);
@@ -48,6 +47,7 @@ export const MatchTest = () => {
   const startTest = () => {
     setIsTestStarted(true);
     interval.start();
+    start?.();
   };
 
   return (
@@ -95,6 +95,9 @@ export const MatchTest = () => {
           <Flex gap={10} direction={'column'}>
             {getTestItemsByType(cards, 'word').map(item => (
               <DraggableMatchTestCard
+                animation={animations.find(
+                  animation => animation.itemId === item.id,
+                )}
                 value={item.value}
                 id={item.id}
                 key={item.id}
@@ -104,6 +107,9 @@ export const MatchTest = () => {
           <Flex gap={10} direction={'column'}>
             {getTestItemsByType(cards, 'translation').map(item => (
               <DraggableMatchTestCard
+                animation={animations.find(
+                  animation => animation.itemId === item.id,
+                )}
                 value={item.value}
                 id={item.id}
                 key={item.id}
@@ -115,5 +121,3 @@ export const MatchTest = () => {
     </div>
   );
 };
-
-export default MatchTest;
