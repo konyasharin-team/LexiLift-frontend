@@ -18,11 +18,15 @@ interface IDraggableMatchTestCardProps extends IDraggableMatchTestCard {
 export const DraggableMatchTestCard: FC<
   IDraggableMatchTestCardProps
 > = props => {
-  const { style, ...attributes } = useDraggableMatchTestCard({
-    id: props.id,
-    coordinates: props.coordinates,
-  });
   const [className, setClassName] = useState<string | null>(null);
+  const { style, ...attributes } = useDraggableMatchTestCard(
+    {
+      id: props.id,
+      coordinates: props.coordinates,
+    },
+    !!className,
+    props.type,
+  );
 
   useEffect(() => {
     if (props.animation) setClassName(styles[props.animation.type]);

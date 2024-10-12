@@ -1,13 +1,17 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
-import { DragEndEvent } from '@dnd-kit/core';
+import { IBoardItem } from '@components/Board';
 import { useRounds } from '@hooks/useRounds.ts';
 import { useTest } from '@hooks/useTest.ts';
-import { MatchTestAnimationsContext } from '@modules/MatchTest/components/MatchTestAnimationsController/MatchTestAnimationsController.tsx';
-import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/MatchTest/constants.ts';
-import { checkAnswer } from '@utils/tests';
+import { useMatchTestAnimations } from '@modules/MatchTest/hooks/useMatchTestAnimations.ts';
+import { IUseMatchTestReturn } from '@modules/MatchTest/types/IUseMatchTestReturn.ts';
 
-export const useMatchTest = (dictionary: IDictionaryItem[]) => {
+export const useMatchTest = (
+  dictionary: IDictionaryItem[],
+): IUseMatchTestReturn => {
+  const { animations, addAnimations, start } = useMatchTestAnimations(id =>
+    onSuccess(id),
+  );
   const boardRef = useRef<HTMLDivElement>(null);
   const { round, setRound, currentRoundDictionary } = useRounds(dictionary);
   const {
@@ -15,29 +19,12 @@ export const useMatchTest = (dictionary: IDictionaryItem[]) => {
     setItems: setCards,
     answers,
   } = useTest(currentRoundDictionary);
-  const { animations, start, addAnimations } = useContext(
-    MatchTestAnimationsContext,
-  );
 
-  const onDragEnd = (e: DragEndEvent) => {
-    if (!addAnimations)
-      return console.error('function "addAnimations" must be in context');
-    const { over, active } = e;
-    if (over && active.id !== over.id) {
-      const isSuccess = checkAnswer(answers, [over.id, active.id]);
-      addAnimations([
-        {
-          itemId: active.id,
-          type: isSuccess ? 'success' : 'error',
-          timeLeft: MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
-        },
-        {
-          itemId: over.id,
-          type: isSuccess ? 'success' : 'error',
-          timeLeft: MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
-        },
-      ]);
-    }
+  const onSuccess = (id: IBoardItem['id'][]) => {
+    setCards([...cards.filter(card => !id.includes(card.id))]);
+  };
+
+  const onError = (id: IBoardItem['id'][]) => {
   };
 
   return {
@@ -45,7 +32,10 @@ export const useMatchTest = (dictionary: IDictionaryItem[]) => {
     setCards,
     boardRef,
     round,
-    onDragEnd,
+    onSuccess,
+    onError,
+    answers,
+    addAnimations,
     animations,
     start,
   };

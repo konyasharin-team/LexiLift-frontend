@@ -1,43 +1,14 @@
-import { useState } from 'react';
-import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
+import { FC, useState } from 'react';
 import { Board } from '@components/Board';
 import { Button, Center, Flex, Modal } from '@mantine/core';
 import { useInterval } from '@mantine/hooks';
+import { onDragEnd } from '@modules/MatchTest/boardEvents/onDragEnd.ts';
 import { DraggableMatchTestCard } from '@modules/MatchTest/components/DraggableMatchTestCard/DraggableMatchTestCard.tsx';
 import { MatchTestCard } from '@modules/MatchTest/components/MatchTestCard/MatchTestCard.tsx';
-import { useMatchTest } from '@modules/MatchTest/hooks/useMatchTest.ts';
+import { IUseMatchTestReturn } from '@modules/MatchTest/types/IUseMatchTestReturn.ts';
 import { getTestItemsByType } from '@utils/tests';
 
-const wordPairs: IDictionaryItem[] = [
-  {
-    word: 'Apple',
-    translation: 'Яблоко',
-  },
-  {
-    word: 'Apple1',
-    translation: 'Яблоко1',
-  },
-  {
-    word: 'Apple2',
-    translation: 'Яблоко2',
-  },
-  {
-    word: 'Apple3',
-    translation: 'Яблоко3',
-  },
-  {
-    word: 'Apple4',
-    translation: 'Яблоко4',
-  },
-  {
-    word: 'Apple5',
-    translation: 'Яблоко5',
-  },
-];
-
-export const MatchTest = () => {
-  const { cards, setCards, boardRef, round, onDragEnd, animations, start } =
-    useMatchTest(wordPairs);
+export const MatchTest: FC<IUseMatchTestReturn> = props => {
   const [errors, setErrors] = useState<number>(0);
   const [time, setTime] = useState(0);
   const [isTestStarted, setIsTestStarted] = useState(false);
@@ -47,7 +18,7 @@ export const MatchTest = () => {
   const startTest = () => {
     setIsTestStarted(true);
     interval.start();
-    start?.();
+    props.start?.();
   };
 
   return (
@@ -73,10 +44,10 @@ export const MatchTest = () => {
         </div>
       )}
       <Board
-        items={cards}
-        setItems={setCards}
-        boardRef={boardRef}
-        onDragEnd={onDragEnd}
+        items={props.cards}
+        setItems={props.setCards}
+        boardRef={props.boardRef}
+        onDragEnd={e => onDragEnd(e, props.answers, props.addAnimations)}
         activeItemToReactNode={item => {
           if (item) {
             return <MatchTestCard>{item.value}</MatchTestCard>;
@@ -93,25 +64,27 @@ export const MatchTest = () => {
           pl={250}
         >
           <Flex gap={10} direction={'column'}>
-            {getTestItemsByType(cards, 'word').map(item => (
+            {getTestItemsByType(props.cards, 'word').map(item => (
               <DraggableMatchTestCard
-                animation={animations.find(
+                animation={props.animations.find(
                   animation => animation.itemId === item.id,
                 )}
                 value={item.value}
                 id={item.id}
+                type={'word'}
                 key={item.id}
               />
             ))}
           </Flex>
           <Flex gap={10} direction={'column'}>
-            {getTestItemsByType(cards, 'translation').map(item => (
+            {getTestItemsByType(props.cards, 'translation').map(item => (
               <DraggableMatchTestCard
-                animation={animations.find(
+                animation={props.animations.find(
                   animation => animation.itemId === item.id,
                 )}
                 value={item.value}
                 id={item.id}
+                type={'translation'}
                 key={item.id}
               />
             ))}

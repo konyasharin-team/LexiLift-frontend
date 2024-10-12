@@ -1,10 +1,21 @@
 import { IBoardItem } from '@components/Board/types/IBoardItem.ts';
-import { useDraggable } from '@dnd-kit/core';
+import { useDraggable, UseDraggableArguments } from '@dnd-kit/core';
 import { Property } from 'csstype';
 
-export const useBoardDraggableItem = (item: IBoardItem) => {
+interface IUseBoardDraggableItemParams
+  extends Omit<UseDraggableArguments, 'id' | 'attributes'> {
+  item: IBoardItem;
+}
+
+export const useBoardDraggableItem = ({
+  item,
+  disabled = false,
+  data,
+}: IUseBoardDraggableItemParams) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: item.id,
+    disabled,
+    data,
   });
 
   return {

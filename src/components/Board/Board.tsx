@@ -69,7 +69,7 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
       >
         {props.children}
         {props.activeItemToReactNode ? (
-          <DragOverlay>{getDragOverlayNode()}</DragOverlay>
+          <DragOverlay dropAnimation={{ duration: 200 }}>{getDragOverlayNode()}</DragOverlay>
         ) : undefined}
       </DndContext>
     </div>
