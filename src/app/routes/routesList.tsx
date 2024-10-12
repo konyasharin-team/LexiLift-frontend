@@ -8,5 +8,5 @@ import { IRoute } from './IRoute.ts';
 export const routesList: IRoute[] = [
   { path: appPaths.TEST, element: <TestPage /> },
   { path: appPaths.REGISTRATION, element: <RegistrationPage /> },
-  { path: appPaths.AUTORIZATION, element: <AutorizationPage /> },
+  { path: appPaths.AUTHORIZATION, element: <AutorizationPage /> },
 ];

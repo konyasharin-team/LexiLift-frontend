@@ -1,28 +1,24 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Button,
   Flex,
   LoadingOverlay,
-  Notification,
   Paper,
   PasswordInput,
-  Text,
   TextInput,
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
+import { LinkItem } from '@ui/ Link/LinkItem.tsx';
 
 import { appPaths } from '../../app/routes';
 
 import { loginUser } from './components/AutorizeUser/autorizeUser.ts';
-import { validateLogin } from './components/ValidateRegistration/validateLogin.ts';
-
-import styles from '././Autorization.module.css';
+import { validateLogin } from './components/ValidateLogin/validateLogin.ts';
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const loginForm = useForm({
     initialValues: {
@@ -31,33 +27,30 @@ export default function Login() {
     },
     validate: validateLogin,
   });
-  const [notificationVisible, setNotificationVisible] = useState(true);
-  const [successNotificationVisible, setSuccessNotificationVisible] =
-    useState(false);
 
   const handleLoginSubmit = async (values: typeof loginForm.values) => {
     setLoading(true);
     const user = await loginUser(values);
 
     if (user) {
-      setSuccessNotificationVisible(true);
+      notifications.show({
+        title: 'Успех',
+        message: 'Вы авторизовались',
+        color: 'green',
+      });
     } else {
-      setError('Неверный email или пароль');
-      setNotificationVisible(true);
+      notifications.show({
+        title: 'Ошибка',
+        message: 'Указан неверный логин или пароль',
+        color: 'red',
+      });
     }
     setLoading(false);
   };
 
   return (
     <Flex justify="center">
-      <Paper
-        className={styles.formContainer}
-        radius="lg"
-        withBorder
-        shadow="xl"
-        p="xl"
-        mt={150}
-      >
+      <Paper radius="lg" withBorder shadow="xl" p="xl" mt={150} w={700}>
         <Flex justify="center">
           <Title order={2} mb="md">
             Авторизация
@@ -69,50 +62,25 @@ export default function Login() {
             label="Email"
             placeholder="Ваш email"
             {...loginForm.getInputProps('email')}
-            required
           />
           <PasswordInput
             label="Пароль"
             placeholder="Ваш пароль"
             {...loginForm.getInputProps('password')}
-            required
             mt="md"
           />
-          {error && notificationVisible && (
-            <Notification
-              color="red"
-              title="Ошибка"
-              mt="md"
-              onClose={() => setNotificationVisible(false)}
-            >
-              {error}
-            </Notification>
-          )}
-          {successNotificationVisible && (
-            <Notification
-              color="green"
-              title="Успех"
-              mt="md"
-              onClose={() => setSuccessNotificationVisible(false)}
-            >
-              Авторизация успешна!
-            </Notification>
-          )}
+
           <Flex justify="center">
-            <Button type="submit" mt="xl" w={200} radius="md" color="#89d8ef">
+            <Button type="submit" mt="xl" w={200} radius="md" color="blue">
               Войти
             </Button>
           </Flex>
         </form>
 
-        <Flex justify="center">
-          <Text mt="md">
-            Нет аккаунта?{' '}
-            <Link to={appPaths.REGISTRATION} className={styles.link}>
-              Зарегистрируйся!
-            </Link>
-          </Text>
-        </Flex>
+        <LinkItem
+          to={appPaths.REGISTRATION}
+          label="Нет аккаунта? Зарегистрируйся!"
+        />
 
         <LoadingOverlay visible={loading} />
       </Paper>

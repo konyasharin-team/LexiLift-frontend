@@ -1,38 +1,29 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Button,
-  Flex,
-  LoadingOverlay,
-  Notification,
-  Paper,
-  PasswordInput,
-  PinInput,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core';
+import { Flex, LoadingOverlay, Paper, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
+import { LinkItem } from '@ui/ Link/LinkItem.tsx';
 
 import { appPaths } from '../../app/routes';
 
+import { ConfirmationForm } from './components/ConfirmationForm/ConfirmationForm.tsx';
+import { RegistrationForm } from './components/RegistrationForm/RegistrationForm.tsx';
 import { registerUser } from './components/RegUser/regUser.ts';
-import {
-  validateCode,
-  validateRegistration,
-} from './components/ValidateRegistration/validateRegistration.ts';
+import { validateCode } from './components/ValidateRegistration/validateConfirmation.ts';
+import { validateRegistration } from './components/ValidateRegistration/validateRegistration.ts';
 
-import styles from '../Authorization/Autorization.module.css';
+const registrationSteps = {
+  REGISTRATION: 'REGISTRATION',
+  CONFIRM: 'CONFIRM',
+} as const;
+
+type RegistrationStep = keyof typeof registrationSteps;
 
 export default function Registration() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<RegistrationStep>(
+    registrationSteps.REGISTRATION,
+  );
   const [loading, setLoading] = useState(false);
-  const [confirmationCode] = useState('1234');
-  const [error, setError] = useState('');
-  const [notificationVisible, setNotificationVisible] = useState(true);
-  const [successNotificationVisible, setSuccessNotificationVisible] =
-    useState(false);
-  const [notificationClass, setNotificationClass] = useState('');
 
   const registrationForm = useForm({
     initialValues: {
@@ -45,9 +36,9 @@ export default function Registration() {
 
   const confirmationForm = useForm({
     initialValues: {
-      code: '',
+      expectedCode: '',
     },
-    validate: validateCode(confirmationCode),
+    validate: validateCode,
   });
 
   const handleRegistrationSubmit = async (
@@ -56,125 +47,59 @@ export default function Registration() {
     setLoading(true);
     const success = await registerUser(values);
     if (success) {
-      setStep(2);
+      setStep(registrationSteps.CONFIRM);
     }
     setLoading(false);
   };
 
   const handleCodeSubmit = async (values: typeof confirmationForm.values) => {
     setLoading(true);
-    if (values.code === confirmationCode) {
-      setSuccessNotificationVisible(true);
-      setNotificationClass('fade-in'); // Добавляем класс для уведомления
-      setTimeout(() => setNotificationClass(''), 3000);
+    if (values.expectedCode === '1234') {
+      notifications.show({
+        title: 'Успех',
+        message: 'Аккаунт подтверждён!',
+        color: 'green',
+      });
     } else {
-      setError('Неверный код');
+      notifications.show({
+        title: 'Ошибка',
+        message: 'Неверный код',
+        color: 'red',
+      });
     }
     setLoading(false);
   };
 
   return (
-    <Paper
-      className={styles.formContainer}
-      radius="lg"
-      withBorder
-      shadow="xl"
-      p="xl"
-      mt={120}
-    >
-      <Flex justify="center">
-        <Title order={2} mb="md">
-          {step === 1 ? 'Регистрация' : 'Подтверждение аккаунта'}
-        </Title>
-      </Flex>
+    <Flex justify="center">
+      <Paper radius="lg" withBorder shadow="xl" p="xl" mt={120} w={700}>
+        <Flex justify="center">
+          <Title order={2} mb="md">
+            {step === registrationSteps.REGISTRATION
+              ? 'Регистрация'
+              : 'Подтверждение аккаунта'}
+          </Title>
+        </Flex>
 
-      {step === 1 && (
-        <form onSubmit={registrationForm.onSubmit(handleRegistrationSubmit)}>
-          <TextInput
-            label="Email"
-            placeholder="Ваш email"
-            {...registrationForm.getInputProps('email')}
-            required
+        {step === registrationSteps.REGISTRATION && (
+          <RegistrationForm
+            form={registrationForm}
+            onSubmit={handleRegistrationSubmit}
+            loading={loading}
           />
-          <PasswordInput
-            label="Пароль"
-            placeholder="Ваш пароль"
-            {...registrationForm.getInputProps('password')}
-            required
-            mt="md"
+        )}
+        {step === registrationSteps.CONFIRM && (
+          <ConfirmationForm
+            form={confirmationForm}
+            onSubmit={handleCodeSubmit}
+            loading={loading}
           />
-          <PasswordInput
-            label="Подтвердите пароль"
-            placeholder="Повторите пароль"
-            {...registrationForm.getInputProps('confirmPassword')}
-            required
-            mt="md"
-          />
-          <Flex justify="center">
-            <Button type="submit" mt="xl" w={200} radius="md" color="#89d8ef">
-              Зарегистрироваться
-            </Button>
-          </Flex>
-        </form>
-      )}
-      {step === 2 && (
-        <>
-          {notificationVisible && (
-            <Notification
-              color="green"
-              title="Код отправлен"
-              mb="md"
-              onClose={() => setNotificationVisible(false)}
-            >
-              Мы отправили код подтверждения на ваш email.
-            </Notification>
-          )}
+        )}
 
-          {successNotificationVisible && (
-            <Notification
-              color="green"
-              title="Успех"
-              className={`${notificationClass}`} // Класс для анимации
-              mt="md"
-              onClose={() => setSuccessNotificationVisible(false)}
-            >
-              Аккаунт подтверждён!
-            </Notification>
-          )}
+        <LinkItem to={appPaths.AUTHORIZATION} label="Уже есть аккаунт?" />
 
-          <form onSubmit={confirmationForm.onSubmit(handleCodeSubmit)}>
-            <Flex justify="center">
-              <PinInput
-                length={4}
-                ariaLabel="Введите код"
-                {...confirmationForm.getInputProps('code')}
-                aria-required
-                mt="md"
-              />
-            </Flex>
-            {error && (
-              <Notification color="red" title="Ошибка" mt="md">
-                {error}
-              </Notification>
-            )}
-            <Flex justify="center">
-              <Button type="submit" mt="xl" w={200} radius="md" color="#89d8ef">
-                Подтвердить код
-              </Button>
-            </Flex>
-          </form>
-        </>
-      )}
-
-      <Flex justify="center">
-        <Text mt="md">
-          <Link to={appPaths.AUTORIZATION} className={styles.link}>
-            Уже есть аккаунт?
-          </Link>
-        </Text>
-      </Flex>
-
-      <LoadingOverlay visible={loading} />
-    </Paper>
+        <LoadingOverlay visible={loading} />
+      </Paper>
+    </Flex>
   );
 }
