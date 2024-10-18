@@ -40,8 +40,21 @@
     }
 }
 
+@keyframes hide {
+    0% {
+        scale: 1;
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        scale: 1.5;
+    }
+}
+
 .error, .success {
     animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    cursor: default;
 }
 
 .error {
@@ -49,5 +62,9 @@
 }
 
 .success {
-    animation-name: greenPaint, shake;
+    animation-name: greenPaint, hide;
+}
+
+.invisible {
+    opacity: 0;
 }

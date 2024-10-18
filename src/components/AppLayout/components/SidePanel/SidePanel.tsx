@@ -40,12 +40,6 @@ export const SidePanel = () => {
       <Navbar opened={opened} />
 
       <AppShell.Main>
-        <FlipCard
-          word={'back'}
-          translation={'translate'}
-          activeSide={value}
-          onClick={() => toggleCard()}
-        />
         <MatchTestPage />
       </AppShell.Main>
     </AppShell>

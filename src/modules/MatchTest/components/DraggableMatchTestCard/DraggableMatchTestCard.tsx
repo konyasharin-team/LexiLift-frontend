@@ -2,8 +2,9 @@ import { FC, useEffect, useState } from 'react';
 import { MatchTestCard } from '@modules/MatchTest/components/MatchTestCard/MatchTestCard.tsx';
 import {
   MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
-  MATCH_CARD_PAINT_ITERATIONS_TIME,
-  MATCH_CARD_SHAKE_ITERATIONS_TIME,
+  MATCH_CARD_HIDE_ITERATIONS,
+  MATCH_CARD_PAINT_ITERATIONS,
+  MATCH_CARD_SHAKE_ITERATIONS,
 } from '@modules/MatchTest/constants.ts';
 import { useDraggableMatchTestCard } from '@modules/MatchTest/hooks/useDraggableMatchTestCard.ts';
 import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
@@ -37,8 +38,15 @@ export const DraggableMatchTestCard: FC<
     <MatchTestCard
       style={{
         ...style,
-        animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS_TIME}s, ${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_SHAKE_ITERATIONS_TIME}s`,
-        animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS_TIME}, ${MATCH_CARD_SHAKE_ITERATIONS_TIME}`,
+        animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS}s,
+                            ${
+                              props.animation?.type === 'error'
+                                ? MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
+                                  MATCH_CARD_SHAKE_ITERATIONS
+                                : MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
+                                  MATCH_CARD_HIDE_ITERATIONS
+                            }s`,
+        animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS}, ${props.animation?.type === 'error' ? MATCH_CARD_SHAKE_ITERATIONS : MATCH_CARD_HIDE_ITERATIONS}`,
       }}
       className={className ?? undefined}
       {...attributes}

@@ -4,4 +4,5 @@ import { DraggableMatchTestCardType } from '@modules/MatchTest/types/DraggableMa
 export interface IDraggableMatchTestCard extends IBoardItem {
   value: string;
   type: DraggableMatchTestCardType;
+  node?: HTMLElement;
 }

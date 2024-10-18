@@ -55,9 +55,7 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
       ref={mergeRefs(containerRef, props.boardRef)}
       style={{
         width: '100%',
-        height: '600px',
-        position: 'relative',
-        border: '1px solid #000',
+        height: '100%',
         overflow: 'hidden',
       }}
     >
@@ -69,7 +67,9 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
       >
         {props.children}
         {props.activeItemToReactNode ? (
-          <DragOverlay dropAnimation={{ duration: 200 }}>{getDragOverlayNode()}</DragOverlay>
+          <DragOverlay dropAnimation={{ duration: 200 }}>
+            {getDragOverlayNode()}
+          </DragOverlay>
         ) : undefined}
       </DndContext>
     </div>
