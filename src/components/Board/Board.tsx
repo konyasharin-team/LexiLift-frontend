@@ -10,6 +10,7 @@ interface IBoardProps<T extends IBoardItem> {
   boardRef: ForwardedRef<HTMLDivElement>;
   onDragEnd?: (e: DragEndEvent) => void;
   activeItemToReactNode?: (item: T | undefined) => ReactNode | null;
+  className?: string;
   children?: ReactNode;
 }
 
@@ -53,10 +54,10 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
   return (
     <div
       ref={mergeRefs(containerRef, props.boardRef)}
+      className={props.className}
       style={{
         width: '100%',
         height: '100%',
-        overflow: 'hidden',
       }}
     >
       <DndContext

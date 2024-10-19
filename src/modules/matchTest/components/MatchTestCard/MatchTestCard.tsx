@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { Card, CardProps, Text } from '@mantine/core';
-import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
+import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
 import clsx from 'clsx';
 
 import styles from './MatchTestCard.module.css';

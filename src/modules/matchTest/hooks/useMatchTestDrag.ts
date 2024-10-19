@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { ITestItem } from '@app-types/ITestItem.ts';
 import { Answer } from '@components/Board/types/Answer.ts';
 import { DragEndEvent } from '@dnd-kit/core';
-import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/MatchTest/constants.ts';
-import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
-import { IMatchTestAnimation } from '@modules/MatchTest/types/IMatchTestAnimation.ts';
-import { IMatchTestCardDraggableData } from '@modules/MatchTest/types/IMatchTestCardDraggableData.ts';
-import { IMatchTestCardDroppableData } from '@modules/MatchTest/types/IMatchTestCardDroppableData.ts';
+import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
+import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
+import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
+import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
+import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
 import { checkAnswer } from '@utils/tests';
 
 export const useMatchTestDrag = (items: ITestItem[]) => {

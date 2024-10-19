@@ -1,18 +1,19 @@
 import { FC, useEffect, useState } from 'react';
-import { MatchTestCard } from '@modules/MatchTest/components/MatchTestCard/MatchTestCard.tsx';
+import { MatchTestCard } from '@modules/matchTest/components/MatchTestCard/MatchTestCard.tsx';
 import {
   MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
   MATCH_CARD_HIDE_ITERATIONS,
   MATCH_CARD_PAINT_ITERATIONS,
   MATCH_CARD_SHAKE_ITERATIONS,
-} from '@modules/MatchTest/constants.ts';
-import { useDraggableMatchTestCard } from '@modules/MatchTest/hooks/useDraggableMatchTestCard.ts';
-import { IDraggableMatchTestCard } from '@modules/MatchTest/types/IDraggableMatchTestCard.ts';
-import { IMatchTestAnimation } from '@modules/MatchTest/types/IMatchTestAnimation.ts';
+} from '@modules/matchTest/constants.ts';
+import { useDraggableMatchTestCard } from '@modules/matchTest/hooks/useDraggableMatchTestCard.ts';
+import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
+import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 
 import styles from './DraggableMatchTestCard.module.css';
 
 interface IDraggableMatchTestCardProps extends IDraggableMatchTestCard {
+  isDisabled: boolean;
   animation?: IMatchTestAnimation;
 }
 
@@ -25,7 +26,7 @@ export const DraggableMatchTestCard: FC<
       id: props.id,
       coordinates: props.coordinates,
     },
-    !!className,
+    props.isDisabled,
     props.type,
   );
 

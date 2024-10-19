@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useInterval } from '@mantine/hooks';
-import { MATCH_TEST_ANIMATION_UPDATE_TIME } from '@modules/MatchTest/constants.ts';
-import { IMatchTestAnimation } from '@modules/MatchTest/types/IMatchTestAnimation.ts';
-import { IUseMatchTestReturn } from '@modules/MatchTest/types/IUseMatchTestReturn.ts';
+import { MATCH_TEST_ANIMATION_UPDATE_TIME } from '@modules/matchTest/constants.ts';
+import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
+import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 
 export const useMatchTestAnimations = (
   onSuccess: IUseMatchTestReturn['onSuccess'],
 ) => {
-  const { start, stop, active } = useInterval(
-    () => onUpdate(),
-    MATCH_TEST_ANIMATION_UPDATE_TIME * 1000,
-  );
+  const {
+    start: startObserve,
+    stop: stopObserve,
+    active: isObserve,
+  } = useInterval(() => onUpdate(), MATCH_TEST_ANIMATION_UPDATE_TIME * 1000);
   const [animations, setAnimations] = useState<IMatchTestAnimation[]>([]);
 
   const onUpdate = () => {
@@ -47,13 +48,14 @@ export const useMatchTestAnimations = (
   };
 
   useEffect(() => {
-    if (animations.length === 0) return stop();
-    else if (animations.length > 0 && !active) start();
-  }, [animations, active]);
+    if (animations.length === 0) return stopObserve();
+    else if (animations.length > 0 && !isObserve) startObserve();
+  }, [animations, isObserve]);
 
   return {
     animations,
-    start,
+    startObserve,
+    stopObserve,
     addAnimations,
   };
 };

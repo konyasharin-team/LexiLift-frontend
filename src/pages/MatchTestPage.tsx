@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
-import { useMatchTest } from '@modules/MatchTest/hooks/useMatchTest.ts';
-import { MatchTest } from '@modules/MatchTest/MatchTest.tsx';
+import { Button } from '@mantine/core';
+import { MatchTestBoard, MatchTestWrapper } from '@modules/matchTest';
+import { MatchTestInfoPanel } from '@modules/matchTest';
+import { MatchTestTimer } from '@modules/matchTest';
+import { useMatchTest } from '@modules/matchTest';
+import { toTime } from '@utils/time';
 
 const wordPairs: IDictionaryItem[] = [
   {
@@ -33,5 +37,15 @@ const wordPairs: IDictionaryItem[] = [
 export const MatchTestPage: FC = () => {
   const matchTest = useMatchTest(wordPairs);
 
-  return <MatchTest {...matchTest} />;
+  return (
+    <MatchTestWrapper
+      blurIsActive={matchTest.isStarted}
+      start={matchTest.start}
+    >
+      <MatchTestInfoPanel>
+        <MatchTestTimer time={toTime({ seconds: matchTest.time })} />
+      </MatchTestInfoPanel>
+      <MatchTestBoard test={matchTest} />
+    </MatchTestWrapper>
+  );
 };
