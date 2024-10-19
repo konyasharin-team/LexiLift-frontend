@@ -1,7 +1,7 @@
 import { FC } from 'react';
+import testImg from '@assets/images/test-img.jpg';
 import AppLayout from '@components/AppLayout/AppLayout.tsx';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
-import testImg from '@assets/images/test-img.jpg';
 
 export const TestPage: FC = () => {
   const [value, toggle] = useFlipCard();
@@ -17,5 +17,5 @@ export const TestPage: FC = () => {
         style={{ marginLeft: '10px', marginTop: '10px' }}
       />
     </AppLayout>
-  )
+  );
 };
