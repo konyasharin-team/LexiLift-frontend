@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import Autorization from '../module/Authorization/Autorization.tsx';
+import { AutorizationForm } from '@modules/authorization/components/AutorizationForm.tsx';
 
 export const AutorizationPage: FC = () => {
-  return <Autorization />;
+  return <AutorizationForm />;
 };
