@@ -1,10 +1,12 @@
-import { FC, useState } from 'react';
+import { FC, useEffect } from 'react';
+import { useMutation } from 'react-query';
+import { IAuthData } from '@app-types/IAuthData.ts';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
+import { AuthApi } from '../../../../app/api/AuthApi.ts';
 import { appPaths } from '../../../../app/routes';
-import { registerUser } from '../../regUser.ts';
 import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 
 interface IRegistrationFormProps {
@@ -12,7 +14,11 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
-  const [loading, setLoading] = useState(false);
+  const { mutate: postRegistration, isLoading, isSuccess } = useMutation(
+    async (data: IAuthData) => {
+      return await AuthApi.PostRegistration(data);
+    },
+  );
 
   const form = useForm({
     initialValues: {
@@ -23,20 +29,17 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     validate: validateRegistration,
   });
 
-  const handleRegistrationSubmit = async (values: typeof form.values) => {
-    setLoading(true);
-    const success = await registerUser(values);
-    if (success) props.onSuccess?.();
-    setLoading(false);
-  };
+  useEffect(() => {
+    if (isSuccess) props.onSuccess?.();
+  }, [isSuccess]);
 
   return (
     <Form
       title={'Заголовок'}
-      isLoading={loading}
+      isLoading={isLoading}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <form onSubmit={form.onSubmit(handleRegistrationSubmit)}>
+      <form onSubmit={form.onSubmit(values => postRegistration(values))}>
         <TextInput
           label="Email"
           placeholder="Ваш email"
@@ -61,7 +64,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
             w={200}
             radius="md"
             color="blue"
-            disabled={loading}
+            disabled={isLoading}
           >
             Зарегистрироваться
           </Button>

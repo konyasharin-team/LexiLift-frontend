@@ -1,3 +1,3 @@
 export { appPaths } from './appPaths.ts';
-export { AppRouter } from './AppRouter.tsx';
-export { routesList } from './routesList.tsx';
+export { AppRouter } from './components/AppRouter.tsx';
+export { routes } from './routes.tsx';

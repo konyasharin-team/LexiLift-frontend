@@ -12,15 +12,20 @@ import App from './App.tsx';
 import '@mantine/notifications/styles.css';
 import '@mantine/core/styles.css';
 import '@styles/app.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <MantineProvider theme={mainTheme}>
-          <App />
-          <Notifications />
-        </MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <MantineProvider theme={mainTheme}>
+            <App />
+            <Notifications />
+          </MantineProvider>
+        </QueryClientProvider>
       </Provider>
     </BrowserRouter>
   </StrictMode>,
