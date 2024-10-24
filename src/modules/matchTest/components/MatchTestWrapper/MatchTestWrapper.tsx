@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { MatchTestStartModal } from '@modules/matchTest/components/MatchTestStartModal/MatchTestStartModal.tsx';
 import clsx from 'clsx';
 

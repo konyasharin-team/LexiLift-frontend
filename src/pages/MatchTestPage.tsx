@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
-import { Button } from '@mantine/core';
 import { MatchTestBoard, MatchTestWrapper } from '@modules/matchTest';
 import { MatchTestInfoPanel } from '@modules/matchTest';
 import { MatchTestTimer } from '@modules/matchTest';

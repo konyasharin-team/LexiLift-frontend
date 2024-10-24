@@ -54,7 +54,7 @@ export const useMatchTestDrag = (items: ITestItem[]) => {
         //   active.rect.current.translated,
         // );
         console.log(
-          active.rect.current.translated,
+          active.rect.current.initial,
           over.rect
         )
         // if (active.rect.current.translated) {
