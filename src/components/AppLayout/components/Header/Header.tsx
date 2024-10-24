@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box, Burger, Portal, Text } from '@mantine/core';
+import { Box, Burger, Flex, Portal, Text } from '@mantine/core';
 import clsx from 'clsx';
 
 import styles from './Header.module.css';
@@ -13,7 +13,7 @@ interface IHeaderProps {
 
 export const Header: FC<IHeaderProps> = props => {
   return (
-    <>
+    <Flex align={'center'} h={'100%'} p={'md'}>
       <Portal>
         <Box
           className={clsx(
@@ -23,12 +23,7 @@ export const Header: FC<IHeaderProps> = props => {
         ></Box>
       </Portal>
       <Text>{props.title}</Text>
-      <Burger
-        opened={props.opened}
-        onClick={props.toggle}
-        size="sm"
-        ml="auto"
-      />
-    </>
+      <Burger opened={props.opened} onClick={props.toggle} size="sm" />
+    </Flex>
   );
 };

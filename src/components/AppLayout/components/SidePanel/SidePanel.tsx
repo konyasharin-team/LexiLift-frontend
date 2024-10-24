@@ -43,5 +43,3 @@ export const SidePanel = () => {
     </AppShell>
   );
 };
-
-export default SidePanel;

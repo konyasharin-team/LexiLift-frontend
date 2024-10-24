@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import AppLayout from '@components/AppLayout/AppLayout.tsx';
+
+import { AppRouter } from './app/routes';
 
 const App: FC = () => {
   return (
     <>
-      <AppLayout />
+      <AppRouter />
     </>
   );
 };
