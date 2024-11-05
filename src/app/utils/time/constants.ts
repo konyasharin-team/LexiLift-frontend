@@ -1,4 +1,0 @@
-export const SPECIAL_SYMBOL = '%';
-export const MILLISECONDS_REPLACE_STRING = `${SPECIAL_SYMBOL}ms`;
-export const SECONDS_REPLACE_STRING = `${SPECIAL_SYMBOL}s`;
-export const MINUTES_REPLACE_STRING = `${SPECIAL_SYMBOL}min`;

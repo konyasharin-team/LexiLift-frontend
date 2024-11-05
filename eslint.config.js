@@ -4,7 +4,6 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import prettier from 'eslint-plugin-prettier'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import boundaries from 'eslint-plugin-boundaries'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
@@ -21,7 +20,6 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       'prettier': prettier,
       'simple-import-sort': simpleImportSort,
-      'boundaries': boundaries,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -29,7 +27,6 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'react-hooks/exhaustive-deps': 'off',
       'simple-import-sort/imports': [
         'warn',
         {
@@ -58,38 +55,6 @@ export default tseslint.config(
           ],
         },
       ],
-      'boundaries/element-types': [
-        'error',
-        {
-          'default': 'allow',
-          'rules': [
-            {
-              'from': 'ui',
-              'disallow': [
-                'pages',
-                'modules',
-                'components'
-              ],
-              'message': 'import in ui scope from pages, modules, components is forbidden'
-            },
-            {
-              'from': 'components',
-              'disallow': [
-                'pages',
-                'modules',
-              ],
-              'message': 'import in components scope from pages, modules is forbidden'
-            },
-            {
-              'from': 'modules',
-              'disallow': [
-                'pages',
-              ],
-              'message': 'import in modules scope from pages is forbidden'
-            },
-          ]
-        }
-      ],
       'simple-import-sort/exports': 'warn',
       'prettier/prettier': [
         'warn', {
@@ -97,34 +62,5 @@ export default tseslint.config(
         }
       ]
     },
-    settings: {
-      'boundaries/elements': [
-        {
-          'type': 'app',
-          'pattern': 'src/app/**'
-        },
-        {
-          'type': 'ui',
-          'pattern': 'src/ui/**'
-        },
-        {
-          'type': 'components',
-          'pattern': 'src/components/**'
-        },
-        {
-          'type': 'modules',
-          'pattern': 'src/modules/**'
-        },
-        {
-          'type': 'pages',
-          'pattern': 'src/pages/**'
-        },
-      ],
-      'import/resolver': {
-        'typescript': {
-          'project': 'tsconfig.app.json'
-        }
-      }
-    }
   },
 )
