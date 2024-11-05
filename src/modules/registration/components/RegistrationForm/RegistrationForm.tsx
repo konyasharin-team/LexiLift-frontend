@@ -14,11 +14,13 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
-  const { mutate: postRegistration, isLoading, isSuccess } = useMutation(
-    async (data: IAuthData) => {
-      return await AuthApi.PostRegistration(data);
-    },
-  );
+  const {
+    mutate: postRegistration,
+    isLoading,
+    isSuccess,
+  } = useMutation(async (data: IAuthData) => {
+    return await AuthApi.PostRegistration(data);
+  });
 
   const form = useForm({
     initialValues: {
