@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { appPaths } from '@routes/appPaths';
 
-import { appPaths } from '../../../app/routes';
 import { registrationSteps } from '../constants.ts';
 
 export const useRegistrationSteps = () => {

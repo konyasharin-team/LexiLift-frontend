@@ -1,4 +1,4 @@
-import { Roles } from '../../constants';
+import { Roles } from '@constants/Roles';
 
 import { IRoute } from './IRoute.ts';
 
