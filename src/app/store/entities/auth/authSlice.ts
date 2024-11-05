@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Roles } from '../../../constants';
+import { Roles } from '@constants/Roles';
 
 interface IUser {
   role: keyof typeof Roles;
@@ -11,7 +11,7 @@ interface IState {
 }
 
 const initialState: IState = {
-  user: null,
+  user: { role: Roles.user },
 };
 
 export const authSlice = createSlice({

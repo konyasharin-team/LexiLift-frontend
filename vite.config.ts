@@ -23,6 +23,9 @@ export default defineConfig({
       '@themes': '/src/app/themes',
       '@store': '/src/app/store',
       '@utils': '/src/app/utils',
+      '@constants': '/src/app/constants',
+      '@routes': '/src/app/routes',
+      '@api': '/src/app/api',
     },
   },
 });

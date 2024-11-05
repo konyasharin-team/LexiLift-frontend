@@ -3,4 +3,5 @@ export const appPaths = {
   REGISTRATION: '/registration',
   AUTHORIZATION: '/authorization',
   NOT_FOUND: '/not-found',
+  MATCH_TEST: '/match-test',
 };
