@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { ITime } from '@app-types/ITime.ts';
+import { ITime } from '@app-types';
 import { Flex, Paper, Text } from '@mantine/core';
-import { timeToString } from '@utils/time';
+import { timeToString } from '@utils';
 
 interface IMatchTestTimerProps {
   time: ITime;

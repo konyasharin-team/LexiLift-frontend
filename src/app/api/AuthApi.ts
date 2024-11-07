@@ -1,3 +1,4 @@
+import { IResponse } from '@api/types/IResponse.ts';
 import { IAuthData } from '@app-types/IAuthData.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
@@ -8,7 +9,7 @@ export class AuthApi {
 
   public static PostRegistration(
     data: IAuthData,
-  ): Promise<AxiosResponse<IAuthData, string>> {
+  ): Promise<AxiosResponse<IResponse<IAuthData>>> {
     return this.Instance.post('register', data);
   }
 }

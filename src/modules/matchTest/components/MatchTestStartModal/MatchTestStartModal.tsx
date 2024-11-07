@@ -15,7 +15,9 @@ export const MatchTestStartModal: FC<IMatchTestStartModalProps> = props => {
           props.start();
           props.setIsOpen(false);
         }}
-      >Начать тест</Button>
+      >
+        Начать тест
+      </Button>
     </Modal>
   );
 };

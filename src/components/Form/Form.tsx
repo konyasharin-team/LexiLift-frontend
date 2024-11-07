@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Flex, LoadingOverlay, Paper, Title } from '@mantine/core';
-import { LinkItem } from '@ui/ Link/LinkItem.tsx';
+import { LinkItem } from '@ui/Link/LinkItem.tsx';
 
 interface IFormProps {
   title: string;

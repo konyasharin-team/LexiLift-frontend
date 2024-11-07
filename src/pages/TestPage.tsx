@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import testImg from '@assets/images/test-img.jpg';
-import AppLayout from '@components/AppLayout/AppLayout.tsx';
+import { AppLayout } from '@components/AppLayout';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
 
 export const TestPage: FC = () => {

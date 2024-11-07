@@ -1,7 +1,6 @@
 import { FC } from 'react';
-
-import { CreateModule } from '@modules/vocabularyModule/components/CreateModule/CreateModule.tsx';
+import { CreateModule } from '@modules/vocabularyModule';
 
 export const CreationModulePage: FC = () => {
-  return <CreateModule />
-}
+  return <CreateModule />;
+};

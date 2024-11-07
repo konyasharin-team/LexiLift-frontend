@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
+import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
 import { DragEndEvent } from '@dnd-kit/core';
-import { useRounds } from '@hooks/useRounds.ts';
-import { useTest } from '@hooks/useTest';
-import { useTimer } from '@hooks/useTimer';
+import { useRounds, useTest, useTimer } from '@hooks';
 import { useMatchTestAnimations } from '@modules/matchTest/hooks/useMatchTestAnimations.ts';
 import { useMatchTestDrag } from '@modules/matchTest/hooks/useMatchTestDrag.ts';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
