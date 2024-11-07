@@ -1,9 +1,10 @@
 import { FC, ReactNode } from 'react';
-import { Header } from '@components/AppLayout/components/Header/Header.tsx';
-import Navbar from '@components/AppLayout/components/Navbar/Navbar.tsx';
-import { navbarConfiguration } from '@components/AppLayout/components/Navbar/navbarConfiguration.ts';
 import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+
+import { Header } from './components/Header/Header.tsx';
+import Navbar from './components/Navbar/Navbar.tsx';
+import { navbarConfiguration } from './components/Navbar/navbarConfiguration.ts';
 
 interface IAppLayoutProps {
   children?: ReactNode;

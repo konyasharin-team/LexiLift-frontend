@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useMutation } from 'react-query';
-import { AuthApi } from '@api/AuthApi.ts';
-import { IAuthData } from '@app-types/IAuthData.ts';
+import { AuthApi } from '@api';
+import { IAuthData } from '@app-types';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { appPaths } from '@routes/appPaths.ts';
+import { appPaths } from '@routes';
 
 import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 

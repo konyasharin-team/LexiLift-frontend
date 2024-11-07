@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ImFilePicture } from 'react-icons/im';
 import { Button, Flex, Image, Modal, Text } from '@mantine/core';
-import { uploadImage } from '@utils/imageUpload.ts';
+import { uploadImage } from '@utils';
 
 import styles from './ImageUpload.module.css';
 

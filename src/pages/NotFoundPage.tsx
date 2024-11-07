@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import AppLayout from '@components/AppLayout/AppLayout.tsx';
+import { AppLayout } from '@components/AppLayout';
 import { Center, Text } from '@mantine/core';
 
 export const NotFoundPage: FC = () => {

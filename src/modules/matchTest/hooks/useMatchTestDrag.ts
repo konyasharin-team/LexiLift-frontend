@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ITestItem } from '@app-types/ITestItem.ts';
+import { ITestItem } from '@app-types';
 import { Answer } from '@components/Board/types/Answer.ts';
 import { DragEndEvent } from '@dnd-kit/core';
 import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
@@ -7,7 +7,7 @@ import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatc
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
-import { checkAnswer } from '@utils/tests';
+import { checkAnswer } from '@utils';
 
 export const useMatchTestDrag = (items: ITestItem[]) => {
   const [draggableItems, setDraggableItems] =

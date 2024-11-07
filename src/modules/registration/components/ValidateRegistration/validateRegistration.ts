@@ -1,4 +1,4 @@
-import { regexp } from '@utils/regexpUtils.ts';
+import { regexp } from '@utils';
 
 interface IRegistrationValues {
   email: string;

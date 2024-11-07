@@ -1,2 +1,2 @@
-export * from './hooks/useActions.ts';
+export * from './hooks';
 export * from './store';

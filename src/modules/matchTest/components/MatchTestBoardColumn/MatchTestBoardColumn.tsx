@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { ITestItem } from '@app-types/ITestItem.ts';
+import { ITestItem } from '@app-types';
 import { Flex } from '@mantine/core';
 import { DraggableMatchTestCard } from '@modules/matchTest/components/DraggableMatchTestCard/DraggableMatchTestCard.tsx';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
-import { getTestItemsByType } from '@utils/tests';
+import { getTestItemsByType } from '@utils';
 
 interface IMatchTestBoardColumnProps {
   test: IUseMatchTestReturn;

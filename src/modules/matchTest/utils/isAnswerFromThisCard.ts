@@ -1,4 +1,4 @@
-import { ITestItem } from '@app-types/ITestItem.ts';
+import { ITestItem } from '@app-types';
 import { Answer } from '@components/Board/types/Answer.ts';
 
 export const isAnswerFromThisCard = (

@@ -1,18 +1,19 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { store } from '@store/store.ts';
+import { store } from '@store';
+import { mainTheme } from '@themes';
 
-import { mainTheme } from '@themes/mainTheme.ts';
+import '@styles';
+
 import App from './App.tsx';
 
 import '@mantine/notifications/styles.css';
 import '@mantine/core/styles.css';
-import '@styles/app.css';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 

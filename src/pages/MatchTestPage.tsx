@@ -1,10 +1,13 @@
 import { FC } from 'react';
-import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
-import { MatchTestBoard, MatchTestWrapper } from '@modules/matchTest';
-import { MatchTestInfoPanel } from '@modules/matchTest';
-import { MatchTestTimer } from '@modules/matchTest';
-import { useMatchTest } from '@modules/matchTest';
-import { toTime } from '@utils/time';
+import { IDictionaryItem } from '@app-types';
+import {
+  MatchTestBoard,
+  MatchTestInfoPanel,
+  MatchTestTimer,
+  MatchTestWrapper,
+  useMatchTest,
+} from '@modules/matchTest';
+import { toTime } from '@utils';
 
 const wordPairs: IDictionaryItem[] = [
   {

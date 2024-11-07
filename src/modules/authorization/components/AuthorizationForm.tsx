@@ -3,12 +3,12 @@ import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { appPaths } from '@routes/appPaths';
+import { appPaths } from '@routes';
 
 import { loginUser } from '../autorizeUser.ts';
 import { validateLogin } from '../validations/validateLogin/validateLogin.ts';
 
-export const AutorizationForm: FC = () => {
+export const AuthorizationForm: FC = () => {
   const [loading, setLoading] = useState(false);
 
   const loginForm = useForm({

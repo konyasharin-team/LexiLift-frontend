@@ -5,4 +5,5 @@ export const appPaths = {
   CREATIONMODULE: '/create-module',
   NOT_FOUND: '/not-found',
   MATCH_TEST: '/match-test',
+  MATCH_TEST_SETTINGS: '/match-test/settings',
 };

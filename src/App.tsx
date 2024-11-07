@@ -1,7 +1,5 @@
 import { FC } from 'react';
-
-import { AppRouter } from './app/routes';
-import './app/styles/text.css';
+import { AppRouter } from '@routes';
 
 const App: FC = () => {
   return (
