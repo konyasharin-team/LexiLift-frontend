@@ -1,6 +1,9 @@
 import { AutorizationPage } from '@pages/AutorizationPage.tsx';
+import { MatchTestPage } from '@pages/MatchTestPage.tsx';
 import { RegistrationPage } from '@pages/RegistrationPage.tsx';
 import { TestPage } from '@pages/TestPage.tsx';
+
+import { Roles } from '@constants/Roles';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -24,4 +27,10 @@ export const publicRoutes: IRoute[] = [
 ];
 
 // Роуты, доступные только авторизированным юзерам
-export const privateRoutes: IPrivateRoute[] = [];
+export const privateRoutes: IPrivateRoute[] = [
+  {
+    path: appPaths.MATCH_TEST,
+    element: <MatchTestPage />,
+    availableFor: [Roles.user],
+  },
+];

@@ -1,12 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useMutation } from 'react-query';
+import { AuthApi } from '@api/AuthApi.ts';
 import { IAuthData } from '@app-types/IAuthData.ts';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { appPaths } from '@routes/appPaths.ts';
 
-import { AuthApi } from '../../../../app/api/AuthApi.ts';
-import { appPaths } from '../../../../app/routes';
 import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 
 interface IRegistrationFormProps {
@@ -14,11 +14,13 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
-  const { mutate: postRegistration, isLoading, isSuccess } = useMutation(
-    async (data: IAuthData) => {
-      return await AuthApi.PostRegistration(data);
-    },
-  );
+  const {
+    mutate: postRegistration,
+    isLoading,
+    isSuccess,
+  } = useMutation(async (data: IAuthData) => {
+    return await AuthApi.PostRegistration(data);
+  });
 
   const form = useForm({
     initialValues: {

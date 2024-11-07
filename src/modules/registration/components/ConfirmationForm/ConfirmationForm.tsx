@@ -3,7 +3,7 @@ import { Button, Flex, PinInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 
-import { appPaths } from '../../../../app/routes';
+import { appPaths } from '@routes/appPaths.ts';
 import { Form } from '@components/Form/Form.tsx';
 import { validateCode } from '../ValidateRegistration/validateConfirmation.ts';
 

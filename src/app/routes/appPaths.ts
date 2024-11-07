@@ -6,4 +6,5 @@ export const appPaths = {
   NOT_FOUND: '/not-found',
   MODULES_LIST: '/modules-list',
   MODULES_FOLDERS: '/modules-folders',
+  MATCH_TEST: '/match-test',
 };

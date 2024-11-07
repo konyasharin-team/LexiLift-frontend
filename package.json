@@ -19,6 +19,7 @@
     "@mantine/form": "^7.12.2",
     "@mantine/hooks": "^7.12.2",
     "@mantine/notifications": "^7.13.2",
+    "@react-spring/web": "^9.7.5",
     "@reduxjs/toolkit": "^2.2.8",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
@@ -46,5 +47,8 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
   }
 }

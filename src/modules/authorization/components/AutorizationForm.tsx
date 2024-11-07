@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
+import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
+import { appPaths } from '@routes/appPaths';
 
-import { appPaths } from '../../../app/routes';
-import { Form } from '@components/Form/Form.tsx';
 import { loginUser } from '../autorizeUser.ts';
 import { validateLogin } from '../validations/validateLogin/validateLogin.ts';
 
