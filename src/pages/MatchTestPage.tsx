@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import {
+  MatchTestAnswersStatistics,
   MatchTestBoard,
+  MatchTestDescription,
   MatchTestInfoPanel,
   MatchTestTimer,
   MatchTestWrapper,
@@ -19,6 +21,10 @@ export const MatchTestPage: FC = () => {
     >
       <MatchTestInfoPanel>
         <MatchTestTimer time={toTime({ seconds: matchTest.time })} />
+        <MatchTestDescription>
+          Перетаскивайте слова на правильные переводы и наоборот
+        </MatchTestDescription>
+        <MatchTestAnswersStatistics {...matchTest} />
       </MatchTestInfoPanel>
       <MatchTestBoard test={matchTest} />
     </MatchTestWrapper>

@@ -1,4 +1,5 @@
 export * from './components/MatchTestBoard/MatchTestBoard';
+export * from './components/MatchTestDescription/MatchTestDescription.tsx';
 export * from './components/MatchTestInfoPanel/MatchTestInfoPanel';
 export * from './components/MatchTestSettingsPanel/MatchTestSettingsPanel.tsx';
 export * from './components/MatchTestTimer/MatchTestTimer';
@@ -6,3 +7,4 @@ export * from './components/MatchTestWrapper/MatchTestWrapper.tsx';
 export * from './hooks/useMatchTest';
 export * from './hooks/useMatchTestSettingsForm.ts';
 export * from './types/IUseMatchTestSettingsFormReturn.ts';
+export * from '@modules/matchTest/components/MatchTestAnswersStatistics/MatchTestAnswersStatistics.tsx';

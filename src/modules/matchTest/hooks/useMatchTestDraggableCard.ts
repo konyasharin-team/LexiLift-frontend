@@ -5,7 +5,7 @@ import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTest
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
 import { TestItemType } from '@app-types';
 
-export const useDraggableMatchTestCard = (
+export const useMatchTestDraggableCard = (
   boardItem: IBoardItem,
   disabled: boolean = false,
   type: TestItemType,

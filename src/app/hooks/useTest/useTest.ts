@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { IStatistics } from '@app-types';
 import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
 import { ITestItem } from '@app-types/ITestItem.ts';
 import { Answer } from '@components/Board/types/Answer.ts';
@@ -16,6 +17,10 @@ export const useTest = (
   dictionary: IDictionaryItem[],
   options?: IUseTestOptions,
 ): IUseTestReturn => {
+  const [statistics, setStatistics] = useState<IStatistics>({
+    corrects: 0,
+    errors: 0,
+  });
   const [isStarted, setIsStarted] = useState(false);
   const [items, setItems] = useState<ITestItem[]>([]);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -45,6 +50,11 @@ export const useTest = (
     setAnswers(newAnswers);
   };
 
+  const setStatisticsHandle = (newStatistics: IStatistics) => {
+    if (newStatistics.corrects >= 0 && newStatistics.errors >= 0)
+      setStatistics(newStatistics);
+  };
+
   const start = () => {
     setIsStarted(true);
     options?.onStart?.();
@@ -68,5 +78,7 @@ export const useTest = (
     start,
     finish,
     restart,
+    statistics,
+    setStatistics: setStatisticsHandle,
   };
 };

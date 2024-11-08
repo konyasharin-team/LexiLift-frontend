@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ITestItem } from '@app-types';
 import { Flex } from '@mantine/core';
-import { DraggableMatchTestCard } from '@modules/matchTest/components/DraggableMatchTestCard/DraggableMatchTestCard.tsx';
+import { MatchTestDraggableCard } from '@modules/matchTest/components/MatchTestDraggableCard/MatchTestDraggableCard.tsx';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { getTestItemsByType } from '@utils';
 
@@ -14,7 +14,7 @@ export const MatchTestBoardColumn: FC<IMatchTestBoardColumnProps> = props => {
   return (
     <Flex gap={10} direction={'column'}>
       {getTestItemsByType(props.test.items, props.columnItemsType).map(item => (
-        <DraggableMatchTestCard
+        <MatchTestDraggableCard
           animation={props.test.animations.find(
             animation => animation.itemId === item.id,
           )}

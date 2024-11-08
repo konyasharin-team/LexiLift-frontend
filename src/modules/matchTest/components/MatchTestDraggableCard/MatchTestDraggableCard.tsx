@@ -6,22 +6,22 @@ import {
   MATCH_CARD_PAINT_ITERATIONS,
   MATCH_CARD_SHAKE_ITERATIONS,
 } from '@modules/matchTest/constants.ts';
-import { useDraggableMatchTestCard } from '@modules/matchTest/hooks/useDraggableMatchTestCard.ts';
+import { useMatchTestDraggableCard } from '@modules/matchTest/hooks/useMatchTestDraggableCard.ts';
 import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 
-import styles from './DraggableMatchTestCard.module.css';
+import styles from './MatchTestDraggableCard.module.css';
 
-interface IDraggableMatchTestCardProps extends IDraggableMatchTestCard {
+interface IMatchTestDraggableCardProps extends IDraggableMatchTestCard {
   isDisabled: boolean;
   animation?: IMatchTestAnimation;
 }
 
-export const DraggableMatchTestCard: FC<
-  IDraggableMatchTestCardProps
+export const MatchTestDraggableCard: FC<
+  IMatchTestDraggableCardProps
 > = props => {
   const [className, setClassName] = useState<string | null>(null);
-  const { style, ...attributes } = useDraggableMatchTestCard(
+  const { style, ...attributes } = useMatchTestDraggableCard(
     {
       id: props.id,
       coordinates: props.coordinates,

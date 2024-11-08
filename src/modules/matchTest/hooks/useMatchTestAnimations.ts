@@ -5,7 +5,8 @@ import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimatio
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 
 export const useMatchTestAnimations = (
-  onSuccess: IUseMatchTestReturn['onSuccess'],
+  onAfterSuccess: IUseMatchTestReturn['onAfterSuccess'],
+  onAfterError: IUseMatchTestReturn['onAfterError'],
 ) => {
   const {
     start: startObserve,
@@ -24,13 +25,8 @@ export const useMatchTestAnimations = (
         ),
       };
     });
-    onSuccess(
-      newAnimations
-        .filter(
-          animation => animation.timeLeft === 0 && animation.type === 'success',
-        )
-        .map(animation => animation.itemId),
-    );
+    onAfterSuccess(filterFinishedByType(newAnimations, 'success'));
+    onAfterError(filterFinishedByType(newAnimations, 'error'));
     newAnimations = newAnimations.filter(animation => animation.timeLeft > 0);
     setAnimations(newAnimations);
   };
@@ -45,6 +41,15 @@ export const useMatchTestAnimations = (
           ),
       ),
     ]);
+  };
+
+  const filterFinishedByType = (
+    animations: IMatchTestAnimation[],
+    type: IMatchTestAnimation['type'],
+  ) => {
+    return animations
+      .filter(animation => animation.timeLeft === 0 && animation.type === type)
+      .map(animation => animation.itemId);
   };
 
   useEffect(() => {

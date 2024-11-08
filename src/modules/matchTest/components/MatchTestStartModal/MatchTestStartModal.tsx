@@ -13,7 +13,7 @@ export const MatchTestStartModal: FC<IMatchTestStartModalProps> = props => {
 
   return (
     <Modal onClose={() => navigate(appPaths.MATCH_TEST_SETTINGS)} {...props}>
-      <Text>Тут описание теста</Text>
+      <Text>Перетаскивайте слова на правильные переводы и наоборот</Text>
       <Button
         mt={20}
         fullWidth={true}
