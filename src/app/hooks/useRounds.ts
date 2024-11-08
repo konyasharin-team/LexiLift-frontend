@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-
-import { IDictionaryItem } from '../types/IDictionaryItem.ts';
+import { IDictionaryItem } from '@app-types';
+import { TEST_WORDS_PER_ROUND } from '@constants';
 
 export const useRounds = (
   dictionary: IDictionaryItem[],
-  countElementsInRound: number = 5,
+  countElementsInRound: number = TEST_WORDS_PER_ROUND,
 ) => {
   const [currentRoundDictionary, setCurrentRoundDictionary] = useState<
     IDictionaryItem[]

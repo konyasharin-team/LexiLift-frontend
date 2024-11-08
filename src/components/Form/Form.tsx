@@ -1,10 +1,11 @@
-import { FC, ReactNode } from 'react';
+import { FC, FormEventHandler, ReactNode } from 'react';
 import { Flex, LoadingOverlay, Paper, Title } from '@mantine/core';
 import { LinkItem } from '@ui/Link/LinkItem.tsx';
 
 interface IFormProps {
   title: string;
   isLoading: boolean;
+  onSubmit: FormEventHandler<HTMLFormElement>;
   children?: ReactNode;
   link?: {
     text: string;
@@ -21,7 +22,7 @@ export const Form: FC<IFormProps> = props => {
             {props.title}
           </Title>
         </Flex>
-        {props.children}
+        <form onSubmit={props.onSubmit}>{props.children}</form>
         {props.link ? (
           <LinkItem to={props.link.href} label={props.link.text} />
         ) : undefined}

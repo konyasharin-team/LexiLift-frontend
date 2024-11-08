@@ -39,39 +39,38 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     <Form
       title={'Заголовок'}
       isLoading={isLoading}
+      onSubmit={form.onSubmit(values => postRegistration(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <form onSubmit={form.onSubmit(values => postRegistration(values))}>
-        <TextInput
-          label="Email"
-          placeholder="Ваш email"
-          {...form.getInputProps('email')}
-        />
-        <PasswordInput
-          label="Пароль"
-          placeholder="Ваш пароль"
-          {...form.getInputProps('password')}
-          mt="md"
-        />
-        <PasswordInput
-          label="Подтвердите пароль"
-          placeholder="Повторите пароль"
-          {...form.getInputProps('confirmPassword')}
-          mt="md"
-        />
-        <Flex justify="center">
-          <Button
-            type="submit"
-            mt="xl"
-            w={200}
-            radius="md"
-            color="blue"
-            disabled={isLoading}
-          >
-            Зарегистрироваться
-          </Button>
-        </Flex>
-      </form>
+      <TextInput
+        label="Email"
+        placeholder="Ваш email"
+        {...form.getInputProps('email')}
+      />
+      <PasswordInput
+        label="Пароль"
+        placeholder="Ваш пароль"
+        {...form.getInputProps('password')}
+        mt="md"
+      />
+      <PasswordInput
+        label="Подтвердите пароль"
+        placeholder="Повторите пароль"
+        {...form.getInputProps('confirmPassword')}
+        mt="md"
+      />
+      <Flex justify="center">
+        <Button
+          type="submit"
+          mt="xl"
+          w={200}
+          radius="md"
+          color="blue"
+          disabled={isLoading}
+        >
+          Зарегистрироваться
+        </Button>
+      </Flex>
     </Form>
   );
 };

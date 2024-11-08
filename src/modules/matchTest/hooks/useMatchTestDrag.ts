@@ -49,18 +49,6 @@ export const useMatchTestDrag = (items: ITestItem[]) => {
         },
       ]);
       if (isSuccess) {
-        // console.log(
-        //   active.rect.current.initial,
-        //   active.rect.current.translated,
-        // );
-        console.log(
-          active.rect.current.initial,
-          over.rect
-        )
-        // if (active.rect.current.translated) {
-        //   console.log(active.rect.current.translated.left - over.rect.left)
-        //   console.log(active.rect.current.translated.top - over.rect.top)
-        // }
         setDraggableItems(
           draggableItems.map(item => {
             if (item.id === active.id) {

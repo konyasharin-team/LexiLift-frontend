@@ -8,12 +8,11 @@ import { Notifications } from '@mantine/notifications';
 import { store } from '@store';
 import { mainTheme } from '@themes';
 
-import '@styles';
-
 import App from './App.tsx';
 
 import '@mantine/notifications/styles.css';
 import '@mantine/core/styles.css';
+import '@styles';
 
 const queryClient = new QueryClient();
 
