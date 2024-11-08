@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTest } from '@hooks';
 import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
 import { IUseMatchTestItemsWrapperReturn } from '@modules/matchTest/types/IUseMatchTestItemsWrapperReturn.ts';
@@ -11,12 +11,13 @@ export const useMatchTestItemsWrapper = (
     test.items,
   );
 
-  const setWrappedItemsHandle = (
-    newWrappedItems: IDraggableMatchTestCard[],
-  ) => {
-    setWrappedItems(newWrappedItems);
-    test.setItems(newWrappedItems);
-  };
+  const setWrappedItemsHandle = useCallback(
+    (newWrappedItems: IDraggableMatchTestCard[]) => {
+      setWrappedItems(newWrappedItems);
+      test.setItems(newWrappedItems);
+    },
+    [],
+  );
 
   useEffect(() => {
     let areEquals = true;

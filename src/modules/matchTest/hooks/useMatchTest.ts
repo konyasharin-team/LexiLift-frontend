@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
@@ -51,78 +51,90 @@ export const useMatchTest = (
       isNeedShuffle: true,
     },
   ]);
-  const timer = useTimer();
+  const timer = useTimer({ intervalMs: 100 });
 
   useEffect(() => {
     if (!settings) navigate(appPaths.MATCH_TEST_SETTINGS);
   }, []);
 
-  const onAfterSuccess = (id: IBoardItem['id'][]) => {
-    test.setItems([...test.items.filter(card => !id.includes(card.id))]);
-  };
+  const onAfterSuccess = useCallback(
+    (id: IBoardItem['id'][]) => {
+      test.setItems([...test.items.filter(card => !id.includes(card.id))]);
+    },
+    [test.items],
+  );
 
-  const onAfterError = (id: IBoardItem['id'][]) => {};
+  const onAfterError = useCallback((id: IBoardItem['id'][]) => {}, []);
 
-  const onSuccess = (active: Active, over: Over) => {
-    successAnimationApi.start(successAnimationSettings);
-    test.setStatistics({
-      ...test.statistics,
-      corrects: test.statistics.corrects + 1,
-    });
-    addAnimationsOnEvent([active.id, over.id], 'success');
-    test.setItems(
-      test.items.map(item => {
-        if (item.id === active.id) {
-          return {
-            ...item,
-            coordinates: active.rect.current.translated
-              ? {
-                  x: active.rect.current.translated.left,
-                  y: active.rect.current.translated.top,
-                }
-              : undefined,
-          };
-        }
-        return item;
-      }),
-    );
-  };
-
-  const onError = (active: Active, over: Over) => {
-    errorAnimationApi.start(errorAnimationSettings);
-    test.setStatistics({
-      ...test.statistics,
-      errors: test.statistics.errors + 1,
-    });
-    addAnimationsOnEvent([active.id, over.id], 'error');
-  };
-
-  const addAnimationsOnEvent = (
-    id: IBoardItem['id'][],
-    type: IMatchTestAnimation['type'],
-  ) => {
-    const newAnimations: IMatchTestAnimation[] = [];
-    id.forEach(idElem => {
-      newAnimations.push({
-        itemId: idElem,
-        type: type,
-        timeLeft: MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
+  const onSuccess = useCallback(
+    (active: Active, over: Over) => {
+      successAnimationApi.start(successAnimationSettings);
+      test.setStatistics({
+        ...test.statistics,
+        corrects: test.statistics.corrects + 1,
       });
-    });
-    addAnimations(newAnimations);
-  };
+      addAnimationsOnEvent([active.id, over.id], 'success');
+      test.setItems(
+        test.items.map(item => {
+          if (item.id === active.id) {
+            return {
+              ...item,
+              coordinates: active.rect.current.translated
+                ? {
+                    x: active.rect.current.translated.left,
+                    y: active.rect.current.translated.top,
+                  }
+                : undefined,
+            };
+          }
+          return item;
+        }),
+      );
+    },
+    [test.items, test.statistics],
+  );
 
-  const onDragEndHandle = (e: DragEndEvent) =>
-    onDragEnd(e, test.answers, onSuccess, onError);
+  const onError = useCallback(
+    (active: Active, over: Over) => {
+      errorAnimationApi.start(errorAnimationSettings);
+      test.setStatistics({
+        ...test.statistics,
+        errors: test.statistics.errors + 1,
+      });
+      addAnimationsOnEvent([active.id, over.id], 'error');
+    },
+    [test.statistics],
+  );
 
-  const onStart = () => {
+  const addAnimationsOnEvent = useCallback(
+    (id: IBoardItem['id'][], type: IMatchTestAnimation['type']) => {
+      const newAnimations: IMatchTestAnimation[] = [];
+      id.forEach(idElem => {
+        newAnimations.push({
+          itemId: idElem,
+          type: type,
+          timeLeft: MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
+        });
+      });
+      addAnimations(newAnimations);
+    },
+    [],
+  );
+
+  const onDragEndHandle = useCallback(
+    (e: DragEndEvent) => onDragEnd(e, test.answers, onSuccess, onError),
+    [onSuccess, onError, test.answers],
+  );
+
+  const onStart = useCallback(() => {
     startAnimationsObserve();
     timer.start();
-  };
-  const onFinish = () => {
+  }, []);
+
+  const onFinish = useCallback(() => {
     stopAnimationsObserve();
     timer.stop();
-  };
+  }, []);
 
   return {
     ...test,
@@ -134,7 +146,7 @@ export const useMatchTest = (
     animations,
     start: test.start,
     onDragEnd: onDragEndHandle,
-    time: timer.seconds,
+    time: timer.milliseconds,
     successAnimationStyles,
     errorAnimationStyles,
     onSuccess,

@@ -1,7 +1,7 @@
-import { CSSProperties, FC, HTMLAttributes, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { MantineStyleProps, Paper, Text } from '@mantine/core';
 import { useMatchTestStatisticAnimation } from '@modules/matchTest/hooks/useMatchTestStatisticAnimation.ts';
-import { animated, SpringValue } from '@react-spring/web';
+import { animated } from '@react-spring/web';
 import { appColors } from '@themes';
 import { CenterFlex } from '@ui/CenterFlex';
 

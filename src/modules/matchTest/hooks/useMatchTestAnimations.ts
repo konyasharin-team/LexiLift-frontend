@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useInterval } from '@mantine/hooks';
 import { MATCH_TEST_ANIMATION_UPDATE_TIME } from '@modules/matchTest/constants.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
@@ -31,17 +31,20 @@ export const useMatchTestAnimations = (
     setAnimations(newAnimations);
   };
 
-  const addAnimations = (newAnimations: IMatchTestAnimation[]) => {
-    setAnimations([
-      ...animations,
-      ...newAnimations.filter(
-        newAnimation =>
-          !animations.find(
-            animation => animation.itemId === newAnimation.itemId,
-          ),
-      ),
-    ]);
-  };
+  const addAnimations = useCallback(
+    (newAnimations: IMatchTestAnimation[]) => {
+      setAnimations([
+        ...animations,
+        ...newAnimations.filter(
+          newAnimation =>
+            !animations.find(
+              animation => animation.itemId === newAnimation.itemId,
+            ),
+        ),
+      ]);
+    },
+    [animations],
+  );
 
   const filterFinishedByType = (
     animations: IMatchTestAnimation[],

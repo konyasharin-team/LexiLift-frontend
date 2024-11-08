@@ -20,13 +20,20 @@ export const MatchTestPage: FC = () => {
       start={matchTest.start}
     >
       <MatchTestInfoPanel>
-        <MatchTestTimer time={toTime({ seconds: matchTest.time })} />
+        <MatchTestTimer time={toTime({ milliseconds: matchTest.time })} />
         <MatchTestDescription>
           Перетаскивайте слова на правильные переводы и наоборот
         </MatchTestDescription>
         <MatchTestAnswersStatistics {...matchTest} />
       </MatchTestInfoPanel>
-      <MatchTestBoard test={matchTest} />
+      <MatchTestBoard
+        boardRef={matchTest.boardRef}
+        onDragEnd={matchTest.onDragEnd}
+        isStarted={matchTest.isStarted}
+        items={matchTest.items}
+        setItems={matchTest.setItems}
+        animations={matchTest.animations}
+      />
     </MatchTestWrapper>
   );
 };

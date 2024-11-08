@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 import { MatchTestCard } from '@modules/matchTest/components/MatchTestCard/MatchTestCard.tsx';
 import {
   MATCH_CARD_ANIMATIONS_DURATION_SECONDS,
@@ -17,29 +17,28 @@ interface IMatchTestDraggableCardProps extends IDraggableMatchTestCard {
   animation?: IMatchTestAnimation;
 }
 
-export const MatchTestDraggableCard: FC<
-  IMatchTestDraggableCardProps
-> = props => {
-  const [className, setClassName] = useState<string | null>(null);
-  const { style, ...attributes } = useMatchTestDraggableCard(
-    {
-      id: props.id,
-      coordinates: props.coordinates,
-    },
-    props.isDisabled,
-    props.type,
-  );
+export const MatchTestDraggableCard: FC<IMatchTestDraggableCardProps> = memo(
+  props => {
+    const [className, setClassName] = useState<string | null>(null);
+    const { style, ...attributes } = useMatchTestDraggableCard(
+      {
+        id: props.id,
+        coordinates: props.coordinates,
+      },
+      props.isDisabled,
+      props.type,
+    );
 
-  useEffect(() => {
-    if (props.animation) setClassName(styles[props.animation.type]);
-    else setClassName(null);
-  }, [props.animation]);
+    useEffect(() => {
+      if (props.animation) setClassName(styles[props.animation.type]);
+      else setClassName(null);
+    }, [props.animation]);
 
-  return (
-    <MatchTestCard
-      style={{
-        ...style,
-        animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS}s,
+    return (
+      <MatchTestCard
+        style={{
+          ...style,
+          animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS}s,
                             ${
                               props.animation?.type === 'error'
                                 ? MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
@@ -47,12 +46,13 @@ export const MatchTestDraggableCard: FC<
                                 : MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
                                   MATCH_CARD_HIDE_ITERATIONS
                             }s`,
-        animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS}, ${props.animation?.type === 'error' ? MATCH_CARD_SHAKE_ITERATIONS : MATCH_CARD_HIDE_ITERATIONS}`,
-      }}
-      className={className ?? undefined}
-      {...attributes}
-    >
-      {props.value}
-    </MatchTestCard>
-  );
-};
+          animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS}, ${props.animation?.type === 'error' ? MATCH_CARD_SHAKE_ITERATIONS : MATCH_CARD_HIDE_ITERATIONS}`,
+        }}
+        className={className ?? undefined}
+        {...attributes}
+      >
+        {props.value}
+      </MatchTestCard>
+    );
+  },
+);

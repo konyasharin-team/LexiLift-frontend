@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { IStatistics } from '@app-types';
 import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
 import { ITestItem } from '@app-types/ITestItem.ts';
@@ -50,25 +50,25 @@ export const useTest = (
     setAnswers(newAnswers);
   };
 
-  const setStatisticsHandle = (newStatistics: IStatistics) => {
+  const setStatisticsHandle = useCallback((newStatistics: IStatistics) => {
     if (newStatistics.corrects >= 0 && newStatistics.errors >= 0)
       setStatistics(newStatistics);
-  };
+  }, []);
 
-  const start = () => {
+  const start = useCallback(() => {
     setIsStarted(true);
     options?.onStart?.();
-  };
+  }, []);
 
-  const finish = () => {
+  const finish = useCallback(() => {
     setIsStarted(false);
     options?.onFinish?.();
-  };
+  }, []);
 
-  const restart = () => {
+  const restart = useCallback(() => {
     setIsStarted(false);
     options?.onRestart?.();
-  };
+  }, []);
 
   return {
     items,
