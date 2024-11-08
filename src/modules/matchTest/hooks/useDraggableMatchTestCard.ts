@@ -1,14 +1,14 @@
 import { IBoardItem, useBoardDraggableItem } from '@components/Board';
 import { useDroppable } from '@dnd-kit/core';
 import { mergeRefs } from '@mantine/hooks';
-import { DraggableMatchTestCardType } from '@modules/matchTest/types/DraggableMatchTestCardType.ts';
 import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
+import { TestItemType } from '@app-types';
 
 export const useDraggableMatchTestCard = (
   boardItem: IBoardItem,
   disabled: boolean = false,
-  type: DraggableMatchTestCardType,
+  type: TestItemType,
 ) => {
   const { ref: dragRef, ...attributes } = useBoardDraggableItem({
     item: boardItem,

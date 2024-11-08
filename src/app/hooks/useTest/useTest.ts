@@ -3,11 +3,13 @@ import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
 import { ITestItem } from '@app-types/ITestItem.ts';
 import { Answer } from '@components/Board/types/Answer.ts';
 import { IUseTestReturn } from '@hooks/useTest/types/IUseTestReturn.ts';
+import { shuffle } from '@utils';
 
 interface IUseTestOptions {
   onStart?: () => void;
   onFinish?: () => void;
   onRestart?: () => void;
+  isNeedShuffle?: boolean;
 }
 
 export const useTest = (
@@ -38,7 +40,8 @@ export const useTest = (
       });
       newAnswers.push([i + 1, dictionary.length + i + 1]);
     }
-    setItems(newItems);
+    if (options?.isNeedShuffle) setItems(shuffle(newItems));
+    else setItems(newItems);
     setAnswers(newAnswers);
   };
 

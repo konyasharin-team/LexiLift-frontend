@@ -1,18 +1,16 @@
-import { useEffect, useState } from 'react';
-import { ITestItem } from '@app-types';
 import { Answer } from '@components/Board/types/Answer.ts';
 import { DragEndEvent } from '@dnd-kit/core';
 import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
-import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
+import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { checkAnswer } from '@utils';
 
-export const useMatchTestDrag = (items: ITestItem[]) => {
-  const [draggableItems, setDraggableItems] =
-    useState<IDraggableMatchTestCard[]>(items);
-
+export const useMatchTestDrag = (
+  items: IUseMatchTestReturn['items'],
+  setItems: IUseMatchTestReturn['setItems'],
+) => {
   const onDragEnd = (
     e: DragEndEvent,
     answers: Answer[],
@@ -49,8 +47,8 @@ export const useMatchTestDrag = (items: ITestItem[]) => {
         },
       ]);
       if (isSuccess) {
-        setDraggableItems(
-          draggableItems.map(item => {
+        setItems(
+          items.map(item => {
             if (item.id === active.id) {
               return {
                 ...item,
@@ -69,24 +67,7 @@ export const useMatchTestDrag = (items: ITestItem[]) => {
     }
   };
 
-  useEffect(() => {
-    setDraggableItems(prevState => {
-      return items.map(item => {
-        const foundPrevStateItem = prevState.find(
-          prevStateItem => prevStateItem.id === item.id,
-        );
-        if (foundPrevStateItem)
-          return {
-            ...item,
-            coordinates: foundPrevStateItem.coordinates,
-          };
-        return item;
-      });
-    });
-  }, [items]);
-
   return {
     onDragEnd,
-    draggableItems,
   };
 };

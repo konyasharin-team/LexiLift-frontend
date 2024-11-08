@@ -4,3 +4,4 @@ export * from './IDictionaryItem';
 export * from './ITestItem';
 export * from './ITestSettings';
 export * from './ITime';
+export * from './TestItemType';

@@ -1,8 +1,6 @@
+import { ITestItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
-import { DraggableMatchTestCardType } from '@modules/matchTest/types/DraggableMatchTestCardType.ts';
 
-export interface IDraggableMatchTestCard extends IBoardItem {
-  value: string;
-  type: DraggableMatchTestCardType;
+export interface IDraggableMatchTestCard extends IBoardItem, ITestItem {
   node?: HTMLElement;
 }

@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { Roles } from '@constants/Roles';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IUser {
   role: keyof typeof Roles;

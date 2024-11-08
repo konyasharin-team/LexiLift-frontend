@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
 import { DragEndEvent } from '@dnd-kit/core';
-import { useRounds, useTest, useTimer } from '@hooks';
+import { useRounds, useTimer } from '@hooks';
 import { useMatchTestAnimations } from '@modules/matchTest/hooks/useMatchTestAnimations.ts';
 import { useMatchTestDrag } from '@modules/matchTest/hooks/useMatchTestDrag.ts';
+import { useMatchTestItemsWrapper } from '@modules/matchTest/hooks/useMatchTestItemsWrapper.ts';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
@@ -27,11 +28,16 @@ export const useMatchTest = (
     dictionary,
     settings?.wordsPerRound,
   );
-  const test = useTest(currentRoundDictionary, {
-    onStart: () => onStart(),
-    onFinish: () => onFinish(),
-  });
-  const { onDragEnd, draggableItems } = useMatchTestDrag(test.items);
+  const test = useMatchTestItemsWrapper([
+    currentRoundDictionary,
+    {
+      onStart: () => onStart(),
+      onFinish: () => onFinish(),
+      isNeedShuffle: true,
+    },
+  ]);
+  console.log(test.items)
+  const { onDragEnd } = useMatchTestDrag(test.items, test.setItems);
   const timer = useTimer();
 
   useEffect(() => {
@@ -70,7 +76,6 @@ export const useMatchTest = (
     animations,
     start: test.start,
     onDragEnd: onDragEndHandle,
-    draggableItems,
     time: timer.seconds,
   };
 };

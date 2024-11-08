@@ -1,5 +1,5 @@
-import { DraggableMatchTestCardType } from '@modules/matchTest/types/DraggableMatchTestCardType.ts';
+import { TestItemType } from '@app-types';
 
 export interface IMatchTestCardDroppableData {
-  accepts: DraggableMatchTestCardType[];
+  accepts: TestItemType[];
 }
