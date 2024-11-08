@@ -2,10 +2,10 @@ export const appPaths = {
   TEST: '/test',
   REGISTRATION: '/registration',
   AUTHORIZATION: '/authorization',
-  CREATION_MODULE: '/create-module',
+  MODULES_CREATE: '/modules/create',
   NOT_FOUND: '/not-found',
-  MODULES_LIST: '/modules-list',
-  MODULES_FOLDERS: '/modules-folders',
+  MODULES: '/modules',
+  FOLDERS: '/folders',
   MATCH_TEST: '/match-test',
   MATCH_TEST_SETTINGS: '/match-test/settings',
 };

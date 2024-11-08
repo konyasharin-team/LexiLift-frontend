@@ -1,10 +1,6 @@
-export interface Module {
-  title: string;
-  description: string;
-  tags: string[];
-}
+import { IModule } from '@modules/modulesList/types/IModule.ts';
 
-export const modulesData: Module[] = [
+export const modulesData: IModule[] = [
   {
     title: 'Фрукты',
     description: 'Изучение фруктов на английском',

@@ -1,8 +1,11 @@
 import { FC } from 'react';
-import {
-  ModulesList
-} from '@modules/modulesList/components/ModulesList/ModulesList.tsx';
+import { AppLayout } from '@components/AppLayout/AppLayout.tsx';
+import { ModulesList } from '@modules/modulesList/components/ModulesList/ModulesList.tsx';
 
 export const ModulesListPage: FC = () => {
-  return <ModulesList/>
-}
+  return (
+    <AppLayout>
+      <ModulesList />
+    </AppLayout>
+  );
+};

@@ -1,6 +1,11 @@
 import { FC } from 'react';
-import { ModulesFolders } from '@modules/modulesFolders/components/ModulesFolders/ModulesFolders.tsx';
+import { AppLayout } from '@components/AppLayout/AppLayout.tsx';
+import { Folders } from '@modules/modulesFolders/components/Folders/Folders.tsx';
 
 export const ModulesFoldersPage: FC = () => {
-  return <ModulesFolders />;
+  return (
+    <AppLayout>
+      <Folders />
+    </AppLayout>
+  );
 };

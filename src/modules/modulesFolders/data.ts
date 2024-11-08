@@ -1,9 +1,6 @@
-export interface Folder {
-  title: string;
-  count: string;
-}
+import { IFolder } from '@modules/modulesFolders/components/types/IFolder.ts';
 
-export const foldersData: Folder[] = [
+export const foldersData: IFolder[] = [
   {
     title: 'Гвозди',
     count: '4',

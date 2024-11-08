@@ -1,31 +1,17 @@
 import { FaEdit } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa6';
-import AppLayout from '@components/AppLayout/AppLayout.tsx';
-import { Badge, Button, Flex, Paper, Text } from '@mantine/core';
-import { modulesData } from '@modules/modulesList/components/data.ts';
+import { Badge, Flex, Paper, Text } from '@mantine/core';
+import { CreateModuleCard } from '@modules/modulesList/components/CreateModuleCard/CreateModuleCard.tsx';
+import { modulesData } from '@modules/modulesList/data.ts';
+import { getRandomColor } from '@modules/modulesList/utils/RandomColor/RandomColor.ts';
 
 import styles from './ModulesList.module.css';
 
 export const ModulesList = () => {
-  const getRandomColor = () => {
-    const colors = [
-      'blue',
-      'red',
-      'green',
-      'yellow',
-      'orange',
-      'purple',
-      'teal',
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-
   return (
-    <AppLayout>
+    <>
       <Flex justify="center">
-        <Button radius="md" size="md" color="blue" mt={20}>
-          Создать модуль
-        </Button>
+        <CreateModuleCard />
       </Flex>
       <Flex justify="center" direction="column" p={20} gap="md">
         {modulesData.map((module, index) => (
@@ -50,6 +36,6 @@ export const ModulesList = () => {
           </Paper>
         ))}
       </Flex>
-    </AppLayout>
+    </>
   );
 };
