@@ -1,12 +1,12 @@
 import { Flex, Paper, Text } from '@mantine/core';
-import { CreateFolder } from '@modules/modulesFolders/components/CreateFolder/CreateFolder.tsx';
+import { CreateFolderButton } from '@modules/modulesFolders/components/CreateFolderButton/CreateFolder.tsx';
 import { foldersData } from '@modules/modulesFolders/data.ts';
 
 export const Folders = () => {
   return (
     <>
       <Flex justify="center">
-        <CreateFolder />
+        <CreateFolderButton />
       </Flex>
       <Flex direction="column" gap={20} p={20}>
         {foldersData.map((module, index) => (

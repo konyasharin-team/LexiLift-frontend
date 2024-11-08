@@ -1,7 +1,7 @@
 import { FaEdit } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa6';
 import { Badge, Flex, Paper, Text } from '@mantine/core';
-import { CreateModuleCard } from '@modules/modulesList/components/CreateModuleCard/CreateModuleCard.tsx';
+import { CreateModuleCardButton } from '@modules/modulesList/components/CreateModuleCardButton/CreateModuleCard.tsx';
 import { modulesData } from '@modules/modulesList/data.ts';
 import { getRandomColor } from '@modules/modulesList/utils/RandomColor/RandomColor.ts';
 
@@ -11,7 +11,7 @@ export const ModulesList = () => {
   return (
     <>
       <Flex justify="center">
-        <CreateModuleCard />
+        <CreateModuleCardButton />
       </Flex>
       <Flex justify="center" direction="column" p={20} gap="md">
         {modulesData.map((module, index) => (
