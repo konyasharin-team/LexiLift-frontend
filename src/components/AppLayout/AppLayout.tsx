@@ -31,5 +31,3 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
     </AppShell>
   );
 };
-
-export default AppLayout;
