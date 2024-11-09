@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IModal, Modal } from '@components/Modal';
 import { Button, Text } from '@mantine/core';
@@ -8,22 +8,24 @@ interface IMatchTestStartModalProps extends IModal {
   start: () => void;
 }
 
-export const MatchTestStartModal: FC<IMatchTestStartModalProps> = props => {
-  const navigate = useNavigate();
+export const MatchTestStartModal: FC<IMatchTestStartModalProps> = memo(
+  props => {
+    const navigate = useNavigate();
 
-  return (
-    <Modal onClose={() => navigate(appPaths.MATCH_TEST_SETTINGS)} {...props}>
-      <Text>Перетаскивайте слова на правильные переводы и наоборот</Text>
-      <Button
-        mt={20}
-        fullWidth={true}
-        onClick={() => {
-          props.start();
-          props.setIsOpen(false);
-        }}
-      >
-        Начать тест
-      </Button>
-    </Modal>
-  );
-};
+    return (
+      <Modal onClose={() => navigate(appPaths.MATCH_TEST_SETTINGS)} {...props}>
+        <Text>Перетаскивайте слова на правильные переводы и наоборот</Text>
+        <Button
+          mt={20}
+          fullWidth={true}
+          onClick={() => {
+            props.start();
+            props.setIsOpen(false);
+          }}
+        >
+          Начать тест
+        </Button>
+      </Modal>
+    );
+  },
+);

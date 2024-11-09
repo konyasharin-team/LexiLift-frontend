@@ -24,7 +24,11 @@ export const MatchTestPage: FC = () => {
         <MatchTestDescription>
           Перетаскивайте слова на правильные переводы и наоборот
         </MatchTestDescription>
-        <MatchTestAnswersStatistics {...matchTest} />
+        <MatchTestAnswersStatistics
+          statistics={matchTest.statistics}
+          successAnimationStyles={matchTest.successAnimationStyles}
+          errorAnimationStyles={matchTest.errorAnimationStyles}
+        />
       </MatchTestInfoPanel>
       <MatchTestBoard
         boardRef={matchTest.boardRef}

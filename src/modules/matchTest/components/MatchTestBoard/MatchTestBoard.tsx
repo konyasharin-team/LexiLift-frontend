@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, memo } from 'react';
 import { Board } from '@components/Board';
 import { Flex } from '@mantine/core';
 import { MatchTestBoardColumn } from '@modules/matchTest/components/MatchTestBoardColumn/MatchTestBoardColumn.tsx';

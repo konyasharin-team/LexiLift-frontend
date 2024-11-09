@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { Flex } from '@mantine/core';
 import { useMatchTest } from '@modules/matchTest';
 import { MatchTestAnswersStatistic } from '@modules/matchTest/components/MatchTestAnswersStatistic/MatchTestAnswersStatistic.tsx';
@@ -8,7 +8,10 @@ export const MatchTestAnswersStatistics: FC<
     ReturnType<typeof useMatchTest>,
     'statistics' | 'successAnimationStyles' | 'errorAnimationStyles'
   >
-> = props => {
+> = memo(props => {
+  useEffect(() => {
+    console.log('update')
+  }, [props.errorAnimationStyles]);
   return (
     <Flex direction={'column'} w={500} gap={15} justify={'space-between'}>
       <MatchTestAnswersStatistic bg={'red'} style={props.errorAnimationStyles}>
@@ -22,4 +25,4 @@ export const MatchTestAnswersStatistics: FC<
       </MatchTestAnswersStatistic>
     </Flex>
   );
-};
+});

@@ -13,14 +13,15 @@ export const useMatchTestStatisticAnimation = () => {
     }),
     [],
   );
-  const [styles, api] = useSpring(() => settings);
+  const [styles, api] = useSpring(() => settings, [settings]);
+  const memoStyles = useMemo(() => styles, []);
 
   useEffect(() => {
     api.stop();
   }, []);
 
   return {
-    styles,
+    styles: memoStyles,
     api,
     settings,
   };
