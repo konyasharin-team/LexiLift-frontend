@@ -1,1 +1,1 @@
-export const TEST_WORDS_PER_ROUND = 2;
+export const TEST_WORDS_PER_ROUND = 5;

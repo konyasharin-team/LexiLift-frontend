@@ -31,20 +31,17 @@ export const useMatchTestAnimations = (
     setAnimations(newAnimations);
   };
 
-  const addAnimations = useCallback(
-    (newAnimations: IMatchTestAnimation[]) => {
-      setAnimations([
-        ...animations,
-        ...newAnimations.filter(
-          newAnimation =>
-            !animations.find(
-              animation => animation.itemId === newAnimation.itemId,
-            ),
-        ),
-      ]);
-    },
-    [animations],
-  );
+  const addAnimations = useCallback((newAnimations: IMatchTestAnimation[]) => {
+    setAnimations(prev => [
+      ...prev,
+      ...newAnimations.filter(
+        newAnimation =>
+          !animations.find(
+            animation => animation.itemId === newAnimation.itemId,
+          ),
+      ),
+    ]);
+  }, []);
 
   const filterFinishedByType = (
     animations: IMatchTestAnimation[],
