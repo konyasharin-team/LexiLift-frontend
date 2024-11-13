@@ -26,11 +26,12 @@ export const MatchTestPage: FC = () => {
         </MatchTestDescription>
         <MatchTestAnswersStatistics
           statistics={matchTest.statistics}
-          successAnimationStyles={matchTest.successAnimationStyles}
-          errorAnimationStyles={matchTest.errorAnimationStyles}
+          successAnimationScope={matchTest.successAnimationScope}
+          errorAnimationScope={matchTest.errorAnimationScope}
         />
       </MatchTestInfoPanel>
       <MatchTestBoard
+        showCardsAnimationScope={matchTest.showCardsAnimationScope}
         boardRef={matchTest.boardRef}
         onDragEnd={matchTest.onDragEnd}
         isStarted={matchTest.isStarted}

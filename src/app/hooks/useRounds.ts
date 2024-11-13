@@ -10,14 +10,18 @@ export const useRounds = (
     IDictionaryItem[]
   >([]);
   const [round, setRound] = useState<number>(1);
+  const [isLast, setIsLast] = useState<boolean>(false);
 
   useEffect(() => {
     setCurrentRoundDictionary(
       dictionary.filter(
         (_, i) =>
-          (round - 1) * countElementsInRound + i < round * countElementsInRound,
+          i < round * countElementsInRound &&
+          i >= (round - 1) * countElementsInRound,
       ),
     );
+    if (dictionary.length - round * countElementsInRound <= 0) setIsLast(true);
+    else setIsLast(false);
   }, [round, dictionary, countElementsInRound]);
 
   useEffect(() => {
@@ -28,5 +32,6 @@ export const useRounds = (
     round,
     setRound,
     currentRoundDictionary,
+    isLast,
   };
 };

@@ -1,6 +1,7 @@
 import { FC, memo } from 'react';
 import { Board } from '@components/Board';
 import { Flex } from '@mantine/core';
+import { mergeRefs } from '@mantine/hooks';
 import { MatchTestBoardColumn } from '@modules/matchTest/components/MatchTestBoardColumn/MatchTestBoardColumn.tsx';
 import { MatchTestCard } from '@modules/matchTest/components/MatchTestCard/MatchTestCard.tsx';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
@@ -8,14 +9,20 @@ import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestRetur
 export const MatchTestBoard: FC<
   Pick<
     IUseMatchTestReturn,
-    'items' | 'setItems' | 'boardRef' | 'onDragEnd' | 'animations' | 'isStarted'
+    | 'items'
+    | 'setItems'
+    | 'boardRef'
+    | 'onDragEnd'
+    | 'animations'
+    | 'isStarted'
+    | 'showCardsAnimationScope'
   >
 > = memo(props => {
   return (
     <Board
       items={props.items}
       setItems={props.setItems}
-      boardRef={props.boardRef}
+      boardRef={mergeRefs(props.boardRef, props.showCardsAnimationScope)}
       onDragEnd={props.onDragEnd}
       activeItemToReactNode={item => {
         if (item) {

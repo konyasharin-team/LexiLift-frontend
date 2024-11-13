@@ -39,13 +39,13 @@ export const MatchTestDraggableCard: FC<IMatchTestDraggableCardProps> = memo(
         style={{
           ...style,
           animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS}s,
-                            ${
-                              props.animation?.type === 'error'
-                                ? MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
-                                  MATCH_CARD_SHAKE_ITERATIONS
-                                : MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
-                                  MATCH_CARD_HIDE_ITERATIONS
-                            }s`,
+                              ${
+                                props.animation?.type === 'error'
+                                  ? MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
+                                    MATCH_CARD_SHAKE_ITERATIONS
+                                  : MATCH_CARD_ANIMATIONS_DURATION_SECONDS /
+                                    MATCH_CARD_HIDE_ITERATIONS
+                              }s`,
           animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS}, ${props.animation?.type === 'error' ? MATCH_CARD_SHAKE_ITERATIONS : MATCH_CARD_HIDE_ITERATIONS}`,
         }}
         className={className ?? undefined}

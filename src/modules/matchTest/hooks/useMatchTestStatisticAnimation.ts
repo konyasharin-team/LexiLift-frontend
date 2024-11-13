@@ -1,28 +1,34 @@
-import { useEffect, useMemo } from 'react';
+import { usePlayableAnimation } from '@hooks';
 import { MATCH_TEST_STATISTIC_ANIMATION_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
-import { useSpring } from '@react-spring/web';
+import { useAnimate } from 'framer-motion';
 
 export const useMatchTestStatisticAnimation = () => {
-  const settings: Parameters<typeof useSpring>[0] = useMemo(
-    () => ({
-      from: { scale: 1 },
-      to: [{ scale: 1.05 }, { scale: 1 }],
-      config: {
-        duration: MATCH_TEST_STATISTIC_ANIMATION_DURATION_SECONDS * 1000,
-      },
-    }),
-    [],
+  const [scope, animate] = useAnimate();
+  const { play } = usePlayableAnimation(
+    async () => await enter(),
+    async () => await exit(),
   );
-  const [styles, api] = useSpring(() => settings, [settings]);
-  const memoStyles = useMemo(() => styles, []);
 
-  useEffect(() => {
-    api.stop();
-  }, []);
+  const enter = async () => {
+    await animate(
+      scope.current,
+      { scale: 1.05 },
+      {
+        duration: MATCH_TEST_STATISTIC_ANIMATION_DURATION_SECONDS,
+      },
+    );
+  };
+
+  const exit = async () => {
+    await animate(
+      scope.current,
+      { scale: 1 },
+      { duration: MATCH_TEST_STATISTIC_ANIMATION_DURATION_SECONDS },
+    );
+  };
 
   return {
-    styles: memoStyles,
-    api,
-    settings,
+    play,
+    scope,
   };
 };

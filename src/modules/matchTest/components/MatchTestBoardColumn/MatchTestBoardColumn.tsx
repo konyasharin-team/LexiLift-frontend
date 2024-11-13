@@ -8,7 +8,7 @@ import { getTestItemsByType } from '@utils';
 interface IMatchTestBoardColumnProps
   extends Pick<
     ReturnType<typeof useMatchTest>,
-    'items' | 'animations' | 'isStarted'
+    'items' | 'animations' | 'isStarted' | 'showCardsAnimationScope'
   > {
   columnItemsType: ITestItem['type'];
 }
@@ -16,7 +16,7 @@ interface IMatchTestBoardColumnProps
 export const MatchTestBoardColumn: FC<IMatchTestBoardColumnProps> = memo(
   props => {
     return (
-      <Flex gap={10} direction={'column'}>
+      <Flex gap={10} direction={'column'} style={{ transform: 'scale(0)' }}>
         {getTestItemsByType(props.items, props.columnItemsType).map(item => (
           <MatchTestDraggableCard
             animation={props.animations.find(

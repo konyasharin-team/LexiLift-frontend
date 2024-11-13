@@ -2,6 +2,7 @@ import { RefObject } from 'react';
 import { IBoardItem } from '@components/Board';
 import { Active, DragEndEvent, Over } from '@dnd-kit/core';
 import { IUseTestReturn } from '@hooks';
+import { useMatchTestShowCardAnimation } from '@modules/matchTest/hooks/useMatchTestShowCardAnimation.ts';
 import { useMatchTestStatisticAnimation } from '@modules/matchTest/hooks/useMatchTestStatisticAnimation.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 
@@ -17,10 +18,13 @@ export interface IUseMatchTestReturn
   addAnimations: (animations: IMatchTestAnimation[]) => void;
   onDragEnd: (e: DragEndEvent) => void;
   time: number;
-  errorAnimationStyles: ReturnType<
+  errorAnimationScope: ReturnType<
     typeof useMatchTestStatisticAnimation
-  >['styles'];
-  successAnimationStyles: ReturnType<
+  >['scope'];
+  successAnimationScope: ReturnType<
     typeof useMatchTestStatisticAnimation
-  >['styles'];
+  >['scope'];
+  showCardsAnimationScope: ReturnType<
+    typeof useMatchTestShowCardAnimation
+  >['scope'];
 }

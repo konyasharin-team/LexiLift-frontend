@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
@@ -7,6 +7,7 @@ import { useRounds, useTimer } from '@hooks';
 import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
 import { useMatchTestAnimations } from '@modules/matchTest/hooks/useMatchTestAnimations.ts';
 import { useMatchTestItemsWrapper } from '@modules/matchTest/hooks/useMatchTestItemsWrapper.ts';
+import { useMatchTestShowCardAnimation } from '@modules/matchTest/hooks/useMatchTestShowCardAnimation.ts';
 import { useMatchTestStatisticAnimation } from '@modules/matchTest/hooks/useMatchTestStatisticAnimation.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
@@ -15,7 +16,7 @@ import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
 
 export const useMatchTest = (
-  dictionary: IDictionaryItem[],
+  initialDictionary: IDictionaryItem[],
 ): IUseMatchTestReturn => {
   const navigate = useNavigate();
   const { settings } = useAppSelector(state => state.matchTest);
@@ -28,19 +29,17 @@ export const useMatchTest = (
     id => onAfterSuccess(id),
     id => onAfterError(id),
   );
-  const {
-    styles: successAnimationStyles,
-    api: successAnimationApi,
-    settings: successAnimationSettings,
-  } = useMatchTestStatisticAnimation();
-  const {
-    styles: errorAnimationStyles,
-    api: errorAnimationApi,
-    settings: errorAnimationSettings,
-  } = useMatchTestStatisticAnimation();
+
+  const { scope: successAnimationScope, play: playSuccessAnimation } =
+    useMatchTestStatisticAnimation();
+  const { scope: errorAnimationScope, play: playErrorAnimation } =
+    useMatchTestStatisticAnimation();
+  const { scope: showCardsAnimationScope, play: playShowCardsAnimation } =
+    useMatchTestShowCardAnimation();
+
   const boardRef = useRef<HTMLDivElement>(null);
-  const { round, setRound, currentRoundDictionary } = useRounds(
-    dictionary,
+  const { round, setRound, currentRoundDictionary, isLast } = useRounds(
+    initialDictionary,
     settings?.wordsPerRound,
   );
   const test = useMatchTestItemsWrapper([
@@ -57,6 +56,21 @@ export const useMatchTest = (
     if (!settings) navigate(appPaths.MATCH_TEST_SETTINGS);
   }, []);
 
+  useEffect(() => {
+    if (!test.isStarted || test.items.length !== 0) return;
+    if (!isLast) setRound(round + 1);
+    else if (isLast) onFinish();
+  }, [test.items, test.isStarted]);
+
+  useLayoutEffect(() => {
+    if (
+      test.isStarted &&
+      test.items.length === currentRoundDictionary.length * 2 &&
+      currentRoundDictionary.length !== 0
+    )
+      playShowCardsAnimation();
+  }, [test.items.length, test.isStarted]);
+
   const onAfterSuccess = useCallback(
     (id: IBoardItem['id'][]) => {
       test.setItems([...test.items.filter(card => !id.includes(card.id))]);
@@ -68,7 +82,7 @@ export const useMatchTest = (
 
   const onSuccess = useCallback(
     (active: Active, over: Over) => {
-      successAnimationApi.start(successAnimationSettings);
+      playSuccessAnimation();
       test.setStatistics({
         ...test.statistics,
         corrects: test.statistics.corrects + 1,
@@ -96,7 +110,7 @@ export const useMatchTest = (
 
   const onError = useCallback(
     (active: Active, over: Over) => {
-      errorAnimationApi.start(errorAnimationSettings);
+      playErrorAnimation();
       test.setStatistics({
         ...test.statistics,
         errors: test.statistics.errors + 1,
@@ -147,8 +161,9 @@ export const useMatchTest = (
     start: test.start,
     onDragEnd: onDragEndHandle,
     time: timer.milliseconds,
-    successAnimationStyles,
-    errorAnimationStyles,
+    successAnimationScope,
+    errorAnimationScope,
+    showCardsAnimationScope,
     onSuccess,
     onError,
   };
