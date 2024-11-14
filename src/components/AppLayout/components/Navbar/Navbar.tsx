@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Navigation } from '@components/AppLayout/components/Navigation/Navigation.tsx';
 import { AppShell, Flex } from '@mantine/core';
 
 interface NavbarProps {
@@ -8,13 +9,9 @@ interface NavbarProps {
 export const Navbar: FC<NavbarProps> = props => {
   return (
     <Flex p={'md'} direction={'column'} gap={10}>
-      {props.opened && (
-        <AppShell.Section>
-          <div>
-            <p>Navbar content goes here</p>
-          </div>
-        </AppShell.Section>
-      )}
+      <AppShell.Section>
+        <Navigation opened={props.opened} />
+      </AppShell.Section>
     </Flex>
   );
 };

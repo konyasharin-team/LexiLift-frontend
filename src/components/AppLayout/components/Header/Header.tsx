@@ -22,8 +22,8 @@ export const Header: FC<IHeaderProps> = props => {
           )}
         ></Box>
       </Portal>
-      <Text>{props.title}</Text>
       <Burger opened={props.opened} onClick={props.toggle} size="sm" />
+      <Text>{props.title}</Text>
     </Flex>
   );
 };

@@ -6,6 +6,8 @@ import { Header } from './components/Header/Header.tsx';
 import Navbar from './components/Navbar/Navbar.tsx';
 import { navbarConfiguration } from './components/Navbar/navbarConfiguration.ts';
 
+import styles from './AppLayout.module.css';
+
 interface IAppLayoutProps {
   children?: ReactNode;
 }
@@ -15,6 +17,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
 
   return (
     <AppShell
+      className={styles.layout}
       header={{ height: 60 }}
       navbar={navbarConfiguration(opened)}
       padding="md"
@@ -23,7 +26,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
         <Header pinned={true} title={'Text'} toggle={toggle} opened={opened} />
       </AppShell.Header>
 
-      <AppShell.Navbar>
+      <AppShell.Navbar className={styles.navbar}>
         <Navbar opened={opened} />
       </AppShell.Navbar>
 
