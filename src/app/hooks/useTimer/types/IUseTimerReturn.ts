@@ -1,5 +1,5 @@
 export interface IUseTimerReturn {
-  seconds: number;
+  milliseconds: number;
   start: () => void;
   stop: () => void;
   toggle: () => void;

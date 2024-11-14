@@ -8,4 +8,5 @@ export const appPaths = {
   FOLDERS: '/folders',
   MATCH_TEST: '/match-test',
   MATCH_TEST_SETTINGS: '/match-test/settings',
+  MATCH_TEST_RESULTS: '/match-test/results',
 };

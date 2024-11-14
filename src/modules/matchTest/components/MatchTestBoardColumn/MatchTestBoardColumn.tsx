@@ -1,32 +1,33 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { ITestItem } from '@app-types';
 import { Flex } from '@mantine/core';
-import { DraggableMatchTestCard } from '@modules/matchTest/components/DraggableMatchTestCard/DraggableMatchTestCard.tsx';
-import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
+import { useMatchTest } from '@modules/matchTest';
+import { MatchTestDraggableCard } from '@modules/matchTest/components/MatchTestDraggableCard/MatchTestDraggableCard.tsx';
 import { getTestItemsByType } from '@utils';
 
-interface IMatchTestBoardColumnProps {
-  test: IUseMatchTestReturn;
+interface IMatchTestBoardColumnProps
+  extends Pick<
+    ReturnType<typeof useMatchTest>,
+    'items' | 'animations' | 'isStarted' | 'showCardsAnimationScope'
+  > {
   columnItemsType: ITestItem['type'];
 }
 
-export const MatchTestBoardColumn: FC<IMatchTestBoardColumnProps> = props => {
-  return (
-    <Flex gap={10} direction={'column'}>
-      {getTestItemsByType(props.test.draggableItems, props.columnItemsType).map(
-        item => (
-          <DraggableMatchTestCard
-            animation={props.test.animations.find(
+export const MatchTestBoardColumn: FC<IMatchTestBoardColumnProps> = memo(
+  props => {
+    return (
+      <Flex gap={10} direction={'column'} style={{ transform: 'scale(0)' }}>
+        {getTestItemsByType(props.items, props.columnItemsType).map(item => (
+          <MatchTestDraggableCard
+            animation={props.animations.find(
               animation => animation.itemId === item.id,
             )}
             {...item}
-            isDisabled={
-              props.test.animations.length > 0 || !props.test.isStarted
-            }
+            isDisabled={!props.isStarted || props.animations.length > 0}
             key={item.id}
           />
-        ),
-      )}
-    </Flex>
-  );
-};
+        ))}
+      </Flex>
+    );
+  },
+);

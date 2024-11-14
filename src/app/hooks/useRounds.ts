@@ -1,32 +1,34 @@
 import { useEffect, useState } from 'react';
-
-import { IDictionaryItem } from '../types/IDictionaryItem.ts';
+import { ITestItem, ITestSettings } from '@app-types';
+import { shuffle } from '@utils';
 
 export const useRounds = (
-  dictionary: IDictionaryItem[],
-  countElementsInRound: number = 5,
+  items: ITestItem[],
+  settings: Pick<ITestSettings, 'wordsPerRound' | 'isNeedShuffle'>,
 ) => {
-  const [currentRoundDictionary, setCurrentRoundDictionary] = useState<
-    IDictionaryItem[]
-  >([]);
+  const [currentRoundItems, setCurrentRoundItems] = useState<ITestItem[]>([]);
   const [round, setRound] = useState<number>(1);
+  const [isLast, setIsLast] = useState<boolean>(false);
 
   useEffect(() => {
-    setCurrentRoundDictionary(
-      dictionary.filter(
-        (_, i) =>
-          (round - 1) * countElementsInRound + i < round * countElementsInRound,
-      ),
+    const newItems = items.filter(
+      (_, i) =>
+        i < round * settings.wordsPerRound * 2 &&
+        i >= (round - 1) * settings.wordsPerRound * 2,
     );
-  }, [round, dictionary, countElementsInRound]);
+    setCurrentRoundItems(settings.isNeedShuffle ? shuffle(newItems) : newItems);
+    if (items.length - round * settings.wordsPerRound <= 0) setIsLast(true);
+    else setIsLast(false);
+  }, [round, items, settings.wordsPerRound]);
 
   useEffect(() => {
     setRound(1);
-  }, [dictionary]);
+  }, [items]);
 
   return {
     round,
     setRound,
-    currentRoundDictionary,
+    currentRoundItems,
+    isLast,
   };
 };

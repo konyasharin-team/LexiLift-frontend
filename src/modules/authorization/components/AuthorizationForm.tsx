@@ -43,30 +43,29 @@ export const AuthorizationForm: FC = () => {
     <Form
       title={'Заголовок'}
       isLoading={loading}
+      onSubmit={loginForm.onSubmit(handleLoginSubmit)}
       link={{
         href: appPaths.REGISTRATION,
         text: 'Нет аккаунта? Зарегистрируйся!',
       }}
     >
-      <form onSubmit={loginForm.onSubmit(handleLoginSubmit)}>
-        <TextInput
-          label="Email"
-          placeholder="Ваш email"
-          {...loginForm.getInputProps('email')}
-        />
-        <PasswordInput
-          label="Пароль"
-          placeholder="Ваш пароль"
-          {...loginForm.getInputProps('password')}
-          mt="md"
-        />
+      <TextInput
+        label="Email"
+        placeholder="Ваш email"
+        {...loginForm.getInputProps('email')}
+      />
+      <PasswordInput
+        label="Пароль"
+        placeholder="Ваш пароль"
+        {...loginForm.getInputProps('password')}
+        mt="md"
+      />
 
-        <Flex justify="center">
-          <Button type="submit" mt="xl" w={200} radius="md" color="blue">
-            Войти
-          </Button>
-        </Flex>
-      </form>
+      <Flex justify="center">
+        <Button type="submit" mt="xl" w={200} radius="md" color="blue">
+          Войти
+        </Button>
+      </Flex>
     </Form>
   );
 };

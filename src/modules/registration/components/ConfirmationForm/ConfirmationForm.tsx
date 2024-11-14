@@ -44,33 +44,32 @@ export const ConfirmationForm: FC<IConfirmationFormProps> = props => {
     <Form
       title={'Заголовок'}
       isLoading={loading}
+      onSubmit={form.onSubmit(handleCodeSubmit)}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <form onSubmit={form.onSubmit(handleCodeSubmit)}>
-        <Flex justify="center">
-          <Text>Мы выслали код на ваш email</Text>
-        </Flex>
-        <Flex justify="center">
-          <PinInput
-            length={4}
-            ariaLabel="Введите код"
-            {...form.getInputProps('expectedCode')}
-            mt="md"
-          />
-        </Flex>
-        <Flex justify="center">
-          <Button
-            type="submit"
-            mt="xl"
-            w={200}
-            radius="md"
-            color="blue"
-            disabled={loading}
-          >
-            Подтвердить код
-          </Button>
-        </Flex>
-      </form>
+      <Flex justify="center">
+        <Text>Мы выслали код на ваш email</Text>
+      </Flex>
+      <Flex justify="center">
+        <PinInput
+          length={4}
+          ariaLabel="Введите код"
+          {...form.getInputProps('expectedCode')}
+          mt="md"
+        />
+      </Flex>
+      <Flex justify="center">
+        <Button
+          type="submit"
+          mt="xl"
+          w={200}
+          radius="md"
+          color="blue"
+          disabled={loading}
+        >
+          Подтвердить код
+        </Button>
+      </Flex>
     </Form>
   );
 };

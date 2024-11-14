@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { IBoardItem } from '@components/Board';
 import { useInterval } from '@mantine/hooks';
 import { MATCH_TEST_ANIMATION_UPDATE_TIME } from '@modules/matchTest/constants.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
-import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 
 export const useMatchTestAnimations = (
-  onSuccess: IUseMatchTestReturn['onSuccess'],
+  onAfterSuccess: (id: IBoardItem['id'][]) => void,
+  onAfterError: (id: IBoardItem['id'][]) => void,
 ) => {
   const {
     start: startObserve,
@@ -24,20 +25,15 @@ export const useMatchTestAnimations = (
         ),
       };
     });
-    onSuccess(
-      newAnimations
-        .filter(
-          animation => animation.timeLeft === 0 && animation.type === 'success',
-        )
-        .map(animation => animation.itemId),
-    );
+    onAfterSuccess(filterFinishedByType(newAnimations, 'success'));
+    onAfterError(filterFinishedByType(newAnimations, 'error'));
     newAnimations = newAnimations.filter(animation => animation.timeLeft > 0);
     setAnimations(newAnimations);
   };
 
-  const addAnimations = (newAnimations: IMatchTestAnimation[]) => {
-    setAnimations([
-      ...animations,
+  const addAnimations = useCallback((newAnimations: IMatchTestAnimation[]) => {
+    setAnimations(prev => [
+      ...prev,
       ...newAnimations.filter(
         newAnimation =>
           !animations.find(
@@ -45,6 +41,15 @@ export const useMatchTestAnimations = (
           ),
       ),
     ]);
+  }, []);
+
+  const filterFinishedByType = (
+    animations: IMatchTestAnimation[],
+    type: IMatchTestAnimation['type'],
+  ) => {
+    return animations
+      .filter(animation => animation.timeLeft === 0 && animation.type === type)
+      .map(animation => animation.itemId);
   };
 
   useEffect(() => {

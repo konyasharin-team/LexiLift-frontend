@@ -1,0 +1,5 @@
+.card {
+    border-left: 10px solid var(--mantine-color-blue-5);
+    padding-left: calc(var(--mantine-spacing-lg) + 10px);
+    overflow: hidden;
+}

@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
-import { useMutation } from 'react-query';
 import { AuthApi } from '@api';
 import { IAuthData } from '@app-types';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { appPaths } from '@routes';
+import { useMutation } from '@tanstack/react-query';
 
 import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 
@@ -16,10 +16,10 @@ interface IRegistrationFormProps {
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   const {
     mutate: postRegistration,
-    isLoading,
+    isPending,
     isSuccess,
-  } = useMutation(async (data: IAuthData) => {
-    return await AuthApi.PostRegistration(data);
+  } = useMutation({
+    mutationFn: async (data: IAuthData) => await AuthApi.PostRegistration(data),
   });
 
   const form = useForm({
@@ -38,40 +38,39 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   return (
     <Form
       title={'Заголовок'}
-      isLoading={isLoading}
+      isLoading={isPending}
+      onSubmit={form.onSubmit(values => postRegistration(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <form onSubmit={form.onSubmit(values => postRegistration(values))}>
-        <TextInput
-          label="Email"
-          placeholder="Ваш email"
-          {...form.getInputProps('email')}
-        />
-        <PasswordInput
-          label="Пароль"
-          placeholder="Ваш пароль"
-          {...form.getInputProps('password')}
-          mt="md"
-        />
-        <PasswordInput
-          label="Подтвердите пароль"
-          placeholder="Повторите пароль"
-          {...form.getInputProps('confirmPassword')}
-          mt="md"
-        />
-        <Flex justify="center">
-          <Button
-            type="submit"
-            mt="xl"
-            w={200}
-            radius="md"
-            color="blue"
-            disabled={isLoading}
-          >
-            Зарегистрироваться
-          </Button>
-        </Flex>
-      </form>
+      <TextInput
+        label="Email"
+        placeholder="Ваш email"
+        {...form.getInputProps('email')}
+      />
+      <PasswordInput
+        label="Пароль"
+        placeholder="Ваш пароль"
+        {...form.getInputProps('password')}
+        mt="md"
+      />
+      <PasswordInput
+        label="Подтвердите пароль"
+        placeholder="Повторите пароль"
+        {...form.getInputProps('confirmPassword')}
+        mt="md"
+      />
+      <Flex justify="center">
+        <Button
+          type="submit"
+          mt="xl"
+          w={200}
+          radius="md"
+          color="blue"
+          disabled={isPending}
+        >
+          Зарегистрироваться
+        </Button>
+      </Flex>
     </Form>
   );
 };

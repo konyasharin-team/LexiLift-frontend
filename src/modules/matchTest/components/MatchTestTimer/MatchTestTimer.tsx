@@ -9,9 +9,9 @@ interface IMatchTestTimerProps {
 
 export const MatchTestTimer: FC<IMatchTestTimerProps> = props => {
   return (
-    <Paper h={200} w={250} shadow={'xl'}>
+    <Paper h={200} w={350} shadow={'xl'}>
       <Flex align={'center'} justify={'center'} h={'100%'} w={'100%'}>
-        <Text fw={500} fz={48}>
+        <Text className={'title'}>
           {timeToString(props.time, '%min%min:%s%s')}
         </Text>
       </Flex>
