@@ -1,6 +1,7 @@
 import { IoTrashBinOutline } from 'react-icons/io5';
 import { Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
+
 import { appColors } from '@themes';
 
 import styles from './ModuleCards.module.css';

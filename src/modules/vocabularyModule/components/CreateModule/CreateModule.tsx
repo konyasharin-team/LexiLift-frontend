@@ -1,4 +1,4 @@
-import AppLayout from '@components/AppLayout/AppLayout.tsx';
+import { AppLayout } from '@components/AppLayout/AppLayout.tsx';
 import { Affix, Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
 import { ModuleCards } from '@modules/vocabularyModule/components/ModuleCards/ModuleCards.tsx';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';

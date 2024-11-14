@@ -7,6 +7,9 @@ import {
   TestPage,
 } from '@pages';
 import { MatchTestResultsPage } from '@pages/MatchTestResultsPage.tsx';
+import { CreationModulePage } from '@pages/CreationModulePage.tsx';
+import { ModulesFoldersPage } from '@pages/ModulesFoldersPage.tsx';
+import { ModulesListPage } from '@pages/ModulesListPage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -38,6 +41,21 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.MATCH_TEST_RESULTS,
     element: <MatchTestResultsPage />,
+    availableFor: [Roles.user],
+  },
+  {
+    path: appPaths.MODULES_CREATE,
+    element: <CreationModulePage />,
+    availableFor: [Roles.user],
+  },
+  {
+    path: appPaths.MODULES,
+    element: <ModulesListPage />,
+    availableFor: [Roles.user],
+  },
+  {
+    path: appPaths.FOLDERS,
+    element: <ModulesFoldersPage />,
     availableFor: [Roles.user],
   },
 ];
