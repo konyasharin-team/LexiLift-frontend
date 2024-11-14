@@ -154,7 +154,7 @@ export const useMatchTest = (
 
   const onDragEndHandle = useCallback(
     (e: DragEndEvent) =>
-      onDragEnd(e, getAnswers(initialDictionary), onSuccess, onError),
+      onDragEnd(e, getAnswers(test.items), onSuccess, onError),
     [onSuccess, onError, initialDictionary],
   );
 

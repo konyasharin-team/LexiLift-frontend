@@ -1,10 +1,13 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppLayout } from '@components/AppLayout';
-import { MatchTestResultsCard } from '@modules/matchTest';
+import { Center, Flex } from '@mantine/core';
+import {
+  MatchTestResultsButtonGroup,
+  MatchTestResultsCard,
+} from '@modules/matchTest';
 import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
-import { Center } from '@mantine/core';
 
 export const MatchTestResultsPage: FC = () => {
   const { results } = useAppSelector(state => state.matchTest);
@@ -18,7 +21,10 @@ export const MatchTestResultsPage: FC = () => {
   return (
     <AppLayout>
       <Center>
-        <MatchTestResultsCard {...results} />
+        <Flex direction="column" gap={10} w={'60%'}>
+          <MatchTestResultsCard {...results} />
+          <MatchTestResultsButtonGroup />
+        </Flex>
       </Center>
     </AppLayout>
   );

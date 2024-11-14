@@ -4,7 +4,7 @@ import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
 import { IUseTestReturn } from '@hooks/useTest/types/IUseTestReturn.ts';
 import { shuffle } from '@utils';
 
-interface IUseTestOptions extends Partial<Pick<ITestSettings, 'wordsCount'>> {
+interface IUseTestOptions {
   onStart?: () => void;
   onFinish?: () => void;
   onRestart?: () => void;
@@ -12,7 +12,7 @@ interface IUseTestOptions extends Partial<Pick<ITestSettings, 'wordsCount'>> {
 
 export const useTest = (
   dictionary: IDictionaryItem[],
-  settings: Pick<ITestSettings, 'isNeedShuffle'>,
+  settings: Pick<ITestSettings, 'isNeedShuffle' | 'wordsCount'>,
   options?: IUseTestOptions,
 ): IUseTestReturn => {
   const [items, setItems] = useState<ITestItem[]>([]);
@@ -28,19 +28,20 @@ export const useTest = (
 
     if (settings.isNeedShuffle) newDictionary = shuffle(dictionary);
     else newDictionary = [...dictionary];
-    if (options?.wordsCount)
-      newDictionary = newDictionary.slice(0, options?.wordsCount);
+    newDictionary = newDictionary.slice(0, settings.wordsCount);
 
-    for (let i = 0; i < dictionary.length; i++) {
+    for (let i = 0; i < newDictionary.length; i++) {
       newItems.push({
         id: i + 1,
         type: 'word',
         value: newDictionary[i].word,
+        answerId: newDictionary[i].id,
       });
       newItems.push({
         id: newDictionary.length + i + 1,
         type: 'translation',
         value: newDictionary[i].translation,
+        answerId: newDictionary[i].id,
       });
     }
     setItems(newItems);

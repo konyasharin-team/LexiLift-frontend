@@ -2,6 +2,7 @@ export * from './components/MatchTestAnswersStatistics/MatchTestAnswersStatistic
 export * from './components/MatchTestBoard/MatchTestBoard';
 export * from './components/MatchTestDescription/MatchTestDescription.tsx';
 export * from './components/MatchTestInfoPanel/MatchTestInfoPanel';
+export * from './components/MatchTestResultsButtonsGroup/MatchTestResultsButtonGroup.tsx';
 export * from './components/MatchTestResultsCard/MatchTestResultsCard.tsx';
 export * from './components/MatchTestSettingsPanel/MatchTestSettingsPanel.tsx';
 export * from './components/MatchTestTimer/MatchTestTimer';
