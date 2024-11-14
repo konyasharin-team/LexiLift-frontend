@@ -6,6 +6,7 @@ import {
   RegistrationPage,
   TestPage,
 } from '@pages';
+import { MatchTestResultsPage } from '@pages/MatchTestResultsPage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -32,6 +33,11 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.MATCH_TEST_SETTINGS,
     element: <MatchTestSettingsPage />,
+    availableFor: [Roles.user],
+  },
+  {
+    path: appPaths.MATCH_TEST_RESULTS,
+    element: <MatchTestResultsPage />,
     availableFor: [Roles.user],
   },
 ];

@@ -10,5 +10,6 @@ export const createBaseSettings = (
       module.length > TEST_WORDS_PER_ROUND
         ? TEST_WORDS_PER_ROUND
         : module.length,
+    isNeedShuffle: true,
   };
 };

@@ -19,9 +19,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     isPending,
     isSuccess,
   } = useMutation({
-    mutationFn: async (data: IAuthData) => {
-      return await AuthApi.PostRegistration(data);
-    },
+    mutationFn: async (data: IAuthData) => await AuthApi.PostRegistration(data),
   });
 
   const form = useForm({

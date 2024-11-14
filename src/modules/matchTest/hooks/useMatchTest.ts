@@ -1,24 +1,32 @@
-import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
 import { Active, DragEndEvent, Over } from '@dnd-kit/core';
-import { useRounds, useTimer } from '@hooks';
+import { useRounds, useTest, useTimer } from '@hooks';
 import { MATCH_CARD_ANIMATIONS_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
 import { useMatchTestAnimations } from '@modules/matchTest/hooks/useMatchTestAnimations.ts';
-import { useMatchTestItemsWrapper } from '@modules/matchTest/hooks/useMatchTestItemsWrapper.ts';
 import { useMatchTestShowCardAnimation } from '@modules/matchTest/hooks/useMatchTestShowCardAnimation.ts';
 import { useMatchTestStatisticAnimation } from '@modules/matchTest/hooks/useMatchTestStatisticAnimation.ts';
+import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatchTestCard.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { onDragEnd } from '@modules/matchTest/utils/onDragEnd.ts';
 import { appPaths } from '@routes';
-import { useAppSelector } from '@store';
+import { useActions, useAppSelector } from '@store';
+import { createBaseSettings, getAnswers, toTime } from '@utils';
 
 export const useMatchTest = (
   initialDictionary: IDictionaryItem[],
 ): IUseMatchTestReturn => {
   const navigate = useNavigate();
+  const { setMatchTestResults } = useActions();
   const { settings } = useAppSelector(state => state.matchTest);
   const {
     animations,
@@ -38,18 +46,21 @@ export const useMatchTest = (
     useMatchTestShowCardAnimation();
 
   const boardRef = useRef<HTMLDivElement>(null);
-  const { round, setRound, currentRoundDictionary, isLast } = useRounds(
+  const test = useTest(
     initialDictionary,
-    settings?.wordsPerRound,
-  );
-  const test = useMatchTestItemsWrapper([
-    currentRoundDictionary,
+    settings ?? createBaseSettings(initialDictionary),
     {
       onStart: () => onStart(),
       onFinish: () => onFinish(),
-      isNeedShuffle: true,
     },
-  ]);
+  );
+  const { round, setRound, currentRoundItems, isLast } = useRounds(
+    test.items,
+    settings ?? createBaseSettings(initialDictionary),
+  );
+  const [draggableItems, setDraggableItems] = useState<
+    IDraggableMatchTestCard[]
+  >([]);
   const timer = useTimer({ intervalMs: 100 });
 
   useEffect(() => {
@@ -57,25 +68,31 @@ export const useMatchTest = (
   }, []);
 
   useEffect(() => {
-    if (!test.isStarted || test.items.length !== 0) return;
+    setDraggableItems(currentRoundItems);
+  }, [currentRoundItems]);
+
+  useEffect(() => {
+    if (!test.isStarted || draggableItems.length !== 0) return;
     if (!isLast) setRound(round + 1);
     else if (isLast) onFinish();
-  }, [test.items, test.isStarted]);
+  }, [draggableItems, test.isStarted]);
 
   useLayoutEffect(() => {
     if (
       test.isStarted &&
-      test.items.length === currentRoundDictionary.length * 2 &&
-      currentRoundDictionary.length !== 0
+      draggableItems.length === currentRoundItems.length &&
+      currentRoundItems.length !== 0
     )
       playShowCardsAnimation();
-  }, [test.items.length, test.isStarted]);
+  }, [draggableItems.length, test.isStarted]);
 
   const onAfterSuccess = useCallback(
     (id: IBoardItem['id'][]) => {
-      test.setItems([...test.items.filter(card => !id.includes(card.id))]);
+      setDraggableItems([
+        ...draggableItems.filter(card => !id.includes(card.id)),
+      ]);
     },
-    [test.items],
+    [draggableItems],
   );
 
   const onAfterError = useCallback((id: IBoardItem['id'][]) => {}, []);
@@ -88,8 +105,8 @@ export const useMatchTest = (
         corrects: test.statistics.corrects + 1,
       });
       addAnimationsOnEvent([active.id, over.id], 'success');
-      test.setItems(
-        test.items.map(item => {
+      setDraggableItems(
+        draggableItems.map(item => {
           if (item.id === active.id) {
             return {
               ...item,
@@ -105,7 +122,7 @@ export const useMatchTest = (
         }),
       );
     },
-    [test.items, test.statistics],
+    [draggableItems, test.statistics],
   );
 
   const onError = useCallback(
@@ -136,8 +153,9 @@ export const useMatchTest = (
   );
 
   const onDragEndHandle = useCallback(
-    (e: DragEndEvent) => onDragEnd(e, test.answers, onSuccess, onError),
-    [onSuccess, onError, test.answers],
+    (e: DragEndEvent) =>
+      onDragEnd(e, getAnswers(initialDictionary), onSuccess, onError),
+    [onSuccess, onError, initialDictionary],
   );
 
   const onStart = useCallback(() => {
@@ -148,15 +166,17 @@ export const useMatchTest = (
   const onFinish = useCallback(() => {
     stopAnimationsObserve();
     timer.stop();
-  }, []);
+    setMatchTestResults({
+      time: toTime({ milliseconds: timer.milliseconds }),
+      statistics: test.statistics,
+    });
+    navigate(appPaths.MATCH_TEST_RESULTS);
+  }, [timer.milliseconds, test.statistics]);
 
   return {
     ...test,
     boardRef,
     round,
-    onAfterSuccess,
-    onAfterError,
-    addAnimations,
     animations,
     start: test.start,
     onDragEnd: onDragEndHandle,
@@ -164,7 +184,7 @@ export const useMatchTest = (
     successAnimationScope,
     errorAnimationScope,
     showCardsAnimationScope,
-    onSuccess,
-    onError,
+    items: draggableItems,
+    setItems: setDraggableItems,
   };
 };

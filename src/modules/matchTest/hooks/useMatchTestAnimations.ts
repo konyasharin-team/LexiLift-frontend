@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import { IBoardItem } from '@components/Board';
 import { useInterval } from '@mantine/hooks';
 import { MATCH_TEST_ANIMATION_UPDATE_TIME } from '@modules/matchTest/constants.ts';
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
-import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 
 export const useMatchTestAnimations = (
-  onAfterSuccess: IUseMatchTestReturn['onAfterSuccess'],
-  onAfterError: IUseMatchTestReturn['onAfterError'],
+  onAfterSuccess: (id: IBoardItem['id'][]) => void,
+  onAfterError: (id: IBoardItem['id'][]) => void,
 ) => {
   const {
     start: startObserve,

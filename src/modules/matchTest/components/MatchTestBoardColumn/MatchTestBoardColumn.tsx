@@ -23,10 +23,7 @@ export const MatchTestBoardColumn: FC<IMatchTestBoardColumnProps> = memo(
               animation => animation.itemId === item.id,
             )}
             {...item}
-            isDisabled={
-              !props.isStarted ||
-              props.animations.some(animation => animation.itemId === item.id)
-            }
+            isDisabled={!props.isStarted || props.animations.length > 0}
             key={item.id}
           />
         ))}

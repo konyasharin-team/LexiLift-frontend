@@ -1,15 +1,14 @@
 import { Answer } from '@components/Board/types/Answer.ts';
-import { DragEndEvent } from '@dnd-kit/core';
+import { Active, DragEndEvent, Over } from '@dnd-kit/core';
 import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
-import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { checkAnswer } from '@utils';
 
 export const onDragEnd = (
   e: DragEndEvent,
   answers: Answer[],
-  onSuccess: IUseMatchTestReturn['onSuccess'],
-  onError: IUseMatchTestReturn['onError'],
+  onSuccess: (active: Active, over: Over) => void,
+  onError: (active: Active, over: Over) => void,
 ) => {
   const { over, active } = e;
 
