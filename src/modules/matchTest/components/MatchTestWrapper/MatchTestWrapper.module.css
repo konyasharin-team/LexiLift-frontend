@@ -6,9 +6,9 @@
 }
 
 .blurActive {
-    filter: none;
+    filter: blur(8px);
 }
 
 .blurDisabled {
-    filter: blur(8px);
+    filter: none;
 }

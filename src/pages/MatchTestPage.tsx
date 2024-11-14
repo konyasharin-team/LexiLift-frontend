@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
 import {
   MatchTestAnswersStatistics,
   MatchTestBoard,
@@ -9,14 +10,18 @@ import {
   useMatchTest,
 } from '@modules/matchTest';
 import { wordPairs } from '@modules/matchTest/data.ts';
+import { appPaths } from '@routes';
+import { useAppSelector } from '@store';
 import { toTime } from '@utils';
 
 export const MatchTestPage: FC = () => {
   const matchTest = useMatchTest(wordPairs);
+  const { settings } = useAppSelector(state => state.matchTest);
 
+  if (!settings) return <Navigate to={appPaths.MATCH_TEST_SETTINGS} />;
   return (
     <MatchTestWrapper
-      blurIsActive={matchTest.isStarted}
+      blurIsActive={!matchTest.isStarted}
       start={matchTest.start}
     >
       <MatchTestInfoPanel>

@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IDictionaryItem } from '@app-types';
 import { IBoardItem } from '@components/Board';
@@ -64,10 +58,6 @@ export const useMatchTest = (
   const timer = useTimer({ intervalMs: 100 });
 
   useEffect(() => {
-    if (!settings) navigate(appPaths.MATCH_TEST_SETTINGS);
-  }, []);
-
-  useEffect(() => {
     setDraggableItems(currentRoundItems);
   }, [currentRoundItems]);
 
@@ -77,7 +67,7 @@ export const useMatchTest = (
     else if (isLast) onFinish();
   }, [draggableItems, test.isStarted]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       test.isStarted &&
       draggableItems.length === currentRoundItems.length &&

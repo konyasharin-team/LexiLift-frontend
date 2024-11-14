@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { CreateModule } from '@modules/vocabularyModule';
 
-export const CreationModulePage: FC = () => {
+export const CreateModulePage: FC = () => {
   return <CreateModule />;
 };

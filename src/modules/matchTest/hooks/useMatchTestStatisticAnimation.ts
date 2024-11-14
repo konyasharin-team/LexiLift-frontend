@@ -10,6 +10,7 @@ export const useMatchTestStatisticAnimation = () => {
   );
 
   const enter = async () => {
+    if (!scope.current) return;
     await animate(
       scope.current,
       { scale: 1.05 },
@@ -20,6 +21,7 @@ export const useMatchTestStatisticAnimation = () => {
   };
 
   const exit = async () => {
+    if (!scope.current) return;
     await animate(
       scope.current,
       { scale: 1 },

@@ -1,5 +1,5 @@
-import { FC, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
 import { AppLayout } from '@components/AppLayout';
 import { Center, Flex } from '@mantine/core';
 import {
@@ -11,13 +11,8 @@ import { useAppSelector } from '@store';
 
 export const MatchTestResultsPage: FC = () => {
   const { results } = useAppSelector(state => state.matchTest);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!results) navigate(appPaths.MATCH_TEST_SETTINGS);
-  }, []);
-
-  if (!results) return;
+  if (!results) return <Navigate to={appPaths.MATCH_TEST_SETTINGS} />;
   return (
     <AppLayout>
       <Center>

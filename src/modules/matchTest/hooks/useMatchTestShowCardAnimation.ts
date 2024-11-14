@@ -7,6 +7,7 @@ export const useMatchTestShowCardAnimation = () => {
   const { play } = usePlayableAnimation(async () => await enter());
 
   const enter = async () => {
+    if (!scope.current) return;
     await animate('div', { scale: 0 }, { duration: 0 });
     await animate(
       'div',

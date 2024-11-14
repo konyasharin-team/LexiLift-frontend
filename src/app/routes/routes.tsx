@@ -1,15 +1,15 @@
 import { Roles } from '@constants/Roles';
 import {
   AuthorizationPage,
+  CreateModulePage,
   MatchTestPage,
+  MatchTestResultsPage,
   MatchTestSettingsPage,
+  ModulesFoldersPage,
+  ModulesListPage,
   RegistrationPage,
   TestPage,
 } from '@pages';
-import { MatchTestResultsPage } from '@pages/MatchTestResultsPage.tsx';
-import { CreationModulePage } from '@pages/CreationModulePage.tsx';
-import { ModulesFoldersPage } from '@pages/ModulesFoldersPage.tsx';
-import { ModulesListPage } from '@pages/ModulesListPage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -45,7 +45,7 @@ export const privateRoutes: IPrivateRoute[] = [
   },
   {
     path: appPaths.MODULES_CREATE,
-    element: <CreationModulePage />,
+    element: <CreateModulePage />,
     availableFor: [Roles.user],
   },
   {
