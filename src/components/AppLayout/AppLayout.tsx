@@ -30,7 +30,6 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
       <AppShell.Header className={styles.header}>
         <Header
           layoutIsActive={appLayoutIsActive}
-          title={'Text'}
           setBurgerOpened={setBurgerIsActive}
           burgerOpened={burgerIsActive}
         />

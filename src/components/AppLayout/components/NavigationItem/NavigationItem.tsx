@@ -67,11 +67,11 @@ export const NavigationItem: FC<INavigationItem> = props => {
       >
         <Flex gap={15} align={'center'} h={'100%'}>
           {props.icon}
-          <motion.p variants={textVariants}>
-            <Text fz={18} fw={500} tt={'capitalize'}>
+          <motion.span variants={textVariants}>
+            <Text fz={18} fw={500} tt={'capitalize'} mt={15} mb={15}>
               {props.text}
             </Text>
-          </motion.p>
+          </motion.span>
         </Flex>
       </NavLink>
     </motion.li>
