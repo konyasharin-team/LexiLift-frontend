@@ -2,3 +2,7 @@
     transition: .3s all;
     position: absolute;
 }
+
+.layout .navbar{
+    transition-delay: .1s;
+}

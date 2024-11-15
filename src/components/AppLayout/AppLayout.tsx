@@ -24,7 +24,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
     <AppShell
       className={styles.layout}
       header={headerConfiguration(appLayoutIsActive)}
-      navbar={navbarConfiguration(burgerIsActive)}
+      navbar={navbarConfiguration(burgerIsActive, appLayoutIsActive)}
       padding="md"
     >
       <AppShell.Header className={styles.header}>

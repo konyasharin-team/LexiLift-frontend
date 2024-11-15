@@ -3,9 +3,10 @@ import { AppShellNavbarConfiguration } from '@mantine/core';
 
 export const navbarConfiguration = (
   isOpened: boolean,
+  layoutIsActive: boolean,
 ): AppShellNavbarConfiguration => {
   return {
-    width: isOpened ? NAVBAR_WIDTH : 0,
+    width: layoutIsActive ? (isOpened ? NAVBAR_WIDTH : 70) : 0,
     breakpoint: 'sm',
   };
 };

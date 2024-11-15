@@ -1,12 +1,14 @@
 import { FC } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { NAVIGATION_ICON_SIZE } from '@constants';
 import { Flex, Text, useMantineTheme } from '@mantine/core';
 import { INavigationItem } from '@routes';
+import { useAppSelector } from '@store';
 import { motion, Variants } from 'framer-motion';
 
 import styles from './NavigationItem.module.css';
 
-const variants: Variants = {
+const textVariants: Variants = {
   open: {
     y: 0,
     opacity: 1,
@@ -23,24 +25,53 @@ const variants: Variants = {
   },
 };
 
+const itemVariants: Variants = {
+  open: {
+    height: '100%',
+  },
+  closed: {
+    height: `${NAVIGATION_ICON_SIZE}px`,
+  },
+};
+
 export const NavigationItem: FC<INavigationItem> = props => {
   const theme = useMantineTheme();
+  const { burgerIsActive } = useAppSelector(state => state.layout);
+  const location = useLocation();
+
+  const getLinkClassName = (routerDomIsActive: boolean) => {
+    if (
+      (!props.pathToCompare && routerDomIsActive) ||
+      (props.pathToCompare && location.pathname.startsWith(props.pathToCompare))
+    ) {
+      if (burgerIsActive) return styles.linkActiveWithBurger;
+      else return styles.linkActiveWithoutBurger;
+    }
+    return undefined;
+  };
+
   return (
     <motion.li
-      variants={variants}
-      whileHover={{ scale: 1.1, translateX: 20, color: theme.colors.blue[9] }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={
+        burgerIsActive
+          ? { scale: 1.1, translateX: 20, color: theme.colors.blue[9] }
+          : { color: theme.colors.blue[9] }
+      }
+      whileTap={burgerIsActive ? { scale: 0.95 } : undefined}
       className={styles.item}
+      variants={itemVariants}
     >
       <NavLink
         to={props.to}
-        className={({ isActive }) => (isActive ? styles.linkActive : undefined)}
+        className={({ isActive }) => getLinkClassName(isActive)}
       >
-        <Flex gap={10} align={'center'}>
+        <Flex gap={15} align={'center'} h={'100%'}>
           {props.icon}
-          <Text fz={18} fw={500} tt={'capitalize'}>
-            {props.text}
-          </Text>
+          <motion.p variants={textVariants}>
+            <Text fz={18} fw={500} tt={'capitalize'}>
+              {props.text}
+            </Text>
+          </motion.p>
         </Flex>
       </NavLink>
     </motion.li>

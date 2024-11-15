@@ -29,7 +29,7 @@ export const useMatchTest = (
     stopObserve: stopAnimationsObserve,
   } = useMatchTestAnimations(
     id => onAfterSuccess(id),
-    id => onAfterError(id),
+    () => onAfterError(),
   );
 
   const { scope: successAnimationScope, play: playSuccessAnimation } =
@@ -94,7 +94,7 @@ export const useMatchTest = (
     [draggableItems],
   );
 
-  const onAfterError = useCallback((id: IBoardItem['id'][]) => {}, []);
+  const onAfterError = useCallback(() => {}, []);
 
   const onSuccess = useCallback(
     (active: Active, over: Over) => {
