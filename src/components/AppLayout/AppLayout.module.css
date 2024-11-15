@@ -1,3 +1,4 @@
-.layout .navbar {
-    transition: .6s all;
+.layout .navbar, .layout .header {
+    transition: .3s all;
+    position: absolute;
 }

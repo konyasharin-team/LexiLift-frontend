@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { AppLayout } from '@components/AppLayout';
 import {
   MatchTestSettingsPanel,
   useMatchTestSettingsForm,
@@ -12,9 +11,5 @@ export const MatchTestSettingsPage: FC = () => {
     createBaseSettings(wordPairs),
   );
 
-  return (
-    <AppLayout>
-      <MatchTestSettingsPanel {...formController} />
-    </AppLayout>
-  );
+  return <MatchTestSettingsPanel {...formController} />;
 };

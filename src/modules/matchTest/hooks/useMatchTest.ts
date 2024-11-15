@@ -36,8 +36,11 @@ export const useMatchTest = (
     useMatchTestStatisticAnimation();
   const { scope: errorAnimationScope, play: playErrorAnimation } =
     useMatchTestStatisticAnimation();
-  const { scope: showCardsAnimationScope, play: playShowCardsAnimation } =
-    useMatchTestShowCardAnimation();
+  const {
+    scope: showCardsAnimationScope,
+    playShow: playShowCardsAnimation,
+    playHide: playHideCardsAnimation,
+  } = useMatchTestShowCardAnimation();
 
   const boardRef = useRef<HTMLDivElement>(null);
   const test = useTest(
@@ -52,6 +55,7 @@ export const useMatchTest = (
     test.items,
     settings ?? createBaseSettings(initialDictionary),
   );
+
   const [draggableItems, setDraggableItems] = useState<
     IDraggableMatchTestCard[]
   >([]);
@@ -62,19 +66,24 @@ export const useMatchTest = (
   }, [currentRoundItems]);
 
   useEffect(() => {
-    if (!test.isStarted || draggableItems.length !== 0) return;
-    if (!isLast) setRound(round + 1);
-    else if (isLast) onFinish();
+    const playHideCardsAnimationWithExit = async () => {
+      if (!test.isStarted || draggableItems.length !== 0) return;
+      await playHideCardsAnimation();
+      if (!isLast) setRound(round + 1);
+      else if (isLast) onFinish();
+    };
+    playHideCardsAnimationWithExit();
   }, [draggableItems, test.isStarted]);
 
   useEffect(() => {
-    if (
-      test.isStarted &&
-      draggableItems.length === currentRoundItems.length &&
-      currentRoundItems.length !== 0
-    )
+    playHideCardsAnimation();
+  }, []);
+
+  useEffect(() => {
+    if (test.isStarted) {
       playShowCardsAnimation();
-  }, [draggableItems.length, test.isStarted]);
+    }
+  }, [test.isStarted, round]);
 
   const onAfterSuccess = useCallback(
     (id: IBoardItem['id'][]) => {

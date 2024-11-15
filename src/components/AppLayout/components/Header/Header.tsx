@@ -5,24 +5,28 @@ import clsx from 'clsx';
 import styles from './Header.module.css';
 
 interface IHeaderProps {
-  pinned: boolean;
   title: string;
-  toggle: () => void;
-  opened: boolean;
+  setBurgerOpened: (newOpened: boolean) => void;
+  burgerOpened: boolean;
+  layoutIsActive: boolean;
 }
 
 export const Header: FC<IHeaderProps> = props => {
   return (
-    <Flex align={'center'} h={'100%'} p={'md'}>
+    <Flex
+      align={'center'}
+      h={'100%'}
+      p={'md'}
+      className={!props.layoutIsActive ? styles.hide : undefined}
+    >
       <Portal>
-        <Box
-          className={clsx(
-            styles.header,
-            props.pinned ? styles.header_pinned : styles.header_unpinned,
-          )}
-        ></Box>
+        <Box className={clsx(styles.header)}></Box>
       </Portal>
-      <Burger opened={props.opened} onClick={props.toggle} size="sm" />
+      <Burger
+        opened={props.burgerOpened}
+        onClick={() => props.setBurgerOpened(!props.burgerOpened)}
+        size="sm"
+      />
       <Text>{props.title}</Text>
     </Flex>
   );

@@ -1,6 +1,6 @@
 import { ComponentProps, FC, useState } from 'react';
-import { FaImages } from 'react-icons/fa';
 import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
+import { IconPhoto } from '@tabler/icons-react';
 import clsx from 'clsx';
 
 import { CardSide } from './components/CardSide/CardSide.tsx';
@@ -41,7 +41,7 @@ export const FlipCard: FC<IFlipCard> = ({
         side={'back'}
         headContent={
           <CardSideHeadButton onClick={() => setImgIsVisible(!imgIsVisible)}>
-            <FaImages size={24} />
+            <IconPhoto size={24} />
           </CardSideHeadButton>
         }
         img={

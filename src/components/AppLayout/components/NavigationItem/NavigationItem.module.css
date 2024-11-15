@@ -1,0 +1,14 @@
+.item {
+    color: black;
+}
+
+.item a{
+    display: inline-block;
+    color: inherit;
+    transition: .3s all;
+}
+
+.item .linkActive {
+    color: var(--mantine-color-blue-5);
+    transform: scale(1.1) translateX(20px);
+}

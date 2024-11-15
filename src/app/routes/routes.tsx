@@ -32,30 +32,36 @@ export const privateRoutes: IPrivateRoute[] = [
     path: appPaths.MATCH_TEST,
     element: <MatchTestPage />,
     availableFor: [Roles.user],
+    withLayout: false,
   },
   {
     path: appPaths.MATCH_TEST_SETTINGS,
     element: <MatchTestSettingsPage />,
     availableFor: [Roles.user],
+    withLayout: true,
   },
   {
     path: appPaths.MATCH_TEST_RESULTS,
     element: <MatchTestResultsPage />,
     availableFor: [Roles.user],
+    withLayout: true,
   },
   {
     path: appPaths.MODULES_CREATE,
     element: <CreateModulePage />,
     availableFor: [Roles.user],
+    withLayout: true,
   },
   {
     path: appPaths.MODULES,
     element: <ModulesListPage />,
     availableFor: [Roles.user],
+    withLayout: true,
   },
   {
     path: appPaths.FOLDERS,
     element: <ModulesFoldersPage />,
     availableFor: [Roles.user],
+    withLayout: true,
   },
 ];

@@ -15,5 +15,3 @@ export const Navbar: FC<NavbarProps> = props => {
     </Flex>
   );
 };
-
-export default Navbar;

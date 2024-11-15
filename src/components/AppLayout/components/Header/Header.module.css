@@ -2,15 +2,11 @@
     transition: transform 400ms ease;
 }
 
-.header_pinned {
-    transform: translate3d(0, 0, 0);
-}
-
-.header_unpinned {
-    transform: translate3d(0, -110px, 0);
-}
-
 .headerContainer {
     display: flex;
     align-items: center;
+}
+
+.hide {
+    opacity: 0;
 }

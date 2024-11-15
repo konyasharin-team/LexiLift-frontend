@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ImFilePicture } from 'react-icons/im';
 import { Button, Flex, Image, Modal, Text } from '@mantine/core';
+import { IconPhoto } from '@tabler/icons-react';
 import { uploadImage } from '@utils';
 
 import styles from './ImageUpload.module.css';
@@ -54,7 +54,7 @@ export const ImageUpload = ({
 
   return (
     <>
-      <ImFilePicture
+      <IconPhoto
         color={imageUploaded ? 'green' : 'blue'}
         onClick={handleImageUpload}
         className={styles.icon}
