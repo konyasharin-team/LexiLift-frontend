@@ -10,7 +10,7 @@ interface IState {
 }
 
 const initialState: IState = {
-  user: { role: Roles.user },
+  user: null,
 };
 
 export const authSlice = createSlice({

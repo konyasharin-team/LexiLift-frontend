@@ -1,11 +1,13 @@
 import { FC, useEffect } from 'react';
-import { AuthApi } from '@api';
-import { IAuthData } from '@app-types';
+import { getErrorText } from '@api';
 import { Form } from '@components/Form/Form.tsx';
-import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
+import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import {
+  REGISTRATION_POST_ERRORS,
+  useRegistrationRequests,
+} from '@modules/registration';
 import { appPaths } from '@routes';
-import { useMutation } from '@tanstack/react-query';
 
 import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 
@@ -14,14 +16,7 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
-  const {
-    mutate: postRegistration,
-    isPending,
-    isSuccess,
-  } = useMutation({
-    mutationFn: async (data: IAuthData) => await AuthApi.PostRegistration(data),
-  });
-
+  const { controller, apiError } = useRegistrationRequests();
   const form = useForm({
     initialValues: {
       email: '',
@@ -32,14 +27,14 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   });
 
   useEffect(() => {
-    if (isSuccess) props.onSuccess?.();
-  }, [isSuccess]);
+    if (controller.isSuccess) props.onSuccess?.();
+  }, [controller.isSuccess]);
 
   return (
     <Form
       title={'Заголовок'}
-      isLoading={isPending}
-      onSubmit={form.onSubmit(values => postRegistration(values))}
+      isLoading={controller.isPending}
+      onSubmit={form.onSubmit(values => controller.mutate(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
       <TextInput
@@ -59,6 +54,11 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
         {...form.getInputProps('confirmPassword')}
         mt="md"
       />
+      {apiError ? (
+        <Text c={'red'}>
+          {getErrorText(apiError.type, REGISTRATION_POST_ERRORS)}
+        </Text>
+      ) : undefined}
       <Flex justify="center">
         <Button
           type="submit"
@@ -66,7 +66,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
           w={200}
           radius="md"
           color="blue"
-          disabled={isPending}
+          disabled={controller.isPending}
         >
           Зарегистрироваться
         </Button>

@@ -1,6 +1,4 @@
-import { IError } from '@api/types/IError.ts';
-
-export interface IResponse<T, P extends IError = IError> {
+export interface IResponse<T, P> {
   result?: T;
   error?: P;
   success: boolean;
