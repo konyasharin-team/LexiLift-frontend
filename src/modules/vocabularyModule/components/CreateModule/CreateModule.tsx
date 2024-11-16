@@ -1,4 +1,3 @@
-import { AppLayout } from '@components/AppLayout/AppLayout.tsx';
 import { Affix, Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
 import { ModuleCards } from '@modules/vocabularyModule/components/ModuleCards/ModuleCards.tsx';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
@@ -30,60 +29,58 @@ export const CreateModule = () => {
   };
 
   return (
-    <AppLayout>
-      <Flex justify="center" p={50} direction="column">
-        <Flex justify="space-between" gap={20}>
-          <Flex direction="column" w="50%">
-            <Paper shadow="md">
-              <TextInput placeholder="Название модуля" className="text" />
-            </Paper>
-
-            <div>
-              <Paper shadow="md">
-                <TagsInput {...tagsController} />
-              </Paper>
-            </div>
-          </Flex>
-          <Paper shadow="md" w="50%">
-            <Textarea
-              placeholder="Описание"
-              h="100%"
-              className="text"
-              classNames={{ wrapper: styles.wrapper, input: styles.input }}
-            />
+    <Flex justify="center" p={50} direction="column">
+      <Flex justify="space-between" gap={20}>
+        <Flex direction="column" w="50%">
+          <Paper shadow="md">
+            <TextInput placeholder="Название модуля" className="text" />
           </Paper>
+
+          <div>
+            <Paper shadow="md">
+              <TagsInput {...tagsController} />
+            </Paper>
+          </div>
         </Flex>
-
-        {moduleCardsController.cards.map((card, index) => (
-          <ModuleCards
-            key={index}
-            index={index}
-            card={card}
-            onCardChange={moduleCardsController.handleCardChange}
-            onImageUpload={moduleCardsController.handleImageUpload}
-            onDeleteImage={moduleCardsController.handleDeleteImage}
-            onRemoveCard={handleRemoveCard}
-            disableRemove={moduleCardsController.cards.length <= 3}
+        <Paper shadow="md" w="50%">
+          <Textarea
+            placeholder="Описание"
+            h="100%"
+            className="text"
+            classNames={{ wrapper: styles.wrapper, input: styles.input }}
           />
-        ))}
-
-        <Button
-          onClick={handleAddCard}
-          fullWidth
-          variant="outline"
-          mt={30}
-          h={120}
-          className="text"
-        >
-          Добавить карточку
-        </Button>
-
-        <Affix position={{ bottom: 20, right: 20 }}>
-          <Button radius="md" size="xl" color="blue">
-            Создать модуль
-          </Button>
-        </Affix>
+        </Paper>
       </Flex>
-    </AppLayout>
+
+      {moduleCardsController.cards.map((card, index) => (
+        <ModuleCards
+          key={index}
+          index={index}
+          card={card}
+          onCardChange={moduleCardsController.handleCardChange}
+          onImageUpload={moduleCardsController.handleImageUpload}
+          onDeleteImage={moduleCardsController.handleDeleteImage}
+          onRemoveCard={handleRemoveCard}
+          disableRemove={moduleCardsController.cards.length <= 3}
+        />
+      ))}
+
+      <Button
+        onClick={handleAddCard}
+        fullWidth
+        variant="outline"
+        mt={30}
+        h={120}
+        className="text"
+      >
+        Добавить карточку
+      </Button>
+
+      <Affix position={{ bottom: 20, right: 20 }}>
+        <Button radius="md" size="xl" color="blue">
+          Создать модуль
+        </Button>
+      </Affix>
+    </Flex>
   );
 };

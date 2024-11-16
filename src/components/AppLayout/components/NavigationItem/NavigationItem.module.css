@@ -1,0 +1,22 @@
+.item {
+    color: black;
+}
+
+.item a{
+    display: inline-block;
+    color: inherit;
+    transition: .3s all;
+    height: 100%;
+}
+
+.item .linkActiveWithBurger, .item .linkActiveWithoutBurger {
+    color: var(--mantine-color-blue-5);
+}
+
+.item .linkActiveWithBurger {
+    transform: scale(1.1) translateX(20px);
+}
+
+.item .linkActiveWithoutBurger {
+    transform: none;
+}

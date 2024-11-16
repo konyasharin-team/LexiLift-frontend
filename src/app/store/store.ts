@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from '@store/entities/auth/authSlice.ts';
 import { matchTestSlice } from '@store/entities/matchTest/matchTestSlice.ts';
+import { layoutSlice } from '@store/entities/layout/layoutSlice.ts';
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
     matchTest: matchTestSlice.reducer,
+    layout: layoutSlice.reducer,
   },
 });
 

@@ -1,0 +1,33 @@
+import { NAVIGATION_ICON_SIZE } from '@constants';
+import { appPaths } from '@routes/appPaths.ts';
+import { INavigationItem } from '@routes/types/INavigationItem.ts';
+import {
+  IconFile,
+  IconFolderFilled,
+  IconLayoutDashboardFilled,
+  IconTestPipe,
+} from '@tabler/icons-react';
+
+export const navigation: INavigationItem[] = [
+  {
+    icon: <IconLayoutDashboardFilled size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.MATCH_TEST_SETTINGS,
+    text: 'Тест на сопоставление (в разработке)',
+    pathToCompare: appPaths.MATCH_TEST,
+  },
+  {
+    icon: <IconFolderFilled size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.FOLDERS,
+    text: 'Папки (в разработке)',
+  },
+  {
+    icon: <IconFile size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.MODULES,
+    text: 'Модули (в разработке)',
+  },
+  {
+    icon: <IconTestPipe size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.TEST,
+    text: 'Для тестирования',
+  },
+];

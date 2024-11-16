@@ -1,29 +1,34 @@
 import { FC } from 'react';
-import { Box, Burger, Flex, Portal, Text } from '@mantine/core';
-import clsx from 'clsx';
+import { CLOSED_NAVBAR_WIDTH } from '@components/AppLayout';
+import { Burger, Flex } from '@mantine/core';
+import { Logo } from '@ui/Logo';
 
 import styles from './Header.module.css';
 
 interface IHeaderProps {
-  pinned: boolean;
-  title: string;
-  toggle: () => void;
-  opened: boolean;
+  setBurgerOpened: (newOpened: boolean) => void;
+  burgerOpened: boolean;
+  layoutIsActive: boolean;
 }
 
 export const Header: FC<IHeaderProps> = props => {
   return (
-    <Flex align={'center'} h={'100%'} p={'md'}>
-      <Portal>
-        <Box
-          className={clsx(
-            styles.header,
-            props.pinned ? styles.header_pinned : styles.header_unpinned,
-          )}
-        ></Box>
-      </Portal>
-      <Burger opened={props.opened} onClick={props.toggle} size="sm" />
-      <Text>{props.title}</Text>
+    <Flex align={'center'} h={'100%'} justify={'space-between'} pr={16} style={{ overflow: 'hidden' }}>
+      <Flex
+        align={'center'}
+        justify={'center'}
+        h={'100%'}
+        p={'md'}
+        className={!props.layoutIsActive ? styles.hide : undefined}
+        w={CLOSED_NAVBAR_WIDTH}
+      >
+        <Burger
+          opened={props.burgerOpened}
+          onClick={() => props.setBurgerOpened(!props.burgerOpened)}
+          size="lg"
+        />
+      </Flex>
+      <Logo />
     </Flex>
   );
 };

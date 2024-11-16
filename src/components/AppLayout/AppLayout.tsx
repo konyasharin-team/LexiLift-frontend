@@ -1,36 +1,45 @@
 import { FC, ReactNode } from 'react';
+import { headerConfiguration } from '@components/AppLayout/utils/headerConfiguration.ts';
 import { AppShell } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useActions, useAppSelector } from '@store';
 
 import { Header } from './components/Header/Header.tsx';
-import Navbar from './components/Navbar/Navbar.tsx';
-import { navbarConfiguration } from './components/Navbar/navbarConfiguration.ts';
+import { Navbar } from './components/Navbar/Navbar.tsx';
+import { navbarConfiguration } from './utils/navbarConfiguration.ts';
 
 import styles from './AppLayout.module.css';
+import { HEADER_HEIGHT } from '@components/AppLayout/constants.ts';
 
 interface IAppLayoutProps {
   children?: ReactNode;
 }
 
 export const AppLayout: FC<IAppLayoutProps> = props => {
-  const [opened, { toggle }] = useDisclosure();
+  const { burgerIsActive, appLayoutIsActive } = useAppSelector(
+    state => state.layout,
+  );
+  const { setBurgerIsActive } = useActions();
 
   return (
     <AppShell
       className={styles.layout}
-      header={{ height: 60 }}
-      navbar={navbarConfiguration(opened)}
+      header={headerConfiguration(appLayoutIsActive)}
+      navbar={navbarConfiguration(burgerIsActive, appLayoutIsActive)}
       padding="md"
     >
-      <AppShell.Header>
-        <Header pinned={true} title={'Text'} toggle={toggle} opened={opened} />
+      <AppShell.Header className={styles.header}>
+        <Header
+          layoutIsActive={appLayoutIsActive}
+          setBurgerOpened={setBurgerIsActive}
+          burgerOpened={burgerIsActive}
+        />
       </AppShell.Header>
 
       <AppShell.Navbar className={styles.navbar}>
-        <Navbar opened={opened} />
+        <Navbar opened={burgerIsActive} />
       </AppShell.Navbar>
 
-      <AppShell.Main>{props.children}</AppShell.Main>
+      <AppShell.Main pt={HEADER_HEIGHT}>{props.children}</AppShell.Main>
     </AppShell>
   );
 };

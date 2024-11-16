@@ -1,7 +1,6 @@
-import { IoTrashBinOutline } from 'react-icons/io5';
 import { Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
-
+import { IconTrash } from '@tabler/icons-react';
 import { appColors } from '@themes';
 
 import styles from './ModuleCards.module.css';
@@ -49,7 +48,7 @@ export const ModuleCards = ({
             onDeleteImage={onDeleteImage}
           />
           {!disableRemove && (
-            <IoTrashBinOutline
+            <IconTrash
               color="red"
               className={styles.icon}
               onClick={() => onRemoveCard(index)}

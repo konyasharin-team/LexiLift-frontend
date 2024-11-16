@@ -1,16 +1,13 @@
-import { usePlayableAnimation } from '@hooks';
 import { MATCH_TEST_SHOW_CARD_ANIMATION_DURATION_SECONDS } from '@modules/matchTest/constants.ts';
 import { useAnimate } from 'framer-motion';
 
 export const useMatchTestShowCardAnimation = () => {
   const [scope, animate] = useAnimate();
-  const { play } = usePlayableAnimation(async () => await enter());
 
-  const enter = async () => {
+  const show = async () => {
     if (!scope.current) return;
-    await animate('div', { scale: 0 }, { duration: 0 });
     await animate(
-      'div',
+      scope.current,
       {
         scale: 1,
       },
@@ -18,8 +15,14 @@ export const useMatchTestShowCardAnimation = () => {
     );
   };
 
+  const hide = async () => {
+    if (!scope.current) return;
+    await animate(scope.current, { scale: 0 }, { duration: 0.01 });
+  };
+
   return {
     scope,
-    play,
+    playShow: show,
+    playHide: hide,
   };
 };

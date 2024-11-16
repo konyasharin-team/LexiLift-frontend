@@ -1,33 +1,22 @@
 import { FC, useEffect } from 'react';
-import { AuthApi } from '@api';
-import { IAuthData } from '@app-types';
-import {
-  AnimatedChanger,
-  useAnimatedChanger,
-} from '@components/AnimatedChanger';
-import { Form } from '@components/Form';
-import { useMaxHeight } from '@hooks';
-import { Loader } from '@mantine/core';
+import { getErrorText } from '@api';
+import { Form } from '@components/Form/Form.tsx';
+import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { RegistrationFormContent } from '@modules/registration/components/RegistrationFormContent/RegistrationFormContent.tsx';
-import { validateRegistration } from '@modules/registration/utils/validateRegistration.ts';
+import {
+  REGISTRATION_POST_ERRORS,
+  useRegistrationRequests,
+} from '@modules/registration';
 import { appPaths } from '@routes';
-import { useMutation } from '@tanstack/react-query';
-import { CenterFlex } from '@ui/CenterFlex';
+
+import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
 
 interface IRegistrationFormProps {
   onSuccess?: () => void;
 }
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
-  const {
-    mutate: postRegistration,
-    isPending,
-    isSuccess,
-  } = useMutation({
-    mutationFn: async (data: IAuthData) => await AuthApi.PostRegistration(data),
-  });
-
+  const { controller, apiError } = useRegistrationRequests();
   const form = useForm({
     initialValues: {
       email: '',
@@ -72,8 +61,8 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   );
 
   useEffect(() => {
-    if (isSuccess) props.onSuccess?.();
-  }, [isSuccess]);
+    if (controller.isSuccess) props.onSuccess?.();
+  }, [controller.isSuccess]);
 
   useEffect(() => {
     if (isPending) {

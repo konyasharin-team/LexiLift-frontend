@@ -3,3 +3,8 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.listWrapper {
+    overflow: hidden;
+    width: 100%;
+}

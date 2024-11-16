@@ -1,9 +1,8 @@
-import { FaEdit } from 'react-icons/fa';
-import { FaEye } from 'react-icons/fa6';
 import { Badge, Flex, Paper, Text } from '@mantine/core';
 import { CreateModuleCardButton } from '@modules/modulesList/components/CreateModuleCardButton/CreateModuleCard.tsx';
 import { modulesData } from '@modules/modulesList/data.ts';
 import { getRandomColor } from '@modules/modulesList/utils/RandomColor/RandomColor.ts';
+import { IconEye, IconPencil } from '@tabler/icons-react';
 
 import styles from './ModulesList.module.css';
 
@@ -22,8 +21,8 @@ export const ModulesList = () => {
                 {module.description}
               </Text>
               <Flex direction="column" gap={5}>
-                <FaEye className={styles.icon} />
-                <FaEdit className={styles.icon} />
+                <IconEye className={styles.icon} />
+                <IconPencil className={styles.icon} />
               </Flex>
             </Flex>
             <Flex mt="md" gap="xs">
