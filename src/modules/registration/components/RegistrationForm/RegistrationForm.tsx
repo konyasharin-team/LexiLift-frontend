@@ -26,51 +26,65 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     validate: validateRegistration,
   });
 
+  const { maxHeight, blockRefs } = useMaxHeight();
+
+  const { content, setPositionsByKey } = useAnimatedChanger(
+    [
+      {
+        element: (
+          <RegistrationFormContent
+            form={form}
+            isPending={isPending}
+            ref={element => {
+              if (element) blockRefs.current[0] = element;
+            }}
+          />
+        ),
+        position: 'center',
+        key: '1',
+      },
+      {
+        element: (
+          <CenterFlex
+            ref={element => {
+              if (element) blockRefs.current[1] = element;
+            }}
+          >
+            <Loader />
+          </CenterFlex>
+        ),
+        position: 'right',
+        key: '2',
+      },
+    ],
+    [form.values],
+  );
+
   useEffect(() => {
     if (controller.isSuccess) props.onSuccess?.();
   }, [controller.isSuccess]);
 
+  useEffect(() => {
+    if (isPending) {
+      setPositionsByKey([
+        { key: '2', newPosition: 'center' },
+        { key: '1', newPosition: 'left' },
+      ]);
+    } else {
+      setPositionsByKey([
+        { key: '2', newPosition: 'right' },
+        { key: '1', newPosition: 'center' },
+      ]);
+    }
+  }, [isPending]);
+
   return (
     <Form
-      title={'Заголовок'}
-      isLoading={controller.isPending}
-      onSubmit={form.onSubmit(values => controller.mutate(values))}
+      title={'Регистрация'}
+      onSubmit={form.onSubmit(values => postRegistration(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <TextInput
-        label="Email"
-        placeholder="Ваш email"
-        {...form.getInputProps('email')}
-      />
-      <PasswordInput
-        label="Пароль"
-        placeholder="Ваш пароль"
-        {...form.getInputProps('password')}
-        mt="md"
-      />
-      <PasswordInput
-        label="Подтвердите пароль"
-        placeholder="Повторите пароль"
-        {...form.getInputProps('confirmPassword')}
-        mt="md"
-      />
-      {apiError ? (
-        <Text c={'red'}>
-          {getErrorText(apiError.type, REGISTRATION_POST_ERRORS)}
-        </Text>
-      ) : undefined}
-      <Flex justify="center">
-        <Button
-          type="submit"
-          mt="xl"
-          w={200}
-          radius="md"
-          color="blue"
-          disabled={controller.isPending}
-        >
-          Зарегистрироваться
-        </Button>
-      </Flex>
+      <AnimatedChanger content={content} maxHeight={maxHeight} />
     </Form>
   );
 };
