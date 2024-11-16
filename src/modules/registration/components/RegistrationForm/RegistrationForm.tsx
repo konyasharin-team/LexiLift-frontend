@@ -5,14 +5,15 @@ import {
   AnimatedChanger,
   useAnimatedChanger,
 } from '@components/AnimatedChanger';
-import { Form } from '@components/Form/Form.tsx';
+import { Form } from '@components/Form';
 import { useMaxHeight } from '@hooks';
-import { Center, Loader } from '@mantine/core';
+import { Loader } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { RegistrationFormContent } from '@modules/registration/components/RegistrationFormContent/RegistrationFormContent.tsx';
 import { validateRegistration } from '@modules/registration/utils/validateRegistration.ts';
 import { appPaths } from '@routes';
 import { useMutation } from '@tanstack/react-query';
+import { CenterFlex } from '@ui/CenterFlex';
 
 interface IRegistrationFormProps {
   onSuccess?: () => void;
@@ -55,13 +56,13 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
       },
       {
         element: (
-          <Center
+          <CenterFlex
             ref={element => {
               if (element) blockRefs.current[1] = element;
             }}
           >
             <Loader />
-          </Center>
+          </CenterFlex>
         ),
         position: 'right',
         key: '2',

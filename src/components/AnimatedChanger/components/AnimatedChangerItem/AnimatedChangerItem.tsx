@@ -14,21 +14,21 @@ const variants: Variants = {
     x: -500,
     opacity: 0,
     position: 'absolute',
-    transition: { duration: 1, ease: 'easeInOut' },
+    transition: { duration: 0.7, ease: 'easeInOut' },
     top: 0,
   },
   center: {
     x: 0,
     opacity: 1,
     position: 'relative',
-    transition: { duration: 1, ease: 'easeInOut' },
+    transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
   },
   right: {
     x: 500,
     opacity: 0,
     position: 'absolute',
-    transition: { duration: 1, ease: 'easeInOut' },
+    transition: { duration: 0.7, ease: 'easeInOut' },
     top: 0,
   },
 };
@@ -49,6 +49,7 @@ export const AnimatedChangerItem = <T extends string>(
 
   return (
     <motion.div
+      initial={props.variant}
       animate={cashedVariant}
       variants={variants}
       onAnimationStart={() => setIsAnimating(true)}

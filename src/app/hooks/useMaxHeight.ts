@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 export const useMaxHeight = () => {
   const blockRefs = useRef<HTMLElement[]>([]);
 
   const [maxHeight, setMaxHeight] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const heights = blockRefs.current.map(
       ref => ref.getBoundingClientRect().height,
     );
