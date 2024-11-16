@@ -33,7 +33,9 @@ export const NavigationItem: FC<INavigationItemProps> = props => {
       whileTap={{ scale: 0.95 }}
     >
       <NavLink to={props.to}>
-        <Text c={'dark'} fz={18} fw={500} tt={'capitalize'}>{props.children}</Text>
+        <Text c={'dark'} fz={18} fw={500} tt={'capitalize'}>
+          {props.children}
+        </Text>
       </NavLink>
     </motion.li>
   );

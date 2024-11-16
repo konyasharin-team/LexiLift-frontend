@@ -5,7 +5,7 @@ import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
 import { appPaths } from '@routes';
 
-import { validateCode } from '../ValidateRegistration/validateConfirmation.ts';
+import { validateCode } from '@modules/registration/utils/validateConfirmation.ts';
 
 interface IConfirmationFormProps {
   onSuccess?: () => void;

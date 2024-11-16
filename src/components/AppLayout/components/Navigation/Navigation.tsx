@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { NavigationItem } from '@components/AppLayout/components/NavigationItem/NavigationItem.tsx';
 import { appPaths } from '@routes';
 import { motion, Variants } from 'framer-motion';
-import styles from './Navigation.module.css'
+
+import styles from './Navigation.module.css';
 
 interface INavigationProps {
   opened: boolean;
