@@ -1,15 +1,21 @@
 import { FC, useEffect } from 'react';
 import { getErrorText } from '@api';
+import {
+  AnimatedChanger,
+  useAnimatedChanger,
+} from '@components/AnimatedChanger';
 import { Form } from '@components/Form/Form.tsx';
-import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
+import { Box, Loader } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
   REGISTRATION_POST_ERRORS,
   useRegistrationRequests,
 } from '@modules/registration';
+import { RegistrationFormContent } from '@modules/registration/components/RegistrationFormContent/RegistrationFormContent.tsx';
 import { appPaths } from '@routes';
+import { CenterFlex } from '@ui/CenterFlex';
 
-import { validateRegistration } from '../ValidateRegistration/validateRegistration.ts';
+import { validateRegistration } from '../../utils/validateRegistration';
 
 interface IRegistrationFormProps {
   onSuccess?: () => void;
@@ -26,18 +32,18 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     validate: validateRegistration,
   });
 
-  const { maxHeight, blockRefs } = useMaxHeight();
-
   const { content, setPositionsByKey } = useAnimatedChanger(
     [
       {
         element: (
           <RegistrationFormContent
             form={form}
-            isPending={isPending}
-            ref={element => {
-              if (element) blockRefs.current[0] = element;
-            }}
+            isPending={controller.isPending}
+            errorText={
+              apiError
+                ? getErrorText(apiError?.type, REGISTRATION_POST_ERRORS)
+                : undefined
+            }
           />
         ),
         position: 'center',
@@ -45,19 +51,17 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
       },
       {
         element: (
-          <CenterFlex
-            ref={element => {
-              if (element) blockRefs.current[1] = element;
-            }}
-          >
-            <Loader />
-          </CenterFlex>
+          <Box h={200}>
+            <CenterFlex>
+              <Loader />
+            </CenterFlex>
+          </Box>
         ),
         position: 'right',
         key: '2',
       },
     ],
-    [form.values],
+    [form.values, apiError?.type],
   );
 
   useEffect(() => {
@@ -65,7 +69,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   }, [controller.isSuccess]);
 
   useEffect(() => {
-    if (isPending) {
+    if (controller.isPending) {
       setPositionsByKey([
         { key: '2', newPosition: 'center' },
         { key: '1', newPosition: 'left' },
@@ -76,15 +80,15 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
         { key: '1', newPosition: 'center' },
       ]);
     }
-  }, [isPending]);
+  }, [controller.isPending]);
 
   return (
     <Form
       title={'Регистрация'}
-      onSubmit={form.onSubmit(values => postRegistration(values))}
+      onSubmit={form.onSubmit(values => controller.mutate(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <AnimatedChanger content={content} maxHeight={maxHeight} />
+      <AnimatedChanger content={content} />
     </Form>
   );
 };

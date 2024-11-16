@@ -14,7 +14,7 @@ const variants: Variants = {
     x: -500,
     opacity: 0,
     position: 'absolute',
-    transition: { duration: 0.7, ease: 'easeInOut' },
+    transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
   },
   center: {
@@ -28,7 +28,7 @@ const variants: Variants = {
     x: 500,
     opacity: 0,
     position: 'absolute',
-    transition: { duration: 0.7, ease: 'easeInOut' },
+    transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
   },
 };

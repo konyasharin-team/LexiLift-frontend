@@ -1,11 +1,12 @@
 import { forwardRef } from 'react';
-import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
+import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { IRegistrationForm } from '@modules/registration/types/IRegistrationForm.ts';
 
 interface IRegistrationFormContentProps {
   form: UseFormReturnType<IRegistrationForm>;
   isPending: boolean;
+  errorText?: string;
 }
 
 export const RegistrationFormContent = forwardRef<
@@ -43,6 +44,7 @@ export const RegistrationFormContent = forwardRef<
           Зарегистрироваться
         </Button>
       </Flex>
+      <Text c={'red'}>{props.errorText}</Text>
     </div>
   );
 });
