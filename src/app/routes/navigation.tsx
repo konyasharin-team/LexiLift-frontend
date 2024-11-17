@@ -2,6 +2,7 @@ import { NAVIGATION_ICON_SIZE } from '@constants';
 import { appPaths } from '@routes/appPaths.ts';
 import { INavigationItem } from '@routes/types/INavigationItem.ts';
 import {
+  IconCertificate,
   IconFile,
   IconFolderFilled,
   IconLayoutDashboardFilled,
@@ -24,6 +25,11 @@ export const navigation: INavigationItem[] = [
     icon: <IconFile size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.MODULES,
     text: 'Модули (в разработке)',
+  },
+  {
+    icon: <IconCertificate size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.COURSES,
+    text: 'Курсы (в разработке)',
   },
   {
     icon: <IconTestPipe size={NAVIGATION_ICON_SIZE} />,

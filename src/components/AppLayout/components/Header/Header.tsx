@@ -13,7 +13,13 @@ interface IHeaderProps {
 
 export const Header: FC<IHeaderProps> = props => {
   return (
-    <Flex align={'center'} h={'100%'} justify={'space-between'} pr={16} style={{ overflow: 'hidden' }}>
+    <Flex
+      align={'center'}
+      h={'100%'}
+      justify={'space-between'}
+      pr={16}
+      style={{ overflow: 'hidden' }}
+    >
       <Flex
         align={'center'}
         justify={'center'}

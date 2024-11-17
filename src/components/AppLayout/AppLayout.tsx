@@ -8,7 +8,6 @@ import { Navbar } from './components/Navbar/Navbar.tsx';
 import { navbarConfiguration } from './utils/navbarConfiguration.ts';
 
 import styles from './AppLayout.module.css';
-import { HEADER_HEIGHT } from '@components/AppLayout/constants.ts';
 
 interface IAppLayoutProps {
   children?: ReactNode;
@@ -39,7 +38,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
         <Navbar opened={burgerIsActive} />
       </AppShell.Navbar>
 
-      <AppShell.Main pt={HEADER_HEIGHT}>{props.children}</AppShell.Main>
+      <AppShell.Main>{props.children}</AppShell.Main>
     </AppShell>
   );
 };

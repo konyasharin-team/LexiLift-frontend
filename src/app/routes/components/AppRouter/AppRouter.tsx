@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { NotFoundPage } from '@pages/NotFoundPage.tsx';
-import { RouteWrapper } from '@routes/components/Route/RouteWrapper.tsx';
+import { RouteWrapper } from '@routes/components/RouteWrapper/RouteWrapper.tsx';
 import { useAppSelector } from '@store/hooks';
 
 import { privateRoutes, publicRoutes, routes } from '../../routes.tsx';

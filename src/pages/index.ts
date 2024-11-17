@@ -1,4 +1,6 @@
 export * from './AuthorizationPage.tsx';
+export * from './CoursePage.tsx';
+export * from './CoursesPage.tsx';
 export * from './CreateModulePage.tsx';
 export * from './MatchTestPage';
 export * from './MatchTestResultsPage.tsx';

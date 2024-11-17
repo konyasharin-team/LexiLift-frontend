@@ -9,4 +9,6 @@ export const appPaths = {
   MATCH_TEST: '/match-test',
   MATCH_TEST_SETTINGS: '/match-test/settings',
   MATCH_TEST_RESULTS: '/match-test/results',
+  COURSES: '/courses',
+  COURSE: '/courses/:id',
 };

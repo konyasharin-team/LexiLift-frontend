@@ -1,6 +1,7 @@
 import { Roles } from '@constants/Roles';
 import {
-  AuthorizationPage,
+  AuthorizationPage, CoursePage,
+  CoursesPage,
   CreateModulePage,
   MatchTestPage,
   MatchTestResultsPage,
@@ -61,6 +62,18 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.FOLDERS,
     element: <ModulesFoldersPage />,
+    availableFor: [Roles.user],
+    withLayout: true,
+  },
+  {
+    path: appPaths.COURSES,
+    element: <CoursesPage />,
+    availableFor: [Roles.user],
+    withLayout: true,
+  },
+  {
+    path: appPaths.COURSE,
+    element: <CoursePage />,
     availableFor: [Roles.user],
     withLayout: true,
   },
