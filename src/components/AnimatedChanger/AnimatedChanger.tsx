@@ -1,5 +1,4 @@
-import { forwardRef, Ref } from 'react';
-import { AnimatedChangerItem } from '@components/AnimatedChanger/components/AnimatedChangerItem/AnimatedChangerItem.tsx';
+import { forwardRef, ReactNode, Ref } from 'react';
 import { IContent } from '@components/AnimatedChanger/types/IContent.ts';
 import { motion } from 'framer-motion';
 
@@ -7,6 +6,7 @@ import styles from './AnimatedChanger.module.css';
 
 interface IAnimatedChangerProps<T extends string> {
   content: IContent<T>[];
+  children?: ReactNode;
 }
 
 export const AnimatedChanger = forwardRef(
@@ -16,11 +16,7 @@ export const AnimatedChanger = forwardRef(
   ) => {
     return (
       <motion.div className={styles.block} ref={ref}>
-        {props.content.map((item, i) => (
-          <AnimatedChangerItem variant={item.position} key={i}>
-            {item.element}
-          </AnimatedChangerItem>
-        ))}
+        {props.children}
       </motion.div>
     );
   },

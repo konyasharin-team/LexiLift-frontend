@@ -1,17 +1,20 @@
 import { FC } from 'react';
 import { Grid } from '@mantine/core';
 import { CourseLessonsListElement } from '@modules/cources/components/CourseLessonsListElement/CourseLessonsListElement.tsx';
-import { ILesson } from '@modules/cources/types/ILesson.ts';
+import { ICourse } from '@modules/cources/types/ICourse.ts';
 
-interface ICourseLessonsListProps {
-  lessons: ILesson[];
-}
-
-export const CourseLessonsList: FC<ICourseLessonsListProps> = props => {
+export const CourseLessonsList: FC<
+  Pick<ICourse, 'lessons' | 'progress'>
+> = props => {
   return (
     <Grid gutter={'md'}>
       {props.lessons.map((lesson, i) => (
-        <CourseLessonsListElement {...lesson} key={i} />
+        <CourseLessonsListElement
+          {...lesson}
+          progress={props.progress}
+          index={i}
+          key={i}
+        />
       ))}
     </Grid>
   );
