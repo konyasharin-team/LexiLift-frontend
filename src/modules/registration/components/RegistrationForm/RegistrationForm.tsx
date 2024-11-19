@@ -3,7 +3,7 @@ import { getErrorText } from '@api';
 import {
   AnimatedChanger,
   AnimatedChangerItem,
-  useAnimatedChanger,
+  findByKey,
 } from '@components/AnimatedChanger';
 import { Form } from '@components/Form/Form.tsx';
 import { Box, Loader } from '@mantine/core';
@@ -13,6 +13,7 @@ import {
   useRegistrationRequests,
 } from '@modules/registration';
 import { RegistrationFormContent } from '@modules/registration/components/RegistrationFormContent/RegistrationFormContent.tsx';
+import { useRegistrationFormAnimatedChanger } from '@modules/registration/hooks/useRegistrationFormAnimatedChanger.ts';
 import { appPaths } from '@routes';
 import { IconCircleCheckFilled } from '@tabler/icons-react';
 import { CenterFlex } from '@ui/CenterFlex';
@@ -25,6 +26,7 @@ interface IRegistrationFormProps {
 
 export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   const { controller, apiError } = useRegistrationRequests();
+  const animatedChanger = useRegistrationFormAnimatedChanger();
   const form = useForm({
     initialValues: {
       email: '',
@@ -34,43 +36,16 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
     validate: validateRegistration,
   });
 
-  const { content, setPositionsByKey, getPositionByKey } = useAnimatedChanger([
-    {
-      position: 'center',
-      key: 'REGISTRATION_FORM',
-    },
-    {
-      position: 'right',
-      key: 'REGISTRATION_LOADING',
-    },
-    {
-      position: 'right',
-      key: 'REGISTRATION_SUCCESS',
-    },
-  ]);
-
   useEffect(() => {
     if (controller.isSuccess) {
-      setPositionsByKey([
-        { key: 'REGISTRATION_LOADING', newPosition: 'left' },
-        { key: 'REGISTRATION_SUCCESS', newPosition: 'center' },
-      ]);
+      animatedChanger.onSuccessRegistration();
       // props.onSuccess?.();
     }
   }, [controller.isSuccess]);
 
   useEffect(() => {
-    if (controller.isPending) {
-      setPositionsByKey([
-        { key: 'REGISTRATION_LOADING', newPosition: 'center' },
-        { key: 'REGISTRATION_FORM', newPosition: 'left' },
-      ]);
-    } else if (controller.isError) {
-      setPositionsByKey([
-        { key: 'REGISTRATION_LOADING', newPosition: 'right' },
-        { key: 'REGISTRATION_FORM', newPosition: 'center' },
-      ]);
-    }
+    if (controller.isPending) animatedChanger.onPendingRegistration();
+    else if (controller.isError) animatedChanger.onErrorRegistration();
   }, [controller.isPending]);
 
   return (
@@ -79,9 +54,12 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
       onSubmit={form.onSubmit(values => controller.mutate(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
     >
-      <AnimatedChanger content={content}>
+      <AnimatedChanger content={animatedChanger.content}>
         <AnimatedChangerItem
-          variant={getPositionByKey('REGISTRATION_FORM') ?? 'right'}
+          variant={
+            findByKey(animatedChanger.content, 'REGISTRATION_FORM')?.position ??
+            'right'
+          }
         >
           <RegistrationFormContent
             form={form}
@@ -94,7 +72,10 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
           />
         </AnimatedChangerItem>
         <AnimatedChangerItem
-          variant={getPositionByKey('REGISTRATION_LOADING') ?? 'right'}
+          variant={
+            findByKey(animatedChanger.content, 'REGISTRATION_LOADING')
+              ?.position ?? 'right'
+          }
         >
           <Box h={200}>
             <CenterFlex>
@@ -103,7 +84,10 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
           </Box>
         </AnimatedChangerItem>
         <AnimatedChangerItem
-          variant={getPositionByKey('REGISTRATION_SUCCESS') ?? 'right'}
+          variant={
+            findByKey(animatedChanger.content, 'REGISTRATION_SUCCESS')
+              ?.position ?? 'right'
+          }
         >
           <Box h={200}>
             <CenterFlex>
