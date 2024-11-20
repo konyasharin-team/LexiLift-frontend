@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { FeedLoadMarker } from '@components/FeedLoadMarker';
 import { Flex } from '@mantine/core';
 import {
   CreateModuleButton,
@@ -7,13 +8,16 @@ import {
 } from '@modules/vocabularyModule';
 
 export const ModulesListPage: FC = () => {
-  const { page, setPage, controllers } = useModulesRequests();
+  const { controllers } = useModulesRequests();
   return (
     <Flex gap={20} direction={'column'}>
+      <CreateModuleButton />
       <ModulesList
         getModulesUserController={controllers.getModulesUserController}
       />
-      <CreateModuleButton />
+      <FeedLoadMarker
+        onView={controllers.getModulesUserController.sender.fetchNextPage}
+      />
     </Flex>
   );
 };

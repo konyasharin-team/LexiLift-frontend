@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useMutation, useQuery, useQueryRequestsBound } from '@api';
+import { useMutation, useQueryRequestsBound } from '@api';
+import { useInfiniteQuery } from '@api';
 import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
 import { CreateModuleData } from '@modules/vocabularyModule/types/CreateModuleData.ts';
 import { UseModulesRequestsBound } from '@modules/vocabularyModule/types/UseModulesRequestsBound.ts';
@@ -7,12 +7,12 @@ import { UseModulesRequestsBound } from '@modules/vocabularyModule/types/UseModu
 export const useModulesRequests = (
   boundedRequests: UseModulesRequestsBound[] = [],
 ) => {
-  const [page, setPage] = useState(0);
   const { getRequestOptions } =
     useQueryRequestsBound<UseModulesRequestsBound>(boundedRequests);
-  const getModulesUserController = useQuery({
-    queryKey: ['getModulesUser', page],
-    queryFn: () => ModulesApi.GetModulesUser({ pageNumber: page, pageSize: 5 }),
+  const getModulesUserController = useInfiniteQuery({
+    queryKey: ['GET_MODULES_USER'],
+    queryFn: ({ pageParam }) =>
+      ModulesApi.GetModulesUser({ pageNumber: pageParam, pageSize: 5 }),
     ...getRequestOptions('GET_MODULES_USER'),
   });
   const createModuleController = useMutation({
@@ -24,7 +24,5 @@ export const useModulesRequests = (
       getModulesUserController,
       createModuleController,
     },
-    page,
-    setPage,
   };
 };

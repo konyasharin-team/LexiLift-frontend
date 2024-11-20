@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { transformPages } from '@api';
 import { Flex } from '@mantine/core';
 import { useModulesRequests } from '@modules/vocabularyModule';
 import { ModulesListElement } from '@modules/vocabularyModule/components/ModulesListElement/ModulesListElement.tsx';
@@ -12,18 +13,16 @@ interface IModulesListProps {
 export const ModulesList: FC<IModulesListProps> = props => {
   return (
     <Flex justify="center" direction="column" gap="md">
-      {props.getModulesUserController.sender.response
-        ? props.getModulesUserController.sender.response.data.result?.map(
-            (module, index) => (
-              <ModulesListElement
-                key={index}
-                title={module.title}
-                description={module.description}
-                tags={[]}
-              />
-            ),
-          )
-        : undefined}
+      {transformPages(props.getModulesUserController.sender, page => {
+        return page.data.result?.map((module, index) => (
+          <ModulesListElement
+            key={index}
+            title={module.title}
+            description={module.description}
+            tags={[]}
+          />
+        ));
+      })}
     </Flex>
   );
 };
