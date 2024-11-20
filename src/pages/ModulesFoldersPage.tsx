@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Folders } from '@modules/modulesFolders/components/Folders/Folders.tsx';
+import { FoldersList } from '@modules/vocabularyModule';
 
 export const ModulesFoldersPage: FC = () => {
-  return <Folders />;
+  return <FoldersList />;
 };

@@ -1,7 +1,7 @@
 import { Badge, Flex, Paper, Text } from '@mantine/core';
-import { CreateModuleCardButton } from '@modules/modulesList/components/CreateModuleCardButton/CreateModuleCard.tsx';
-import { modulesData } from '@modules/modulesList/data.ts';
-import { getRandomColor } from '@modules/modulesList/utils/RandomColor/RandomColor.ts';
+import { CreateModuleButton } from '@modules/vocabularyModule/components/CreateModuleButton/CreateModuleButton.tsx';
+import { modulesData } from '@modules/vocabularyModule/data.ts';
+import { getRandomColor } from '@modules/vocabularyModule/utils/randomColor.ts';
 import { IconEye, IconPencil } from '@tabler/icons-react';
 
 import styles from './ModulesList.module.css';
@@ -10,7 +10,7 @@ export const ModulesList = () => {
   return (
     <>
       <Flex justify="center">
-        <CreateModuleCardButton />
+        <CreateModuleButton />
       </Flex>
       <Flex justify="center" direction="column" p={20} gap="md">
         {modulesData.map((module, index) => (
