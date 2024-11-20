@@ -1,40 +1,29 @@
-import { Badge, Flex, Paper, Text } from '@mantine/core';
-import { CreateModuleButton } from '@modules/vocabularyModule/components/CreateModuleButton/CreateModuleButton.tsx';
-import { modulesData } from '@modules/vocabularyModule/data.ts';
-import { getRandomColor } from '@modules/vocabularyModule/utils/randomColor.ts';
-import { IconEye, IconPencil } from '@tabler/icons-react';
+import { FC } from 'react';
+import { Flex } from '@mantine/core';
+import { useModulesRequests } from '@modules/vocabularyModule';
+import { ModulesListElement } from '@modules/vocabularyModule/components/ModulesListElement/ModulesListElement.tsx';
 
-import styles from './ModulesList.module.css';
+interface IModulesListProps {
+  getModulesUserController: ReturnType<
+    typeof useModulesRequests
+  >['controllers']['getModulesUserController'];
+}
 
-export const ModulesList = () => {
+export const ModulesList: FC<IModulesListProps> = props => {
   return (
-    <>
-      <Flex justify="center">
-        <CreateModuleButton />
-      </Flex>
-      <Flex justify="center" direction="column" p={20} gap="md">
-        {modulesData.map((module, index) => (
-          <Paper key={index} shadow="lg" p="md" radius="md">
-            <Text size="lg">{module.title}</Text>
-            <Flex justify="space-between">
-              <Text size="sm" mt="xs">
-                {module.description}
-              </Text>
-              <Flex direction="column" gap={5}>
-                <IconEye className={styles.icon} />
-                <IconPencil className={styles.icon} />
-              </Flex>
-            </Flex>
-            <Flex mt="md" gap="xs">
-              {module.tags.map((tag, idx) => (
-                <Badge key={idx} color={getRandomColor()} variant="light">
-                  {tag}
-                </Badge>
-              ))}
-            </Flex>
-          </Paper>
-        ))}
-      </Flex>
-    </>
+    <Flex justify="center" direction="column" gap="md">
+      {props.getModulesUserController.sender.response
+        ? props.getModulesUserController.sender.response.data.result?.map(
+            (module, index) => (
+              <ModulesListElement
+                key={index}
+                title={module.title}
+                description={module.description}
+                tags={[]}
+              />
+            ),
+          )
+        : undefined}
+    </Flex>
   );
 };
