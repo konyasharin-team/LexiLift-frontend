@@ -1,4 +1,5 @@
 import { ComponentProps, FC, useState } from 'react';
+import { IDictionaryItem } from '@app-types';
 import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import { IconPhoto } from '@tabler/icons-react';
 import clsx from 'clsx';
@@ -6,7 +7,6 @@ import clsx from 'clsx';
 import { CardSide } from './components/CardSide/CardSide.tsx';
 
 import styles from './FlipCard.module.css';
-import { IDictionaryItem } from '@app-types';
 
 export type FlipCardSide = 'front' | 'back';
 

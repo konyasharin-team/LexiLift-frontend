@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import { transformPages } from '@api';
 import { Flex } from '@mantine/core';
-import { useModulesRequests } from '@modules/vocabularyModule';
+import { useGetModulesUserController } from '@modules/vocabularyModule';
 import { ModulesListElement } from '@modules/vocabularyModule/components/ModulesListElement/ModulesListElement.tsx';
 
 interface IModulesListProps {
-  getModulesUserController: ReturnType<
-    typeof useModulesRequests
-  >['controllers']['getModulesUserController'];
+  getModulesUserController: ReturnType<typeof useGetModulesUserController>;
 }
 
 export const ModulesList: FC<IModulesListProps> = props => {

@@ -4,18 +4,16 @@ import { Flex } from '@mantine/core';
 import {
   CreateModuleButton,
   ModulesList,
-  useModulesRequests,
+  useGetModulesUserController,
 } from '@modules/vocabularyModule';
 
 export const ModulesListPage: FC = () => {
-  const { controllers } = useModulesRequests();
+  const controller = useGetModulesUserController();
   return (
     <Flex gap={20} direction={'column'}>
       <CreateModuleButton />
-      <ModulesList
-        getModulesUserController={controllers.getModulesUserController}
-      />
-      <FeedLoadMarker sender={controllers.getModulesUserController.sender} />
+      <ModulesList getModulesUserController={controller} />
+      <FeedLoadMarker sender={controller.sender} />
     </Flex>
   );
 };

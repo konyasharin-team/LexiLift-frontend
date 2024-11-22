@@ -1,14 +1,15 @@
 import { useApiError } from '@api';
 import {
+  QueryKey,
   useQuery as useTanstackQuery,
   UseQueryOptions,
 } from '@tanstack/react-query';
 import { UseQueryResult } from '@api';
 
-export const useQuery = <T, P extends string>(
-  tanstackUseQueryOptions: UseQueryOptions<T, Error, T>,
+export const useQuery = <T, P extends string, K extends QueryKey>(
+  tanstackUseQueryOptions: UseQueryOptions<T, Error, T, K>,
 ) => {
-  const sender = useTanstackQuery<T, Error, T>(tanstackUseQueryOptions);
+  const sender = useTanstackQuery<T, Error, T, K>(tanstackUseQueryOptions);
   const apiError = useApiError<P>(sender.error);
 
   return {
