@@ -7,7 +7,7 @@ export const createInstance = (path: string) => {
 
   service.interceptors.request.use(request => {
     request.headers.Authorization =
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2YzQzMGQ1Ni05MzVkLTRmZGEtYWZkMi0xZTVlNTYxNDZhY2IiLCJpYXQiOjE3MzIxMDY2MDIsImV4cCI6MTczMjE5MzAwMn0.PTGjxMqY8dA5krEB5K4p_bLEM5JBgkXs-4Io9ks8yCM';
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3MzhiNjExMS02NGFlLTRiYTAtODRjMy0xN2RmNDg2M2RjYTEiLCJpYXQiOjE3MzIyODkxMzMsImV4cCI6MTczMjM3NTUzM30.RbMdFne2dS_8JcVWMgrqoQjrzezWaX59upHTBsJBBNA';
     return request;
   });
 

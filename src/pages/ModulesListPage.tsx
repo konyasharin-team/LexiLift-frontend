@@ -15,9 +15,7 @@ export const ModulesListPage: FC = () => {
       <ModulesList
         getModulesUserController={controllers.getModulesUserController}
       />
-      <FeedLoadMarker
-        onView={controllers.getModulesUserController.sender.fetchNextPage}
-      />
+      <FeedLoadMarker sender={controllers.getModulesUserController.sender} />
     </Flex>
   );
 };

@@ -1,5 +1,4 @@
-import { useMutation, useQueryRequestsBound } from '@api';
-import { useInfiniteQuery } from '@api';
+import { useInfiniteQuery, useMutation, useQueryRequestsBound } from '@api';
 import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
 import { CreateModuleData } from '@modules/vocabularyModule/types/CreateModuleData.ts';
 import { UseModulesRequestsBound } from '@modules/vocabularyModule/types/UseModulesRequestsBound.ts';

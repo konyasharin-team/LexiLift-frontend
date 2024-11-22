@@ -6,12 +6,11 @@ import clsx from 'clsx';
 import { CardSide } from './components/CardSide/CardSide.tsx';
 
 import styles from './FlipCard.module.css';
+import { IDictionaryItem } from '@app-types';
 
 export type FlipCardSide = 'front' | 'back';
 
-interface IFlipCard extends ComponentProps<'div'> {
-  word: string;
-  translation: string;
+interface IFlipCard extends ComponentProps<'div'>, Omit<IDictionaryItem, 'id'> {
   activeSide: FlipCardSide;
   translationImg?: string;
 }
