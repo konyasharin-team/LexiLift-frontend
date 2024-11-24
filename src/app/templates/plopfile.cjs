@@ -1,4 +1,8 @@
+const inquirerFuzzyPath = require('inquirer-fuzzy-path');
+
 module.exports = (plop) => {
+  plop.setPrompt('fuzzyPath', inquirerFuzzyPath);
+
   plop.setGenerator('component', {
     description: 'Create a component',
     prompts: [
@@ -14,16 +18,18 @@ module.exports = (plop) => {
         choices: ['ui', 'components', 'your own'],
       },
       {
-        type: 'input',
+        type: 'fuzzyPath',
         name: 'path',
         message: 'Enter the file path from src directory:',
+        itemType: 'directory',
+        rootPath: 'src',
         when: answers => answers.pathChoice === 'your own',
       },
     ],
     actions: data => {
       let path;
       if (data)
-        path = data.pathChoice === 'your own' ? data.path : data.pathChoice;
+        path = data.pathChoice === 'your own' ? data.path : `src/${data.pathChoice}`;
       else throw new Error("Data doesn't exist");
 
       return [
