@@ -4,7 +4,7 @@ import { CheckIcon, Combobox, Group, Pill, PillsInput } from '@mantine/core';
 
 import { ISelectedTag, ITag } from '../../hooks/useTags.ts';
 
-interface TagsInputProps {
+interface ITagsInputProps {
   tags: ITag[];
   setTags: React.Dispatch<React.SetStateAction<ITag[]>>;
   search: string;
@@ -22,7 +22,7 @@ const TagsInput = ({
   filteredOptions,
   handleAddTag,
   handleRemoveTag,
-}: TagsInputProps) => {
+}: ITagsInputProps) => {
   const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
