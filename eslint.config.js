@@ -160,6 +160,7 @@ export default tseslint.config(
           format: ['camelCase']
         }
       ],
+      "lines-between-class-members": ["error", "always"]
     },
     settings: {
       'boundaries/elements': [

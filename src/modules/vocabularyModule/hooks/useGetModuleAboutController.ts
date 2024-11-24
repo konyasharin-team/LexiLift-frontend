@@ -1,11 +1,11 @@
 import { useQuery } from '@api';
 import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
-import { GetModulesAboutData } from '@modules/vocabularyModule/types/GetModulesAboutData.ts';
+import { IModuleApi } from '@modules/vocabularyModule/types/IModuleApi.ts';
 
-export const useGetModulesAboutController = (data: GetModulesAboutData) => {
+export const useGetModuleAboutController = (data: Pick<IModuleApi, 'id'>) => {
   const getModulesAboutController = useQuery({
     queryKey: ['GET_MODULES_ABOUT', data],
-    queryFn: () => ModulesApi.GetModulesAbout(data),
+    queryFn: () => ModulesApi.GetModuleAbout(data),
   });
 
   return {
