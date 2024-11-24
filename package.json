@@ -13,6 +13,11 @@
     "generate": "plop --plopfile src/app/templates/plopfile.cjs --dest src",
     "prepare": "husky install"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.ts?(x)": [
       "npm run fix",

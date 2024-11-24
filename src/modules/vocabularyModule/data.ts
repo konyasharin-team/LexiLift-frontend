@@ -1,5 +1,5 @@
-import { IModule } from '@modules/vocabularyModule/types/IModule.ts';
 import { IFolder } from '@modules/vocabularyModule/types/IFolder.ts';
+import { IModule } from '@modules/vocabularyModule/types/IModule.ts';
 
 export const modulesData: IModule[] = [
   {

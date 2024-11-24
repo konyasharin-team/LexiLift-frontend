@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
+import { MARGIN_TOP_BASE } from '@constants';
 import { Center, Flex } from '@mantine/core';
 import {
   MatchTestResultsButtonGroup,
@@ -7,7 +8,6 @@ import {
 } from '@modules/matchTest';
 import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
-import { MARGIN_TOP_BASE } from '@constants';
 
 export const MatchTestResultsPage: FC = () => {
   const { results } = useAppSelector(state => state.matchTest);

@@ -1,6 +1,7 @@
 import { Roles } from '@constants/Roles';
 import {
-  AuthorizationPage, CoursePage,
+  AuthorizationPage,
+  CoursePage,
   CoursesPage,
   CreateModulePage,
   MatchTestPage,

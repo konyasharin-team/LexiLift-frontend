@@ -3,9 +3,8 @@ import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PinInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { appPaths } from '@routes';
-
 import { validateCode } from '@modules/registration/utils/validateConfirmation.ts';
+import { appPaths } from '@routes';
 
 interface IConfirmationFormProps {
   onSuccess?: () => void;
