@@ -6,8 +6,7 @@ export const createInstance = (path: string) => {
   });
 
   service.interceptors.request.use(request => {
-    request.headers.Authorization =
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3MzhiNjExMS02NGFlLTRiYTAtODRjMy0xN2RmNDg2M2RjYTEiLCJpYXQiOjE3MzIyODkxMzMsImV4cCI6MTczMjM3NTUzM30.RbMdFne2dS_8JcVWMgrqoQjrzezWaX59upHTBsJBBNA';
+    request.headers.Authorization = 'Bearer ADMIN';
     return request;
   });
 

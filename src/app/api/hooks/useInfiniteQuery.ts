@@ -25,7 +25,7 @@ export const useInfiniteQuery = <T, P extends string>({
     getNextPageParam:
       getNextPageParam ??
       (() => {
-        return undefined; // заглушка
+        return 1; // заглушка
       }),
     ...options,
   });
