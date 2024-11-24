@@ -6,6 +6,7 @@ export const createInstance = (path: string) => {
   });
 
   service.interceptors.request.use(request => {
+    request.headers.Authorization = 'Bearer ADMIN';
     return request;
   });
 

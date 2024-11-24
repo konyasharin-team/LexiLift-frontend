@@ -5,41 +5,43 @@ import {
   AnimatedChangerItem,
   findByKey,
 } from '@components/AnimatedChanger';
-import { Form } from '@components/Form/Form.tsx';
-import { Box, Loader } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { FormWrapper } from '@components/Form';
+import { Box, Loader, Paper } from '@mantine/core';
 import {
+  ConfirmationForm,
   REGISTRATION_POST_ERRORS,
   useRegistrationRequests,
-} from '@modules/registration';
-import { RegistrationFormContent } from '@modules/registration/components/RegistrationFormContent/RegistrationFormContent.tsx';
-import { useRegistrationFormAnimatedChanger } from '@modules/registration/hooks/useRegistrationFormAnimatedChanger.ts';
-import { appPaths } from '@routes';
-import { IconCircleCheckFilled } from '@tabler/icons-react';
+} from '@modules/authorization';
+import { RegistrationForm } from '@modules/authorization/components/RegistrationForm/RegistrationForm.tsx';
+import { useRegistrationFormAnimatedChanger } from '@modules/authorization/hooks/useRegistrationFormAnimatedChanger.ts';
+//import { IconCircleCheckFilled } from '@tabler/icons-react';
 import { CenterFlex } from '@ui/CenterFlex';
-
-import { validateRegistration } from '../../utils/validateRegistration';
 
 interface IRegistrationFormProps {
   onSuccess?: () => void;
 }
 
-export const RegistrationForm: FC<IRegistrationFormProps> = props => {
+export const RegistrationAnimatedChanger: FC<
+  IRegistrationFormProps
+> = props => {
   const { controller, apiError } = useRegistrationRequests();
   const animatedChanger = useRegistrationFormAnimatedChanger();
-  const form = useForm({
-    initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validate: validateRegistration,
-  });
+
+  useEffect(() => {
+    if (
+      animatedChanger.content.some(
+        element =>
+          element.key === 'REGISTRATION_SUCCESS' &&
+          element.position === 'center',
+      )
+    )
+      animatedChanger.onTransitionConfirmation();
+  }, [animatedChanger.content]);
 
   useEffect(() => {
     if (controller.isSuccess) {
       animatedChanger.onSuccessRegistration();
-      // props.onSuccess?.();
+      //props.onSuccess?.();
     }
   }, [controller.isSuccess]);
 
@@ -49,11 +51,7 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
   }, [controller.isPending]);
 
   return (
-    <Form
-      title={'Регистрация'}
-      onSubmit={form.onSubmit(values => controller.mutate(values))}
-      link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
-    >
+    <FormWrapper>
       <AnimatedChanger content={animatedChanger.content}>
         <AnimatedChangerItem
           variant={
@@ -61,9 +59,8 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
             'right'
           }
         >
-          <RegistrationFormContent
-            form={form}
-            isPending={controller.isPending}
+          <RegistrationForm
+            controller={controller}
             errorText={
               apiError
                 ? getErrorText(apiError?.type, REGISTRATION_POST_ERRORS)
@@ -91,11 +88,19 @@ export const RegistrationForm: FC<IRegistrationFormProps> = props => {
         >
           <Box h={200}>
             <CenterFlex>
-              <IconCircleCheckFilled />
+              <Paper c="green">Регистрация прошла успешно!</Paper>
             </CenterFlex>
           </Box>
         </AnimatedChangerItem>
+        <AnimatedChangerItem
+          variant={
+            findByKey(animatedChanger.content, 'CONFIRMATION_FORM')?.position ??
+            'right'
+          }
+        >
+          <ConfirmationForm />
+        </AnimatedChangerItem>
       </AnimatedChanger>
-    </Form>
+    </FormWrapper>
   );
 };

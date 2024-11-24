@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import {
   ConfirmationForm,
-  RegistrationForm,
+  RegistrationAnimatedChanger,
   registrationSteps,
   useRegistrationSteps,
-} from '@modules/registration';
+} from '@modules/authorization';
 
 export const RegistrationPage: FC = () => {
   const { step, onRegistrationSuccess, onConfirmSuccess } =
     useRegistrationSteps();
 
   return step === registrationSteps.REGISTRATION ? (
-    <RegistrationForm onSuccess={onRegistrationSuccess} />
+    <RegistrationAnimatedChanger onSuccess={onRegistrationSuccess} />
   ) : (
     <ConfirmationForm onSuccess={onConfirmSuccess} />
   );

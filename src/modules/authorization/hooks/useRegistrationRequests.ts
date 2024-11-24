@@ -1,5 +1,5 @@
 import { AuthApi, RegistrationError, useApiError } from '@api';
-import { IAuthData } from '@app-types';
+import { IAuthData } from '../types/IAuthData';
 import { useMutation } from '@tanstack/react-query';
 
 export const useRegistrationRequests = () => {

@@ -1,28 +1,28 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
-import testImg from '@assets/images/test-img.jpg';
-import { FlipCard, useFlipCard } from '@components/FlipCard';
-import { Text } from '@mantine/core';
-import { appPaths } from '@routes';
+import { Button, Paper, Text } from '@mantine/core';
+import { useAuthorizationDeleteTargetController } from '@modules/authorization/hooks/useAuthorizationDeleteTargetController.ts';
 
 export const TestPage: FC = () => {
-  const [value, toggle] = useFlipCard();
+  const { deleteLogoutTargetController } =
+    useAuthorizationDeleteTargetController();
+
+  const handleLogout = () => {
+    deleteLogoutTargetController.mutate({
+      refreshTokenId:
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkMTc5Mzk1My03Nzc4LTQyNjYtOGZlZC00ZDkzM2Q1NWQzNDAiLCJpYXQiOjE3MzIzNDc3MTgsImV4cCI6MTczMjk1MjUxOH0.BOBbnyV2ovKSSBnrOeOaW_BN33d8aYojf6nMNxgOHJY',
+    });
+  };
 
   return (
-    <>
-      <FlipCard
-        word={'red'}
-        translation={'красный'}
-        translationImg={testImg}
-        activeSide={value}
-        onClick={() => toggle()}
-        style={{ marginLeft: '10px', marginTop: '10px' }}
-      />
-      <Link to={appPaths.MATCH_TEST_SETTINGS}>
-        <Text fz={36} fw={500}>
-          К приватным роутам -{'>'}
+    <div>
+      <Paper p="md" shadow="xs">
+        <Text size="lg" mb="md">
+          Добро пожаловать на тестовую страницу!
         </Text>
-      </Link>
-    </>
+        <Button color="red" onClick={handleLogout}>
+          Выйти из аккаунта
+        </Button>
+      </Paper>
+    </div>
   );
 };

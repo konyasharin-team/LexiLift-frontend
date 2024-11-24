@@ -14,6 +14,10 @@ export const useRegistrationFormAnimatedChanger = () => {
       position: 'right',
       key: 'REGISTRATION_SUCCESS',
     },
+    {
+      position: 'right',
+      key: 'CONFIRMATION_FORM',
+    },
   ]);
 
   const onSuccessRegistration = () => {
@@ -37,10 +41,18 @@ export const useRegistrationFormAnimatedChanger = () => {
     ]);
   };
 
+  const onTransitionConfirmation = () => {
+    addToQueue([
+      { key: 'CONFIRMATION_FORM', position: 'center' },
+      { key: 'REGISTRATION_SUCCESS', position: 'left' },
+    ]);
+  };
+
   return {
     onErrorRegistration,
     onSuccessRegistration,
     onPendingRegistration,
+    onTransitionConfirmation,
     content,
   };
 };

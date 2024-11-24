@@ -1,0 +1,4 @@
+export type PasswordError =
+  | 'BAD_OLD_PASSWORD'
+  | 'INVALID_NEW_PASSWORD'
+  | 'OLD_AND_NEW_PASSWORDS_ARE_EQUALS';

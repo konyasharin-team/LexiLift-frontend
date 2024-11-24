@@ -1,5 +1,6 @@
-import { FC, FormEventHandler, ReactNode } from 'react';
-import { Flex, Paper, Title } from '@mantine/core';
+import { FormEventHandler, forwardRef, ReactNode } from 'react';
+import { FormWrapper } from '@components/Form/components/FormWrapper/FormWrapper.tsx';
+import { Flex, Title } from '@mantine/core';
 import { LinkItem } from '@ui/Link/LinkItem.tsx';
 
 interface IFormProps {
@@ -10,22 +11,30 @@ interface IFormProps {
     text: string;
     href: string;
   };
+  withWrapper?: boolean;
 }
 
-export const Form: FC<IFormProps> = props => {
-  return (
-    <Flex justify="center">
-      <Paper radius="lg" withBorder shadow="xl" p="xl" mt={120} w={700}>
+export const Form = forwardRef<HTMLDivElement, IFormProps>(
+  ({ title, onSubmit, children, link, withWrapper = true }, ref) => {
+    const getWrapperContent = (isHasRef: boolean) => (
+      <div ref={isHasRef ? ref : undefined}>
         <Flex justify="center">
           <Title order={2} mb="md">
-            {props.title}
+            {title}
           </Title>
         </Flex>
-        <form onSubmit={props.onSubmit}>{props.children}</form>
-        {props.link ? (
-          <LinkItem to={props.link.href} label={props.link.text} />
-        ) : undefined}
-      </Paper>
-    </Flex>
-  );
-};
+        <form onSubmit={onSubmit}>{children}</form>
+        {link ? <LinkItem to={link.href} label={link.text} /> : undefined}
+      </div>
+    );
+    return (
+      <div>
+        {withWrapper ? (
+          <FormWrapper ref={ref}>{getWrapperContent(false)}</FormWrapper>
+        ) : (
+          getWrapperContent(true)
+        )}
+      </div>
+    );
+  },
+);

@@ -16,6 +16,7 @@ const variants: Variants = {
     position: 'absolute',
     transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
+    zIndex: -1,
   },
   center: {
     x: 0,
@@ -23,6 +24,7 @@ const variants: Variants = {
     position: 'relative',
     transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
+    zIndex: 0,
   },
   right: {
     x: 500,
@@ -30,6 +32,7 @@ const variants: Variants = {
     position: 'absolute',
     transition: { duration: 0.5, ease: 'easeInOut' },
     top: 0,
+    zIndex: -1,
   },
 };
 
