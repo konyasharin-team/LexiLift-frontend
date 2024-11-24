@@ -24,7 +24,7 @@ interface IRegistrationFormProps {
   onSuccess?: () => void;
 }
 
-export const RegistrationForm: FC<IRegistrationFormProps> = props => {
+export const RegistrationForm: FC<IRegistrationFormProps> = () => {
   const { controller, apiError } = useRegistrationRequests();
   const animatedChanger = useRegistrationFormAnimatedChanger();
   const form = useForm({

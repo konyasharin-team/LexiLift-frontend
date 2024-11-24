@@ -14,7 +14,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.ts?(x)": [
+    "*.{js,jsx,ts,tsx}": [
       "npm run fix",
       "eslint --max-warnings=0"
     ]
