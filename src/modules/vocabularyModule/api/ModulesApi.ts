@@ -6,7 +6,7 @@ import { ModulesError } from '@modules/vocabularyModule/types/ModulesError.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
 export class ModulesApi {
-  static readonly Instance: AxiosInstance = createInstance('/modules');
+  private static readonly Instance: AxiosInstance = createInstance('/modules');
 
   public static GetModulesUser(
     data: IPagination,

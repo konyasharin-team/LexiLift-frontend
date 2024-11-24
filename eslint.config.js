@@ -116,6 +116,22 @@ export default tseslint.config(
           format: ['PascalCase'],
         },
         {
+          selector: 'classProperty',
+          modifiers: ['public', 'protected'],
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'classProperty',
+          modifiers: ['private', 'static'],
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'classProperty',
+          modifiers: ['private'],
+          format: ['camelCase'],
+          prefix: ['_']
+        },
+        {
           selector: 'method',
           format: ['camelCase'],
         },
