@@ -16,8 +16,7 @@
   "lint-staged": {
     "*.ts?(x)": [
       "npm run fix",
-      "eslint --max-warnings=0",
-      "git add"
+      "eslint --max-warnings=0"
     ]
   },
   "dependencies": {
