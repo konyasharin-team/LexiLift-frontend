@@ -8,7 +8,7 @@ import { appPaths } from '@routes';
 import { validateLogin } from '../../validations/validateLogin/validateLogin.ts';
 
 interface IAuthorizationFormProps {
-  loginController: ReturnType<typeof useLoginController>['loginController'];
+  loginController: ReturnType<typeof useLoginController>;
 }
 
 export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
@@ -24,7 +24,7 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
     <Form
       title={'Заголовок'}
       onSubmit={loginForm.onSubmit(values =>
-        props.loginController.mutate(values),
+        props.loginController.sender.mutate(values),
       )}
       link={{
         href: appPaths.REGISTRATION,

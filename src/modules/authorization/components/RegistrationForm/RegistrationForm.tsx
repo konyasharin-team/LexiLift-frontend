@@ -7,7 +7,7 @@ import { validateRegistration } from '@modules/authorization/utils/validateRegis
 import { appPaths } from '@routes';
 
 interface IRegistrationFormContentProps {
-  controller: ReturnType<typeof useRegistrationController>['controller'];
+  controller: ReturnType<typeof useRegistrationController>;
   errorText?: string;
 }
 
@@ -27,7 +27,7 @@ export const RegistrationForm = forwardRef<
     <Form
       ref={ref}
       title="Регистрация"
-      onSubmit={form.onSubmit(values => props.controller.mutate(values))}
+      onSubmit={form.onSubmit(values => props.controller.sender.mutate(values))}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
       withWrapper={false}
     >
@@ -55,7 +55,7 @@ export const RegistrationForm = forwardRef<
           w={200}
           radius="md"
           color="blue"
-          disabled={props.controller.isPending}
+          disabled={props.controller.sender.isPending}
         >
           Зарегистрироваться
         </Button>

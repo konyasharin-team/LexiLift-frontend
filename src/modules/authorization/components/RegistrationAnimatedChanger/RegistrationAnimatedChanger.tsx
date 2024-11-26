@@ -21,7 +21,7 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
-  const { controller, apiError } = useRegistrationController();
+  const controller = useRegistrationController();
   const animatedChanger = useRegistrationFormAnimatedChanger();
 
   useEffect(() => {
@@ -36,16 +36,16 @@ export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
   }, [animatedChanger.content]);
 
   useEffect(() => {
-    if (controller.isSuccess) {
+    if (controller.sender.isSuccess) {
       animatedChanger.onSuccessRegistration();
       //props.onSuccess?.();
     }
-  }, [controller.isSuccess]);
+  }, [controller.sender.isSuccess]);
 
   useEffect(() => {
-    if (controller.isPending) animatedChanger.onPendingRegistration();
-    else if (controller.isError) animatedChanger.onErrorRegistration();
-  }, [controller.isPending]);
+    if (controller.sender.isPending) animatedChanger.onPendingRegistration();
+    else if (controller.sender.isError) animatedChanger.onErrorRegistration();
+  }, [controller.sender.isPending]);
 
   return (
     <FormWrapper>
@@ -59,8 +59,11 @@ export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
           <RegistrationForm
             controller={controller}
             errorText={
-              apiError
-                ? getErrorText(apiError?.type, REGISTRATION_POST_ERRORS)
+              controller.apiError
+                ? getErrorText(
+                    controller.apiError?.type,
+                    REGISTRATION_POST_ERRORS,
+                  )
                 : undefined
             }
           />

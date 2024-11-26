@@ -2,13 +2,11 @@ import { FC } from 'react';
 import { Form } from '@components/Form';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
+import { useChangePasswordController } from '@modules/authorization';
 import { appPaths } from '@routes';
 
 interface IPasswordResetFormProps {
-  passwordController: ReturnType<
-    typeof useLoginController
-  >['passwordController'];
+  passwordController: ReturnType<typeof useChangePasswordController>;
   errorText?: string;
 }
 
@@ -29,7 +27,7 @@ export const PasswordResetForm: FC<IPasswordResetFormProps> = props => {
     <Form
       title="Смена пароля"
       onSubmit={resetPasswordForm.onSubmit(values =>
-        props.passwordController.mutate(values),
+        props.passwordController.sender.mutate(values),
       )}
       link={{
         href: appPaths.AUTHORIZATION,

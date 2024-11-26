@@ -3,7 +3,6 @@ import { AuthorizationForm } from '@modules/authorization';
 import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 
 export const AuthorizationPage: FC = () => {
-  return (
-    <AuthorizationForm loginController={useLoginController().loginController} />
-  );
+  const controller = useLoginController();
+  return <AuthorizationForm loginController={controller} />;
 };
