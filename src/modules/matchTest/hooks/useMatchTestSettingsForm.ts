@@ -1,10 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { ITestSettings } from '@app-types';
 import { TEST_WORDS_PER_ROUND } from '@constants';
 import { useForm } from '@mantine/form';
 import { IUseMatchTestSettingsFormReturn } from '@modules/matchTest';
-import { useActions } from '@store';
-import { useNavigate } from 'react-router-dom';
 import { appPaths } from '@routes';
+import { useActions } from '@store';
 
 export const useMatchTestSettingsForm = (
   initialSettings: ITestSettings,

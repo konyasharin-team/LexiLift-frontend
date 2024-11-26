@@ -1,9 +1,9 @@
+import { TestItemType } from '@app-types';
 import { IBoardItem, useBoardDraggableItem } from '@components/Board';
 import { useDroppable } from '@dnd-kit/core';
 import { mergeRefs } from '@mantine/hooks';
 import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
-import { TestItemType } from '@app-types';
 
 export const useMatchTestDraggableCard = (
   boardItem: IBoardItem,

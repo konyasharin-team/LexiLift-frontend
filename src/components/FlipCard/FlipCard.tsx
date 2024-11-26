@@ -1,4 +1,5 @@
 import { ComponentProps, FC, useState } from 'react';
+import { IDictionaryItem } from '@app-types';
 import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import { IconPhoto } from '@tabler/icons-react';
 import clsx from 'clsx';
@@ -9,9 +10,7 @@ import styles from './FlipCard.module.css';
 
 export type FlipCardSide = 'front' | 'back';
 
-interface IFlipCard extends ComponentProps<'div'> {
-  word: string;
-  translation: string;
+interface IFlipCard extends ComponentProps<'div'>, Omit<IDictionaryItem, 'id'> {
   activeSide: FlipCardSide;
   translationImg?: string;
 }

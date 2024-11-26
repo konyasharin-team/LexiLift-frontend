@@ -1,8 +1,9 @@
 import { Flex, Paper, Text } from '@mantine/core';
-import { CreateFolderButton } from '@modules/modulesFolders/components/CreateFolderButton/CreateFolder.tsx';
-import { foldersData } from '@modules/modulesFolders/data.ts';
+import { CreateFolderButton } from '@modules/vocabularyModule/components/CreateFolderButton/CreateFolder.tsx';
 
-export const Folders = () => {
+import { foldersData } from '../../data.ts';
+
+export const FoldersList = () => {
   return (
     <>
       <Flex justify="center">

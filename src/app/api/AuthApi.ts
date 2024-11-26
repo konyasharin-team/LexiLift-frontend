@@ -2,7 +2,7 @@ import { IError, IResponse, RegistrationError } from '@api';
 import { IAuthData } from '@app-types/IAuthData.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { createInstance } from './createInstance.ts';
+import { createInstance } from './utils/createInstance.ts';
 
 export class AuthApi {
   static readonly Instance: AxiosInstance = createInstance('/users/auth/');

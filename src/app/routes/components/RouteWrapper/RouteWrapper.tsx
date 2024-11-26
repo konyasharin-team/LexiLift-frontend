@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { AppLayoutToggle } from '@components/AppLayoutToggle';
+import { AppLayoutToggle } from '@components/AppLayout';
 import { IPrivateRoute } from '@routes';
 
 interface IRouteProps extends Partial<Pick<IPrivateRoute, 'withLayout'>> {
