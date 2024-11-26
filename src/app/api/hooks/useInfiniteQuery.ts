@@ -1,4 +1,10 @@
-import { useApiError } from '@api';
+import {
+  IError,
+  IResponseSchemas,
+  Response,
+  useApiDataParse,
+  useApiError,
+} from '@api';
 import {
   InfiniteData,
   QueryKey,
@@ -14,12 +20,23 @@ type InfiniteOptions<T> = UndefinedInitialDataInfiniteOptions<
   number
 >;
 
-export const useInfiniteQuery = <T, P extends string>({
-  initialPageParam,
-  getNextPageParam,
-  ...options
-}: Partial<Pick<InfiniteOptions<T>, 'initialPageParam' | 'getNextPageParam'>> &
-  Omit<InfiniteOptions<T>, 'initialPageParam' | 'getNextPageParam'>) => {
+export const useInfiniteQuery = <TResult, TErrors extends string>(
+  {
+    initialPageParam,
+    getNextPageParam,
+    ...options
+  }: Partial<
+    Pick<
+      InfiniteOptions<Response<TResult, IError<TErrors>>>,
+      'initialPageParam' | 'getNextPageParam'
+    >
+  > &
+    Omit<
+      InfiniteOptions<Response<TResult, IError<TErrors>>>,
+      'initialPageParam' | 'getNextPageParam'
+    >,
+  schemas?: Partial<IResponseSchemas>,
+) => {
   const sender = useTanstackInfiniteQuery({
     initialPageParam: initialPageParam ?? 0,
     getNextPageParam:
@@ -29,7 +46,8 @@ export const useInfiniteQuery = <T, P extends string>({
       }),
     ...options,
   });
-  const apiError = useApiError<P>(sender.error);
+  const apiError = useApiError<TErrors>(sender.error);
+  useApiDataParse(sender.data?.pages, schemas);
 
   return {
     sender,

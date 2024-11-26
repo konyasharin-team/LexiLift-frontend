@@ -153,7 +153,7 @@ export default tseslint.config(
         },
         {
           selector: 'typeParameter',
-          format: ['UPPER_CASE']
+          format: ['UPPER_CASE', 'PascalCase'],
         },
         {
           selector: 'typeProperty',

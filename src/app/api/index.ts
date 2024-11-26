@@ -1,4 +1,5 @@
 export * from './AuthApi';
+export * from './hooks/useApiDataParse.ts';
 export * from './hooks/useApiError.ts';
 export * from './hooks/useInfiniteQuery.ts';
 export * from './hooks/useMutation.ts';

@@ -1,3 +1,3 @@
-import { IModule } from '@modules/vocabularyModule/types/IModule.ts';
+import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
-export type CreateModuleBody = Pick<IModule, 'title' | 'description'>;
+export type CreateModuleBody = Pick<ModuleSchemaInfer, 'title' | 'description'>;

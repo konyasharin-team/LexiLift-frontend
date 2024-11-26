@@ -1,4 +1,3 @@
-import { IResponse } from '@api';
-import { AxiosResponse } from 'axios';
+import { Response } from '@api';
 
-export type ResponsePromise<T, P> = Promise<AxiosResponse<IResponse<T, P>>>;
+export type ResponsePromise<T, P> = Promise<Response<T, P>>;
