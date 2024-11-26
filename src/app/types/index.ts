@@ -1,4 +1,3 @@
-export * from './IAuthData';
 export * from './ICoordinates';
 export * from './IDictionaryCard';
 export * from './IDictionaryItem';

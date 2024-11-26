@@ -1,16 +1,17 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
+import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 import { appPaths } from '@routes';
 
-import { loginUser } from '../autorizeUser.ts';
-import { validateLogin } from '../validations/validateLogin/validateLogin.ts';
+import { validateLogin } from '../../validations/validateLogin/validateLogin.ts';
 
-export const AuthorizationForm: FC = () => {
-  const [loading, setLoading] = useState(false);
+interface IAuthorizationFormProps {
+  loginController: ReturnType<typeof useLoginController>['loginController'];
+}
 
+export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
   const loginForm = useForm({
     initialValues: {
       email: '',
@@ -19,31 +20,12 @@ export const AuthorizationForm: FC = () => {
     validate: validateLogin,
   });
 
-  const handleLoginSubmit = async (values: typeof loginForm.values) => {
-    setLoading(true);
-    const user = await loginUser(values);
-
-    if (user) {
-      notifications.show({
-        title: 'Успех',
-        message: 'Вы авторизовались',
-        color: 'green',
-      });
-    } else {
-      notifications.show({
-        title: 'Ошибка',
-        message: 'Указан неверный логин или пароль',
-        color: 'red',
-      });
-    }
-    setLoading(false);
-  };
-
   return (
     <Form
       title={'Заголовок'}
-      isLoading={loading}
-      onSubmit={loginForm.onSubmit(handleLoginSubmit)}
+      onSubmit={loginForm.onSubmit(values =>
+        props.loginController.mutate(values),
+      )}
       link={{
         href: appPaths.REGISTRATION,
         text: 'Нет аккаунта? Зарегистрируйся!',

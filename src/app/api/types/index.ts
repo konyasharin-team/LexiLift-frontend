@@ -1,5 +1,4 @@
-export * from './errors/BaseError';
-export * from './errors/RegistrationError';
+export * from './BaseError.ts';
 export * from './ErrorSchema';
 export * from './IError';
 export * from './IId';

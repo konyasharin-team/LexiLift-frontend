@@ -3,7 +3,7 @@ import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PinInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { notifications } from '@mantine/notifications';
-import { validateCode } from '@modules/registration/utils/validateConfirmation.ts';
+import { validateCode } from '@modules/authorization/utils/validateConfirmation.ts';
 import { appPaths } from '@routes';
 
 interface IConfirmationFormProps {
@@ -41,10 +41,10 @@ export const ConfirmationForm: FC<IConfirmationFormProps> = props => {
 
   return (
     <Form
-      title={'Заголовок'}
-      isLoading={loading}
+      title={'Подтвердите почту'}
       onSubmit={form.onSubmit(handleCodeSubmit)}
       link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
+      withWrapper={false}
     >
       <Flex justify="center">
         <Text>Мы выслали код на ваш email</Text>
