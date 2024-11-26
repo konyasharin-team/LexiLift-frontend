@@ -1,14 +1,8 @@
 import { useState } from 'react';
-
-interface ICard {
-  word: string;
-  translation: string;
-  imageUploaded: boolean;
-  imageUrl?: string;
-}
+import { IUseModuleCard } from '@modules/vocabularyModule/types/IUseModuleCard.ts';
 
 export const useModuleCard = () => {
-  const [cards, setCards] = useState<ICard[]>([
+  const [cards, setCards] = useState<IUseModuleCard[]>([
     { word: '', translation: '', imageUploaded: false },
     { word: '', translation: '', imageUploaded: false },
     { word: '', translation: '', imageUploaded: false },
@@ -16,7 +10,7 @@ export const useModuleCard = () => {
 
   const handleCardChange = (
     index: number,
-    field: keyof ICard,
+    field: keyof IUseModuleCard,
     value: string,
   ) => {
     setCards(prevCards =>
@@ -29,7 +23,7 @@ export const useModuleCard = () => {
   const handleImageUpload = (index: number, imageUrl: string) => {
     setCards(prevCards =>
       prevCards.map((card, i) =>
-        i === index ? { ...card, imageUploaded: true, imageUrl } : card,
+        i === index ? { ...card, imageUploaded: true, img: imageUrl } : card,
       ),
     );
   };
@@ -37,9 +31,7 @@ export const useModuleCard = () => {
   const handleDeleteImage = (index: number) => {
     setCards(prevCards =>
       prevCards.map((card, i) =>
-        i === index
-          ? { ...card, imageUploaded: false, imageUrl: undefined }
-          : card,
+        i === index ? { ...card, imageUploaded: false, img: undefined } : card,
       ),
     );
   };

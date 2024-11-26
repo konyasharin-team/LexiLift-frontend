@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authSlice } from '@store/entities/auth/authSlice.ts';
-import { matchTestSlice } from '@store/entities/matchTest/matchTestSlice.ts';
 import { layoutSlice } from '@store/entities/layout/layoutSlice.ts';
+import { matchTestSlice } from '@store/entities/matchTest/matchTestSlice.ts';
 
 export const store = configureStore({
   reducer: {

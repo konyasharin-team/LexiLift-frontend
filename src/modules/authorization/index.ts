@@ -10,8 +10,6 @@ export * from './hooks/useAuthorizationWhoAmIController.ts';
 export * from './hooks/useLogoutController.ts';
 export * from './hooks/useRegistrationRequests.ts';
 export * from './hooks/useRegistrationSteps';
-export * from './types/IAccessToken.ts';
 export * from './types/IAuthData.ts';
 export * from './types/ILogoutTargetData.ts';
 export * from './types/IPassword.ts';
-export * from './types/IRefreshToken.ts';

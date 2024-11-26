@@ -1,5 +1,6 @@
 import { Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
+import { IUseModuleCard } from '@modules/vocabularyModule/types/IUseModuleCard.ts';
 import { IconTrash } from '@tabler/icons-react';
 import { appColors } from '@themes';
 
@@ -7,12 +8,7 @@ import styles from './ModuleCards.module.css';
 
 interface ICardProps {
   index: number;
-  card: {
-    word: string;
-    translation: string;
-    imageUploaded: boolean;
-    imageUrl?: string;
-  };
+  card: IUseModuleCard;
   onCardChange: (
     index: number,
     field: 'word' | 'translation',
@@ -43,7 +39,7 @@ export const ModuleCards = ({
           <ImageUpload
             cardIndex={index}
             imageUploaded={card.imageUploaded}
-            imageUrl={card.imageUrl}
+            imageUrl={card.img}
             onImageUpload={onImageUpload}
             onDeleteImage={onDeleteImage}
           />

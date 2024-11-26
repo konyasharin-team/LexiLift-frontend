@@ -14,16 +14,13 @@ import {
 } from '@modules/authorization';
 import { RegistrationForm } from '@modules/authorization/components/RegistrationForm/RegistrationForm.tsx';
 import { useRegistrationFormAnimatedChanger } from '@modules/authorization/hooks/useRegistrationFormAnimatedChanger.ts';
-//import { IconCircleCheckFilled } from '@tabler/icons-react';
 import { CenterFlex } from '@ui/CenterFlex';
 
 interface IRegistrationFormProps {
   onSuccess?: () => void;
 }
 
-export const RegistrationAnimatedChanger: FC<
-  IRegistrationFormProps
-> = props => {
+export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
   const { controller, apiError } = useRegistrationRequests();
   const animatedChanger = useRegistrationFormAnimatedChanger();
 

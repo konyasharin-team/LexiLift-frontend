@@ -1,4 +1,5 @@
 export * from './ICoordinates';
+export * from './IDictionaryCard';
 export * from './IDictionaryItem';
 export * from './IStatistics';
 export * from './ITestItem';

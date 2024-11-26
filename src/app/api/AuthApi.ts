@@ -11,9 +11,7 @@ import { IPassword } from '@modules/authorization';
 import { IAuthData } from '@modules/authorization/types/IAuthData.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-import { createInstance } from './createInstance.ts';
-import { IRefreshToken } from '@modules/authorization/types/IRefreshToken.ts';
-import { IAccessToken } from '@modules/authorization/types/IAccessToken.ts';
+import { createInstance } from './utils/createInstance.ts';
 
 export class AuthApi {
   static readonly Instance: AxiosInstance = createInstance('/users/auth/');
@@ -31,8 +29,8 @@ export class AuthApi {
   }
 
   public static PostRefresh(
-    data: IRefreshToken,
-  ): Promise<AxiosResponse<IResponse<IAccessToken, IError>>> {
+    data: Pick<ITokens, 'refreshToken'>,
+  ): Promise<AxiosResponse<IResponse<Pick<ITokens, 'accessToken'>, IError>>> {
     return this.Instance.post('refresh', data);
   }
 
@@ -46,13 +44,13 @@ export class AuthApi {
     return this.Instance.put('password', data);
   }
 
-  public static deleteLogout(): Promise<
+  public static DeleteLogout(): Promise<
     AxiosResponse<IResponse<undefined, IError>>
   > {
     return this.Instance.delete('logout');
   }
 
-  public static deleteLogoutTarget(
+  public static DeleteLogoutTarget(
     data: ILogoutTargetData,
   ): Promise<AxiosResponse<IResponse<undefined, IError>>> {
     return this.Instance.delete('logout/target', { params: data });
