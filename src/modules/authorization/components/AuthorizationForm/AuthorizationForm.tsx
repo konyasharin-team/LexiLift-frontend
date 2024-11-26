@@ -1,17 +1,20 @@
 import { FC } from 'react';
+import { useRequestEvents } from '@api';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 import { appPaths } from '@routes';
+import { useActions } from '@store';
 
-import { validateLogin } from '../../validations/validateLogin/validateLogin.ts';
+import { validateLogin } from '../../utils/validateLogin.ts';
 
 interface IAuthorizationFormProps {
   loginController: ReturnType<typeof useLoginController>;
 }
 
 export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
+  const { setTokens } = useActions();
   const loginForm = useForm({
     initialValues: {
       email: '',
@@ -19,6 +22,16 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
     },
     validate: validateLogin,
   });
+
+  useRequestEvents(
+    {
+      isLoading: props.loginController.sender.isPending,
+      ...props.loginController.sender,
+    },
+    {
+      onSuccess: setTokens,
+    },
+  );
 
   return (
     <Form
@@ -44,7 +57,14 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
       />
 
       <Flex justify="center">
-        <Button type="submit" mt="xl" w={200} radius="md" color="blue">
+        <Button
+          type="submit"
+          mt="xl"
+          w={200}
+          radius="md"
+          color="blue"
+          loading={props.loginController.sender.isPending}
+        >
           Войти
         </Button>
       </Flex>

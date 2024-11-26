@@ -16,8 +16,8 @@ export const validateLogin = (values: LoginValues) => {
 
   if (!values.password) {
     errors.password = 'Поле пароля обязательно для заполнения';
-  } else if (values.password.length < 6) {
-    errors.password = 'Пароль должен быть не менее 6 символов';
+  } else if (values.password.length < 5) {
+    errors.password = 'Пароль должен быть не менее 5 символов';
   }
 
   return errors;

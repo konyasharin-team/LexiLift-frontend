@@ -1,3 +1,4 @@
+import { TokensService } from '@modules/authorization/utils/TokensService.ts';
 import axios from 'axios';
 
 export const createInstance = (path: string) => {
@@ -6,7 +7,7 @@ export const createInstance = (path: string) => {
   });
 
   service.interceptors.request.use(request => {
-    request.headers.Authorization = 'Bearer ADMIN';
+    request.headers.Authorization = `Bearer ${TokensService.GetTokens()['accessToken']}`;
     return request;
   });
 

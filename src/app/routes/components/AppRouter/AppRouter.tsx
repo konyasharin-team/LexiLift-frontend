@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Roles } from '@constants';
 import { NotFoundPage } from '@pages/NotFoundPage.tsx';
 import { RouteWrapper } from '@routes/components/RouteWrapper/RouteWrapper.tsx';
 import { useAppSelector } from '@store/hooks';
@@ -28,7 +29,8 @@ export const AppRouter: FC = () => {
           );
       })}
       {privateRoutes.map(route => {
-        if (user && route.availableFor.includes(user.role))
+        const availableFor = [...route.availableFor, Roles.SUPER_ADMIN];
+        if (user && availableFor.includes(user.permissionGroup))
           return (
             <Route
               path={route.path}
@@ -44,7 +46,7 @@ export const AppRouter: FC = () => {
       <Route
         path={'/*'}
         element={
-          <RouteWrapper>
+          <RouteWrapper withLayout={true}>
             <NotFoundPage />
           </RouteWrapper>
         }

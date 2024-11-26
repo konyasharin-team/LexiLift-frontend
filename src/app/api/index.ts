@@ -3,6 +3,7 @@ export * from './hooks/useApiError.ts';
 export * from './hooks/useInfiniteQuery.ts';
 export * from './hooks/useMutation.ts';
 export * from './hooks/useQuery.ts';
+export * from './hooks/useRequestEvents.ts';
 export * from './types';
 export * from './utils/createInstance.ts';
 export * from './utils/getErrorText.ts';

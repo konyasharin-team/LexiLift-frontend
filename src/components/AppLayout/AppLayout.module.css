@@ -1,6 +1,6 @@
 .layout .navbar, .layout .header {
     transition: .3s all;
-    position: absolute;
+    position: fixed;
 }
 
 .layout .navbar{
