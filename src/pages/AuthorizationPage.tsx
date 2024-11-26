@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { AuthorizationForm } from '@modules/authorization';
-import { useAuthorizationRequests } from '@modules/authorization/hooks/useAuthorizationRequests.ts';
+import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 
 export const AuthorizationPage: FC = () => {
   return (
-    <AuthorizationForm
-      loginController={useAuthorizationRequests().loginController}
-    />
+    <AuthorizationForm loginController={useLoginController().loginController} />
   );
 };

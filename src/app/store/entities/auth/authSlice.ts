@@ -1,4 +1,4 @@
-import { Roles } from '@constants/Roles';
+import { Roles } from '@constants/roles.ts';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IUser {

@@ -2,15 +2,13 @@ import { FC } from 'react';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useAuthorizationRequests } from '@modules/authorization/hooks/useAuthorizationRequests.ts';
+import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 import { appPaths } from '@routes';
 
 import { validateLogin } from '../../validations/validateLogin/validateLogin.ts';
 
 interface IAuthorizationFormProps {
-  loginController: ReturnType<
-    typeof useAuthorizationRequests
-  >['loginController'];
+  loginController: ReturnType<typeof useLoginController>['loginController'];
 }
 
 export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {

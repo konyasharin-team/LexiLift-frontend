@@ -10,7 +10,7 @@ import { Box, Loader, Paper } from '@mantine/core';
 import {
   ConfirmationForm,
   REGISTRATION_POST_ERRORS,
-  useRegistrationRequests,
+  useRegistrationController,
 } from '@modules/authorization';
 import { RegistrationForm } from '@modules/authorization/components/RegistrationForm/RegistrationForm.tsx';
 import { useRegistrationFormAnimatedChanger } from '@modules/authorization/hooks/useRegistrationFormAnimatedChanger.ts';
@@ -21,7 +21,7 @@ interface IRegistrationFormProps {
 }
 
 export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
-  const { controller, apiError } = useRegistrationRequests();
+  const { controller, apiError } = useRegistrationController();
   const animatedChanger = useRegistrationFormAnimatedChanger();
 
   useEffect(() => {

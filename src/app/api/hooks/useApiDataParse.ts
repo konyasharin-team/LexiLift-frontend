@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { IResponseSchemas, Response } from '@api';
+import { ErrorSchema, IResponseSchemas, Response } from '@api';
 import { z, ZodType } from 'zod';
 
 export const useApiDataParse = <
@@ -33,7 +33,7 @@ export const useApiDataParse = <
         if (response.data.error)
           parseWithDefault(
             schemas?.errorSchema,
-            z.string(),
+            ErrorSchema(z.string(), z.object({})),
             response.data.error,
           );
       }

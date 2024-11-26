@@ -1,6 +1,4 @@
-export * from './errors/BaseError';
-export * from './errors/PasswordError';
-export * from './errors/RegistrationError';
+export * from './BaseError.ts';
 export * from './ErrorSchema';
 export * from './IError';
 export * from './IId';
@@ -12,4 +10,3 @@ export * from './Response';
 export * from './ResponsePromise';
 export * from './UseMutationResult';
 export * from './UseQueryResult';
-export * from '@modules/authorization/types/ILogoutTargetData.ts';

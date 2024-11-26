@@ -2,12 +2,12 @@ import { FC } from 'react';
 import { Form } from '@components/Form';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useAuthorizationRequests } from '@modules/authorization/hooks/useAuthorizationRequests.ts';
+import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
 import { appPaths } from '@routes';
 
 interface IPasswordResetFormProps {
   passwordController: ReturnType<
-    typeof useAuthorizationRequests
+    typeof useLoginController
   >['passwordController'];
   errorText?: string;
 }

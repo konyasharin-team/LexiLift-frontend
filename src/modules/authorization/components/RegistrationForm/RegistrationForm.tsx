@@ -2,12 +2,12 @@ import { forwardRef } from 'react';
 import { Form } from '@components/Form';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useRegistrationRequests } from '@modules/authorization';
+import { useRegistrationController } from '@modules/authorization';
 import { validateRegistration } from '@modules/authorization/utils/validateRegistration.ts';
 import { appPaths } from '@routes';
 
 interface IRegistrationFormContentProps {
-  controller: ReturnType<typeof useRegistrationRequests>['controller'];
+  controller: ReturnType<typeof useRegistrationController>['controller'];
   errorText?: string;
 }
 
