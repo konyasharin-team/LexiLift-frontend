@@ -29,7 +29,7 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
 
   return (
     <Form
-      title={'Заголовок1'}
+      title={'Заголовок'}
       onSubmit={loginForm.onSubmit(values =>
         props.loginController.sender.mutate(values),
       )}
