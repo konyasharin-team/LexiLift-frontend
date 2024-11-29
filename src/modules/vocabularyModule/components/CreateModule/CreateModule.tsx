@@ -1,5 +1,5 @@
 import { Affix, Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
-import { ModuleCards } from '@modules/vocabularyModule/components/ModuleCards/ModuleCards.tsx';
+import { ModuleCard } from '@modules/vocabularyModule/components/ModuleCards/ModuleCard.tsx';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
 import { useModuleCard } from '@modules/vocabularyModule/hooks/useModuleCard';
 
@@ -53,7 +53,7 @@ export const CreateModule = () => {
       </Flex>
 
       {moduleCardsController.cards.map((card, index) => (
-        <ModuleCards
+        <ModuleCard
           key={index}
           index={index}
           card={card}

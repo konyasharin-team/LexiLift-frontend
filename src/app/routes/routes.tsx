@@ -9,6 +9,7 @@ import {
   MatchTestSettingsPage,
   ModulesFoldersPage,
   ModulesListPage,
+  ProfilePage,
   RegistrationPage,
   TestPage,
 } from '@pages';
@@ -75,6 +76,11 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.COURSE,
     element: <CoursePage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.PROFILE,
+    element: <ProfilePage />,
     availableFor: [Roles.USER],
   },
 ];

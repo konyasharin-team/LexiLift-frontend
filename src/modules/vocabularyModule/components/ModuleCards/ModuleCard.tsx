@@ -1,14 +1,14 @@
 import { Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
-import { IUseModuleCard } from '@modules/vocabularyModule/types/IUseModuleCard.ts';
+import { ModuleCard as ModuleCardType } from '@modules/vocabularyModule/types/ModuleCard.ts';
 import { IconTrash } from '@tabler/icons-react';
 import { appColors } from '@themes';
 
 import styles from './ModuleCards.module.css';
 
-interface ICardProps {
+interface IModuleCardProps {
   index: number;
-  card: IUseModuleCard;
+  card: ModuleCardType;
   onCardChange: (
     index: number,
     field: 'word' | 'translation',
@@ -20,7 +20,7 @@ interface ICardProps {
   disableRemove?: boolean;
 }
 
-export const ModuleCards = ({
+export const ModuleCard = ({
   index,
   card,
   onCardChange,
@@ -28,7 +28,7 @@ export const ModuleCards = ({
   onDeleteImage,
   onRemoveCard,
   disableRemove,
-}: ICardProps) => (
+}: IModuleCardProps) => (
   <Paper shadow="md" radius="md" mt={20}>
     <div style={{ borderBottom: `2px solid ${appColors.greyApp[0]}` }}>
       <Flex justify="space-between">
@@ -38,7 +38,6 @@ export const ModuleCards = ({
         <Flex align="center" gap={5} mr={18}>
           <ImageUpload
             cardIndex={index}
-            imageUploaded={card.imageUploaded}
             imageUrl={card.img}
             onImageUpload={onImageUpload}
             onDeleteImage={onDeleteImage}

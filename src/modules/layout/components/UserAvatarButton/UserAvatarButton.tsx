@@ -1,8 +1,10 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Avatar, Menu, UnstyledButton } from '@mantine/core';
 import { useLogoutController } from '@modules/authorization';
 import { UserSchemaInfer } from '@modules/authorization/types/UserSchema.ts';
-import { IconLogout2 } from '@tabler/icons-react';
+import { appPaths } from '@routes';
+import { IconLogout2, IconUserCircle } from '@tabler/icons-react';
 import { appColors } from '@themes';
 
 interface IUserAvatarButtonProps {
@@ -25,8 +27,16 @@ export const UserAvatarButton: FC<IUserAvatarButtonProps> = props => {
       </Menu.Target>
       <Menu.Dropdown bd={`1px solid ${appColors.greyApp[2]}`}>
         <Menu.Item
+          color="blue"
+          leftSection={<IconUserCircle size={20} />}
+          component={Link}
+          to={appPaths.PROFILE}
+        >
+          Профиль
+        </Menu.Item>
+        <Menu.Item
           color="red"
-          leftSection={<IconLogout2 size={18} />}
+          leftSection={<IconLogout2 size={20} />}
           onClick={() => controller.sender.mutate()}
           disabled={controller.sender.isPending}
         >

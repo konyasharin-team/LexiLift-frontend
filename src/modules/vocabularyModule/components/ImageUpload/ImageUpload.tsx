@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { Button, Flex, Image, Modal, Text } from '@mantine/core';
+import { ImagePreviewModal } from '@components/ImagePreviewModal';
 import { IconPhoto } from '@tabler/icons-react';
-import { uploadImage } from '@utils';
+import { uploadFile } from '@utils';
 
 import styles from './ImageUpload.module.css';
 
 interface IImageUploadProps {
   cardIndex: number;
-  imageUploaded: boolean;
   imageUrl?: string;
   onImageUpload: (index: number, imageUrl: string) => void;
   onDeleteImage: (index: number) => void;
@@ -15,80 +14,54 @@ interface IImageUploadProps {
 
 export const ImageUpload = ({
   cardIndex,
-  imageUploaded,
   imageUrl,
   onImageUpload,
   onDeleteImage,
 }: IImageUploadProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isChoiceModalOpen, setIsChoiceModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const handleImageUpload = async () => {
-    if (imageUploaded && imageUrl) {
-      setIsChoiceModalOpen(true);
-    } else {
-      try {
-        const newImageUrl = await uploadImage();
-        if (newImageUrl) {
-          onImageUpload(cardIndex, newImageUrl);
-        }
-      } catch (error) {
-        console.error('Ошибка загрузки изображения', error);
+  const handleUploadImage = async () => {
+    try {
+      const newImageUrl = await uploadFile('image/*');
+      if (newImageUrl) {
+        onImageUpload(cardIndex, newImageUrl);
       }
+    } catch (error) {
+      console.error('Ошибка загрузки изображения', error);
     }
   };
 
   const handleDeleteImage = () => {
     onDeleteImage(cardIndex);
-    setIsChoiceModalOpen(false);
-  };
-
-  const handleViewImage = () => {
-    if (imageUrl) {
-      setSelectedImage(imageUrl);
-      setIsModalOpen(true);
-      setIsChoiceModalOpen(false);
-    }
+    setIsModalOpen(false);
   };
 
   return (
     <>
       <IconPhoto
-        color={imageUploaded ? 'green' : 'blue'}
-        onClick={handleImageUpload}
+        color={imageUrl ? 'green' : 'blue'}
+        onClick={() => {
+          if (imageUrl) {
+            setIsModalOpen(true);
+          } else {
+            handleUploadImage();
+          }
+        }}
         className={styles.icon}
       />
-
-      <Modal
-        opened={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Просмотр изображения"
-      >
-        {selectedImage && (
-          <Image
-            src={selectedImage}
-            alt="Загруженное изображение"
-            className={styles.uploadedImage}
-          />
-        )}
-      </Modal>
-
-      <Modal
-        opened={isChoiceModalOpen}
-        onClose={() => setIsChoiceModalOpen(false)}
-        title="Изображение уже загружено"
-      >
-        <Text mb={20}>Что вы хотите сделать с изображением?</Text>
-        <Flex justify="center" gap={5}>
-          <Button color="red" onClick={handleDeleteImage}>
-            Удалить изображение
-          </Button>
-          <Button color="blue" onClick={handleViewImage}>
-            Просмотреть изображение
-          </Button>
-        </Flex>
-      </Modal>
+      {imageUrl ? (
+        <ImagePreviewModal
+          img={imageUrl}
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          onChange={handleUploadImage}
+          onDelete={handleDeleteImage}
+          resolution={{
+            x: 400,
+            y: 400,
+          }}
+        />
+      ) : undefined}
     </>
   );
 };

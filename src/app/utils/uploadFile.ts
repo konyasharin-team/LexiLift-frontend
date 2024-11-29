@@ -1,8 +1,8 @@
-export const uploadImage = async (): Promise<string | null> => {
+export const uploadFile = async (fileType: string): Promise<string | null> => {
   return new Promise((resolve, reject) => {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = 'image/*';
+    input.accept = fileType;
 
     input.onchange = async (event: Event) => {
       const file = (event.target as HTMLInputElement).files?.[0];
@@ -13,12 +13,13 @@ export const uploadImage = async (): Promise<string | null> => {
           resolve(result);
         };
         reader.onerror = () => {
-          reject(new Error('Ошибка загрузки изображения'));
+          reject(new Error('Ошибка загрузки файла'));
         };
         reader.readAsDataURL(file);
       } else {
         resolve(null);
       }
+      input.remove();
     };
 
     input.click();
