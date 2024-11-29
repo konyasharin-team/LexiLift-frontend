@@ -24,5 +24,9 @@ export const authSlice = createSlice({
       state.tokens = action.payload;
       TokensService.SetTokens(action.payload);
     },
+    exit: state => {
+      state.user = null;
+      TokensService.RemoveTokens();
+    },
   },
 });
