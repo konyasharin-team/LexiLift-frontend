@@ -9,7 +9,7 @@ import { useActions, useAppSelector } from '@store';
 
 export const useWhoAmIController = () => {
   const { tokens, user } = useAppSelector(state => state.auth);
-  const { setUser, setAppLoadingIsActive } = useActions();
+  const { setUser, setAppLoadingIsActive, exit } = useActions();
   const navigate = useNavigate();
 
   const controller = useQuery(
@@ -32,8 +32,11 @@ export const useWhoAmIController = () => {
   }, [tokens]);
 
   useEffect(() => {
-    if (user) navigate(appPaths.MODULES);
-  }, [user]);
+    if (controller.apiError) {
+      exit();
+      navigate(appPaths.AUTHORIZATION);
+    }
+  }, [controller.apiError?.type]);
 
   useEffect(() => {
     setAppLoadingIsActive(controller.sender.isLoading);

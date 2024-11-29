@@ -1,5 +1,6 @@
 export * from './components/AuthorizationForm/AuthorizationForm.tsx';
 export * from './components/ConfirmationForm/ConfirmationForm';
+export * from './components/ProfileChangePasswordForm';
 export * from './components/RegistrationAnimatedChanger/RegistrationAnimatedChanger.tsx';
 export * from './constants.ts';
 export * from './hooks/useChangePasswordController.ts';

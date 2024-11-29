@@ -1,3 +1,4 @@
+import { validatePassword } from '@modules/authorization/utils/validatePassword.ts';
 import { regexp } from '@utils';
 
 type LoginValues = {
@@ -14,11 +15,7 @@ export const validateLogin = (values: LoginValues) => {
     errors.email = 'Некорректный email';
   }
 
-  if (!values.password) {
-    errors.password = 'Поле пароля обязательно для заполнения';
-  } else if (values.password.length < 5) {
-    errors.password = 'Пароль должен быть не менее 5 символов';
-  }
+  errors.password = validatePassword(values.password);
 
   return errors;
 };

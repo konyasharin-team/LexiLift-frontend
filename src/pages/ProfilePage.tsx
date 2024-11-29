@@ -1,10 +1,15 @@
 import { FC } from 'react';
 import { Paper } from '@mantine/core';
+import {
+  ProfileChangePasswordForm,
+  useChangePasswordController,
+} from '@modules/authorization';
 
 export const ProfilePage: FC = () => {
+  const controller = useChangePasswordController();
   return (
     <Paper shadow="xs" p="xl">
-      123
+      <ProfileChangePasswordForm controller={controller} />
     </Paper>
   );
 };
