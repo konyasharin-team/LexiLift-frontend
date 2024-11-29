@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { Form } from '@components/Form';
-import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
+import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRegistrationController } from '@modules/authorization';
 import { validateRegistration } from '@modules/authorization/utils/validateRegistration.ts';
@@ -8,7 +8,6 @@ import { appPaths } from '@routes';
 
 interface IRegistrationFormContentProps {
   controller: ReturnType<typeof useRegistrationController>;
-  errorText?: string;
 }
 
 export const RegistrationForm = forwardRef<
@@ -60,7 +59,6 @@ export const RegistrationForm = forwardRef<
           Зарегистрироваться
         </Button>
       </Flex>
-      <Text c={'red'}>{props.errorText}</Text>
     </Form>
   );
 });

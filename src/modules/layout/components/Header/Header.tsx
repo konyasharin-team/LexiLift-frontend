@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { CLOSED_NAVBAR_WIDTH } from '@components/AppLayout';
 import { Burger, Flex } from '@mantine/core';
+import { CLOSED_NAVBAR_WIDTH } from '@modules/layout';
 import { Logo } from '@ui/Logo';
 
 import styles from './Header.module.css';

@@ -1,10 +1,11 @@
 import { FC } from 'react';
-import { NavigationItem } from '@components/AppLayout/components/NavigationItem/NavigationItem.tsx';
+import { NavigationItem } from '@modules/layout/components/NavigationItem/NavigationItem.tsx';
 import {
   NAVBAR_RIGHT_PADDING,
   NAVBAR_WIDTH,
-} from '@components/AppLayout/constants.ts';
-import { navigation } from '@routes';
+} from '@modules/layout/constants.ts';
+import { INavigationItem, privateNavigation, publicNavigation } from '@routes';
+import { useAppSelector } from '@store';
 import { motion, Variants } from 'framer-motion';
 
 import styles from './Navigation.module.css';
@@ -23,6 +24,13 @@ const variants: Variants = {
 };
 
 export const Navigation: FC<INavigationProps> = props => {
+  const { user } = useAppSelector(state => state.auth);
+  const getNavigationItems = (navigation: INavigationItem[]) => {
+    return navigation.map((item, i) => {
+      return <NavigationItem {...item} key={i} />;
+    });
+  };
+
   return (
     <motion.div initial={false} animate={props.opened ? 'open' : 'closed'}>
       <div className={styles.listWrapper}>
@@ -31,9 +39,9 @@ export const Navigation: FC<INavigationProps> = props => {
           className={styles.list}
           style={{ width: NAVBAR_WIDTH - NAVBAR_RIGHT_PADDING }}
         >
-          {navigation.map((item, i) => {
-            return <NavigationItem {...item} key={i} />;
-          })}
+          {user
+            ? getNavigationItems(privateNavigation)
+            : getNavigationItems(publicNavigation)}
         </motion.ul>
       </div>
     </motion.div>

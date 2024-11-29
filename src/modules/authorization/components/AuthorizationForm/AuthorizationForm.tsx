@@ -50,7 +50,7 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
         mt="md"
       />
 
-      <Flex justify="center">
+      <Flex justify="center" gap={20}>
         <Button
           type="submit"
           mt="xl"

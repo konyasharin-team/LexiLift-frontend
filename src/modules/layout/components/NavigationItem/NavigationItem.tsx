@@ -41,8 +41,9 @@ export const NavigationItem: FC<INavigationItem> = props => {
 
   const getLinkClassName = (routerDomIsActive: boolean) => {
     if (
-      (!props.pathToCompare && routerDomIsActive) ||
-      (props.pathToCompare && location.pathname.startsWith(props.pathToCompare))
+      (!props.pathsToCompare && routerDomIsActive) ||
+      (props.pathsToCompare &&
+        props.pathsToCompare.some(path => location.pathname.startsWith(path)))
     ) {
       if (burgerIsActive) return styles.linkActiveWithBurger;
       else return styles.linkActiveWithoutBurger;

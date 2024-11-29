@@ -1,4 +1,5 @@
 import { forwardRef, ReactNode } from 'react';
+import { FORM_WIDTH } from '@components/Form';
 import { Flex, Paper } from '@mantine/core';
 
 interface IFormWrapperProps {
@@ -9,7 +10,7 @@ export const FormWrapper = forwardRef<HTMLDivElement, IFormWrapperProps>(
   (props, ref) => {
     return (
       <Flex justify="center" ref={ref}>
-        <Paper radius="lg" withBorder shadow="xl" p="xl" mt={120} w={700}>
+        <Paper radius="lg" withBorder shadow="xl" p="xl" w={FORM_WIDTH}>
           {props.children}
         </Paper>
       </Flex>

@@ -1,13 +1,15 @@
 import { FC, ReactNode } from 'react';
 import { Center, Loader } from '@mantine/core';
+import { useAppSelector } from '@store';
 
 interface IAppLoaderProps {
-  isLoading: boolean;
   children?: ReactNode;
 }
 
 export const AppLoader: FC<IAppLoaderProps> = props => {
-  if (props.isLoading)
+  const { appLoadingIsActive } = useAppSelector(state => state.layout);
+
+  if (appLoadingIsActive)
     return (
       <Center h={'100vh'} w={'100vw'}>
         <Loader />

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { getErrorText, pendingToLoading, useRequestEvents } from '@api';
+import { pendingToLoading, useRequestEvents } from '@api';
 import {
   AnimatedChanger,
   AnimatedChangerItem,
@@ -9,7 +9,6 @@ import { FormWrapper } from '@components/Form';
 import { Box, Loader, Paper } from '@mantine/core';
 import {
   ConfirmationForm,
-  REGISTRATION_POST_ERRORS,
   useRegistrationController,
 } from '@modules/authorization';
 import { RegistrationForm } from '@modules/authorization/components/RegistrationForm/RegistrationForm.tsx';
@@ -17,11 +16,13 @@ import { useRegistrationFormAnimatedChanger } from '@modules/authorization/hooks
 import { CenterFlex } from '@ui/CenterFlex';
 
 interface IRegistrationFormProps {
+  controller: ReturnType<typeof useRegistrationController>;
   onSuccess?: () => void;
 }
 
-export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
-  const controller = useRegistrationController();
+export const RegistrationAnimatedChanger: FC<
+  IRegistrationFormProps
+> = props => {
   const animatedChanger = useRegistrationFormAnimatedChanger();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
       animatedChanger.onTransitionConfirmation();
   }, [animatedChanger.content]);
 
-  useRequestEvents(pendingToLoading(controller.sender), {
+  useRequestEvents(pendingToLoading(props.controller.sender), {
     onSuccess: animatedChanger.onSuccessRegistration,
     onLoading: animatedChanger.onPendingRegistration,
     onError: animatedChanger.onErrorRegistration,
@@ -50,17 +51,7 @@ export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
             'right'
           }
         >
-          <RegistrationForm
-            controller={controller}
-            errorText={
-              controller.apiError
-                ? getErrorText(
-                    controller.apiError?.type,
-                    REGISTRATION_POST_ERRORS,
-                  )
-                : undefined
-            }
-          />
+          <RegistrationForm controller={props.controller} />
         </AnimatedChangerItem>
         <AnimatedChangerItem
           variant={

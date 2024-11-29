@@ -1,11 +1,10 @@
 import { FC, ReactNode } from 'react';
-import { headerConfiguration } from '@components/AppLayout/utils/headerConfiguration.ts';
 import { AppShell } from '@mantine/core';
+import { Header } from '@modules/layout/components/Header/Header.tsx';
+import { Navbar } from '@modules/layout/components/Navbar/Navbar.tsx';
+import { headerConfiguration } from '@modules/layout/utils/headerConfiguration.ts';
+import { navbarConfiguration } from '@modules/layout/utils/navbarConfiguration.ts';
 import { useActions, useAppSelector } from '@store';
-
-import { Header } from './components/Header/Header.tsx';
-import { Navbar } from './components/Navbar/Navbar.tsx';
-import { navbarConfiguration } from './utils/navbarConfiguration.ts';
 
 import styles from './AppLayout.module.css';
 

@@ -1,5 +1,5 @@
-import { HEADER_HEIGHT } from '@components/AppLayout/constants.ts';
 import { AppShellHeaderConfiguration } from '@mantine/core';
+import { HEADER_HEIGHT } from '@modules/layout/constants.ts';
 
 export const headerConfiguration = (
   isActive: boolean,

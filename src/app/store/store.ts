@@ -1,6 +1,6 @@
 import { authSlice } from '@modules/authorization';
+import { layoutSlice } from '@modules/layout';
 import { configureStore } from '@reduxjs/toolkit';
-import { layoutSlice } from '@store/entities/layout/layoutSlice.ts';
 import { matchTestSlice } from '@store/entities/matchTest/matchTestSlice.ts';
 
 export const store = configureStore({

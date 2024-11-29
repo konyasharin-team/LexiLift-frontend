@@ -1,8 +1,8 @@
+import { AppShellNavbarConfiguration } from '@mantine/core';
 import {
   CLOSED_NAVBAR_WIDTH,
   NAVBAR_WIDTH,
-} from '@components/AppLayout/constants.ts';
-import { AppShellNavbarConfiguration } from '@mantine/core';
+} from '@modules/layout/constants.ts';
 
 export const navbarConfiguration = (
   isOpened: boolean,

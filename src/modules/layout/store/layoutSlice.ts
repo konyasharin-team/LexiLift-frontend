@@ -4,12 +4,16 @@ interface IState {
   burgerIsActive: boolean;
   appLayoutIsActive: boolean;
   appLayoutIsInit: boolean;
+  appLoadingIsActive: boolean;
+  appError: string | null;
 }
 
 const initialState: IState = {
   burgerIsActive: false,
   appLayoutIsActive: false,
   appLayoutIsInit: false,
+  appLoadingIsActive: false,
+  appError: null,
 };
 
 export const layoutSlice = createSlice({
@@ -25,6 +29,12 @@ export const layoutSlice = createSlice({
     },
     setAppLayoutIsInit: (state, action: PayloadAction<boolean>) => {
       state.appLayoutIsInit = action.payload;
+    },
+    setAppError: (state, action: PayloadAction<string | null>) => {
+      state.appError = action.payload;
+    },
+    setAppLoadingIsActive: (state, action: PayloadAction<boolean>) => {
+      state.appLoadingIsActive = action.payload;
     },
   },
 });

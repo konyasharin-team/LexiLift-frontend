@@ -1,5 +1,6 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { IContent } from '@components/AnimatedChanger';
+import { useFinishingAnimations } from '@hooks';
 import { motion, Variants } from 'framer-motion';
 
 import styles from './AnimatedChangerItem.module.css';
@@ -39,25 +40,15 @@ const variants: Variants = {
 export const AnimatedChangerItem = <T extends string>(
   props: IAnimatedChangerItemProps<T>,
 ) => {
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  const [cashedVariant, setCashedVariant] = useState<IContent<T>['position']>(
-    props.variant,
-  );
-
-  useEffect(() => {
-    if (!isAnimating && props.variant !== cashedVariant)
-      setCashedVariant(props.variant);
-  }, [props.variant, isAnimating]);
+  const { cashedVariant, attributes } = useFinishingAnimations(props.variant);
 
   return (
     <motion.div
       initial={props.variant}
       animate={cashedVariant}
       variants={variants}
-      onAnimationStart={() => setIsAnimating(true)}
-      onAnimationComplete={() => setIsAnimating(false)}
       className={styles.block}
+      {...attributes}
     >
       {props.children}
     </motion.div>

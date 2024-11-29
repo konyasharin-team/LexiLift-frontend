@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Navigation } from '@components/AppLayout/components/Navigation/Navigation.tsx';
 import { AppShell, Flex } from '@mantine/core';
+import { Navigation } from '@modules/layout/components/Navigation/Navigation.tsx';
 
 interface INavbarProps {
   opened: boolean;
