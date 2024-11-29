@@ -1,12 +1,12 @@
 import { ErrorSchema, useMutation } from '@api';
-import { AuthApi } from '@modules/authorization/api/AuthApi.ts';
+import { Authapi } from '@modules/authorization/api/Authapi.ts';
 import { RegistrationErrorsSchema } from '@modules/authorization/types/RegistrationErrorsSchema.ts';
 import { z } from 'zod';
 
 export const useRegistrationController = () => {
   const controller = useMutation(
     {
-      mutationFn: AuthApi.PostRegistration.bind(AuthApi),
+      mutationFn: Authapi.PostRegistration.bind(Authapi),
     },
     {
       errorSchema: ErrorSchema(RegistrationErrorsSchema, z.object({})),

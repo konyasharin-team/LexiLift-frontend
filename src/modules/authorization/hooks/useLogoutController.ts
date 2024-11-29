@@ -1,9 +1,9 @@
 import { useMutation } from '@api';
-import { AuthApi } from '@modules/authorization/api/AuthApi.ts';
+import { Authapi } from '@modules/authorization/api/Authapi.ts';
 
 export const useLogoutController = () => {
   const controller = useMutation({
-    mutationFn: AuthApi.DeleteLogout.bind(AuthApi),
+    mutationFn: Authapi.DeleteLogout.bind(Authapi),
   });
 
   return {

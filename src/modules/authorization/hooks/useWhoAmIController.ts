@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useRequestEvents } from '@api';
-import { AuthApi } from '@modules/authorization/api/AuthApi.ts';
+import { Authapi } from '@modules/authorization/api/Authapi.ts';
 import { UserSchema } from '@modules/authorization/types/UserSchema.ts';
 import { TokensService } from '@modules/authorization/utils/TokensService.ts';
 import { appPaths } from '@routes';
@@ -15,7 +15,7 @@ export const useWhoAmIController = () => {
   const controller = useQuery(
     {
       queryKey: ['WHO_AM_I', tokens],
-      queryFn: AuthApi.GetWhoAmI.bind(AuthApi),
+      queryFn: Authapi.GetWhoAmI.bind(Authapi),
       enabled: user !== null,
     },
     {
