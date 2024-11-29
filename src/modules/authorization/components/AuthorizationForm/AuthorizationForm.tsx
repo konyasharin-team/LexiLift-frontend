@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useRequestEvents } from '@api';
+import { pendingToLoading, useRequestEvents } from '@api';
 import { Form } from '@components/Form/Form.tsx';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -23,15 +23,9 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
     validate: validateLogin,
   });
 
-  useRequestEvents(
-    {
-      isLoading: props.loginController.sender.isPending,
-      ...props.loginController.sender,
-    },
-    {
-      onSuccess: setTokens,
-    },
-  );
+  useRequestEvents(pendingToLoading(props.loginController.sender), {
+    onSuccess: setTokens,
+  });
 
   return (
     <Form

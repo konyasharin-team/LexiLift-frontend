@@ -8,7 +8,7 @@ export const useApiDataParse = <
   TResponse extends Response<TResult, TError>,
 >(
   responses: (TResponse | undefined)[] | undefined,
-  schemas?: Partial<IResponseSchemas>,
+  schemas: Partial<IResponseSchemas>,
 ) => {
   const parseWithDefault = <T>(
     schema: ZodType | undefined,

@@ -8,5 +8,6 @@ export * from './IResponseSchemas.ts';
 export * from './RequestErrors';
 export * from './Response';
 export * from './ResponsePromise';
+export * from './ServerError.ts';
 export * from './UseMutationResult';
 export * from './UseQueryResult';

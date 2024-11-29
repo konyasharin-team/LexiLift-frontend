@@ -17,10 +17,15 @@ export const useMutation = <TResult, TErrors extends string, TData = void>(
     Error,
     TData
   >,
-  schemas?: Partial<IResponseSchemas>,
+  schemas: Partial<IResponseSchemas>,
+  resetErrorToBase: boolean = false,
 ) => {
   const sender = useTanstackMutation(tanstackUseMutationOptions);
-  const apiError = useApiError<TErrors>(sender.error, schemas?.errorSchema);
+  const apiError = useApiError<TErrors>(
+    sender.error,
+    resetErrorToBase,
+    schemas.errorSchema,
+  );
   useApiDataParse([sender.data], schemas);
 
   return {

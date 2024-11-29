@@ -1,10 +1,12 @@
-import { BaseError, RequestErrors } from '@api';
-import { BASE_API_ERROR } from '@api/constants.ts';
+import { BaseError, RequestErrors, ServerError } from '@api';
+import { BASE_API_ERROR, SERVER_API_ERROR } from '@api/constants.ts';
 
 export const getErrorText = <T extends string>(
-  errorType: T | BaseError,
+  errorType: T | ServerError | BaseError,
   requestErrors: RequestErrors<T>,
+  baseError?: string,
 ) => {
-  if (errorType === 'BASE') return BASE_API_ERROR;
+  if (errorType === 'SERVER') return SERVER_API_ERROR;
+  else if (errorType === 'BASE') return baseError ? baseError : BASE_API_ERROR;
   else return requestErrors[errorType];
 };

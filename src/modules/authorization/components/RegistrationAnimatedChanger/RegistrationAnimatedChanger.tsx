@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { getErrorText, useRequestEvents } from '@api';
+import { getErrorText, pendingToLoading, useRequestEvents } from '@api';
 import {
   AnimatedChanger,
   AnimatedChangerItem,
@@ -35,17 +35,11 @@ export const RegistrationAnimatedChanger: FC<IRegistrationFormProps> = () => {
       animatedChanger.onTransitionConfirmation();
   }, [animatedChanger.content]);
 
-  useRequestEvents(
-    {
-      isLoading: controller.sender.isPending,
-      ...controller.sender,
-    },
-    {
-      onSuccess: animatedChanger.onSuccessRegistration,
-      onLoading: animatedChanger.onPendingRegistration,
-      onError: animatedChanger.onErrorRegistration,
-    },
-  );
+  useRequestEvents(pendingToLoading(controller.sender), {
+    onSuccess: animatedChanger.onSuccessRegistration,
+    onLoading: animatedChanger.onPendingRegistration,
+    onError: animatedChanger.onErrorRegistration,
+  });
 
   return (
     <FormWrapper>

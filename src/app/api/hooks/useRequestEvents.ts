@@ -14,6 +14,17 @@ interface IUseRequestEventsOptions<TResult> {
   onSuccess?: (result: TResult) => void;
 }
 
+export const pendingToLoading = <TResult, TError>(
+  data: Omit<IRequestData<TResult, TError>, 'isLoading'> & {
+    isPending: boolean;
+  },
+): IRequestData<TResult, TError> => {
+  return {
+    ...data,
+    isLoading: data.isPending,
+  };
+};
+
 export const useRequestEvents = <TResult, TError>(
   data: IRequestData<TResult, TError>,
   options?: IUseRequestEventsOptions<TResult>,
