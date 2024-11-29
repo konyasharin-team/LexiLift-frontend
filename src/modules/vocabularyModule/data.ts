@@ -1,4 +1,3 @@
-import { IFolder } from '@modules/vocabularyModule/types/IFolder.ts';
 import { IModule } from '@modules/vocabularyModule/types/IModule.ts';
 
 export const modulesData: IModule[] = [
@@ -16,16 +15,5 @@ export const modulesData: IModule[] = [
     title: 'Одежда',
     description: 'Изучение одежды',
     tags: ['Слова', 'Легко', 'Актуально'],
-  },
-];
-
-export const foldersData: IFolder[] = [
-  {
-    title: 'Гвозди',
-    count: '4',
-  },
-  {
-    title: 'Попандопала',
-    count: '400',
   },
 ];

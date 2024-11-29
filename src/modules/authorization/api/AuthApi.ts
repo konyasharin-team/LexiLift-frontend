@@ -8,7 +8,7 @@ import { TokensSchemaInfer } from '@modules/authorization/types/TokensSchema.ts'
 import { UserSchemaInfer } from '@modules/authorization/types/UserSchema.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
 
-export class Authapi {
+export class AuthApi {
   static readonly Instance: AxiosInstance = createInstance('/users/auth');
 
   public static PostRegistration(

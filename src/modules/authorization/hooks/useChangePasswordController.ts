@@ -1,12 +1,12 @@
 import { ErrorSchema, useMutation } from '@api';
-import { Authapi } from '@modules/authorization/api/Authapi.ts';
+import { AuthApi } from '@modules/authorization/api/AuthApi.ts';
 import { ChangePasswordErrorsSchema } from '@modules/authorization/types/ChangePasswordErrorsSchema.ts';
 import { z } from 'zod';
 
 export const useChangePasswordController = () => {
   const controller = useMutation(
     {
-      mutationFn: Authapi.PutPassword.bind(Authapi),
+      mutationFn: AuthApi.PutPassword.bind(AuthApi),
     },
     {
       errorSchema: ErrorSchema(ChangePasswordErrorsSchema, z.object({})),
