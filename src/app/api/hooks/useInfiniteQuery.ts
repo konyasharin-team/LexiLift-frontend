@@ -24,7 +24,7 @@ export const useInfiniteQuery = <TResult, TErrors extends string>(
   {
     initialPageParam,
     getNextPageParam,
-    ...options
+    ...queryOptions
   }: Partial<
     Pick<
       InfiniteOptions<Response<TResult, IError<TErrors>>>,
@@ -35,8 +35,7 @@ export const useInfiniteQuery = <TResult, TErrors extends string>(
       InfiniteOptions<Response<TResult, IError<TErrors>>>,
       'initialPageParam' | 'getNextPageParam'
     >,
-  schemas: Partial<IResponseSchemas>,
-  resetErrorToBase: boolean = false,
+  schemas?: Partial<IResponseSchemas>,
 ) => {
   const sender = useTanstackInfiniteQuery({
     initialPageParam: initialPageParam ?? 0,
@@ -45,13 +44,9 @@ export const useInfiniteQuery = <TResult, TErrors extends string>(
       (() => {
         return 1; // заглушка
       }),
-    ...options,
+    ...queryOptions,
   });
-  const apiError = useApiError<TErrors>(
-    sender.error,
-    resetErrorToBase,
-    schemas.errorSchema,
-  );
+  const apiError = useApiError<TErrors>(sender.error, schemas?.errorSchema);
   useApiDataParse(sender.data?.pages, schemas);
 
   return {

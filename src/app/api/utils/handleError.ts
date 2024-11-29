@@ -4,7 +4,6 @@ import { ZodType } from 'zod';
 
 export const handleError = <T extends string, P = undefined>(
   error: Error,
-  resetErrorToBase: boolean,
   errorSchema?: ZodType,
 ): IError<T | ServerError | BaseError, P | undefined> => {
   if (
@@ -12,12 +11,11 @@ export const handleError = <T extends string, P = undefined>(
     error.response?.data.error
   ) {
     if (errorSchema) errorSchema.parse(error.response.data.error);
-    if (resetErrorToBase)
+    else
       return {
         ...error.response.data.error,
         type: 'BASE',
       };
-    else return error.response.data.error;
   }
 
   return {

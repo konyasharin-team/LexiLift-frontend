@@ -23,8 +23,7 @@ export const useQuery = <
     Response<TResult, IError<TErrors>>,
     TKey
   >,
-  schemas: Partial<IResponseSchemas>,
-  resetErrorToBase: boolean = false,
+  schemas?: Partial<IResponseSchemas>,
 ) => {
   const sender = useTanstackQuery<
     Response<TResult, IError<TErrors>>,
@@ -32,11 +31,7 @@ export const useQuery = <
     Response<TResult, IError<TErrors>>,
     TKey
   >(tanstackUseQueryOptions);
-  const apiError = useApiError<TErrors>(
-    sender.error,
-    resetErrorToBase,
-    schemas?.errorSchema,
-  );
+  const apiError = useApiError<TErrors>(sender.error, schemas?.errorSchema);
   useApiDataParse([sender.data], schemas);
 
   return {

@@ -1,4 +1,5 @@
 export * from './BaseError.ts';
+export * from './BaseErrorSchema';
 export * from './ErrorSchema';
 export * from './IError';
 export * from './IId';

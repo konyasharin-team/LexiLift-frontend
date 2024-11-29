@@ -6,7 +6,6 @@ import { handleError } from '../utils/handleError';
 
 export const useApiError = <T extends string, P = undefined>(
   e: Error | null,
-  resetErrorToBase: boolean,
   errorSchema?: ZodType,
 ) => {
   const [error, setError] = useState<IError<
@@ -15,7 +14,7 @@ export const useApiError = <T extends string, P = undefined>(
   > | null>(null);
 
   useEffect(() => {
-    if (e) setError(handleError<T, P>(e, resetErrorToBase, errorSchema));
+    if (e) setError(handleError<T, P>(e, errorSchema));
     else setError(null);
   }, [e]);
 
