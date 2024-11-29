@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImagePreviewModal } from '@components/ImagePreviewModal';
 import { IconPhoto } from '@tabler/icons-react';
 import { uploadFile } from '@utils';
@@ -22,7 +22,7 @@ export const ImageUpload = ({
 
   const handleUploadImage = async () => {
     try {
-      const newImageUrl = await uploadFile('image/*');
+      const newImageUrl = await uploadFile('image/*', 2);
       if (newImageUrl) {
         onImageUpload(cardIndex, newImageUrl);
       }
@@ -35,6 +35,10 @@ export const ImageUpload = ({
     onDeleteImage(cardIndex);
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    if (imageUrl) setIsModalOpen(true);
+  }, [imageUrl]);
 
   return (
     <>
