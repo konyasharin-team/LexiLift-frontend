@@ -14,7 +14,11 @@ export const AppRouter: FC = () => {
       {routes.map(route => (
         <Route
           path={route.path}
-          element={<RouteWrapper>{route.element}</RouteWrapper>}
+          element={
+            <RouteWrapper withLayout={route.withLayout ?? true}>
+              {route.element}
+            </RouteWrapper>
+          }
           key={route.path}
         />
       ))}
@@ -23,7 +27,11 @@ export const AppRouter: FC = () => {
           return (
             <Route
               path={route.path}
-              element={<RouteWrapper>{route.element}</RouteWrapper>}
+              element={
+                <RouteWrapper withLayout={route.withLayout ?? true}>
+                  {route.element}
+                </RouteWrapper>
+              }
               key={route.path}
             />
           );
@@ -35,7 +43,7 @@ export const AppRouter: FC = () => {
             <Route
               path={route.path}
               element={
-                <RouteWrapper withLayout={route.withLayout}>
+                <RouteWrapper withLayout={route.withLayout ?? true}>
                   {route.element}
                 </RouteWrapper>
               }

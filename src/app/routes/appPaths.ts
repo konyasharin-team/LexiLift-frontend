@@ -11,4 +11,5 @@ export const appPaths = {
   MATCH_TEST_RESULTS: '/match-test/results',
   COURSES: '/courses',
   COURSE: '/courses/:id',
+  PROFILE: '/profile',
 };

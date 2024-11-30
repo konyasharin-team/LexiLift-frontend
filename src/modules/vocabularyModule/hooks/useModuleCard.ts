@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { IUseModuleCard } from '@modules/vocabularyModule/types/IUseModuleCard.ts';
+import { ModuleCard } from '@modules/vocabularyModule/types/ModuleCard.ts';
 
 export const useModuleCard = () => {
-  const [cards, setCards] = useState<IUseModuleCard[]>([
-    { word: '', translation: '', imageUploaded: false },
-    { word: '', translation: '', imageUploaded: false },
-    { word: '', translation: '', imageUploaded: false },
+  const [cards, setCards] = useState<ModuleCard[]>([
+    { word: '', translation: '' },
+    { word: '', translation: '' },
+    { word: '', translation: '' },
   ]);
 
   const handleCardChange = (
     index: number,
-    field: keyof IUseModuleCard,
+    field: keyof ModuleCard,
     value: string,
   ) => {
     setCards(prevCards =>

@@ -8,5 +8,6 @@ export * from './MatchTestSettingsPage';
 export * from './ModulesFoldersPage.tsx';
 export * from './ModulesListPage.tsx';
 export * from './NotFoundPage';
+export * from './ProfilePage.tsx';
 export * from './RegistrationPage';
 export * from './TestPage';

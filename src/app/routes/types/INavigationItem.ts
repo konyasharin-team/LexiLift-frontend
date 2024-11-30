@@ -4,5 +4,5 @@ export interface INavigationItem {
   icon: ReactNode;
   to: string;
   text: string;
-  pathToCompare?: string;
+  pathsToCompare?: string[];
 }

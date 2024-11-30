@@ -24,7 +24,9 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
   });
 
   useRequestEvents(pendingToLoading(props.loginController.sender), {
-    onSuccess: setTokens,
+    onSuccess: result => {
+      if (result) setTokens(result);
+    },
   });
 
   return (
@@ -50,7 +52,7 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
         mt="md"
       />
 
-      <Flex justify="center">
+      <Flex justify="center" gap={20}>
         <Button
           type="submit"
           mt="xl"

@@ -7,4 +7,5 @@ export * from './hooks/useRequestEvents.ts';
 export * from './types';
 export * from './utils/createInstance.ts';
 export * from './utils/getErrorText.ts';
+export * from './utils/getErrorTextWithEmpty.ts';
 export * from './utils/transformPages.ts';

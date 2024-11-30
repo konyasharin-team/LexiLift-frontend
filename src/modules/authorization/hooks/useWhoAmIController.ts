@@ -9,7 +9,7 @@ import { useActions, useAppSelector } from '@store';
 
 export const useWhoAmIController = () => {
   const { tokens, user } = useAppSelector(state => state.auth);
-  const { setUser } = useActions();
+  const { setUser, setAppLoadingIsActive, exit } = useActions();
   const navigate = useNavigate();
 
   const controller = useQuery(
@@ -24,7 +24,14 @@ export const useWhoAmIController = () => {
   );
 
   useRequestEvents(controller.sender, {
-    onSuccess: setUser,
+    onSuccess: result => {
+      if (result) setUser(result);
+      navigate(appPaths.MODULES);
+    },
+    onError: () => {
+      exit();
+      navigate(appPaths.AUTHORIZATION);
+    },
   });
 
   useEffect(() => {
@@ -32,8 +39,8 @@ export const useWhoAmIController = () => {
   }, [tokens]);
 
   useEffect(() => {
-    if (user) navigate(appPaths.MODULES);
-  }, [user]);
+    setAppLoadingIsActive(controller.sender.isLoading);
+  }, [controller.sender.isLoading]);
 
   return {
     ...controller,

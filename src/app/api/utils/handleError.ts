@@ -10,7 +10,7 @@ export const handleError = <T extends string, P = undefined>(
     isAxiosError<IResponse<undefined, IError<T, P>>>(error) &&
     error.response?.data.error
   ) {
-    if (errorSchema) errorSchema.parse(error.response.data.error);
+    if (errorSchema) return errorSchema.parse(error.response.data.error);
     else
       return {
         ...error.response.data.error,

@@ -1,3 +1,5 @@
+import { validatePassword } from '@modules/authorization/utils/validatePassword.ts';
+import { validateRepeatPassword } from '@modules/authorization/utils/validateRepeatPassword.ts';
 import { regexp } from '@utils';
 
 interface IRegistrationValues {
@@ -15,18 +17,11 @@ export const validateRegistration = (values: IRegistrationValues) => {
     errors.email = 'Некорректный email';
   }
 
-  if (!values.password) {
-    errors.password = 'Поле пароля обязательно для заполнения';
-  } else if (values.password.length < 5) {
-    errors.password = 'Пароль должен быть не менее 5 символов';
-  }
-
-  if (!values.confirmPassword) {
-    errors.confirmPassword =
-      'Поле подтверждения пароля обязательно для заполнения';
-  } else if (values.confirmPassword !== values.password) {
-    errors.confirmPassword = 'Пароли должны совпадать';
-  }
+  errors.password = validatePassword(values.password);
+  errors.confirmPassword = validateRepeatPassword(
+    values.confirmPassword,
+    values.password,
+  );
 
   return errors;
 };
