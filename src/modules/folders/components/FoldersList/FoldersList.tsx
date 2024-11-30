@@ -1,7 +1,6 @@
 import { Flex, Paper, Text } from '@mantine/core';
-import { CreateFolderButton } from '@modules/vocabularyModule/components/CreateFolderButton/CreateFolder.tsx';
-
-import { foldersData } from '../../data.ts';
+import { CreateFolderButton } from '@modules/folders/components/CreateFolderButton/CreateFolder.tsx';
+import { foldersData } from '@modules/folders/data.ts';
 
 export const FoldersList = () => {
   return (
