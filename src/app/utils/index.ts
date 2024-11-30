@@ -1,4 +1,5 @@
 export * from './arrays';
+export * from './generateKeys.ts';
 export * from './regexpUtils';
 export * from './tests';
 export * from './time';

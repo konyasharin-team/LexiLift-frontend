@@ -1,10 +1,11 @@
 import { FC, useEffect, useMemo, useState } from 'react';
+import { getColor } from '@components/Alert/utils/getColor.ts';
 import { useFinishingAnimations } from '@hooks';
-import { Alert as MantineAlert, AlertProps, MantineColor } from '@mantine/core';
+import { Alert as MantineAlert, AlertProps } from '@mantine/core';
 import { Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 
-type AlertType = 'error' | 'info' | 'warning' | 'success';
+export type AlertType = 'error' | 'info' | 'warning' | 'success';
 
 export interface IAlertProps extends AlertProps {
   type: AlertType;
@@ -61,19 +62,6 @@ export const Alert: FC<IAlertProps> = ({
   const { cashedVariant, attributes: useFinishingAttributes } =
     useFinishingAnimations(variant);
 
-  const getColor = (alertType: AlertType): MantineColor => {
-    switch (alertType) {
-      case 'success':
-        return 'green';
-      case 'warning':
-        return 'orange';
-      case 'error':
-        return 'red';
-      case 'info':
-        return 'blue';
-    }
-  };
-
   useEffect(() => {
     setVariant(() => getVariant());
   }, [opened]);
@@ -83,6 +71,7 @@ export const Alert: FC<IAlertProps> = ({
       variants={variants}
       initial={variant}
       animate={cashedVariant}
+      style={{ width: '100%' }}
       {...useFinishingAttributes}
     >
       <MantineAlert

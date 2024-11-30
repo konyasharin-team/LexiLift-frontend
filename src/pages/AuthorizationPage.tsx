@@ -1,34 +1,32 @@
-import { FC, useEffect, useState } from 'react';
-import { getErrorText } from '@api';
-import { AlertGroup } from '@components/Alert';
+import { FC } from 'react';
+import { getErrorTextWithEmpty } from '@api';
+import { AlertGroup, useAlertGroup } from '@components/Alert';
 import { CenterPage } from '@components/CenterPage';
 import { AuthorizationForm, useLoginController } from '@modules/authorization';
+import { generateKeys } from '@utils';
 
 export const AuthorizationPage: FC = () => {
-  const [alertOpened, setAlertOpened] = useState(false);
   const controller = useLoginController();
-
-  useEffect(() => {
-    setAlertOpened(!!controller.apiError);
-  }, [controller.apiError]);
+  const alertGroupController = useAlertGroup(
+    generateKeys([
+      {
+        type: 'error',
+        text: getErrorTextWithEmpty(controller.apiError?.type, {
+          replacedBaseError: 'Неверный логин или пароль',
+        }),
+        on: !!controller.apiError,
+      },
+    ]),
+    {
+      attributes: {
+        delay: 0.05,
+      },
+    },
+  );
 
   return (
     <CenterPage deltaY={100}>
-      <AlertGroup
-        type={'error'}
-        setOpened={setAlertOpened}
-        opened={alertOpened}
-        durationOpen={0.1}
-        durationClose={0.1}
-        delay={0.05}
-        text={
-          controller.apiError
-            ? getErrorText(controller.apiError?.type, {
-                replacedBaseError: 'Неверный логин или пароль',
-              })
-            : undefined
-        }
-      >
+      <AlertGroup {...alertGroupController.attributes}>
         <AuthorizationForm loginController={controller} />
       </AlertGroup>
     </CenterPage>

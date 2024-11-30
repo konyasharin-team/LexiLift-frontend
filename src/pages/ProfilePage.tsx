@@ -1,15 +1,35 @@
 import { FC } from 'react';
-import { Paper } from '@mantine/core';
+import { getErrorTextWithEmpty } from '@api';
+import { AlertGroup, useAlertGroup } from '@components/Alert';
 import {
+  PASSWORD_PUT_ERRORS,
   ProfileChangePasswordForm,
   useChangePasswordController,
 } from '@modules/authorization';
+import { generateKeys } from '@utils';
 
 export const ProfilePage: FC = () => {
   const controller = useChangePasswordController();
+  const alertGroupController = useAlertGroup(
+    generateKeys([
+      {
+        type: 'error',
+        text: getErrorTextWithEmpty(controller.apiError?.type, {
+          requestErrors: PASSWORD_PUT_ERRORS,
+        }),
+        on: !!controller.apiError,
+      },
+      {
+        type: 'success',
+        text: 'Пароль успешно изменен',
+        on: controller.sender.isSuccess,
+      },
+    ]),
+  );
+
   return (
-    <Paper shadow="xs" p="xl">
+    <AlertGroup {...alertGroupController.attributes}>
       <ProfileChangePasswordForm controller={controller} />
-    </Paper>
+    </AlertGroup>
   );
 };

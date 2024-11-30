@@ -11,7 +11,7 @@ interface IRequestData<TResult, TError> {
 interface IUseRequestEventsOptions<TResult> {
   onLoading?: () => void;
   onError?: () => void;
-  onSuccess?: (result: TResult) => void;
+  onSuccess?: (result?: TResult) => void;
 }
 
 export const pendingToLoading = <TResult, TError>(
@@ -32,7 +32,7 @@ export const useRequestEvents = <TResult, TError>(
   useEffect(() => {
     if (data.isError) options?.onError?.();
     else if (data.isLoading) options?.onLoading?.();
-    else if (data.isSuccess && data.response && data.response.data.result)
+    else if (data.isSuccess && data.response)
       options?.onSuccess?.(data.response.data.result);
   }, [data.isLoading, data.isError, data.isSuccess]);
 };

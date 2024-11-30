@@ -24,7 +24,9 @@ export const useWhoAmIController = () => {
   );
 
   useRequestEvents(controller.sender, {
-    onSuccess: setUser,
+    onSuccess: result => {
+      if (result) setUser(result);
+    },
   });
 
   useEffect(() => {

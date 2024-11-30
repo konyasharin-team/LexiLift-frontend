@@ -1,3 +1,4 @@
+export * from './useDependencies';
 export * from './useFinishingAnimations';
 export * from './useQueue';
 export * from './useRounds';

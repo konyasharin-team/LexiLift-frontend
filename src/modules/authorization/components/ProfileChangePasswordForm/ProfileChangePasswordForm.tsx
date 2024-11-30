@@ -1,12 +1,13 @@
 import { FC } from 'react';
+import { Form } from '@components/Form';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
   IChangePasswordData,
   useChangePasswordController,
 } from '@modules/authorization';
+import { validateNotRepeatPassword } from '@modules/authorization/utils/validateNotRepeatPassword.ts';
 import { validatePassword } from '@modules/authorization/utils/validatePassword.ts';
-import { validateRepeatPassword } from '@modules/authorization/utils/validateRepeatPassword.ts';
 
 interface IProfileChangePasswordFormProps {
   controller: ReturnType<typeof useChangePasswordController>;
@@ -23,16 +24,17 @@ export const ProfileChangePasswordForm: FC<
     validate: {
       oldPassword: validatePassword,
       newPassword: (value, values) =>
-        validateRepeatPassword(value, values.oldPassword),
+        validateNotRepeatPassword(value, values.oldPassword),
     },
   });
 
   return (
-    <form
+    <Form
       onSubmit={form.onSubmit((values, event) => {
         event?.preventDefault();
         props.controller.sender.mutate(values);
       })}
+      fullWidth={true}
     >
       <Flex justify={'space-between'} gap={20}>
         <PasswordInput
@@ -54,6 +56,6 @@ export const ProfileChangePasswordForm: FC<
       >
         Сохранить
       </Button>
-    </form>
+    </Form>
   );
 };

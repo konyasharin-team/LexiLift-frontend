@@ -1,7 +1,7 @@
 import { BaseError, RequestErrors, ServerError } from '@api';
 import { BASE_API_ERROR, SERVER_API_ERROR } from '@api/constants.ts';
 
-interface IGetErrorTextOptions<T extends string> {
+export interface IGetErrorTextOptions<T extends string> {
   requestErrors?: RequestErrors<T>;
   replacedBaseError?: string;
 }

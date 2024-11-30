@@ -24,7 +24,9 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
   });
 
   useRequestEvents(pendingToLoading(props.loginController.sender), {
-    onSuccess: setTokens,
+    onSuccess: result => {
+      if (result) setTokens(result);
+    },
   });
 
   return (
