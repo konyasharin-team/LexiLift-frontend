@@ -2,26 +2,26 @@ import { DependencyList } from 'react';
 import { NotificationType } from '@app-types';
 import { IOnSettings, useOn } from '@hooks/useOn.ts';
 import { NotificationData, showNotification } from '@mantine/notifications';
-import { getNotificationColor } from '@utils';
+import { generateKeys, getNotificationColor } from '@utils';
 
 interface INotificationSettings
-  extends IOnSettings,
-    Omit<NotificationData, 'key'> {
+  extends Omit<IOnSettings, 'key'>,
+    Pick<NotificationData, 'message'> {
   type: NotificationType;
 }
 
 export const useNotifications = (
-  notificationsSettings: (INotificationSettings & NotificationData)[],
+  notificationsSettings: INotificationSettings[],
   extraDependencies?: DependencyList,
 ) => {
   useOn(
-    notificationsSettings,
+    generateKeys(notificationsSettings),
     settings => {
       settings.forEach(setting => {
         if (setting.on)
           showNotification({
             color: getNotificationColor(setting.type),
-            ...setting,
+            message: setting.message,
           });
       });
     },

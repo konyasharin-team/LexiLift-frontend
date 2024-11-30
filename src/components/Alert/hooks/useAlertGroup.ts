@@ -2,8 +2,9 @@ import { DependencyList, useEffect, useState } from 'react';
 import { NotificationType } from '@app-types';
 import { IAlertProps } from '@components/Alert';
 import { IOnSettings, useOn } from '@hooks';
+import { generateKeys } from '@utils';
 
-interface IAlertGroupElementSetting extends IOnSettings {
+interface IAlertGroupElementSetting extends Omit<IOnSettings, 'key'> {
   type: NotificationType;
   text: string;
 }
@@ -22,7 +23,7 @@ export const useAlertGroup = (
   options?: IUserAlertGroupOptions,
 ): IUserAlertGroupReturn => {
   useOn(
-    alerts,
+    generateKeys(alerts),
     settings => {
       setActiveAlert(settings.find(alert => alert.on) ?? null);
     },
