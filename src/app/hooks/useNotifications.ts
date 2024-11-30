@@ -1,20 +1,30 @@
-// import { useState } from 'react';
-// import { NotificationData, showNotification } from '@mantine/notifications';
+import { DependencyList } from 'react';
+import { NotificationType } from '@app-types';
+import { IOnSettings, useOn } from '@hooks/useOn.ts';
+import { NotificationData, showNotification } from '@mantine/notifications';
+import { getNotificationColor } from '@utils';
 
-export const useNotifications = () => {
-  // const [activeNotifications, setActiveNotifications] = useState<
-  //   NotificationData[]
-  // >([]);
-  //
-  // const showActiveAlerts = () => {
-  //   activeAlert.forEach(alert => {
-  //     showNotification({
-  //       message: alert.text,
-  //       color: getColor(alert.type),
-  //     });
-  //   });
-  // };
-  // useEffect(() => {
-  //   if (showAtAlert) showActiveAlerts();
-  // }, [showAtAlert, activeAlert]);
+interface INotificationSettings
+  extends IOnSettings,
+    Omit<NotificationData, 'key'> {
+  type: NotificationType;
+}
+
+export const useNotifications = (
+  notificationsSettings: (INotificationSettings & NotificationData)[],
+  extraDependencies?: DependencyList,
+) => {
+  useOn(
+    notificationsSettings,
+    settings => {
+      settings.forEach(setting => {
+        if (setting.on)
+          showNotification({
+            color: getNotificationColor(setting.type),
+            ...setting,
+          });
+      });
+    },
+    extraDependencies,
+  );
 };

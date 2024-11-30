@@ -1,14 +1,13 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import { getColor } from '@components/Alert/utils/getColor.ts';
+import { NotificationType } from '@app-types';
 import { useFinishingAnimations } from '@hooks';
 import { Alert as MantineAlert, AlertProps } from '@mantine/core';
+import { getNotificationColor } from '@utils';
 import { Variants } from 'framer-motion';
 import { motion } from 'framer-motion';
 
-export type AlertType = 'error' | 'info' | 'warning' | 'success';
-
 export interface IAlertProps extends AlertProps {
-  type: AlertType;
+  type: NotificationType;
   setOpened: (open: boolean) => void;
   opened: boolean;
   durationOpen?: number;
@@ -76,7 +75,7 @@ export const Alert: FC<IAlertProps> = ({
     >
       <MantineAlert
         variant="light"
-        color={getColor(type)}
+        color={getNotificationColor(type)}
         title={title}
         withCloseButton={true}
         onClose={() => setOpened(false)}

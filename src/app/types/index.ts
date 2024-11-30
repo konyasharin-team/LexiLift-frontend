@@ -5,4 +5,5 @@ export * from './IStatistics';
 export * from './ITestItem';
 export * from './ITestSettings';
 export * from './ITime';
+export * from './NotificationType';
 export * from './TestItemType';

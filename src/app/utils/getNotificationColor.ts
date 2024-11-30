@@ -1,7 +1,9 @@
-import { AlertType } from '@components/Alert';
+import { NotificationType } from '@app-types';
 import { MantineColor } from '@mantine/core';
 
-export const getColor = (alertType: AlertType): MantineColor => {
+export const getNotificationColor = (
+  alertType: NotificationType,
+): MantineColor => {
   switch (alertType) {
     case 'success':
       return 'green';

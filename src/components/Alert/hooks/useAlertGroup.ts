@@ -1,11 +1,10 @@
-import { DependencyList, useEffect, useMemo, useState } from 'react';
-import { AlertType, IAlertProps } from '@components/Alert';
-import { useDependencies } from '@hooks';
+import { DependencyList, useEffect, useState } from 'react';
+import { NotificationType } from '@app-types';
+import { IAlertProps } from '@components/Alert';
+import { IOnSettings, useOn } from '@hooks';
 
-interface IAlertGroupElementSetting {
-  key: string;
-  type: AlertType;
-  on: boolean;
+interface IAlertGroupElementSetting extends IOnSettings {
+  type: NotificationType;
   text: string;
 }
 
@@ -22,23 +21,16 @@ export const useAlertGroup = (
   alerts: IAlertGroupElementSetting[],
   options?: IUserAlertGroupOptions,
 ): IUserAlertGroupReturn => {
-  const { dependencies } = useDependencies(
-    alerts.map(alert => ({ ...alert, dependency: [alert.on] })),
-    (element, externalElement) => element.on !== externalElement.on,
-  );
-  const memoAlerts = useMemo(
-    () => alerts,
-    options?.extraDependencies
-      ? [...dependencies, ...options.extraDependencies]
-      : dependencies,
+  useOn(
+    alerts,
+    settings => {
+      setActiveAlert(settings.find(alert => alert.on) ?? null);
+    },
+    options?.extraDependencies,
   );
   const [activeAlert, setActiveAlert] =
     useState<IAlertGroupElementSetting | null>(null);
   const [opened, setOpened] = useState(false);
-
-  useEffect(() => {
-    setActiveAlert(memoAlerts.find(alert => alert.on) ?? null);
-  }, [memoAlerts]);
 
   useEffect(() => {
     setOpened(activeAlert !== null);
