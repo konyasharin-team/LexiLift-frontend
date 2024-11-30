@@ -1,6 +1,7 @@
 import { ErrorSchema } from '@api';
-import { FoldersErrorsSchema } from '@modules/folders';
 import { z } from 'zod';
+
+import { FoldersErrorsSchema } from './FoldersErrorsSchema';
 
 export const FoldersErrorSchema = ErrorSchema(
   FoldersErrorsSchema,

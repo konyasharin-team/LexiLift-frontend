@@ -1,19 +1,23 @@
-import { FC, useEffect } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import testImg from '@assets/images/test-img.jpg';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
-import { Text } from '@mantine/core';
-import { useDeleteModuleController } from '@modules/vocabularyModule';
+import { List, ListItem } from '@components/List';
+import { Button, Text } from '@mantine/core';
 import { appPaths } from '@routes';
 
 export const TestPage: FC = () => {
   const [value, toggle] = useFlipCard();
-  const controller = useDeleteModuleController();
+  const [test, setTest] = useState([
+    { content: '123', key: 1 },
+    { content: '1234', key: 2 },
+    { content: '1235', key: 3 },
+    { content: '1236', key: 4 },
+  ]);
 
-  useEffect(() => {
-    console.log('123');
-    controller.sender.mutate({ id: 7 });
-  }, []);
+  const getElements = () => {
+    return test.map(elem => <ListItem key={elem.key}>{elem.content}</ListItem>);
+  };
 
   return (
     <>
@@ -30,6 +34,10 @@ export const TestPage: FC = () => {
           К приватным роутам -{'>'}
         </Text>
       </Link>
+      <List>{getElements()}</List>
+      <Button onClick={() => setTest(test.filter(elem => elem.key !== 2))}>
+        test
+      </Button>
     </>
   );
 };

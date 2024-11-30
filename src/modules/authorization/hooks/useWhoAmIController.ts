@@ -26,7 +26,6 @@ export const useWhoAmIController = () => {
   useRequestEvents(controller.sender, {
     onSuccess: result => {
       if (result) setUser(result);
-      navigate(appPaths.MODULES);
     },
     onError: () => {
       exit();

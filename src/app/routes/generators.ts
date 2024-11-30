@@ -6,4 +6,9 @@ export const generators = {
       return `${appPaths.COURSES}/${id}`;
     },
   },
+  MODULES_GENERATORS: {
+    MODULE: (id: number) => {
+      return `${appPaths.MODULES}/${id}`;
+    },
+  },
 };
