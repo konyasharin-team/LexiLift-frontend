@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { getErrorTextWithEmpty } from '@api';
 import { AlertGroup, useAlertGroup } from '@components/Alert';
-import { useNotifications } from '@hooks';
 import {
   PASSWORD_PUT_ERRORS,
   ProfileChangePasswordForm,
@@ -22,13 +21,6 @@ export const ProfilePage: FC = () => {
       type: 'success',
       text: 'Пароль успешно изменен',
       on: controller.sender.isSuccess,
-    },
-  ]);
-  useNotifications([
-    {
-      type: 'success',
-      on: controller.sender.isSuccess,
-      message: '123',
     },
   ]);
 

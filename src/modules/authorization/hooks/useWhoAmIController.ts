@@ -26,19 +26,17 @@ export const useWhoAmIController = () => {
   useRequestEvents(controller.sender, {
     onSuccess: result => {
       if (result) setUser(result);
+      navigate(appPaths.MODULES);
+    },
+    onError: () => {
+      exit();
+      navigate(appPaths.AUTHORIZATION);
     },
   });
 
   useEffect(() => {
     if (TokensService.IsNotEmpty(tokens)) controller.sender.refetch();
   }, [tokens]);
-
-  useEffect(() => {
-    if (controller.apiError) {
-      exit();
-      navigate(appPaths.AUTHORIZATION);
-    }
-  }, [controller.apiError?.type]);
 
   useEffect(() => {
     setAppLoadingIsActive(controller.sender.isLoading);
