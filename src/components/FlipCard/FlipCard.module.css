@@ -1,7 +1,7 @@
 .card {
     position: relative;
-    max-width: 650px;
-    min-height: 300px;
+    height: 100%;
+    width: 100%;
     transition: .5s ease-in-out;
     perspective: 600px;
     transform-style: preserve-3d;

@@ -36,7 +36,7 @@ export const CourseLessonsListElement = forwardRef<
   };
 
   return (
-    <ListItem ref={ref}>
+    <ListItem ref={ref} index={props.index}>
       <Flex justify={'space-between'}>
         <Image src={props.img} fit="contain" w={64} h={64} radius={'md'} />
         {getPlayButtonByProgress()}

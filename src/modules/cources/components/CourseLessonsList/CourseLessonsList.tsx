@@ -7,7 +7,7 @@ export const CourseLessonsList: FC<
   Pick<ICourse, 'lessons' | 'progress'>
 > = props => {
   return (
-    <List>
+    <List span={3} height={250}>
       {props.lessons.map((lesson, i) => (
         <CourseLessonsListElement
           {...lesson}

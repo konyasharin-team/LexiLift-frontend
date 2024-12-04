@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Response } from '@api/types';
 
-interface IRequestData<TResult, TError> {
+export interface IRequestData<TResult, TError> {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;

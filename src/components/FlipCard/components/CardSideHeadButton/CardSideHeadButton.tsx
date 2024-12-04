@@ -9,7 +9,7 @@ interface ICardSideHeadButton {
 export const CardSideHeadButton: FC<ICardSideHeadButton> = props => {
   return (
     <ActionIcon
-      color={'dark'}
+      color={'blue'}
       variant={'subtle'}
       p={4}
       w={'fit-content'}

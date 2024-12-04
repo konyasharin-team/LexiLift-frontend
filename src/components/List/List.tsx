@@ -12,7 +12,7 @@ export interface IListProps {
 export const List: FC<IListProps> = props => {
   return (
     <ListContext.Provider value={props}>
-      <Grid gutter={'md'}>
+      <Grid>
         <AnimatePresence mode={'popLayout'}>{props.children}</AnimatePresence>
       </Grid>
     </ListContext.Provider>
