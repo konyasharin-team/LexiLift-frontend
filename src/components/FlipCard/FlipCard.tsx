@@ -1,4 +1,4 @@
-import { ComponentProps, FC, useState } from 'react';
+import { ComponentProps, FC } from 'react';
 import { IDictionaryItem } from '@app-types';
 import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import { IconPhoto } from '@tabler/icons-react';
@@ -12,6 +12,8 @@ export type FlipCardSide = 'front' | 'back';
 
 interface IFlipCard extends ComponentProps<'div'>, Omit<IDictionaryItem, 'id'> {
   activeSide: FlipCardSide;
+  imgIsVisible: boolean;
+  setImgIsVisible: (newVisible: boolean) => void;
   translationImg?: string;
 }
 
@@ -21,10 +23,10 @@ export const FlipCard: FC<IFlipCard> = ({
   activeSide,
   translationImg,
   className,
+  imgIsVisible,
+  setImgIsVisible,
   ...attributes
 }) => {
-  const [imgIsVisible, setImgIsVisible] = useState(false);
-
   return (
     <div
       className={clsx(
@@ -39,9 +41,11 @@ export const FlipCard: FC<IFlipCard> = ({
         text={translation}
         side={'back'}
         headContent={
-          <CardSideHeadButton onClick={() => setImgIsVisible(!imgIsVisible)}>
-            <IconPhoto size={24} />
-          </CardSideHeadButton>
+          translationImg ? (
+            <CardSideHeadButton onClick={() => setImgIsVisible(!imgIsVisible)}>
+              <IconPhoto size={36} />
+            </CardSideHeadButton>
+          ) : undefined
         }
         img={
           translationImg

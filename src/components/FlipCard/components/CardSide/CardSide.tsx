@@ -9,6 +9,7 @@ import {
   PaperProps,
   PolymorphicComponentProps,
   Text,
+  useMantineTheme,
 } from '@mantine/core';
 import clsx from 'clsx';
 
@@ -32,10 +33,11 @@ export const CardSide: FC<ICardSide> = ({
   headContent,
   ...attributes
 }) => {
+  const theme = useMantineTheme();
   return (
     <Paper
       shadow="md"
-      bg={'white.0'}
+      bg={theme.white}
       p="xl"
       w={'100%'}
       h={'100%'}

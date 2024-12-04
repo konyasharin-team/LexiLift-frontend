@@ -1,18 +1,22 @@
-import { SetStateAction, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FlipCardSide } from '@components/FlipCard/FlipCard.tsx';
 import { useToggle } from '@mantine/hooks';
 
-export const useFlipCard = (
-  initialValue: FlipCardSide = 'front',
-): [
-  FlipCardSide,
-  (value?: SetStateAction<FlipCardSide> | undefined) => void,
-] => {
-  const [value, toggle] = useToggle<FlipCardSide>(['front', 'back']);
+export const useFlipCard = (initialValue: FlipCardSide = 'front') => {
+  const [currentSide, toggleCurrentSide] = useToggle<FlipCardSide>([
+    'front',
+    'back',
+  ]);
+  const [imgIsVisible, setImgIsVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    toggle(initialValue);
+    toggleCurrentSide(initialValue);
   }, [initialValue]);
 
-  return [value, toggle];
+  return {
+    currentSide,
+    toggleCurrentSide,
+    imgIsVisible,
+    setImgIsVisible,
+  };
 };

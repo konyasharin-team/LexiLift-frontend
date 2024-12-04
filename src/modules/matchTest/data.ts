@@ -1,15 +1,18 @@
-import { IDictionaryItem } from '@app-types';
+import { IDictionaryCard } from '@app-types';
+import TestImg from '@assets/images/test-img.jpg';
 
-export const wordPairs: IDictionaryItem[] = [
+export const wordPairs: IDictionaryCard[] = [
   {
     id: 0,
     word: 'Apple',
     translation: 'Яблоко',
+    img: TestImg,
   },
   {
     id: 1,
     word: 'Apple1',
     translation: 'Яблоко1',
+    img: TestImg,
   },
   {
     id: 2,
@@ -25,6 +28,7 @@ export const wordPairs: IDictionaryItem[] = [
     id: 4,
     word: 'Apple4',
     translation: 'Яблоко4',
+    img: TestImg,
   },
   {
     id: 5,

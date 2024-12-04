@@ -13,6 +13,7 @@ import {
   RegistrationPage,
   TestPage,
 } from '@pages';
+import { ModulePage } from '@pages/ModulePage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -61,6 +62,11 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.MODULES,
     element: <ModulesListPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.MODULE,
+    element: <ModulePage />,
     availableFor: [Roles.USER],
   },
   {

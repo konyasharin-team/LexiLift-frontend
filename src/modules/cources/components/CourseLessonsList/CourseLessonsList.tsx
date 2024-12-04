@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Grid } from '@mantine/core';
+import { List } from '@components/List';
 import { CourseLessonsListElement } from '@modules/cources/components/CourseLessonsListElement/CourseLessonsListElement.tsx';
 import { ICourse } from '@modules/cources/types/ICourse.ts';
 
@@ -7,7 +7,7 @@ export const CourseLessonsList: FC<
   Pick<ICourse, 'lessons' | 'progress'>
 > = props => {
   return (
-    <Grid gutter={'md'}>
+    <List span={3} height={250}>
       {props.lessons.map((lesson, i) => (
         <CourseLessonsListElement
           {...lesson}
@@ -16,6 +16,6 @@ export const CourseLessonsList: FC<
           key={i}
         />
       ))}
-    </Grid>
+    </List>
   );
 };

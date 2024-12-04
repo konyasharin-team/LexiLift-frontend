@@ -12,7 +12,6 @@ export const CardSideHead: FC<ICardSideHead> = props => {
     <Flex
       pos={'absolute'}
       gap={10}
-      w={'100%'}
       align={'center'}
       className={styles.cardSide}
     >

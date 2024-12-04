@@ -1,7 +1,7 @@
 import {
   createInstance,
+  IdSchemaInfer,
   IError,
-  IId,
   IPagination,
   ResponsePromise,
 } from '@api';
@@ -16,7 +16,7 @@ export class FoldersApi {
 
   public static PutFolder(
     body: PutFolderBody,
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<FolderSchemaInfer, IError<FoldersErrorsSchemaInfer>> {
     return this.Instance.put('/', body, { params });
   }
@@ -28,7 +28,7 @@ export class FoldersApi {
   }
 
   public static DeleteFolder(
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<undefined, IError<FoldersErrorsSchemaInfer>> {
     return this.Instance.delete('/', { params });
   }
@@ -46,7 +46,7 @@ export class FoldersApi {
   }
 
   public static GetFolderAbout(
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<FolderSchemaInfer, IError<FoldersErrorsSchemaInfer>> {
     return this.Instance.get('/about', { params });
   }

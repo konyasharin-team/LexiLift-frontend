@@ -1,7 +1,7 @@
 import {
   createInstance,
+  IdSchemaInfer,
   IError,
-  IId,
   IPagination,
   ResponsePromise,
 } from '@api';
@@ -16,7 +16,7 @@ export class ModulesApi {
 
   public static PutModule(
     body: PutModuleBody,
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<ModuleSchemaInfer, IError<ModulesErrorsSchemaInfer>> {
     return this.Instance.put('/', body, { params });
   }
@@ -28,7 +28,7 @@ export class ModulesApi {
   }
 
   public static DeleteModule(
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<undefined, IError<ModulesErrorsSchemaInfer>> {
     return this.Instance.delete('/', { params });
   }
@@ -46,7 +46,7 @@ export class ModulesApi {
   }
 
   public static GetModuleAbout(
-    params: IId,
+    params: IdSchemaInfer,
   ): ResponsePromise<ModuleSchemaInfer, IError<ModulesErrorsSchemaInfer>> {
     return this.Instance.get('/about', { params });
   }

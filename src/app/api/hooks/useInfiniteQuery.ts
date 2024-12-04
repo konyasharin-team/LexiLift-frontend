@@ -42,7 +42,7 @@ export const useInfiniteQuery = <TResult, TErrors extends string>(
     getNextPageParam:
       getNextPageParam ??
       (() => {
-        return 0; // заглушка
+        return 2; // заглушка
       }),
     ...queryOptions,
   });

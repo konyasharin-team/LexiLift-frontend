@@ -1,5 +1,9 @@
 @import "text.css";
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--mantine-color-gray-1);
 }
