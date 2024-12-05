@@ -1,0 +1,40 @@
+import { FC, ReactNode } from 'react';
+import { DEFAULT_LANGUAGE } from '@i18n/constants.ts';
+import { createI18NContext } from '@i18n/context/createI18NContext.ts';
+import { I18NContextProvider } from '@i18n/context/index.tsx';
+import en from '@i18n/locales/en.json';
+import ru from '@i18n/locales/ru.json';
+import {
+  LanguagesAbbrSchema,
+  LanguagesAbbrSchemaInfer,
+} from '@i18n/types/LanguagesAbbrSchema.ts';
+import { ResourceKeys } from '@i18n/types/ResourceKeys.ts';
+import { I18NService } from '@i18n/utils/I18NService.ts';
+
+export const I18NContextBase = createI18NContext<
+  LanguagesAbbrSchemaInfer,
+  ResourceKeys
+>();
+export const I18NContextProviderBase: FC<{ children: ReactNode }> = props => {
+  return (
+    <I18NContextProvider<LanguagesAbbrSchemaInfer, ResourceKeys>
+      settings={{
+        defaultAbbr:
+          I18NService.GetLanguage<LanguagesAbbrSchemaInfer>(
+            LanguagesAbbrSchema,
+          ) ?? DEFAULT_LANGUAGE,
+        resources: {
+          ru: {
+            resource: ru,
+          },
+          en: {
+            resource: en,
+          },
+        },
+      }}
+      context={I18NContextBase}
+    >
+      {props.children}
+    </I18NContextProvider>
+  );
+};

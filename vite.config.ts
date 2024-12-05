@@ -17,7 +17,6 @@ export default defineConfig({
       '@components': '/src/components',
       '@modules': '/src/modules',
       '@pages': '/src/pages',
-      '@assets': '/src/app/assets',
       '@styles': '/src/app/styles',
       '@app-types': '/src/app/types',
       '@hooks': '/src/app/hooks',
@@ -27,6 +26,7 @@ export default defineConfig({
       '@constants': '/src/app/constants',
       '@routes': '/src/app/routes',
       '@api': '/src/app/api',
+      '@i18n': '/src/app/i18n',
     },
   },
 });

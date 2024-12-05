@@ -3,6 +3,7 @@ import { getErrorTextWithEmpty } from '@api';
 import { AlertGroup, useAlertGroup } from '@components/Alert';
 import {
   PASSWORD_PUT_ERRORS,
+  ProfileChangeLanguageForm,
   ProfileChangePasswordForm,
   useChangePasswordController,
 } from '@modules/authorization';
@@ -27,6 +28,7 @@ export const ProfilePage: FC = () => {
   return (
     <AlertGroup {...alertGroupController.attributes}>
       <ProfileChangePasswordForm controller={controller} />
+      <ProfileChangeLanguageForm />
     </AlertGroup>
   );
 };

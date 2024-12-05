@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import testImg from '@assets/images/test-img.jpg';
 import { CourseLessonsList } from '@modules/cources';
+
+import testImg from '/images/test-img.jpg';
 
 export const CoursePage: FC = () => {
   return (

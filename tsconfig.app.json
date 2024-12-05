@@ -27,7 +27,6 @@
       "@components/*": ["src/components/*"],
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
-      "@assets/*": ["src/app/assets/*"],
       "@styles/*": ["src/app/styles/*"],
       "@app-types/*": ["src/app/types/*"],
       "@hooks/*": ["src/app/hooks/*"],
@@ -37,12 +36,12 @@
       "@constants/*": ["src/app/constants/*"],
       "@routes/*": ["src/app/routes/*"],
       "@api/*": ["src/app/api/*"],
+      "@i18n/*": ["src/app/i18n/*"],
 
       "@ui": ["src/ui"],
       "@components": ["src/components"],
       "@modules": ["src/modules"],
       "@pages": ["src/pages"],
-      "@assets": ["src/app/assets"],
       "@styles": ["src/app/styles"],
       "@app-types": ["src/app/types"],
       "@hooks": ["src/app/hooks"],
@@ -51,7 +50,8 @@
       "@utils": ["src/app/utils"],
       "@constants": ["src/app/constants"],
       "@routes": ["src/app/routes"],
-      "@api": ["src/app/api"]
+      "@api": ["src/app/api"],
+      "@i18n": ["src/app/i18n"]
     }
   },
   "include": ["src"]
