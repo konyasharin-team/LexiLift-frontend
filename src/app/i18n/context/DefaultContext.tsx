@@ -8,16 +8,16 @@ import {
   LanguagesAbbrSchema,
   LanguagesAbbrSchemaInfer,
 } from '@i18n/types/LanguagesAbbrSchema.ts';
-import { ResourceKeys } from '@i18n/types/ResourceKeys.ts';
+import { Resource } from '@i18n/types/Resource.ts';
 import { I18NService } from '@i18n/utils/I18NService.ts';
 
 export const I18NContextBase = createI18NContext<
   LanguagesAbbrSchemaInfer,
-  ResourceKeys
+  Resource
 >();
 export const I18NContextProviderBase: FC<{ children: ReactNode }> = props => {
   return (
-    <I18NContextProvider<LanguagesAbbrSchemaInfer, ResourceKeys>
+    <I18NContextProvider<LanguagesAbbrSchemaInfer, Resource>
       settings={{
         defaultAbbr:
           I18NService.GetLanguage<LanguagesAbbrSchemaInfer>(

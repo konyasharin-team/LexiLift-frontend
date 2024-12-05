@@ -1,5 +1,6 @@
 export * from './components/CreateModule/CreateModule';
 export * from './components/CreateModuleButton/CreateModuleButton';
+export * from './components/FlipCard/FlipCard.tsx';
 export * from './components/ModuleFlipCards';
 export * from './components/ModuleHead';
 export * from './components/ModulesList/ModulesList';
@@ -7,6 +8,7 @@ export * from './components/ModuleTestsButtons';
 export * from './constants.ts';
 export * from './hooks/useCreateModuleController';
 export * from './hooks/useDeleteModuleController.ts';
+export * from './hooks/useFlipCard.ts';
 export * from './hooks/useFlipCards.ts';
 export * from './hooks/useGetModuleAboutController.ts';
 export * from './hooks/useGetModulesAllController.ts';

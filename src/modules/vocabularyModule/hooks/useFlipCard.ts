@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { FlipCardSide } from '@components/FlipCard/FlipCard.tsx';
 import { useToggle } from '@mantine/hooks';
+import { FlipCardSide } from '@modules/vocabularyModule/components/FlipCard/FlipCard.tsx';
 
 export const useFlipCard = (initialValue: FlipCardSide = 'front') => {
   const [currentSide, toggleCurrentSide] = useToggle<FlipCardSide>([

@@ -1,10 +1,9 @@
 import { ComponentProps, FC } from 'react';
 import { IDictionaryItem } from '@app-types';
-import { CardSideHeadButton } from '@components/FlipCard/components/CardSideHeadButton/CardSideHeadButton.tsx';
+import { CardSide } from '@modules/vocabularyModule/components/CardSide/CardSide.tsx';
+import { CardSideHeadButton } from '@modules/vocabularyModule/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import { IconPhoto } from '@tabler/icons-react';
 import clsx from 'clsx';
-
-import { CardSide } from './components/CardSide/CardSide.tsx';
 
 import styles from './FlipCard.module.css';
 

@@ -1,6 +1,4 @@
 import { FC, ReactNode } from 'react';
-import { CardSideHead } from '@components/FlipCard/components/CardSideHead/CardSideHead.tsx';
-import { FlipCardSide } from '@components/FlipCard/FlipCard.tsx';
 import {
   Center,
   Flex,
@@ -11,6 +9,8 @@ import {
   Text,
   useMantineTheme,
 } from '@mantine/core';
+import { CardSideHead } from '@modules/vocabularyModule/components/CardSideHead/CardSideHead.tsx';
+import { FlipCardSide } from '@modules/vocabularyModule/components/FlipCard/FlipCard.tsx';
 import clsx from 'clsx';
 
 import styles from './CardSide.module.css';
