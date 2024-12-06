@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { getErrorTextWithEmpty } from '@api';
 import { AlertGroup, useAlertGroup } from '@components/Alert';
 import { CenterPage } from '@components/CenterPage';
+import { useI18N } from '@i18n';
 import {
   ConfirmationForm,
   REGISTRATION_POST_ERRORS,
@@ -12,6 +13,7 @@ import {
 } from '@modules/authorization';
 
 export const RegistrationPage: FC = () => {
+  const { t } = useI18N();
   const { step, onRegistrationSuccess, onConfirmSuccess } =
     useRegistrationSteps();
   const registrationController = useRegistrationController();
@@ -21,7 +23,7 @@ export const RegistrationPage: FC = () => {
       {
         type: 'error',
         text: getErrorTextWithEmpty(registrationController.apiError?.type, {
-          requestErrors: REGISTRATION_POST_ERRORS,
+          requestErrors: REGISTRATION_POST_ERRORS(t),
         }),
         on: !!registrationController.apiError,
       },

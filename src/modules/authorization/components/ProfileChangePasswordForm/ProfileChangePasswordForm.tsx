@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Form } from '@components/Form';
+import { useI18N } from '@i18n';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
@@ -16,6 +17,7 @@ interface IProfileChangePasswordFormProps {
 export const ProfileChangePasswordForm: FC<
   IProfileChangePasswordFormProps
 > = props => {
+  const { t } = useI18N();
   const form = useForm<IChangePasswordData>({
     initialValues: {
       oldPassword: '',
@@ -40,12 +42,12 @@ export const ProfileChangePasswordForm: FC<
         <PasswordInput
           {...form.getInputProps('oldPassword')}
           w={'100%'}
-          placeholder={'Ваш старый пароль'}
+          placeholder={t.profilePage.oldPasswordPlaceholder}
         />
         <PasswordInput
           {...form.getInputProps('newPassword')}
           w={'100%'}
-          placeholder={'Ваш новый пароль'}
+          placeholder={t.profilePage.newPasswordPlaceholder}
         />
       </Flex>
       <Button
@@ -54,7 +56,7 @@ export const ProfileChangePasswordForm: FC<
         mt={10}
         fullWidth={true}
       >
-        Сохранить
+        {t.profilePage.savePassword}
       </Button>
     </Form>
   );

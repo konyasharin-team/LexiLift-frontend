@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useI18N } from '@i18n';
 import { NavigationItem } from '@modules/layout/components/NavigationItem/NavigationItem.tsx';
 import {
   NAVBAR_RIGHT_PADDING,
@@ -24,6 +25,7 @@ const variants: Variants = {
 };
 
 export const Navigation: FC<INavigationProps> = props => {
+  const { t } = useI18N();
   const { user } = useAppSelector(state => state.auth);
   const getNavigationItems = (navigation: INavigationItem[]) => {
     return navigation.map((item, i) => {
@@ -40,8 +42,8 @@ export const Navigation: FC<INavigationProps> = props => {
           style={{ width: NAVBAR_WIDTH - NAVBAR_RIGHT_PADDING }}
         >
           {user
-            ? getNavigationItems(privateNavigation)
-            : getNavigationItems(publicNavigation)}
+            ? getNavigationItems(privateNavigation(t))
+            : getNavigationItems(publicNavigation(t))}
         </motion.ul>
       </div>
     </motion.div>

@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import { Form } from '@components/Form';
+import { useI18N } from '@i18n';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useRegistrationController } from '@modules/authorization';
@@ -14,6 +15,7 @@ export const RegistrationForm = forwardRef<
   HTMLDivElement,
   IRegistrationFormContentProps
 >((props, ref) => {
+  const { t } = useI18N();
   const form = useForm({
     initialValues: {
       email: '',
@@ -25,25 +27,25 @@ export const RegistrationForm = forwardRef<
   return (
     <Form
       ref={ref}
-      title="Регистрация"
+      title={t.registrationPage.registration}
       onSubmit={form.onSubmit(values => props.controller.sender.mutate(values))}
-      link={{ href: appPaths.AUTHORIZATION, text: 'Уже есть аккаунт?' }}
+      link={{ href: appPaths.AUTHORIZATION, text: t.registrationPage.toLogin }}
       withWrapper={false}
     >
       <TextInput
-        label="Email"
-        placeholder="Ваш email"
+        label={t.registrationPage.emailLabel}
+        placeholder={t.registrationPage.emailPlaceholder}
         {...form.getInputProps('email')}
       />
       <PasswordInput
-        label="Пароль"
-        placeholder="Ваш пароль"
+        label={t.registrationPage.passwordLabel}
+        placeholder={t.registrationPage.passwordPlaceholder}
         {...form.getInputProps('password')}
         mt="md"
       />
       <PasswordInput
-        label="Подтвердите пароль"
-        placeholder="Повторите пароль"
+        label={t.registrationPage.repeatPasswordLabel}
+        placeholder={t.registrationPage.repeatPasswordPlaceholder}
         {...form.getInputProps('confirmPassword')}
         mt="md"
       />
@@ -56,7 +58,7 @@ export const RegistrationForm = forwardRef<
           color="blue"
           disabled={props.controller.sender.isPending}
         >
-          Зарегистрироваться
+          {t.registrationPage.registerButton}
         </Button>
       </Flex>
     </Form>

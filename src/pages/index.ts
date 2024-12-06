@@ -6,6 +6,7 @@ export * from './FoldersPage.tsx';
 export * from './MatchTestPage';
 export * from './MatchTestResultsPage.tsx';
 export * from './MatchTestSettingsPage';
+export * from './ModulePage.tsx';
 export * from './ModulesListPage.tsx';
 export * from './NotFoundPage';
 export * from './ProfilePage.tsx';

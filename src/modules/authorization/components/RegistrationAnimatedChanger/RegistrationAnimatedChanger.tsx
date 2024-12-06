@@ -6,6 +6,7 @@ import {
   findByKey,
 } from '@components/AnimatedChanger';
 import { FormWrapper } from '@components/Form';
+import { useI18N } from '@i18n';
 import { Box, Loader, Paper } from '@mantine/core';
 import {
   ConfirmationForm,
@@ -23,6 +24,7 @@ interface IRegistrationFormProps {
 export const RegistrationAnimatedChanger: FC<
   IRegistrationFormProps
 > = props => {
+  const { t } = useI18N();
   const animatedChanger = useRegistrationFormAnimatedChanger();
 
   useEffect(() => {
@@ -73,7 +75,9 @@ export const RegistrationAnimatedChanger: FC<
         >
           <Box h={200}>
             <CenterFlex>
-              <Paper c="green">Регистрация прошла успешно!</Paper>
+              <Paper c="green">
+                {t.registrationPage.successfulRegistration}
+              </Paper>
             </CenterFlex>
           </Box>
         </AnimatedChangerItem>

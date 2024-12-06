@@ -8,12 +8,12 @@ import {
   MatchTestPage,
   MatchTestResultsPage,
   MatchTestSettingsPage,
+  ModulePage,
   ModulesListPage,
   ProfilePage,
   RegistrationPage,
   TestPage,
 } from '@pages';
-import { ModulePage } from '@pages/ModulePage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';

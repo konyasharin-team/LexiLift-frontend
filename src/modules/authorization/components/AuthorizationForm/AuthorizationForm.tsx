@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { pendingToLoading, useRequestEvents } from '@api';
 import { Form } from '@components/Form/Form.tsx';
+import { useI18N } from '@i18n';
 import { Button, Flex, PasswordInput, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useLoginController } from '@modules/authorization/hooks/useLoginController.ts';
@@ -14,6 +15,7 @@ interface IAuthorizationFormProps {
 }
 
 export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
+  const { t } = useI18N();
   const { setTokens } = useActions();
   const loginForm = useForm({
     initialValues: {
@@ -31,23 +33,23 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
 
   return (
     <Form
-      title={'Заголовок'}
+      title={t.authorizationPage.authorization}
       onSubmit={loginForm.onSubmit(values =>
         props.loginController.sender.mutate(values),
       )}
       link={{
         href: appPaths.REGISTRATION,
-        text: 'Нет аккаунта? Зарегистрируйся!',
+        text: t.authorizationPage.toRegistration,
       }}
     >
       <TextInput
-        label="Email"
-        placeholder="Ваш email"
+        label={t.authorizationPage.emailLabel}
+        placeholder={t.authorizationPage.emailPlaceholder}
         {...loginForm.getInputProps('email')}
       />
       <PasswordInput
-        label="Пароль"
-        placeholder="Ваш пароль"
+        label={t.authorizationPage.passwordLabel}
+        placeholder={t.authorizationPage.passwordPlaceholder}
         {...loginForm.getInputProps('password')}
         mt="md"
       />
@@ -61,7 +63,7 @@ export const AuthorizationForm: FC<IAuthorizationFormProps> = props => {
           color="blue"
           loading={props.loginController.sender.isPending}
         >
-          Войти
+          {t.authorizationPage.loginButton}
         </Button>
       </Flex>
     </Form>

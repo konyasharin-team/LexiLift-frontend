@@ -2,8 +2,8 @@ import { FC, ReactNode } from 'react';
 import { DEFAULT_LANGUAGE } from '@i18n/constants.ts';
 import { createI18NContext } from '@i18n/context/createI18NContext.ts';
 import { I18NContextProvider } from '@i18n/context/index.tsx';
-import en from '@i18n/locales/en.json';
-import ru from '@i18n/locales/ru.json';
+import en from '@i18n/locales/en.ts';
+import ru from '@i18n/locales/ru.ts';
 import {
   LanguagesAbbrSchema,
   LanguagesAbbrSchemaInfer,

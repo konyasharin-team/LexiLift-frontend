@@ -1,4 +1,5 @@
 import { NAVIGATION_ICON_SIZE } from '@constants';
+import { Resource } from '@i18n';
 import { appPaths } from '@routes/appPaths.ts';
 import { INavigationItem } from '@routes/types/INavigationItem.ts';
 import {
@@ -10,40 +11,40 @@ import {
   IconTestPipe,
 } from '@tabler/icons-react';
 
-export const privateNavigation: INavigationItem[] = [
+export const privateNavigation = (t: Resource): INavigationItem[] => [
   {
     icon: <IconLayoutDashboardFilled size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.MATCH_TEST_SETTINGS,
-    text: 'Тест на сопоставление (в разработке)',
+    text: t.navigation.compareTest,
     pathsToCompare: [appPaths.MATCH_TEST],
   },
   {
     icon: <IconFolderFilled size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.FOLDERS,
-    text: 'Папки (в разработке)',
+    text: t.navigation.folders,
   },
   {
     icon: <IconFile size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.MODULES,
-    text: 'Модули (в разработке)',
+    text: t.navigation.modules,
   },
   {
     icon: <IconCertificate size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.COURSES,
-    text: 'Курсы (в разработке)',
+    text: t.navigation.courses,
   },
   {
     icon: <IconTestPipe size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.TEST,
-    text: 'Для тестирования',
+    text: t.navigation.test,
   },
 ];
 
-export const publicNavigation: INavigationItem[] = [
+export const publicNavigation = (t: Resource): INavigationItem[] => [
   {
     icon: <IconLogin2 size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.AUTHORIZATION,
-    text: 'Вход',
+    text: t.navigation.login,
     pathsToCompare: [appPaths.REGISTRATION, appPaths.AUTHORIZATION],
   },
 ];
