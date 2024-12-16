@@ -8,7 +8,8 @@ export const ModuleSchema = z.object({
   tags: z.array(
     z.object({
       tag: z.string(),
-      color: z.string(),
+      fontColor: z.string(),
+      backgroundColor: z.string(),
     }),
   ),
 });

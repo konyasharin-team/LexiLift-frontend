@@ -1,5 +1,5 @@
 import { Affix, Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
-import { ModuleCard } from '@modules/vocabularyModule/components/ModuleCards/ModuleCard.tsx';
+import { ModuleCard } from '@modules/vocabularyModule/components/ModuleCard/ModuleCard.tsx';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
 import { useModuleCard } from '@modules/vocabularyModule/hooks/useModuleCard';
 
