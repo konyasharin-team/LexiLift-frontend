@@ -13,7 +13,11 @@ export const FeedLoadMarker: FC<IFeedLoadMarkerProps> = props => {
   useEffect(() => {
     if (
       inViewport &&
-      !(props.sender.isLoading || props.sender.isFetchingNextPage)
+      !(
+        props.sender.isLoading ||
+        props.sender.isFetchingNextPage ||
+        !props.sender.hasNextPage
+      )
     )
       props.sender.fetchNextPage();
   }, [inViewport, props.sender.isLoading, props.sender.isFetchingNextPage]);

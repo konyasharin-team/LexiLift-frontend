@@ -6,6 +6,7 @@ export * from './IError';
 export * from './IPagination';
 export * from './IResponse';
 export * from './IResponseSchemas.ts';
+export * from './PaginationContentSchema.ts';
 export * from './RequestErrors';
 export * from './Response';
 export * from './ResponsePromise';

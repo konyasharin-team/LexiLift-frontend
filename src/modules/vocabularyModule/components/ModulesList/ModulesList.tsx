@@ -12,7 +12,7 @@ export const ModulesList: FC<IModulesListProps> = props => {
   return (
     <List span={3} height={150}>
       {transformPages(props.getModulesUserController.sender, page => {
-        return page.data.result?.map((module, index) => (
+        return page.data.result?.content.map((module, index) => (
           <ModulesListElement index={index} key={module.id} {...module} />
         ));
       })}

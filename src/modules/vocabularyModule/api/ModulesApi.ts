@@ -8,6 +8,7 @@ import {
 import { CreateModuleBody } from '@modules/vocabularyModule/types/CreateModuleBody.ts';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 import { ModulesErrorsSchemaInfer } from '@modules/vocabularyModule/types/ModulesErrorsSchema.ts';
+import { ModulesPaginationSchemaInfer } from '@modules/vocabularyModule/types/ModulesPaginationSchema.ts';
 import { PutModuleBody } from '@modules/vocabularyModule/types/PutModuleBody.ts';
 import { AxiosInstance } from 'axios';
 
@@ -35,13 +36,19 @@ export class ModulesApi {
 
   public static GetModulesUser(
     params: IPagination,
-  ): ResponsePromise<ModuleSchemaInfer[], IError<ModulesErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    ModulesPaginationSchemaInfer,
+    IError<ModulesErrorsSchemaInfer>
+  > {
     return this.Instance.get('/user', { params });
   }
 
   public static GetModulesAll(
     params: IPagination,
-  ): ResponsePromise<ModuleSchemaInfer[], IError<ModulesErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    ModulesPaginationSchemaInfer,
+    IError<ModulesErrorsSchemaInfer>
+  > {
     return this.Instance.get('/all', { params });
   }
 

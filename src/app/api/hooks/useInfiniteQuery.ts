@@ -5,6 +5,7 @@ import {
   useApiDataParse,
   useApiError,
 } from '@api';
+import { PaginationWithoutContentSchemaInfer } from '@api/types';
 import {
   InfiniteData,
   QueryKey,
@@ -20,7 +21,10 @@ type InfiniteOptions<T> = UndefinedInitialDataInfiniteOptions<
   number
 >;
 
-export const useInfiniteQuery = <TResult, TErrors extends string>(
+export const useInfiniteQuery = <
+  TResult extends PaginationWithoutContentSchemaInfer,
+  TErrors extends string,
+>(
   {
     initialPageParam,
     getNextPageParam,
@@ -41,8 +45,13 @@ export const useInfiniteQuery = <TResult, TErrors extends string>(
     initialPageParam: initialPageParam ?? 0,
     getNextPageParam:
       getNextPageParam ??
-      (() => {
-        return 2; // заглушка
+      (lastPage => {
+        const result = lastPage.data.result;
+        if (result)
+          return result.currentPage < result.totalPages
+            ? result.currentPage + 1
+            : undefined;
+        return 0;
       }),
     ...queryOptions,
   });
