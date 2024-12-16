@@ -1,3 +1,4 @@
+import { DictionaryCardSchema } from '@app-types';
 import { z } from 'zod';
 
 export const ModuleSchema = z.object({
@@ -12,6 +13,7 @@ export const ModuleSchema = z.object({
       backgroundColor: z.string(),
     }),
   ),
+  cards: z.array(DictionaryCardSchema),
 });
 
 export type ModuleSchemaInfer = z.infer<typeof ModuleSchema>;

@@ -1,8 +1,8 @@
-import { IDictionaryCard } from '@app-types';
+import { DictionaryCardSchemaInfer } from '@app-types';
 
 import testImg from '/images/test-img.jpg';
 
-export const wordPairs: IDictionaryCard[] = [
+export const wordPairs: DictionaryCardSchemaInfer[] = [
   {
     id: 0,
     word: 'Apple',

@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { IDictionaryCard } from '@app-types';
+import { DictionaryCardSchemaInfer } from '@app-types';
 import { FlipCard, useFlipCard } from '@components/FlipCard';
 import { Box, Button, Center, Flex } from '@mantine/core';
 import { useFlipCards } from '@modules/vocabularyModule';
@@ -8,7 +8,7 @@ import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 
 interface IModuleFlipCardsProps {
-  cards: IDictionaryCard[];
+  cards: DictionaryCardSchemaInfer[];
 }
 
 export const ModuleFlipCards: FC<IModuleFlipCardsProps> = props => {

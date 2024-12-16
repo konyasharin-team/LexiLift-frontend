@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IDictionaryItem } from '@app-types';
+import { DictionaryItemSchemaInfer } from '@app-types';
 import { IBoardItem } from '@components/Board';
 import { Active, DragEndEvent, Over } from '@dnd-kit/core';
 import { useRounds, useTest, useTimer } from '@hooks';
@@ -17,7 +17,7 @@ import { useActions, useAppSelector } from '@store';
 import { createBaseSettings, getAnswers, toTime } from '@utils';
 
 export const useMatchTest = (
-  initialDictionary: IDictionaryItem[],
+  initialDictionary: DictionaryItemSchemaInfer[],
 ): IUseMatchTestReturn => {
   const navigate = useNavigate();
   const { setMatchTestResults } = useActions();

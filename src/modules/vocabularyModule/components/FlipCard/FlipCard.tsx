@@ -1,5 +1,5 @@
 import { ComponentProps, FC } from 'react';
-import { IDictionaryItem } from '@app-types';
+import { DictionaryItemSchemaInfer } from '@app-types';
 import { CardSide } from '@modules/vocabularyModule/components/CardSide/CardSide.tsx';
 import { CardSideHeadButton } from '@modules/vocabularyModule/components/CardSideHeadButton/CardSideHeadButton.tsx';
 import { IconPhoto } from '@tabler/icons-react';
@@ -9,7 +9,9 @@ import styles from './FlipCard.module.css';
 
 export type FlipCardSide = 'front' | 'back';
 
-interface IFlipCard extends ComponentProps<'div'>, Omit<IDictionaryItem, 'id'> {
+interface IFlipCard
+  extends ComponentProps<'div'>,
+    Omit<DictionaryItemSchemaInfer, 'id'> {
   activeSide: FlipCardSide;
   imgIsVisible: boolean;
   setImgIsVisible: (newVisible: boolean) => void;

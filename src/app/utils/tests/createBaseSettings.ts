@@ -1,8 +1,8 @@
-import { IDictionaryItem, ITestSettings } from '@app-types';
+import { DictionaryItemSchemaInfer, ITestSettings } from '@app-types';
 import { TEST_WORDS_PER_ROUND } from '@constants';
 
 export const createBaseSettings = (
-  module: IDictionaryItem[],
+  module: DictionaryItemSchemaInfer[],
 ): ITestSettings => {
   return {
     wordsCount: module.length,

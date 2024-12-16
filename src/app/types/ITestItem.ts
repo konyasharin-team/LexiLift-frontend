@@ -1,8 +1,8 @@
-import { IDictionaryItem, TestItemType } from '@app-types';
+import { DictionaryItemSchemaInfer, TestItemType } from '@app-types';
 
 export interface ITestItem {
   id: string | number;
-  answerId: IDictionaryItem['id'];
+  answerId: DictionaryItemSchemaInfer['id'];
   value: string;
   type: TestItemType;
 }

@@ -3,7 +3,7 @@ import {
   AuthorizationPage,
   CoursePage,
   CoursesPage,
-  CreateModulePage,
+  EditModulePage,
   FoldersPage,
   MatchTestPage,
   MatchTestResultsPage,
@@ -56,7 +56,7 @@ export const privateRoutes: IPrivateRoute[] = [
   },
   {
     path: appPaths.MODULES_CREATE,
-    element: <CreateModulePage />,
+    element: <EditModulePage />,
     availableFor: [Roles.USER],
   },
   {

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IStatistics, ITestItem, ITestSettings } from '@app-types';
-import { IDictionaryItem } from '@app-types/IDictionaryItem.ts';
+import { DictionaryItemSchemaInfer } from '@app-types/DictionaryItemSchema.ts';
 import { IUseTestReturn } from '@hooks/useTest/types/IUseTestReturn.ts';
 import { shuffle } from '@utils';
 
@@ -11,7 +11,7 @@ interface IUseTestOptions {
 }
 
 export const useTest = (
-  dictionary: IDictionaryItem[],
+  dictionary: DictionaryItemSchemaInfer[],
   settings: Pick<ITestSettings, 'isNeedShuffle' | 'wordsCount'>,
   options?: IUseTestOptions,
 ): IUseTestReturn => {
@@ -24,7 +24,7 @@ export const useTest = (
 
   useEffect(() => {
     const newItems: ITestItem[] = [];
-    let newDictionary: IDictionaryItem[];
+    let newDictionary: DictionaryItemSchemaInfer[];
 
     if (settings.isNeedShuffle) newDictionary = shuffle(dictionary);
     else newDictionary = [...dictionary];

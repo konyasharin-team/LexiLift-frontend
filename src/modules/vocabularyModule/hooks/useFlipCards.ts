@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { IDictionaryCard } from '@app-types';
+import { DictionaryCardSchemaInfer } from '@app-types';
 
-export const useFlipCards = (cards: IDictionaryCard[]) => {
+export const useFlipCards = (cards: DictionaryCardSchemaInfer[]) => {
   const [indexedCards, setIndexedCards] = useState<
-    (IDictionaryCard & { index: number })[]
+    (DictionaryCardSchemaInfer & { index: number })[]
   >([]);
   const [current, setCurrent] = useState<
-    (IDictionaryCard & { index: number }) | null
+    (DictionaryCardSchemaInfer & { index: number }) | null
   >(null);
 
   useEffect(() => {
