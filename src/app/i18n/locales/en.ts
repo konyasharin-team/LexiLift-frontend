@@ -52,6 +52,15 @@ const en: Resource = {
     test: 'For testing',
     login: 'Login',
   },
+  createModulePage: {
+    createModule: 'Create module',
+    moduleName: 'Module name',
+    inputTags: 'Input tags',
+    description: 'Description',
+    word: 'Word',
+    translation: 'Translation',
+    addCard: 'Add card',
+  },
 };
 
 export default en;

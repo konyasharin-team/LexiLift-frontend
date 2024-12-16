@@ -51,6 +51,15 @@ const ru = {
     test: 'Для тестирования',
     login: 'Вход',
   },
+  createModulePage: {
+    createModule: 'Создать модуль',
+    moduleName: 'Название модуля',
+    inputTags: 'Введите теги',
+    description: 'Описание',
+    word: 'Слово',
+    translation: 'Перевод',
+    addCard: 'Добавить карточку',
+  },
 };
 
 export default ru;

@@ -6,25 +6,19 @@ import { uploadFile } from '@utils';
 import styles from './ImageUpload.module.css';
 
 interface IImageUploadProps {
-  cardIndex: number;
   imageUrl?: string;
-  onImageUpload: (index: number, imageUrl: string) => void;
-  onDeleteImage: (index: number) => void;
+  onImageUpload: (imageUrl: string) => void;
+  onDeleteImage: () => void;
 }
 
-export const ImageUpload = ({
-  cardIndex,
-  imageUrl,
-  onImageUpload,
-  onDeleteImage,
-}: IImageUploadProps) => {
+export const ImageUpload = (props: IImageUploadProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleUploadImage = async () => {
     try {
       const newImageUrl = await uploadFile('image/*', 2);
       if (newImageUrl) {
-        onImageUpload(cardIndex, newImageUrl);
+        props.onImageUpload(newImageUrl);
       }
     } catch (error) {
       console.error('Ошибка загрузки изображения', error);
@@ -32,20 +26,20 @@ export const ImageUpload = ({
   };
 
   const handleDeleteImage = () => {
-    onDeleteImage(cardIndex);
+    props.onDeleteImage();
     setIsModalOpen(false);
   };
 
   useEffect(() => {
-    if (imageUrl) setIsModalOpen(true);
-  }, [imageUrl]);
+    if (props.imageUrl) setIsModalOpen(true);
+  }, [props.imageUrl]);
 
   return (
     <>
       <IconPhoto
-        color={imageUrl ? 'green' : 'blue'}
+        color={props.imageUrl ? 'green' : 'blue'}
         onClick={() => {
-          if (imageUrl) {
+          if (props.imageUrl) {
             setIsModalOpen(true);
           } else {
             handleUploadImage();
@@ -53,9 +47,9 @@ export const ImageUpload = ({
         }}
         className={styles.icon}
       />
-      {imageUrl ? (
+      {props.imageUrl ? (
         <ImagePreviewModal
-          img={imageUrl}
+          img={props.imageUrl}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
           onChange={handleUploadImage}

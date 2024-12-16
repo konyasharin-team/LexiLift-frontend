@@ -1,39 +1,26 @@
-import { Affix, Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
+import { FC } from 'react';
+import { useI18N } from '@i18n';
+import { Button, Flex, Paper, Textarea, TextInput } from '@mantine/core';
 import { ModuleCard } from '@modules/vocabularyModule/components/ModuleCard/ModuleCard.tsx';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
-import { useModuleCard } from '@modules/vocabularyModule/hooks/useModuleCard';
-
-import { useTags } from '../../hooks/useTags.ts';
+import { useCreateModule } from '@modules/vocabularyModule/hooks/useCreateModule.ts';
+import { useTags } from '@modules/vocabularyModule/hooks/useTags.ts';
 
 import styles from './CreateModule.module.css';
 
-export const CreateModule = () => {
+export const CreateModule: FC<ReturnType<typeof useCreateModule>> = props => {
   const tagsController = useTags();
-
-  const moduleCardsController = useModuleCard();
-
-  const handleAddCard = () => {
-    moduleCardsController.setCards([
-      ...moduleCardsController.cards,
-      { word: '', translation: '', imageUploaded: false },
-    ]);
-  };
-
-  const handleRemoveCard = (index: number) => {
-    if (moduleCardsController.cards.length > 3) {
-      const newCards = moduleCardsController.cards.filter(
-        (_, i) => i !== index,
-      );
-      moduleCardsController.setCards(newCards);
-    }
-  };
+  const { t } = useI18N();
 
   return (
     <Flex justify="center" p={50} direction="column">
       <Flex justify="space-between" gap={20}>
         <Flex direction="column" w="50%">
           <Paper shadow="md">
-            <TextInput placeholder="Название модуля" className="text" />
+            <TextInput
+              placeholder={t.createModulePage.moduleName}
+              className="text"
+            />
           </Paper>
 
           <div>
@@ -44,7 +31,7 @@ export const CreateModule = () => {
         </Flex>
         <Paper shadow="md" w="50%">
           <Textarea
-            placeholder="Описание"
+            placeholder={t.createModulePage.description}
             h="100%"
             className="text"
             classNames={{ wrapper: styles.wrapper, input: styles.input }}
@@ -52,35 +39,27 @@ export const CreateModule = () => {
         </Paper>
       </Flex>
 
-      {moduleCardsController.cards.map((card, index) => (
+      {props.cards.map((card, index) => (
         <ModuleCard
           key={index}
-          index={index}
+          id={index}
           card={card}
-          onCardChange={moduleCardsController.handleCardChange}
-          onImageUpload={moduleCardsController.handleImageUpload}
-          onDeleteImage={moduleCardsController.handleDeleteImage}
-          onRemoveCard={handleRemoveCard}
-          disableRemove={moduleCardsController.cards.length <= 3}
+          onCardChange={props.onCardChange}
+          removeCard={props.removeCard}
+          disableRemove={props.cards.length <= 3}
         />
       ))}
 
       <Button
-        onClick={handleAddCard}
+        onClick={props.addCard}
         fullWidth
         variant="outline"
         mt={30}
         h={120}
         className="text"
       >
-        Добавить карточку
+        {t.createModulePage.addCard}
       </Button>
-
-      <Affix position={{ bottom: 20, right: 20 }}>
-        <Button radius="md" size="xl" color="blue">
-          Создать модуль
-        </Button>
-      </Affix>
     </Flex>
   );
 };

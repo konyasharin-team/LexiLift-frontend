@@ -6,6 +6,7 @@ export * from './components/ModuleHead';
 export * from './components/ModulesList/ModulesList';
 export * from './components/ModuleTestsButtons';
 export * from './constants.ts';
+export * from './hooks/useCreateModule.ts';
 export * from './hooks/useCreateModuleController';
 export * from './hooks/useDeleteModuleController.ts';
 export * from './hooks/useFlipCard.ts';
