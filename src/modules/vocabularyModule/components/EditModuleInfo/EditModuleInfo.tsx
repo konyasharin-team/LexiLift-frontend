@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { useI18N } from '@i18n';
 import { Flex, Paper, Textarea, TextInput } from '@mantine/core';
+import { useEditModule } from '@modules/vocabularyModule';
 import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
-import { useTags } from '@modules/vocabularyModule/hooks/useTags.ts';
 
-export const EditModuleInfo: FC<ReturnType<typeof useTags>> = props => {
+export const EditModuleInfo: FC<
+  Pick<ReturnType<typeof useEditModule>, 'addTag' | 'removeTag' | 'form'>
+> = props => {
   const { t } = useI18N();
 
   return (

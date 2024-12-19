@@ -1,3 +1,4 @@
+export * from './ArrayElement.ts';
 export * from './DictionaryCardSchema.ts';
 export * from './DictionaryItemSchema.ts';
 export * from './ICoordinates';

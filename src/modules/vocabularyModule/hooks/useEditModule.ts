@@ -1,4 +1,4 @@
-import { DictionaryCardSchemaInfer } from '@app-types';
+import { ArrayElement, DictionaryCardSchemaInfer } from '@app-types';
 import { useForm } from '@mantine/form';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
@@ -59,10 +59,30 @@ export const useEditModule = () => {
     });
   };
 
+  const addTag = (tag: ArrayElement<ModuleSchemaInfer['tags']>) => {
+    form.setValues(values => {
+      return {
+        ...values,
+        tags: [...form.values.tags, tag],
+      };
+    });
+  };
+
+  const removeTag = (tag: string) => {
+    form.setValues(values => {
+      return {
+        ...values,
+        tags: form.values.tags.filter(tagObj => tagObj.tag !== tag),
+      };
+    });
+  };
+
   return {
     form,
     onCardChange,
     addCard,
     removeCard,
+    addTag,
+    removeTag,
   };
 };

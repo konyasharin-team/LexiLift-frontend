@@ -4,7 +4,7 @@ import { Button } from '@mantine/core';
 import { ModuleCard } from '@modules/vocabularyModule/components/ModuleCard/ModuleCard.tsx';
 import { useEditModule } from '@modules/vocabularyModule/hooks/useEditModule.ts';
 
-export const CreateModule: FC<ReturnType<typeof useEditModule>> = props => {
+export const EditModuleCards: FC<ReturnType<typeof useEditModule>> = props => {
   const { t } = useI18N();
 
   return (

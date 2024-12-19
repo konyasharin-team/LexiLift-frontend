@@ -1,4 +1,3 @@
-export * from './components/CreateModule/CreateModule';
 export * from './components/CreateModuleButton/CreateModuleButton';
 export * from './components/EditModuleInfo';
 export * from './components/FlipCard/FlipCard.tsx';
@@ -17,3 +16,4 @@ export * from './hooks/useGetModulesAllController.ts';
 export * from './hooks/useGetModulesUserController';
 export * from './hooks/usePutModuleController.ts';
 export * from './hooks/useTags.ts';
+export * from '@modules/vocabularyModule/components/EditModuleCards/EditModuleCards.tsx';
