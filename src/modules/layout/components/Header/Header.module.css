@@ -1,0 +1,12 @@
+.header {
+    transition: transform 400ms ease;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+}
+
+.hide {
+    opacity: 0;
+}

@@ -1,0 +1,16 @@
+.card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    transition: .5s ease-in-out;
+    perspective: 600px;
+    transform-style: preserve-3d;
+}
+
+.card_disable {
+    transform: rotateX(-180deg);
+}
+
+.card_active {
+    transform: rotateX(0deg);
+}

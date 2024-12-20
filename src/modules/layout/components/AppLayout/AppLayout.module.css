@@ -1,0 +1,8 @@
+.layout .navbar, .layout .header {
+    transition: .3s all;
+    position: fixed;
+}
+
+.layout .navbar{
+    transition-delay: .1s;
+}

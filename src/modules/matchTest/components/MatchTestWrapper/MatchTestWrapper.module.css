@@ -1,0 +1,14 @@
+.wrapper {
+    transition: .2s all;
+    width: 100%;
+    height: calc(100vh - (var(--app-shell-header-offset, 0rem) + 2*var(--mantine-spacing-md)));
+    overflow: hidden;
+}
+
+.blurActive {
+    filter: blur(8px);
+}
+
+.blurDisabled {
+    filter: none;
+}

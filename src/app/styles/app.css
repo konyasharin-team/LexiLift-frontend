@@ -1,0 +1,21 @@
+@import "text.css";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--mantine-color-gray-1);
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
