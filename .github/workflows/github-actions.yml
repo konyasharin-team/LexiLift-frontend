@@ -26,8 +26,6 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.8
         with:
