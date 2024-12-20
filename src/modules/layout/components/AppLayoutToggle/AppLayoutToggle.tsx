@@ -12,13 +12,13 @@ export const AppLayoutToggle: FC<IAppLayoutToggleProps> = props => {
 
   useLayoutEffect(() => {
     if (!appLayoutIsInit) {
-      setAppLayoutIsActive(props.withLayout);
+      setAppLayoutIsActive(props.withLayout ?? false);
       setAppLayoutIsInit(true);
     }
   }, []);
 
   useEffect(() => {
-    setAppLayoutIsActive(props.withLayout);
+    setAppLayoutIsActive(props.withLayout ?? false);
   }, [props.withLayout]);
 
   return <>{props.children}</>;

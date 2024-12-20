@@ -8,6 +8,7 @@ import {
 import { FolderSchemaInfer } from '@modules/folders';
 import { CreateFolderBody } from '@modules/folders/types/CreateFolderBody.ts';
 import { FoldersErrorsSchemaInfer } from '@modules/folders/types/FoldersErrorsSchema.ts';
+import { FoldersPaginationSchemaInfer } from '@modules/folders/types/FoldersPaginationSchema.ts';
 import { PutFolderBody } from '@modules/folders/types/PutFolderBody.ts';
 import { AxiosInstance } from 'axios';
 
@@ -35,13 +36,19 @@ export class FoldersApi {
 
   public static GetFoldersUser(
     params: IPagination,
-  ): ResponsePromise<FolderSchemaInfer[], IError<FoldersErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    FoldersPaginationSchemaInfer,
+    IError<FoldersErrorsSchemaInfer>
+  > {
     return this.Instance.get('/user', { params });
   }
 
   public static GetFoldersAll(
     params: IPagination,
-  ): ResponsePromise<FolderSchemaInfer[], IError<FoldersErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    FoldersPaginationSchemaInfer,
+    IError<FoldersErrorsSchemaInfer>
+  > {
     return this.Instance.get('/all', { params });
   }
 
