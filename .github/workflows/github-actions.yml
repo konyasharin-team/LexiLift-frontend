@@ -61,7 +61,7 @@ jobs:
             
             # Удаляем старые файлы и загружаем новые
             rm -rf /var/www/lexilift/frontend/*
-            scp -r ./build/* /var/www/lexilift/frontend
+            scp -r ./dist/* /var/www/lexilift/frontend
             
             # Убиваем старый процесс serve, если он есть
             pkill -f "serve -s /var/www/lexilift/frontend" || true
