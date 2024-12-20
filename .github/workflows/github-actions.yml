@@ -53,6 +53,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
+            APP_NAME=lexilift-frontend
             ## Распаковываем образ
             gzip -d $APP_NAME/$APP_NAME.tar.gz
             docker load < $APP_NAME/$APP_NAME.tar
