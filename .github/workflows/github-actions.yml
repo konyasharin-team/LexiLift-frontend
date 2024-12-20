@@ -6,7 +6,6 @@ on:
       - main
 env:
   APP_NAME: lexilift-frontend
-  APP_PORT: 5173
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -44,7 +43,8 @@ jobs:
       # Загрузка файлов на сервер через rsync
       - name: Deploy to server via rsync
         run: |
-          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/${{ secrets.SERVER_USER }}/$APP_NAME/
+          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz docker-compose.yml \
+          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/${{ secrets.SERVER_USER }}/$APP_NAME/
       - name: Start docker image
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -54,13 +54,13 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             APP_NAME=lexilift-frontend
+            
+            cd $APP_NAME
+            
             ## Распаковываем образ
-            gzip -d $APP_NAME/$APP_NAME.tar.gz
-            docker load < $APP_NAME/$APP_NAME.tar
+            gzip -d $APP_NAME.tar.gz
+            docker load < $APP_NAME.tar
 
-            # Останавливаем и удаляем старый контейнер
-            docker stop $APP_NAME || true
-            docker rm $APP_NAME || true
-
-            # Запускаем контейнер
-            docker run -d --name $APP_NAME -p $APP_PORT:$APP_PORT $APP_NAME:latest
+            # Останавливаем старый контейнер и запускаем новый
+            docker-compose down
+            docker-compose up -d
