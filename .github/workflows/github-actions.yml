@@ -58,7 +58,7 @@ jobs:
             cd $APP_NAME
             
             ## Распаковываем образ
-            gzip -d $APP_NAME.tar.gz
+            gzip -d -f $APP_NAME.tar.gz
             docker load < $APP_NAME.tar
 
             # Останавливаем старый контейнер и запускаем новый
