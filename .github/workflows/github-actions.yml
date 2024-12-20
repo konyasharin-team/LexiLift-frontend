@@ -5,7 +5,7 @@ on:
     branches:
       - main
 env:
-  APP_NAME: lexilift
+  APP_NAME: lexilift-frontend
   APP_PORT: 5173
 jobs:
   build-and-test:
@@ -44,8 +44,8 @@ jobs:
       # Загрузка файлов на сервер через rsync
       - name: Deploy to server via rsync
         run: |
-          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/
-      - name: Start with serve
+          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/${{ secrets.SERVER_USER }}/$APP_NAME/
+      - name: Start docker image
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -54,8 +54,8 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             ## Распаковываем образ
-            gzip -d /home/${{ secrets.SERVER_USER }}/$APP_NAME.tar.gz
-            docker load < /home/${{ secrets.SERVER_USER }}/$APP_NAME.tar
+            gzip -d $APP_NAME.tar.gz
+            docker load < $APP_NAME.tar
 
             # Останавливаем и удаляем старый контейнер
             docker stop $APP_NAME || true
