@@ -26,9 +26,20 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: List build directory
-        run: ls -al
-      - name: Deploy to server
+        # Настроим SSH-ключ
+      - name: Setup SSH key
+        run: |
+         mkdir -p "$HOME/.ssh"
+         echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$HOME/.ssh/authorized_keys"
+         chmod 600 "$HOME/.ssh/authorized_keys"
+         # Отключаем проверку host key для SSH
+         echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" > "$HOME/.ssh/config"
+      # Загрузка файлов на сервер через rsync
+      - name: Deploy to server via rsync
+        run: |
+          # Делаем rsync из папки dist на сервер
+          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" ./dist/ ${ { secrets.SERVER_USER } }@${ { secrets.SERVER_HOST } }:/var/www/lexilift/frontend/
+      - name: Start with serve
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -57,13 +68,6 @@ jobs:
             then
               npm install -g serve
             fi
-            
-            # Создаем директорию для приложения
-            mkdir -p /var/www/lexilift/frontend
-            
-            # Удаляем старые файлы и загружаем новые
-            rm -rf /var/www/lexilift/frontend/*
-            scp -r ./dist/* /var/www/lexilift/frontend
             
             # Убиваем старый процесс serve, если он есть
             pkill -f "serve -s /var/www/lexilift/frontend" || true
