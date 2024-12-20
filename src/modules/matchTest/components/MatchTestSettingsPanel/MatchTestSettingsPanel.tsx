@@ -9,11 +9,7 @@ export const MatchTestSettingsPanel: FC<
   IUseMatchTestSettingsFormReturn
 > = props => {
   return (
-    <Form
-      title={'Настройки теста'}
-      isLoading={false}
-      onSubmit={props.form.onSubmit(props.save)}
-    >
+    <Form title={'Настройки теста'} onSubmit={props.form.onSubmit(props.save)}>
       <Flex direction={'column'} gap={10}>
         <NumberInput
           label={'Количество слов'}
