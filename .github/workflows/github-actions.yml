@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: List build directory
-        run: ls -al ./dist
+        run: ls -al
       - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.8
         with:
