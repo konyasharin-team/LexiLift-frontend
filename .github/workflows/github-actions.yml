@@ -54,8 +54,8 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             ## Распаковываем образ
-            gzip -d $APP_NAME.tar.gz
-            docker load < $APP_NAME.tar
+            gzip -d $APP_NAME/$APP_NAME.tar.gz
+            docker load < $APP_NAME/$APP_NAME.tar
 
             # Останавливаем и удаляем старый контейнер
             docker stop $APP_NAME || true
