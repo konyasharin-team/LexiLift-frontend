@@ -34,6 +34,22 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
+            # Проверка наличия nodejs
+            if ! command -v node &>/dev/null; then
+              echo "Node.js не установлен, начинаю установку..."
+              # Установка Node.js для Ubuntu/Debian
+              sudo apt update
+              sudo apt install -y nodejs npm
+              # Проверка установки
+              if ! command -v node &>/dev/null; then
+                echo "Не удалось установить Node.js. Прекращаю выполнение."
+                exit 1
+              fi
+              echo "Node.js успешно установлен."
+            else
+              echo "Node.js уже установлен."
+            fi
+            
             # Устанавливаем serve, если он еще не установлен
             if ! command -v serve &> /dev/null
             then
@@ -41,14 +57,14 @@ jobs:
             fi
             
             # Создаем директорию для приложения
-            mkdir -p /var/www/lexilift
+            mkdir -p /var/www/lexilift/frontend
             
             # Удаляем старые файлы и загружаем новые
-            rm -rf /var/www/lexilift/*
-            scp -r ./build/* /var/www/lexilift
+            rm -rf /var/www/lexilift/frontend/*
+            scp -r ./build/* /var/www/lexilift/frontend
             
             # Убиваем старый процесс serve, если он есть
-            pkill -f "serve -s /var/www/lexilift" || true
+            pkill -f "serve -s /var/www/lexilift/frontend" || true
             
             # Запускаем приложение с serve
-            nohup serve -s /var/www/lexilift -l 3000 > /dev/null 2>&1 &
+            nohup serve -s /var/www/lexilift/frontend -l 3000 > /dev/null 2>&1 &
