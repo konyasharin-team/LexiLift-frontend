@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+env:
+  APP_NAME: lexilift
+  APP_PORT: 5173
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -24,9 +27,13 @@ jobs:
         run: npm run fix
       - name: Lint
         run: npm run lint
-      - name: Build
-        run: npm run build
-        # Настроим SSH-ключ
+      # Сборка Docker Image
+      - name: Build Docker Image
+        run: docker build -t $APP_NAME:latest .
+      # Архивация Docker Image
+      - name: Save Docker Image to File
+        run: docker save $APP_NAME:latest | gzip > $APP_NAME.tar.gz
+      # Настроим SSH-ключ
       - name: Setup SSH key
         run: |
          mkdir -p "$HOME/.ssh"
@@ -38,7 +45,7 @@ jobs:
       - name: Deploy to server via rsync
         run: |
           # Делаем rsync из папки dist на сервер
-          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" ./dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/var/www/lexilift/frontend/
+          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" ./$APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/$APP_NAME.tar.gz
       - name: Start with serve
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -47,8 +54,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            # Убиваем старый процесс serve, если он есть
-            pkill -f "serve -s /var/www/lexilift/frontend" || true
-            
-            # Запускаем приложение с serve
-            nohup serve -s /var/www/lexilift/frontend -l 3000 > /dev/null 2>&1 &
+            ## Распаковываем образ
+            gzip -d /home/${{ secrets.SERVER_USER }}/$APP_NAME.tar.gz
+            docker load < /home/${{ secrets.SERVER_USER }}/$APP_NAME.tar
+
+            # Останавливаем и удаляем старый контейнер
+            docker stop $APP_NAME || true
+            docker rm $APP_NAME || true
+
+            # Запускаем контейнер
+            docker run -d --name $APP_NAME -p $APP_PORT:$APP_PORT $APP_NAME:latest
