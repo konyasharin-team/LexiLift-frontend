@@ -44,8 +44,7 @@ jobs:
       # Загрузка файлов на сервер через rsync
       - name: Deploy to server via rsync
         run: |
-          # Делаем rsync из папки dist на сервер
-          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" ./$APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/$APP_NAME.tar.gz
+          rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/
       - name: Start with serve
         uses: appleboy/ssh-action@v0.1.8
         with:
