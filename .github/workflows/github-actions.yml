@@ -47,28 +47,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            # Проверка наличия nodejs
-            if ! command -v node &>/dev/null; then
-              echo "Node.js не установлен, начинаю установку..."
-              # Установка Node.js для Ubuntu/Debian
-              sudo apt update
-              sudo apt install -y nodejs npm
-              # Проверка установки
-              if ! command -v node &>/dev/null; then
-                echo "Не удалось установить Node.js. Прекращаю выполнение."
-                exit 1
-              fi
-              echo "Node.js успешно установлен."
-            else
-              echo "Node.js уже установлен."
-            fi
-            
-            # Устанавливаем serve, если он еще не установлен
-            if ! command -v serve &> /dev/null
-            then
-              npm install -g serve
-            fi
-            
             # Убиваем старый процесс serve, если он есть
             pkill -f "serve -s /var/www/lexilift/frontend" || true
             
