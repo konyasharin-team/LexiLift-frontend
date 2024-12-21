@@ -5,8 +5,7 @@ services:
     image: lexilift-frontend
     build:
       context: .
-    ports:
-      - "5173:5173"
+    ports: [ '5173:5173' ]
     restart: always
     volumes:
       - .:/app
