@@ -7,6 +7,7 @@ export * from './components/MatchTestResultsCard/MatchTestResultsCard.tsx';
 export * from './components/MatchTestSettingsPanel/MatchTestSettingsPanel.tsx';
 export * from './components/MatchTestTimer/MatchTestTimer';
 export * from './components/MatchTestWrapper/MatchTestWrapper.tsx';
+export * from './hooks/useHasCards.ts';
 export * from './hooks/useMatchTest';
 export * from './hooks/useMatchTestSettingsForm.ts';
 export * from './types/IMatchTestResults.ts';
