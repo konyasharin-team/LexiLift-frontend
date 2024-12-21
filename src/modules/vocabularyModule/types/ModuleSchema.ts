@@ -1,4 +1,4 @@
-import { DictionaryCardSchema } from '@app-types';
+import { DictionaryCardBackendSchema, DictionaryCardSchema } from '@app-types';
 import { z } from 'zod';
 
 export const ModuleSchema = z.object({
@@ -13,7 +13,14 @@ export const ModuleSchema = z.object({
       backgroundColor: z.string(),
     }),
   ),
-  cards: z.array(DictionaryCardSchema),
+  words: z.array(DictionaryCardSchema),
 });
 
+export const ModuleBackendSchema = ModuleSchema.merge(
+  z.object({
+    words: z.array(DictionaryCardBackendSchema),
+  }),
+);
+
 export type ModuleSchemaInfer = z.infer<typeof ModuleSchema>;
+export type ModuleBackendSchemaInfer = z.infer<typeof ModuleBackendSchema>;

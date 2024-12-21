@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@api';
 import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
 import { ModulesErrorSchema } from '@modules/vocabularyModule/types/ModulesErrorSchema.ts';
-import { ModulesPaginationSchema } from '@modules/vocabularyModule/types/ModulesPaginationSchema.ts';
+import { ModulesPaginationBackendSchema } from '@modules/vocabularyModule/types/ModulesPaginationSchema.ts';
 
 export const useGetModulesUserController = () => {
   const getModulesUserController = useInfiniteQuery(
@@ -11,7 +11,7 @@ export const useGetModulesUserController = () => {
         ModulesApi.GetModulesUser({ pageNumber: pageParam, pageSize: 5 }),
     },
     {
-      resultSchema: ModulesPaginationSchema,
+      resultSchema: ModulesPaginationBackendSchema,
       errorSchema: ModulesErrorSchema,
     },
   );

@@ -4,13 +4,13 @@ import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.
 
 export const useEditModule = () => {
   const form = useForm<
-    Pick<ModuleSchemaInfer, 'tags' | 'title' | 'description' | 'cards'>
+    Pick<ModuleSchemaInfer, 'tags' | 'title' | 'description' | 'words'>
   >({
     initialValues: {
       tags: [],
       title: '',
       description: '',
-      cards: [
+      words: [
         { id: 0, word: '', translation: '' },
         { id: 1, word: '', translation: '' },
         { id: 2, word: '', translation: '' },
@@ -26,7 +26,7 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        cards: values.cards?.map(card => {
+        cards: values.words?.map(card => {
           if (card.id === id) return { ...card, [field]: value };
           return card;
         }),
@@ -39,9 +39,9 @@ export const useEditModule = () => {
       return {
         ...values,
         cards: [
-          ...(values.cards ?? []),
+          ...(values.words ?? []),
           {
-            id: values.cards ? values.cards.length - 1 : 0,
+            id: values.words ? values.words.length - 1 : 0,
             word: '',
             translation: '',
           },
@@ -54,7 +54,7 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        cards: values.cards?.filter(card => card.id !== id),
+        cards: values.words?.filter(card => card.id !== id),
       };
     });
   };
