@@ -20,7 +20,7 @@ export const EditModulePage: FC = () => {
           radius="md"
           size="xl"
           color="blue"
-          disabled={editModuleController.form.values.cards.some(
+          disabled={editModuleController.form.values.words.some(
             card => card.word.length === 0 || card.translation.length === 0,
           )}
         >
