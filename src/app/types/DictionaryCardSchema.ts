@@ -7,4 +7,14 @@ export const DictionaryCardSchema = DictionaryItemSchema.merge(
   }),
 );
 
+export const DictionaryCardBackendSchema = z.object({
+  id: z.number(),
+  word: z.string(),
+  description: z.string(),
+  pictureUrl: z.string(),
+});
+
 export type DictionaryCardSchemaInfer = z.infer<typeof DictionaryCardSchema>;
+export type DictionaryCardBackendSchemaInfer = z.infer<
+  typeof DictionaryCardSchema
+>;

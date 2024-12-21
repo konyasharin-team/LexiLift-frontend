@@ -9,14 +9,14 @@ export const EditModuleCards: FC<ReturnType<typeof useEditModule>> = props => {
 
   return (
     <>
-      {props.form.values.cards.map((card, index) => (
+      {props.form.values.words.map((card, index) => (
         <ModuleCard
           key={index}
           id={index}
           card={card}
           onCardChange={props.onCardChange}
           removeCard={props.removeCard}
-          disableRemove={props.form.values.cards.length <= 3}
+          disableRemove={props.form.values.words.length <= 3}
         />
       ))}
 
