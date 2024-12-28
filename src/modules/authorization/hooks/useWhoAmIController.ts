@@ -1,15 +1,18 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useRequestEvents } from '@api';
+import { pendingToLoading, useQuery, useRequestEvents } from '@api';
+import { useRefreshController } from '@modules/authorization';
 import { AuthApi } from '@modules/authorization/api/AuthApi.ts';
+import { TokensErrorSchema } from '@modules/authorization/types/TokensErrorSchema.ts';
 import { UserSchema } from '@modules/authorization/types/UserSchema.ts';
 import { TokensService } from '@modules/authorization/utils/TokensService.ts';
 import { appPaths } from '@routes';
 import { useActions, useAppSelector } from '@store';
 
 export const useWhoAmIController = () => {
+  const refreshController = useRefreshController();
   const { tokens, user } = useAppSelector(state => state.auth);
-  const { setUser, setAppLoadingIsActive, exit } = useActions();
+  const { setUser, setAppLoadingIsActive, exit, setTokens } = useActions();
   const navigate = useNavigate();
 
   const controller = useQuery(
@@ -20,12 +23,31 @@ export const useWhoAmIController = () => {
     },
     {
       resultSchema: UserSchema,
+      errorSchema: TokensErrorSchema,
     },
   );
 
   useRequestEvents(controller.sender, {
     onSuccess: result => {
       if (result) setUser(result);
+    },
+    onError: () => {
+      if (
+        controller.apiError?.type === 'TOKEN_EXPIRED' ||
+        (controller.apiError?.type === 'TOKEN_NOT_VALID' &&
+          TokensService.IsNotEmpty(tokens))
+      ) {
+        refreshController.sender.mutate(tokens);
+      } else {
+        exit();
+        navigate(appPaths.AUTHORIZATION);
+      }
+    },
+  });
+
+  useRequestEvents(pendingToLoading(refreshController.sender), {
+    onSuccess: result => {
+      if (result) setTokens({ ...tokens, ...result });
     },
     onError: () => {
       exit();

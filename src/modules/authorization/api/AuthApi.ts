@@ -4,6 +4,7 @@ import { IChangePasswordData, ILogoutTargetData } from '@modules/authorization';
 import { ChangePasswordErrorsSchemaInfer } from '@modules/authorization/types/ChangePasswordErrorsSchema.ts';
 import { IAuthData } from '@modules/authorization/types/IAuthData.ts';
 import { RegistrationErrorsSchemaInfer } from '@modules/authorization/types/RegistrationErrorsSchema.ts';
+import { TokensErrorsSchemaInfer } from '@modules/authorization/types/TokensErrorsSchema.ts';
 import { TokensSchemaInfer } from '@modules/authorization/types/TokensSchema.ts';
 import { UserSchemaInfer } from '@modules/authorization/types/UserSchema.ts';
 import { AxiosInstance, AxiosResponse } from 'axios';
@@ -28,13 +29,18 @@ export class AuthApi {
   public static PostRefresh(
     data: Pick<TokensSchemaInfer, 'refreshToken'>,
   ): Promise<
-    AxiosResponse<IResponse<Pick<TokensSchemaInfer, 'accessToken'>, IError>>
+    AxiosResponse<
+      IResponse<
+        Pick<TokensSchemaInfer, 'accessToken'>,
+        IError<TokensErrorsSchemaInfer>
+      >
+    >
   > {
     return this.Instance.post('/refresh', data);
   }
 
   public static GetWhoAmI(): Promise<
-    AxiosResponse<IResponse<UserSchemaInfer, IError>>
+    AxiosResponse<IResponse<UserSchemaInfer, IError<TokensErrorsSchemaInfer>>>
   > {
     return this.Instance.get(`/who-am-i`);
   }
