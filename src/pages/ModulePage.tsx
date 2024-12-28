@@ -4,7 +4,6 @@ import { ControlledComponent } from '@components/ControlledComponent';
 import { idMiddleware, useParsedParams } from '@hooks';
 import { useI18N } from '@i18n';
 import { Grid, GridCol } from '@mantine/core';
-import { wordPairs } from '@modules/matchTest/data.ts';
 import {
   ModuleFlipCards,
   ModuleHead,
@@ -12,6 +11,7 @@ import {
   ModuleTestsButtons,
   useGetModuleAboutController,
 } from '@modules/vocabularyModule';
+import { moduleFromBackendFieldsTransform } from '@modules/vocabularyModule/utils/moduleFromBackendFieldsTransform.ts';
 
 export const ModulePage: FC = () => {
   const { t } = useI18N();
@@ -28,13 +28,15 @@ export const ModulePage: FC = () => {
       {result =>
         result ? (
           <div style={{ overflow: 'hidden' }}>
-            <ModuleHead {...result} />
-            <Grid mt={50}>
-              <GridCol span={2}>
+            <ModuleHead countWords={result.words.length} {...result} />
+            <Grid mt={50} gutter={'md'}>
+              <GridCol span={3}>
                 <ModuleTestsButtons />
               </GridCol>
-              <GridCol span={10}>
-                <ModuleFlipCards cards={wordPairs} />
+              <GridCol span={9}>
+                <ModuleFlipCards
+                  cards={moduleFromBackendFieldsTransform(result).words}
+                />
               </GridCol>
             </Grid>
           </div>

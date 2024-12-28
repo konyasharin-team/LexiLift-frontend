@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { ListItem } from '@components/List';
 import { Badge, Flex, Text } from '@mantine/core';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
-import { getRandomColor } from '@modules/vocabularyModule/utils/randomColor.ts';
 import { generators } from '@routes';
 
 interface IModulesListElement extends ModuleSchemaInfer {
@@ -30,7 +29,12 @@ export const ModulesListElement = forwardRef<
         </div>
         <Flex gap="xs">
           {props.tags.map((tagInfo, idx) => (
-            <Badge key={idx} color={getRandomColor()} variant="light">
+            <Badge
+              key={idx}
+              c={tagInfo.fontColor}
+              bg={tagInfo.backgroundColor}
+              variant="light"
+            >
               {tagInfo.tag}
             </Badge>
           ))}

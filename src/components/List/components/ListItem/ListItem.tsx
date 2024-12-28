@@ -1,6 +1,6 @@
 import { forwardRef, ReactNode, useContext } from 'react';
 import { ListContext } from '@components/List/context/ListContext.ts';
-import { GridCol, ScrollArea, useMantineTheme } from '@mantine/core';
+import { Box, GridCol, ScrollArea, useMantineTheme } from '@mantine/core';
 import { motion, Variants } from 'framer-motion';
 
 interface IListItemProps {
@@ -66,7 +66,15 @@ export const ListItem = forwardRef<HTMLDivElement, IListItemProps>(
           onClick={props.onSelect}
         >
           <ScrollArea h={'100%'} offsetScrollbars={'y'}>
-            {props.children}
+            <Box
+              h={
+                context?.height
+                  ? `calc(${context.height}px - 2 * ${theme.spacing.md} - 5px)`
+                  : 'fit-content'
+              }
+            >
+              {props.children}
+            </Box>
           </ScrollArea>
         </motion.div>
       </GridCol>

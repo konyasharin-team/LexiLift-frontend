@@ -68,6 +68,9 @@ const en: Resource = {
     accessDenied: 'Access denied',
     notFound: 'Module not found',
   },
+  modulePage: {
+    wordsCount: 'Words count',
+  },
   achievementsPage: {
     yourAchievements: 'Your achievements',
   },
