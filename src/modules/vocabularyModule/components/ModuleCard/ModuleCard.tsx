@@ -56,7 +56,9 @@ export const ModuleCard = (props: IModuleCardProps) => {
           mt={30}
           mb={30}
           ml={25}
-          onChange={e => props.onCardChange(props.id, 'word', e.target.value)}
+          onChange={e =>
+            props.onCardChange(props.id, 'word', e.currentTarget.value)
+          }
           className="text"
           style={{ borderBottom: `1px solid ${appColors.greyApp[3]}` }}
           variant="unstyled"
@@ -69,7 +71,7 @@ export const ModuleCard = (props: IModuleCardProps) => {
           mb={30}
           mr={25}
           onChange={e =>
-            props.onCardChange(props.id, 'translation', e.target.value)
+            props.onCardChange(props.id, 'translation', e.currentTarget.value)
           }
           className="text"
           style={{ borderBottom: `1px solid ${appColors.greyApp[3]}` }}

@@ -1,19 +1,19 @@
 import { ReactNode, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IRequestData, useRequestEvents } from '@api';
-import { CenterPage } from '@components/CenterPage';
+import { Center } from '@components/Center';
 import { Loader } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { appPaths } from '@routes';
 
-interface IControlledPageProps<TResult, TError>
+interface IControlledComponentProps<TResult, TError>
   extends IRequestData<TResult, TError> {
   error: string;
   children: (result?: TResult) => ReactNode;
 }
 
-export const ControlledPage = <TResult, TError>(
-  props: IControlledPageProps<TResult, TError>,
+export const ControlledComponent = <TResult, TError>(
+  props: IControlledComponentProps<TResult, TError>,
 ) => {
   const navigate = useNavigate();
   const [content, setContent] = useState<ReactNode>();
@@ -22,9 +22,9 @@ export const ControlledPage = <TResult, TError>(
     onSuccess: result => setContent(props.children(result)),
     onLoading: () =>
       setContent(
-        <CenterPage>
+        <Center>
           <Loader />
-        </CenterPage>,
+        </Center>,
       ),
     onError: () => {
       setContent(undefined);

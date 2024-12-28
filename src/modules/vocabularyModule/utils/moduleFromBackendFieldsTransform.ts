@@ -4,12 +4,15 @@ import {
   ModuleSchemaInfer,
 } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
-export const moduleBackendTransform = (
-  module: ModuleBackendSchemaInfer,
-): ModuleSchemaInfer => {
+export const moduleFromBackendFieldsTransform = (
+  module: Pick<ModuleBackendSchemaInfer, 'tags' | 'words'>,
+): Pick<ModuleSchemaInfer, 'tags' | 'words'> => {
   const parsedModule = ModuleBackendSchema.parse(module);
   return {
-    ...parsedModule,
+    tags: parsedModule.tags.map(tag => ({
+      ...tag,
+      tag: tag.name,
+    })),
     words: parsedModule.words.map(word => ({
       ...word,
       translation: word.description,

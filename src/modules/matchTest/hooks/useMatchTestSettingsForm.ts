@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ITestSettings } from '@app-types';
 import { TEST_WORDS_PER_ROUND } from '@constants';
@@ -7,7 +8,7 @@ import { appPaths } from '@routes';
 import { useActions } from '@store';
 
 export const useMatchTestSettingsForm = (
-  initialSettings: ITestSettings,
+  initialSettings?: ITestSettings,
 ): IUseMatchTestSettingsFormReturn => {
   const form = useForm<ITestSettings>({
     initialValues: initialSettings,
@@ -21,6 +22,10 @@ export const useMatchTestSettingsForm = (
   });
   const { setMatchTestSettings } = useActions();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initialSettings) form.setValues(initialSettings);
+  }, [initialSettings]);
 
   const save = (settings: ITestSettings) => {
     setMatchTestSettings(settings);

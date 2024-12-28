@@ -3,7 +3,7 @@ import { transformPages } from '@api';
 import { List } from '@components/List';
 import { useGetModulesUserController } from '@modules/vocabularyModule';
 import { ModulesListElement } from '@modules/vocabularyModule/components/ModulesListElement/ModulesListElement.tsx';
-import { moduleBackendTransform } from '@modules/vocabularyModule/utils/moduleBackendTransform.ts';
+import { moduleFromBackendFieldsTransform } from '@modules/vocabularyModule/utils/moduleFromBackendFieldsTransform.ts';
 
 interface IModulesListProps {
   getModulesUserController: ReturnType<typeof useGetModulesUserController>;
@@ -17,7 +17,8 @@ export const ModulesList: FC<IModulesListProps> = props => {
           <ModulesListElement
             index={index}
             key={module.id}
-            {...moduleBackendTransform(module)}
+            {...module}
+            {...moduleFromBackendFieldsTransform(module)}
           />
         ));
       })}

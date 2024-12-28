@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
+import { getErrorTextWithEmpty } from '@api';
 import { ColorsPopover, objectToColors } from '@components/ColorsPopover';
+import { ControlledComponent } from '@components/ControlledComponent';
 import { useI18N } from '@i18n';
 import {
   ActionIcon,
@@ -14,22 +16,33 @@ import {
 } from '@mantine/core';
 import {
   BASE_TAG_COLOR,
+  TagColors,
+  TagSchemaInfer,
   TagsColors,
-  useEditModule,
-} from '@modules/vocabularyModule';
-import { tags } from '@modules/vocabularyModule/data.ts';
-import { TagColors } from '@modules/vocabularyModule/types/TagColors.ts';
+  useGetTagsController,
+} from '@modules/tags';
 import { IconCheck } from '@tabler/icons-react';
 
 const CURRENT_COLOR_KEY: keyof TagColors = 'fontColor';
 
-const TagsInput: FC<
-  Pick<ReturnType<typeof useEditModule>, 'addTag' | 'removeTag' | 'form'>
-> = props => {
+interface ITagsInputProps {
+  addTag: (tag: TagSchemaInfer) => void;
+  removeTag: (tag: TagSchemaInfer['tag']) => void;
+  tags: TagSchemaInfer[];
+}
+
+export const TagsInput: FC<ITagsInputProps> = props => {
+  const controller = useGetTagsController();
   const { t } = useI18N();
   const [currentColor, setCurrentColor] = useState(BASE_TAG_COLOR);
   const [search, setSearch] = useState('');
-  const [userTags] = useState(tags.map(tag => ({ tag, selected: false })));
+
+  const getUserTags = () => {
+    return controller.sender.response?.data.result?.map(tag => ({
+      tag,
+      selected: false,
+    }));
+  };
 
   const combobox = useCombobox({
     onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -38,11 +51,11 @@ const TagsInput: FC<
   const handleValueSelect = (val: string) => {
     if (val) {
       setSearch(val);
-      setSearch(userTags.find(tagObj => tagObj.tag === val)?.tag ?? '');
+      setSearch(getUserTags()?.find(tagObj => tagObj.tag === val)?.tag ?? '');
     }
   };
 
-  const values = props.form.values.tags.map(item => (
+  const values = props.tags.map(item => (
     <Pill
       key={item.tag}
       bg={item.backgroundColor}
@@ -54,9 +67,9 @@ const TagsInput: FC<
     </Pill>
   ));
 
-  const options = userTags
-    .filter(tagObj => {
-      const isAlreadyChose = props.form.values.tags.some(
+  const options = getUserTags()
+    ?.filter(tagObj => {
+      const isAlreadyChose = props.tags.some(
         otherTagObj => otherTagObj.tag === tagObj.tag,
       );
       if (search.length === 0) {
@@ -90,9 +103,7 @@ const TagsInput: FC<
             <Flex gap={5}>
               <ActionIcon
                 display={search.length === 0 ? 'none' : 'block'}
-                disabled={props.form.values.tags.some(
-                  tagObj => tagObj.tag === search,
-                )}
+                disabled={props.tags.some(tagObj => tagObj.tag === search)}
                 onClick={() => {
                   props.addTag({ tag: search, ...currentColor });
                   setSearch('');
@@ -130,16 +141,21 @@ const TagsInput: FC<
       </Combobox.DropdownTarget>
 
       <Combobox.Dropdown>
-        <Combobox.Options>
-          {options.length > 0 ? (
-            options
-          ) : (
-            <Combobox.Empty>Nothing found...</Combobox.Empty>
-          )}
-        </Combobox.Options>
+        <ControlledComponent
+          {...controller.sender}
+          error={getErrorTextWithEmpty()}
+        >
+          {result =>
+            result && options?.length ? (
+              <Combobox.Options>{options}</Combobox.Options>
+            ) : (
+              <Combobox.Empty>
+                {t.createModulePage.tagsNotFound}...
+              </Combobox.Empty>
+            )
+          }
+        </ControlledComponent>
       </Combobox.Dropdown>
     </Combobox>
   );
 };
-
-export default TagsInput;

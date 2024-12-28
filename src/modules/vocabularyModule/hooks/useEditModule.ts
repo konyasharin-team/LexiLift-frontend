@@ -11,9 +11,9 @@ export const useEditModule = () => {
       title: '',
       description: '',
       words: [
-        { id: 0, word: '', translation: '' },
-        { id: 1, word: '', translation: '' },
-        { id: 2, word: '', translation: '' },
+        { id: 0, word: '', translation: '', img: 'test' },
+        { id: 1, word: '', translation: '', img: 'test' },
+        { id: 2, word: '', translation: '', img: 'test' },
       ],
     },
   });
@@ -26,7 +26,7 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        cards: values.words?.map(card => {
+        words: values.words?.map(card => {
           if (card.id === id) return { ...card, [field]: value };
           return card;
         }),

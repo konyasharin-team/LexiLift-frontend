@@ -60,6 +60,15 @@ const ru = {
     word: 'Слово',
     translation: 'Перевод',
     addCard: 'Добавить карточку',
+    tagsNotFound: 'Тегов не найдено',
+    createdSuccess: 'Модуль успешно создан',
+  },
+  modulesErrors: {
+    accessDenied: 'Вам отказано в доступе к данному модулю',
+    notFound: 'Модуль не найден',
+  },
+  modulePage: {
+    wordsCount: 'Количество слов',
   },
   achievementsPage: {
     yourAchievements: 'Ваши достижения',
