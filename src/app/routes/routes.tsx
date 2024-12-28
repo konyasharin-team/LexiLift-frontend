@@ -1,5 +1,6 @@
-import { Roles } from '@constants/roles.ts';
+import { Roles } from '@constants';
 import {
+  AchievementsPage,
   AuthorizationPage,
   CoursePage,
   CoursesPage,
@@ -87,6 +88,11 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.PROFILE,
     element: <ProfilePage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.ACHIEVEMENTS,
+    element: <AchievementsPage />,
     availableFor: [Roles.USER],
   },
 ];
