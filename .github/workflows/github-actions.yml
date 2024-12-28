@@ -36,7 +36,7 @@ jobs:
       - name: Setup SSH key
         run: |
          mkdir -p "$HOME/.ssh"
-         echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$HOME/${{ secrets.SERVER_USER }}/.ssh/authorized_keys"
+         echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$HOME/.ssh/authorized_keys"
          chmod 600 "$HOME/.ssh/authorized_keys"
          # Отключаем проверку host key для SSH
          echo -e "Host *\n  StrictHostKeyChecking no\n  UserKnownHostsFile=/dev/null" > "$HOME/.ssh/config"
