@@ -43,8 +43,9 @@ jobs:
       # Загрузка файлов на сервер через rsync
       - name: Deploy to server via rsync
         run: |
+          ssh -i $HOME/.ssh/authorized_keys ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "mkdir -p /$APP_NAME" && \
           rsync -avz --delete -e "ssh -i $HOME/.ssh/authorized_keys" $APP_NAME.tar.gz docker-compose.yml \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:$HOME/${{ secrets.SERVER_USER }}/$APP_NAME/
+          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/$APP_NAME
       - name: Start docker image
         uses: appleboy/ssh-action@v0.1.8
         with:
