@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useI18N } from '@i18n';
 import { Flex, Paper, Textarea, TextInput } from '@mantine/core';
+import { TagsInput } from '@modules/tags';
 import { useEditModule } from '@modules/vocabularyModule';
-import TagsInput from '@modules/vocabularyModule/components/TagsInput/TagsInput.tsx';
 
 export const EditModuleInfo: FC<
   Pick<ReturnType<typeof useEditModule>, 'addTag' | 'removeTag' | 'form'>
@@ -21,7 +21,11 @@ export const EditModuleInfo: FC<
 
         <div>
           <Paper shadow="md">
-            <TagsInput {...props} />
+            <TagsInput
+              tags={props.form.values.tags}
+              addTag={props.addTag}
+              removeTag={props.removeTag}
+            />
           </Paper>
         </div>
       </Flex>

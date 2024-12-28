@@ -1,4 +1,5 @@
 import { DictionaryCardBackendSchema, DictionaryCardSchema } from '@app-types';
+import { TagSchema } from '@modules/tags';
 import { z } from 'zod';
 
 export const ModuleSchema = z.object({
@@ -6,13 +7,7 @@ export const ModuleSchema = z.object({
   title: z.string(),
   description: z.string(),
   owner: z.number(),
-  tags: z.array(
-    z.object({
-      tag: z.string(),
-      fontColor: z.string(),
-      backgroundColor: z.string(),
-    }),
-  ),
+  tags: z.array(TagSchema),
   words: z.array(DictionaryCardSchema),
 });
 

@@ -14,18 +14,22 @@ import {
 } from '@mantine/core';
 import {
   BASE_TAG_COLOR,
+  TagColors,
+  TagSchemaInfer,
   TagsColors,
-  useEditModule,
-} from '@modules/vocabularyModule';
-import { tags } from '@modules/vocabularyModule/data.ts';
-import { TagColors } from '@modules/vocabularyModule/types/TagColors.ts';
+} from '@modules/tags';
+import { tags } from '@modules/tags/data.ts';
 import { IconCheck } from '@tabler/icons-react';
 
 const CURRENT_COLOR_KEY: keyof TagColors = 'fontColor';
 
-const TagsInput: FC<
-  Pick<ReturnType<typeof useEditModule>, 'addTag' | 'removeTag' | 'form'>
-> = props => {
+interface ITagsInputProps {
+  addTag: (tag: TagSchemaInfer) => void;
+  removeTag: (tag: TagSchemaInfer['tag']) => void;
+  tags: TagSchemaInfer[];
+}
+
+export const TagsInput: FC<ITagsInputProps> = props => {
   const { t } = useI18N();
   const [currentColor, setCurrentColor] = useState(BASE_TAG_COLOR);
   const [search, setSearch] = useState('');
@@ -42,7 +46,7 @@ const TagsInput: FC<
     }
   };
 
-  const values = props.form.values.tags.map(item => (
+  const values = props.tags.map(item => (
     <Pill
       key={item.tag}
       bg={item.backgroundColor}
@@ -56,7 +60,7 @@ const TagsInput: FC<
 
   const options = userTags
     .filter(tagObj => {
-      const isAlreadyChose = props.form.values.tags.some(
+      const isAlreadyChose = props.tags.some(
         otherTagObj => otherTagObj.tag === tagObj.tag,
       );
       if (search.length === 0) {
@@ -90,9 +94,7 @@ const TagsInput: FC<
             <Flex gap={5}>
               <ActionIcon
                 display={search.length === 0 ? 'none' : 'block'}
-                disabled={props.form.values.tags.some(
-                  tagObj => tagObj.tag === search,
-                )}
+                disabled={props.tags.some(tagObj => tagObj.tag === search)}
                 onClick={() => {
                   props.addTag({ tag: search, ...currentColor });
                   setSearch('');
@@ -141,5 +143,3 @@ const TagsInput: FC<
     </Combobox>
   );
 };
-
-export default TagsInput;

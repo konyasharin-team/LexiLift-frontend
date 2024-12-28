@@ -51,7 +51,7 @@
       "@constants": ["src/app/constants"],
       "@routes": ["src/app/routes"],
       "@api": ["src/app/api"],
-      "@i18n": ["src/app/i18n"]
+      "@i18n": ["src/app/i18n"],
     }
   },
   "include": ["src"]
