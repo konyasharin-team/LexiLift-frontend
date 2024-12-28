@@ -51,6 +51,7 @@ const en: Resource = {
     courses: 'Courses (developing)',
     test: 'For testing',
     login: 'Login',
+    achievements: 'Achievements (developing)',
   },
   createModulePage: {
     createModule: 'Create module',

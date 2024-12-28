@@ -1,3 +1,4 @@
+export * from './AchievementsPage.tsx';
 export * from './AuthorizationPage.tsx';
 export * from './CoursePage.tsx';
 export * from './CoursesPage.tsx';

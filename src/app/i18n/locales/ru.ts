@@ -50,6 +50,7 @@ const ru = {
     courses: 'Курсы (в разработке)',
     test: 'Для тестирования',
     login: 'Вход',
+    achievements: 'Достижения (в разработке)',
   },
   createModulePage: {
     createModule: 'Создать модуль',

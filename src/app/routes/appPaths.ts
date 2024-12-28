@@ -13,4 +13,5 @@ export const appPaths = {
   COURSES: '/courses',
   COURSE: '/courses/:id',
   PROFILE: '/profile',
+  ACHIEVEMENTS: '/achievements',
 };

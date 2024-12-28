@@ -9,6 +9,10 @@
     height: 100%;
 }
 
+.item svg{
+    flex-shrink: 0;
+}
+
 .item .linkActiveWithBurger, .item .linkActiveWithoutBurger {
     color: var(--mantine-color-blue-5);
 }
