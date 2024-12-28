@@ -61,6 +61,9 @@ const ru = {
     translation: 'Перевод',
     addCard: 'Добавить карточку',
   },
+  achievementsPage: {
+    yourAchievements: 'Ваши достижения',
+  },
 };
 
 export default ru;
