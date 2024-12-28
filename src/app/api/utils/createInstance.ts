@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const createInstance = (path: string) => {
   const service = axios.create({
-    baseURL: `http://185.127.26.21:9000/api${path[0] === '/' ? path : `/${path}`}`,
+    baseURL: `http://api.lexilift.dragonestia.ru/api${path[0] === '/' ? path : `/${path}`}`,
   });
 
   service.interceptors.request.use(request => {

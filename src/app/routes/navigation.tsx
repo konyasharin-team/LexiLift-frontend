@@ -6,6 +6,7 @@ import {
   IconCertificate,
   IconFile,
   IconFolderFilled,
+  IconLaurelWreath,
   IconLayoutDashboardFilled,
   IconLogin2,
   IconTestPipe,
@@ -32,6 +33,11 @@ export const privateNavigation = (t: Resource): INavigationItem[] => [
     icon: <IconCertificate size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.COURSES,
     text: t.navigation.courses,
+  },
+  {
+    icon: <IconLaurelWreath size={NAVIGATION_ICON_SIZE} />,
+    to: appPaths.ACHIEVEMENTS,
+    text: t.navigation.achievements,
   },
   {
     icon: <IconTestPipe size={NAVIGATION_ICON_SIZE} />,
