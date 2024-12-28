@@ -62,6 +62,9 @@ const en: Resource = {
     translation: 'Translation',
     addCard: 'Add card',
   },
+  achievementsPage: {
+    yourAchievements: 'Your achievements',
+  },
 };
 
 export default en;
