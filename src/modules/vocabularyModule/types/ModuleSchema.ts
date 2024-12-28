@@ -1,5 +1,5 @@
 import { DictionaryCardBackendSchema, DictionaryCardSchema } from '@app-types';
-import { TagSchema } from '@modules/tags';
+import { TagSchema, TagSchemaBackend } from '@modules/tags';
 import { z } from 'zod';
 
 export const ModuleSchema = z.object({
@@ -14,6 +14,7 @@ export const ModuleSchema = z.object({
 export const ModuleBackendSchema = ModuleSchema.merge(
   z.object({
     words: z.array(DictionaryCardBackendSchema),
+    tags: z.array(TagSchemaBackend),
   }),
 );
 

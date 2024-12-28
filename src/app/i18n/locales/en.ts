@@ -61,6 +61,12 @@ const en: Resource = {
     word: 'Word',
     translation: 'Translation',
     addCard: 'Add card',
+    tagsNotFound: 'Tags not found',
+    createdSuccess: 'Module created successfully',
+  },
+  modulesErrors: {
+    accessDenied: 'Access denied',
+    notFound: 'Module not found',
   },
   achievementsPage: {
     yourAchievements: 'Your achievements',

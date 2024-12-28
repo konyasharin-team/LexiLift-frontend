@@ -16,6 +16,7 @@ export const EditModuleInfo: FC<
           <TextInput
             placeholder={t.createModulePage.moduleName}
             className="text"
+            {...props.form.getInputProps('title')}
           />
         </Paper>
 
@@ -42,6 +43,7 @@ export const EditModuleInfo: FC<
               height: '100%',
             },
           }}
+          {...props.form.getInputProps('description')}
         />
       </Paper>
     </Flex>

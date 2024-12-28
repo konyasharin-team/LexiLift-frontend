@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
+import { getErrorTextWithEmpty } from '@api';
 import { ColorsPopover, objectToColors } from '@components/ColorsPopover';
+import { ControlledComponent } from '@components/ControlledComponent';
 import { useI18N } from '@i18n';
 import {
   ActionIcon,
@@ -17,8 +19,8 @@ import {
   TagColors,
   TagSchemaInfer,
   TagsColors,
+  useGetTagsController,
 } from '@modules/tags';
-import { tags } from '@modules/tags/data.ts';
 import { IconCheck } from '@tabler/icons-react';
 
 const CURRENT_COLOR_KEY: keyof TagColors = 'fontColor';
@@ -30,10 +32,17 @@ interface ITagsInputProps {
 }
 
 export const TagsInput: FC<ITagsInputProps> = props => {
+  const controller = useGetTagsController();
   const { t } = useI18N();
   const [currentColor, setCurrentColor] = useState(BASE_TAG_COLOR);
   const [search, setSearch] = useState('');
-  const [userTags] = useState(tags.map(tag => ({ tag, selected: false })));
+
+  const getUserTags = () => {
+    return controller.sender.response?.data.result?.map(tag => ({
+      tag,
+      selected: false,
+    }));
+  };
 
   const combobox = useCombobox({
     onDropdownOpen: () => combobox.updateSelectedOptionIndex('active'),
@@ -42,7 +51,7 @@ export const TagsInput: FC<ITagsInputProps> = props => {
   const handleValueSelect = (val: string) => {
     if (val) {
       setSearch(val);
-      setSearch(userTags.find(tagObj => tagObj.tag === val)?.tag ?? '');
+      setSearch(getUserTags()?.find(tagObj => tagObj.tag === val)?.tag ?? '');
     }
   };
 
@@ -58,8 +67,8 @@ export const TagsInput: FC<ITagsInputProps> = props => {
     </Pill>
   ));
 
-  const options = userTags
-    .filter(tagObj => {
+  const options = getUserTags()
+    ?.filter(tagObj => {
       const isAlreadyChose = props.tags.some(
         otherTagObj => otherTagObj.tag === tagObj.tag,
       );
@@ -132,13 +141,20 @@ export const TagsInput: FC<ITagsInputProps> = props => {
       </Combobox.DropdownTarget>
 
       <Combobox.Dropdown>
-        <Combobox.Options>
-          {options.length > 0 ? (
-            options
-          ) : (
-            <Combobox.Empty>Nothing found...</Combobox.Empty>
-          )}
-        </Combobox.Options>
+        <ControlledComponent
+          {...controller.sender}
+          error={getErrorTextWithEmpty()}
+        >
+          {result =>
+            result && options?.length ? (
+              <Combobox.Options>{options}</Combobox.Options>
+            ) : (
+              <Combobox.Empty>
+                {t.createModulePage.tagsNotFound}...
+              </Combobox.Empty>
+            )
+          }
+        </ControlledComponent>
       </Combobox.Dropdown>
     </Combobox>
   );

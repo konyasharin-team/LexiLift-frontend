@@ -1,8 +1,12 @@
 import { RequestErrors } from '@api';
+import { useI18N } from '@i18n';
 import { ModulesErrorsSchemaInfer } from '@modules/vocabularyModule/types/ModulesErrorsSchema.ts';
 
-export const GET_MODULE_ABOUT_ERRORS: RequestErrors<ModulesErrorsSchemaInfer> =
-  {
-    ACCESS_DENIED: 'Вам отказано в доступе к данному модулю',
-    NOT_FOUND: 'Модуль не найден',
+export const MODULES_ERRORS = (
+  t: ReturnType<typeof useI18N>['t'],
+): RequestErrors<ModulesErrorsSchemaInfer> => {
+  return {
+    ACCESS_DENIED: t.modulesErrors.accessDenied,
+    NOT_FOUND: t.modulesErrors.notFound,
   };
+};

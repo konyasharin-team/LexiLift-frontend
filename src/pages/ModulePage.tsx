@@ -1,26 +1,28 @@
 import { FC } from 'react';
 import { getErrorTextWithEmpty, IdSchema } from '@api';
-import { ControlledPage } from '@components/ControlledPage';
+import { ControlledComponent } from '@components/ControlledComponent';
 import { idMiddleware, useParsedParams } from '@hooks';
+import { useI18N } from '@i18n';
 import { Grid, GridCol } from '@mantine/core';
 import { wordPairs } from '@modules/matchTest/data.ts';
 import {
-  GET_MODULE_ABOUT_ERRORS,
   ModuleFlipCards,
   ModuleHead,
+  MODULES_ERRORS,
   ModuleTestsButtons,
   useGetModuleAboutController,
 } from '@modules/vocabularyModule';
 
 export const ModulePage: FC = () => {
+  const { t } = useI18N();
   const parsedParams = useParsedParams(IdSchema, idMiddleware);
   const controller = useGetModuleAboutController(parsedParams);
 
   return (
-    <ControlledPage
+    <ControlledComponent
       {...controller.sender}
       error={getErrorTextWithEmpty(controller.apiError?.type, {
-        requestErrors: GET_MODULE_ABOUT_ERRORS,
+        requestErrors: MODULES_ERRORS(t),
       })}
     >
       {result =>
@@ -38,6 +40,6 @@ export const ModulePage: FC = () => {
           </div>
         ) : undefined
       }
-    </ControlledPage>
+    </ControlledComponent>
   );
 };

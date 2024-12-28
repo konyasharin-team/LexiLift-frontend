@@ -5,7 +5,12 @@ export const TagSchema = z.object({
   fontColor: z.string(),
   backgroundColor: z.string(),
 });
-export const TagSchemaBackend = z.string();
+
+export const TagSchemaBackend = TagSchema.omit({ tag: true }).merge(
+  z.object({
+    name: z.string(),
+  }),
+);
 
 export type TagSchemaInfer = z.infer<typeof TagSchema>;
-export type TagSchemaBackend = z.infer<typeof TagSchemaBackend>;
+export type TagSchemaBackendInfer = z.infer<typeof TagSchemaBackend>;
