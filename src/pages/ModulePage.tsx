@@ -31,7 +31,7 @@ export const ModulePage: FC = () => {
             <ModuleHead countWords={result.words.length} {...result} />
             <Grid mt={50} gutter={'md'}>
               <GridCol span={3}>
-                <ModuleTestsButtons />
+                <ModuleTestsButtons id={result.id} />
               </GridCol>
               <GridCol span={9}>
                 <ModuleFlipCards
