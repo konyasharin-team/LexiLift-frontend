@@ -45,8 +45,7 @@ jobs:
         run: |
           ssh -i $HOME/.ssh/authorized_keys ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
           "echo 'Current directory:' && pwd && ls" && \
-          "rsync -avz --delete -e $APP_NAME.tar.gz docker-compose.yml \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/$APP_NAME"
+          "rsync -avz --delete -e $APP_NAME.tar.gz docker-compose.yml /$APP_NAME"
       - name: Start docker image
         uses: appleboy/ssh-action@v0.1.8
         with:
