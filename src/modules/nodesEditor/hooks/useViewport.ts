@@ -1,27 +1,47 @@
-import { useContext, useEffect } from 'react';
-// import { ICoordinates } from '@app-types';
+import { useContext, useEffect, useState } from 'react';
+import { DragMoveEvent } from '@dnd-kit/core';
 import {
-  NodesEditorSchemaInfer,
+  NodesEditorInfoSchemaInfer,
   NodesEditorsContext,
 } from '@modules/nodesEditor';
+import { findEditorIndexById } from '@modules/nodesEditor/utils/findEditorIndexById.ts';
 
-export const useViewport = (name: NodesEditorSchemaInfer['name']) => {
+export const useViewport = (name: NodesEditorInfoSchemaInfer['name']) => {
   const context = useContext(NodesEditorsContext);
-  // const [viewportPosition, setViewportPosition] = useState<ICoordinates>({
-  //   x: 0,
-  //   y: 0,
-  // });
+  const [currentEditorId, setCurrentEditorId] = useState<
+    NodesEditorInfoSchemaInfer['id'] | null
+  >(null);
 
   useEffect(() => {
     context?.addEditor({
       id: 0,
       name,
     });
-  }, []);
+    setCurrentEditorId(0);
+    return () => {
+      if (context && findEditorIndexById(0, context.editors) !== -1) {
+        context.removeEditor(0);
+      }
+    };
+  }, [name]);
 
-  const onDrag = () => {};
+  const onDragEnd = (e: DragMoveEvent) => {
+    if (!context || currentEditorId === null)
+      return console.error('No editor id or context provided');
+    context.updateEditor(currentEditorId, editor => ({
+      ...editor,
+      viewport: {
+        ...editor.viewport,
+        coordinates: {
+          x: editor.viewport.coordinates.x + e.delta.x,
+          y: editor.viewport.coordinates.y + e.delta.y,
+        },
+      },
+    }));
+  };
 
   return {
-    onDrag,
+    onDragEnd,
+    currentEditorId,
   };
 };

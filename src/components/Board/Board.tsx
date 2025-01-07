@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   ForwardedRef,
   forwardRef,
   ReactNode,
@@ -8,19 +9,31 @@ import {
 } from 'react';
 import { IBoardItem } from '@components/Board/types/IBoardItem.ts';
 import { DndContext, DragEndEvent, DragOverlay } from '@dnd-kit/core';
+import { Props } from '@dnd-kit/core/dist/components/DndContext/DndContext';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import { mergeRefs } from '@mantine/hooks';
+import clsx from 'clsx';
 
-interface IBoardProps<T extends IBoardItem> {
+import stylesBase from './Board.module.css';
+
+interface IBoardProps<T extends IBoardItem> extends Props {
   items: T[];
-  onDragEnd?: (e: DragEndEvent) => void;
   activeItemToReactNode?: (item: T | undefined) => ReactNode | null;
   className?: string;
+  styles?: CSSProperties;
   children?: ReactNode;
 }
 
 const BoardInner = <T extends IBoardItem>(
-  props: IBoardProps<T>,
+  {
+    items,
+    activeItemToReactNode,
+    className,
+    styles,
+    children,
+    onDragEnd,
+    ...attributes
+  }: IBoardProps<T>,
   ref: ForwardedRef<HTMLDivElement>,
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -45,16 +58,16 @@ const BoardInner = <T extends IBoardItem>(
     };
   }, []);
 
-  const onDragEnd = (e: DragEndEvent) => {
+  const onDragEndHandle = (e: DragEndEvent) => {
     setActiveId(null);
     if ((!e.delta.x && !e.delta.y) || !containerRect) return;
-    if (props.onDragEnd) props.onDragEnd(e);
+    if (onDragEnd) onDragEnd(e);
   };
 
   const getDragOverlayNode = (): ReactNode | null => {
-    if (activeId && props.activeItemToReactNode) {
-      const item = props.items.find(item => item.id === activeId);
-      return props.activeItemToReactNode(item);
+    if (activeId && activeItemToReactNode) {
+      const item = items.find(item => item.id === activeId);
+      return activeItemToReactNode(item);
     }
     return null;
   };
@@ -62,20 +75,20 @@ const BoardInner = <T extends IBoardItem>(
   return (
     <div
       ref={mergeRefs(containerRef, ref)}
-      className={props.className}
+      className={clsx(stylesBase.board, className)}
       style={{
-        width: '100%',
-        height: '100%',
+        ...styles,
       }}
     >
       <DndContext
         onDragStart={({ active }) => setActiveId(active.id)}
-        onDragEnd={onDragEnd}
+        onDragEnd={onDragEndHandle}
         autoScroll={false}
         modifiers={[restrictToWindowEdges]}
+        {...attributes}
       >
-        {props.children}
-        {props.activeItemToReactNode ? (
+        {children}
+        {activeItemToReactNode ? (
           <DragOverlay dropAnimation={{ duration: 200 }}>
             {getDragOverlayNode()}
           </DragOverlay>

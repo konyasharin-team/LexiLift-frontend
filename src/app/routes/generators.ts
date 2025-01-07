@@ -5,6 +5,9 @@ export const generators = {
     COURSE: (id: number) => {
       return `${appPaths.COURSES}/${id}`;
     },
+    COURSE_EDITOR: (id: number) => {
+      return appPaths.COURSE_EDITOR.replace(':id', id.toString());
+    },
   },
   MODULES_GENERATORS: {
     MODULE: (id: number) => {

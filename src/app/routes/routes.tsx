@@ -15,6 +15,7 @@ import {
   RegistrationPage,
   TestPage,
 } from '@pages';
+import { CourseEditorPage } from '@pages/CourseEditorPage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -83,6 +84,16 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.COURSE,
     element: <CoursePage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.COURSE_EDITOR,
+    element: <CourseEditorPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.NEW_COURSE_EDITOR,
+    element: <CourseEditorPage />,
     availableFor: [Roles.USER],
   },
   {
