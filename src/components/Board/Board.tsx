@@ -1,4 +1,11 @@
-import { ForwardedRef, ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  ForwardedRef,
+  forwardRef,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { IBoardItem } from '@components/Board/types/IBoardItem.ts';
 import { DndContext, DragEndEvent, DragOverlay } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
@@ -6,15 +13,16 @@ import { mergeRefs } from '@mantine/hooks';
 
 interface IBoardProps<T extends IBoardItem> {
   items: T[];
-  setItems: (items: T[]) => void;
-  boardRef: ForwardedRef<HTMLDivElement>;
   onDragEnd?: (e: DragEndEvent) => void;
   activeItemToReactNode?: (item: T | undefined) => ReactNode | null;
   className?: string;
   children?: ReactNode;
 }
 
-export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
+const BoardInner = <T extends IBoardItem>(
+  props: IBoardProps<T>,
+  ref: ForwardedRef<HTMLDivElement>,
+) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
   const [activeId, setActiveId] = useState<IBoardItem['id'] | null>(null);
@@ -53,7 +61,7 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
 
   return (
     <div
-      ref={mergeRefs(containerRef, props.boardRef)}
+      ref={mergeRefs(containerRef, ref)}
       className={props.className}
       style={{
         width: '100%',
@@ -76,3 +84,7 @@ export const Board = <T extends IBoardItem>(props: IBoardProps<T>) => {
     </div>
   );
 };
+
+export const Board = forwardRef(BoardInner) as <T extends IBoardItem>(
+  props: IBoardProps<T> & { ref?: ForwardedRef<HTMLDivElement> },
+) => ReturnType<typeof BoardInner>;

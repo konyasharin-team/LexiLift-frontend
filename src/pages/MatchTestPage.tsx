@@ -41,7 +41,6 @@ export const MatchTestPage: FC = () => {
         onDragEnd={matchTest.onDragEnd}
         isStarted={matchTest.isStarted}
         items={matchTest.items}
-        setItems={matchTest.setItems}
         animations={matchTest.animations}
       />
     </MatchTestWrapper>
