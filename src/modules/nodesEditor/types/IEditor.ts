@@ -1,6 +1,8 @@
+import { IBoardItem } from '@components/Board';
 import { NodesEditorInfoSchemaInfer } from '@modules/nodesEditor';
-import { IViewport } from '@modules/nodesEditor/types/IViewport.ts';
+import { Viewport } from '@modules/nodesEditor/types/Viewport.ts';
 
 export interface IEditor extends NodesEditorInfoSchemaInfer {
-  viewport: IViewport;
+  viewport: Viewport;
+  content: IBoardItem[];
 }

@@ -1,15 +1,16 @@
-import { FC, ReactNode, useContext, useMemo, useRef } from 'react';
-import { ICoordinates } from '@app-types';
+import { FC, ReactNode, useContext, useEffect, useMemo } from 'react';
 import { Board } from '@components/Board';
 import {
   NodesEditorInfoSchemaInfer,
   NodesEditorsContext,
 } from '@modules/nodesEditor';
-import { ViewportGrid } from '@modules/nodesEditor/components/ViewportGrid';
 import {
-  ViewportContext,
-  ViewportProvider,
-} from '@modules/nodesEditor/components/ViewportProvider';
+  EditorContext,
+  EditorProvider,
+} from '@modules/nodesEditor/components/EditorProvider';
+import { Node } from '@modules/nodesEditor/components/Node';
+import { ViewportGrid } from '@modules/nodesEditor/components/ViewportGrid';
+import { EDITOR_GRID_BOARD_ID } from '@modules/nodesEditor/constants.ts';
 import { findEditorIndexById } from '@modules/nodesEditor/utils/findEditorIndexById.ts';
 
 import styles from './Viewport.module.css';
@@ -23,71 +24,68 @@ interface IViewportInnerProps {
 }
 
 const ViewportInner: FC<IViewportInnerProps> = props => {
-  const viewportContext = useContext(ViewportContext);
+  const editorContext = useContext(EditorContext);
   const editorsContext = useContext(NodesEditorsContext);
-  const boardRef = useRef<HTMLDivElement>(null);
 
-  const viewport = useMemo(() => {
+  const editor = useMemo(() => {
     if (
-      viewportContext &&
+      editorContext &&
       editorsContext &&
-      viewportContext.currentEditorId !== null
+      editorContext.currentEditorId !== null
     ) {
       const index = findEditorIndexById(
-        viewportContext.currentEditorId,
+        editorContext.currentEditorId,
         editorsContext.editors,
       );
-      if (index !== -1) return editorsContext.editors[index].viewport;
+      if (index !== -1) return editorsContext.editors[index];
     }
     return undefined;
-  }, [
-    viewportContext?.currentEditorId,
-    viewportContext,
-    editorsContext,
-    editorsContext?.editors,
-  ]);
+  }, [editorContext?.currentEditorId, editorsContext?.editors]);
 
-  console.log(viewport);
+  useEffect(() => {
+    if (editor) editorContext?.update();
+  }, [editor]);
 
-  const transformCoordinatesToGlobal = (
-    baseCoordinates: ICoordinates,
-  ): ICoordinates => {
-    if (boardRef.current) {
-      return {
-        x:
-          boardRef.current.getBoundingClientRect().width / 2 +
-          baseCoordinates.x,
-        y:
-          boardRef.current.getBoundingClientRect().height / 2 +
-          baseCoordinates.y,
-      };
-    }
-    return baseCoordinates;
-  };
-
-  if (!viewport) return null;
   return (
     <Board
       modifiers={[]}
-      items={[
-        {
-          ...viewport,
-          coordinates: transformCoordinatesToGlobal(viewport.coordinates),
-        },
-      ]}
+      ref={el => {
+        if (editorContext) editorContext.refs.current.board = el;
+      }}
+      items={editor ? [editor.viewport, ...editor.content] : []}
       className={styles.viewport}
-      onDragEnd={viewportContext?.onDragEnd}
-      ref={boardRef}
+      onDragEnd={editorContext?.onDragEnd}
     >
-      <ViewportGrid {...viewport}>{props.children}</ViewportGrid>
+      <ViewportGrid
+        {...(editor?.viewport ?? {
+          id: EDITOR_GRID_BOARD_ID(0),
+          coordinates: { x: 0, y: 0 },
+        })}
+        content={editor?.content ?? []}
+        ref={el => {
+          if (editorContext) editorContext.refs.current.viewport = el;
+        }}
+      >
+        {editor?.content.map((element, i) => (
+          <Node
+            key={element.id}
+            ref={el => {
+              console.log('set');
+              if (editorContext) editorContext.refs.current.content[i] = el;
+            }}
+            {...element}
+          />
+        ))}
+        {props.children}
+      </ViewportGrid>
     </Board>
   );
 };
 
 export const Viewport: FC<IViewportProps> = props => {
   return (
-    <ViewportProvider name={props.name}>
+    <EditorProvider name={props.name}>
       <ViewportInner>{props.children}</ViewportInner>
-    </ViewportProvider>
+    </EditorProvider>
   );
 };

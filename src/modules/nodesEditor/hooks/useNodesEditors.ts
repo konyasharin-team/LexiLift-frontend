@@ -27,6 +27,7 @@ export const useNodesEditors = () => {
             id: EDITOR_GRID_BOARD_ID(newEditor.id),
             coordinates: { x: 0, y: 0 },
           },
+          content: newEditor.content ?? [],
         },
       ]);
     }
