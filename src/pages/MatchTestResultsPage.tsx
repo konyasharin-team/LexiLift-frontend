@@ -10,14 +10,15 @@ import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
 
 export const MatchTestResultsPage: FC = () => {
-  const { results } = useAppSelector(state => state.matchTest);
+  const { results, module } = useAppSelector(state => state.matchTest);
 
+  if (!module) return <Navigate to={appPaths.MODULES} />;
   if (!results) return <Navigate to={appPaths.MATCH_TEST_SETTINGS} />;
   return (
     <Center mt={MARGIN_TOP_BASE}>
       <Flex direction="column" gap={10} w={'60%'}>
         <MatchTestResultsCard {...results} />
-        <MatchTestResultsButtonGroup />
+        <MatchTestResultsButtonGroup id={module.id} />
       </Flex>
     </Center>
   );

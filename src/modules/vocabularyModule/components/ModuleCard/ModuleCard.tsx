@@ -65,8 +65,14 @@ export const ModuleCard = (props: IModuleCardProps) => {
           onChange={e =>
             props.onCardChange(props.id, 'word', e.currentTarget.value)
           }
-          className="text"
-          style={{ borderBottom: `1px solid ${appColors.greyApp[3]}` }}
+          styles={{
+            input: {
+              border: 'none',
+              borderRadius: 0,
+              borderBottom: `1px solid ${appColors.greyApp[3]}`,
+            },
+          }}
+          className={'text'}
           variant="unstyled"
         />
         <TextInput
@@ -84,8 +90,14 @@ export const ModuleCard = (props: IModuleCardProps) => {
           onChange={e =>
             props.onCardChange(props.id, 'translation', e.currentTarget.value)
           }
-          className="text"
-          style={{ borderBottom: `1px solid ${appColors.greyApp[3]}` }}
+          styles={{
+            input: {
+              border: 'none',
+              borderRadius: 0,
+              borderBottom: `1px solid ${appColors.greyApp[3]}`,
+            },
+          }}
+          className={'text'}
           variant="unstyled"
         />
       </Flex>

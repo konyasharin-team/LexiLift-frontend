@@ -24,7 +24,13 @@ export const useMatchTestSettingsForm = (
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (initialSettings) form.setValues(initialSettings);
+    if (
+      initialSettings &&
+      (initialSettings.isNeedShuffle !== form.values.isNeedShuffle ||
+        initialSettings.wordsCount !== form.values.wordsCount ||
+        initialSettings.wordsPerRound !== form.values.wordsPerRound)
+    )
+      form.setValues(initialSettings);
   }, [initialSettings]);
 
   const save = (settings: ITestSettings) => {
