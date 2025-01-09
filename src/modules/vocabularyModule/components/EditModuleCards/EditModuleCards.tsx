@@ -13,6 +13,9 @@ export const EditModuleCards: FC<ReturnType<typeof useEditModule>> = props => {
         <ModuleCard
           key={index}
           id={index}
+          errors={props.cardsErrors.filter(
+            cardError => cardError.id === card.id,
+          )}
           card={card}
           onCardChange={props.onCardChange}
           removeCard={props.removeCard}

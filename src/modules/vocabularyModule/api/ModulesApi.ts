@@ -27,7 +27,10 @@ export class ModulesApi {
 
   public static PostModule(
     body: CreateModuleBody,
-  ): ResponsePromise<ModuleSchemaInfer, IError<ModulesErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    ModuleBackendSchemaInfer,
+    IError<ModulesErrorsSchemaInfer>
+  > {
     return this.Instance.post('/', body);
   }
 

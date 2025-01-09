@@ -20,11 +20,20 @@ export const EditModulePage: FC = () => {
   }, [createModuleApiController.sender.isSuccess]);
 
   return (
-    <>
+    <form
+      onSubmit={editModuleController.form.onSubmit(values => {
+        if (editModuleController.cardsErrors.length === 0)
+          createModuleApiController.sender.mutate({
+            ...values,
+            ...moduleToBackendFieldsTransform(values),
+          });
+      })}
+    >
       <EditModuleInfo {...editModuleController} />
       <EditModuleCards {...editModuleController} />
-      <Affix position={{ bottom: 20, right: 20 }}>
+      <Affix position={{ bottom: 20, right: 20 }} withinPortal={false}>
         <Button
+          type={'submit'}
           radius="md"
           size="xl"
           color="blue"
@@ -34,20 +43,13 @@ export const EditModulePage: FC = () => {
               card => card.word.length === 0 || card.translation.length === 0,
             ) ||
             !editModuleController.form.values.title ||
-            !editModuleController.form.values.description
+            !editModuleController.form.values.description ||
+            editModuleController.cardsErrors.length !== 0
           }
-          onClick={() => {
-            createModuleApiController.sender.mutate({
-              ...editModuleController.form.values,
-              ...moduleToBackendFieldsTransform(
-                editModuleController.form.values,
-              ),
-            });
-          }}
         >
           {t.createModulePage.createModule}
         </Button>
       </Affix>
-    </>
+    </form>
   );
 };

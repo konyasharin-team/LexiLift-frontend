@@ -63,6 +63,8 @@ const en: Resource = {
     addCard: 'Add card',
     tagsNotFound: 'Tags not found',
     createdSuccess: 'Module created successfully',
+    wordAlreadyExistError: 'Word already exists in this module',
+    translationAlreadyExistError: 'Translation already exists in this module',
   },
   modulesErrors: {
     accessDenied: 'Access denied',

@@ -3,7 +3,7 @@ import { useNotifications } from '@hooks';
 import { useI18N } from '@i18n';
 import { MODULES_ERRORS } from '@modules/vocabularyModule';
 import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
-import { ModuleSchema } from '@modules/vocabularyModule/types/ModuleSchema.ts';
+import { ModuleBackendSchema } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 import { ModulesErrorSchema } from '@modules/vocabularyModule/types/ModulesErrorSchema.ts';
 
 export const useCreateModuleController = () => {
@@ -14,7 +14,7 @@ export const useCreateModuleController = () => {
       mutationFn: ModulesApi.PostModule.bind(ModulesApi),
     },
     {
-      resultSchema: ModuleSchema,
+      resultSchema: ModuleBackendSchema,
       errorSchema: ModulesErrorSchema,
     },
   );

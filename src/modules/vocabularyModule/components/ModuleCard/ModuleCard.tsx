@@ -3,6 +3,7 @@ import { useI18N } from '@i18n';
 import { Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
 import { useEditModule } from '@modules/vocabularyModule/hooks/useEditModule.ts';
+import { IEditModuleCardError } from '@modules/vocabularyModule/types/IEditModuleCardError.ts';
 import { IconTrash } from '@tabler/icons-react';
 import { appColors } from '@themes';
 
@@ -15,6 +16,7 @@ interface IModuleCardProps
   > {
   id: number;
   card: DictionaryCardSchemaInfer;
+  errors?: Omit<IEditModuleCardError, 'id'>[];
   disableRemove?: boolean;
 }
 
@@ -52,6 +54,10 @@ export const ModuleCard = (props: IModuleCardProps) => {
         <TextInput
           placeholder={t.createModulePage.word}
           value={props.card.word}
+          error={
+            props.errors?.find(errorObj => errorObj.cardElement === 'word')
+              ?.message ?? undefined
+          }
           w="100%"
           mt={30}
           mb={30}
@@ -66,6 +72,11 @@ export const ModuleCard = (props: IModuleCardProps) => {
         <TextInput
           placeholder={t.createModulePage.translation}
           value={props.card.translation}
+          error={
+            props.errors?.find(
+              errorObj => errorObj.cardElement === 'translation',
+            )?.message ?? undefined
+          }
           w="100%"
           mt={30}
           mb={30}

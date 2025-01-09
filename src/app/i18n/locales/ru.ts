@@ -62,6 +62,8 @@ const ru = {
     addCard: 'Добавить карточку',
     tagsNotFound: 'Тегов не найдено',
     createdSuccess: 'Модуль успешно создан',
+    wordAlreadyExistError: 'Слово уже есть в данном модуле',
+    translationAlreadyExistError: 'Такой перевод уже есть в данном модуле',
   },
   modulesErrors: {
     accessDenied: 'Вам отказано в доступе к данному модулю',

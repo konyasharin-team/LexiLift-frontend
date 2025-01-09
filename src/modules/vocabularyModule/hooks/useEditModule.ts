@@ -1,5 +1,6 @@
 import { ArrayElement, DictionaryCardSchemaInfer } from '@app-types';
 import { useForm } from '@mantine/form';
+import { useEditModuleErrors } from '@modules/vocabularyModule/hooks/useEditModuleErrors.ts';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
 export const useEditModule = () => {
@@ -11,37 +12,40 @@ export const useEditModule = () => {
       title: '',
       description: '',
       words: [
-        { id: 0, word: '', translation: '', img: 'test' },
-        { id: 1, word: '', translation: '', img: 'test' },
-        { id: 2, word: '', translation: '', img: 'test' },
+        { id: 0, word: '', translation: '' },
+        { id: 1, word: '', translation: '' },
+        { id: 2, word: '', translation: '' },
       ],
     },
   });
+  const { validateCards, cardsErrors } = useEditModuleErrors();
 
   const onCardChange = <T extends keyof Omit<DictionaryCardSchemaInfer, 'id'>>(
     id: DictionaryCardSchemaInfer['id'],
     field: T,
     value: DictionaryCardSchemaInfer[T],
   ) => {
+    const newCards = form.values.words.map(card => {
+      if (card.id === id) return { ...card, [field]: value };
+      return card;
+    });
     form.setValues(values => {
       return {
         ...values,
-        words: values.words?.map(card => {
-          if (card.id === id) return { ...card, [field]: value };
-          return card;
-        }),
+        words: newCards,
       };
     });
+    validateCards(newCards);
   };
 
   const addCard = () => {
     form.setValues(values => {
       return {
         ...values,
-        cards: [
+        words: [
           ...(values.words ?? []),
           {
-            id: values.words ? values.words.length - 1 : 0,
+            id: values.words ? values.words.length : 0,
             word: '',
             translation: '',
           },
@@ -54,7 +58,7 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        cards: values.words?.filter(card => card.id !== id),
+        words: values.words?.filter(card => card.id !== id),
       };
     });
   };
@@ -84,5 +88,6 @@ export const useEditModule = () => {
     removeCard,
     addTag,
     removeTag,
+    cardsErrors,
   };
 };
