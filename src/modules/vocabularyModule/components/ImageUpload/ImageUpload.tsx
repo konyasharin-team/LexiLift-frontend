@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ImagePreviewModal } from '@components/ImagePreviewModal';
+import { ActionIcon } from '@mantine/core';
 import { IconPhoto } from '@tabler/icons-react';
 import { uploadFile } from '@utils';
 
@@ -36,7 +37,8 @@ export const ImageUpload = (props: IImageUploadProps) => {
 
   return (
     <>
-      <IconPhoto
+      <ActionIcon
+        variant={'transparent'}
         color={props.imageUrl ? 'green' : 'blue'}
         onClick={() => {
           if (props.imageUrl) {
@@ -46,7 +48,9 @@ export const ImageUpload = (props: IImageUploadProps) => {
           }
         }}
         className={styles.icon}
-      />
+      >
+        <IconPhoto />
+      </ActionIcon>
       {props.imageUrl ? (
         <ImagePreviewModal
           img={props.imageUrl}

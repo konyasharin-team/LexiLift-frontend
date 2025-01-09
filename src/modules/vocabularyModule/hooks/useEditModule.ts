@@ -58,7 +58,12 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        words: values.words?.filter(card => card.id !== id),
+        words: values.words
+          ?.filter(card => card.id !== id)
+          .map((card, i) => ({
+            ...card,
+            id: i,
+          })),
       };
     });
   };

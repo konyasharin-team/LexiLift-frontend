@@ -1,6 +1,6 @@
 import { DictionaryCardSchemaInfer } from '@app-types';
 import { useI18N } from '@i18n';
-import { Flex, Paper, Text, TextInput } from '@mantine/core';
+import { ActionIcon, Flex, Paper, Text, TextInput } from '@mantine/core';
 import { ImageUpload } from '@modules/vocabularyModule/components/ImageUpload/ImageUpload.tsx';
 import { useEditModule } from '@modules/vocabularyModule/hooks/useEditModule.ts';
 import { IEditModuleCardError } from '@modules/vocabularyModule/types/IEditModuleCardError.ts';
@@ -40,13 +40,15 @@ export const ModuleCard = (props: IModuleCardProps) => {
                 props.onCardChange(props.id, 'img', undefined)
               }
             />
-            {!props.disableRemove && (
-              <IconTrash
-                color="red"
-                className={styles.icon}
-                onClick={() => props.removeCard(props.id)}
-              />
-            )}
+            <ActionIcon
+              variant={'transparent'}
+              disabled={props.disableRemove}
+              color={'red'}
+              className={styles.icon}
+              onClick={() => props.removeCard(props.id)}
+            >
+              <IconTrash />
+            </ActionIcon>
           </Flex>
         </Flex>
       </div>
