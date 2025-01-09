@@ -72,6 +72,8 @@ const en: Resource = {
   },
   modulePage: {
     wordsCount: 'Words count',
+    deleteError: 'Failed to delete module',
+    deleteSuccess: 'Module successfully deleted',
   },
   achievementsPage: {
     yourAchievements: 'Your achievements',

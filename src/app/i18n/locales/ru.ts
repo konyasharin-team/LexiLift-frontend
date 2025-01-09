@@ -71,6 +71,8 @@ const ru = {
   },
   modulePage: {
     wordsCount: 'Количество слов',
+    deleteError: 'Не удалось удалить модуль',
+    deleteSuccess: 'Модуль успешно удален',
   },
   achievementsPage: {
     yourAchievements: 'Ваши достижения',
