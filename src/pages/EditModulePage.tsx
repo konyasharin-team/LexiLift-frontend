@@ -4,10 +4,18 @@ import { Affix, Button } from '@mantine/core';
 import {
   EditModuleCards,
   EditModuleInfo,
+  moduleToBackendFieldsTransform,
   useCreateModuleController,
   useEditModule,
 } from '@modules/vocabularyModule';
-import { moduleToBackendFieldsTransform } from '@modules/vocabularyModule/utils/moduleToBackendFieldsTransform.ts';
+import { motion, Variants } from 'framer-motion';
+
+const wrapperVariants: Variants = {
+  off: {},
+  on: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+  },
+};
 
 export const EditModulePage: FC = () => {
   const { t } = useI18N();
@@ -29,8 +37,15 @@ export const EditModulePage: FC = () => {
           });
       })}
     >
-      <EditModuleInfo {...editModuleController} />
-      <EditModuleCards {...editModuleController} />
+      <motion.div
+        variants={wrapperVariants}
+        initial={'off'}
+        animate={'on'}
+        style={{ overflow: 'hidden', width: '100%' }}
+      >
+        <EditModuleInfo {...editModuleController} />
+        <EditModuleCards {...editModuleController} />
+      </motion.div>
       <Affix position={{ bottom: 20, right: 20 }} withinPortal={false}>
         <Button
           type={'submit'}

@@ -45,7 +45,7 @@ export const useEditModule = () => {
         words: [
           ...(values.words ?? []),
           {
-            id: values.words ? values.words.length : 0,
+            id: values.words ? values.words[values.words.length - 1].id + 1 : 0,
             word: '',
             translation: '',
           },
@@ -58,12 +58,7 @@ export const useEditModule = () => {
     form.setValues(values => {
       return {
         ...values,
-        words: values.words
-          ?.filter(card => card.id !== id)
-          .map((card, i) => ({
-            ...card,
-            id: i,
-          })),
+        words: values.words?.filter(card => card.id !== id),
       };
     });
   };

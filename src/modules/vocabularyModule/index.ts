@@ -19,3 +19,4 @@ export * from './hooks/usePutModuleController.ts';
 export * from './hooks/useTags.ts';
 export * from './types/ModuleSchema.ts';
 export * from './utils/moduleFromBackendFieldsTransform.ts';
+export * from './utils/moduleToBackendFieldsTransform.ts';

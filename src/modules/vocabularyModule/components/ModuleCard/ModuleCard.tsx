@@ -14,6 +14,7 @@ interface IModuleCardProps
     ReturnType<typeof useEditModule>,
     'onCardChange' | 'removeCard'
   > {
+  index: number;
   id: number;
   card: DictionaryCardSchemaInfer;
   errors?: Omit<IEditModuleCardError, 'id'>[];
@@ -28,7 +29,7 @@ export const ModuleCard = (props: IModuleCardProps) => {
       <div style={{ borderBottom: `2px solid ${appColors.greyApp[0]}` }}>
         <Flex justify="space-between">
           <Text ml={25} mt={10} mb={10}>
-            {props.id + 1}
+            {props.index + 1}
           </Text>
           <Flex align="center" gap={5} mr={18}>
             <ImageUpload
