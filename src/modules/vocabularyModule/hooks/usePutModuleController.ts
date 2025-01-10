@@ -13,6 +13,7 @@ import { ModulesApi } from '@modules/vocabularyModule/api/ModulesApi.ts';
 import { ModulesErrorSchema } from '@modules/vocabularyModule/types/ModulesErrorSchema.ts';
 import { PutModuleBody } from '@modules/vocabularyModule/types/PutModuleBody.ts';
 import { generators } from '@routes';
+import { notify } from '@utils';
 
 export const usePutModuleController = (idObj?: IdSchemaInfer) => {
   const { t } = useI18N();
@@ -36,15 +37,14 @@ export const usePutModuleController = (idObj?: IdSchemaInfer) => {
         requestErrors: MODULES_ERRORS(t),
       }),
     },
-    {
-      type: 'success',
-      on: controller.sender.isSuccess,
-      message: t.createModulePage.updatedSuccess,
-    },
   ]);
 
   useRequestEvents(pendingToLoading(controller.sender), {
     onSuccess: () => {
+      notify({
+        type: 'success',
+        message: t.createModulePage.updatedSuccess,
+      });
       if (idObj) navigate(generators.MODULES_GENERATORS.MODULE(idObj.id));
     },
   });
