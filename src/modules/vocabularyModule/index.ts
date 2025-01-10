@@ -1,6 +1,9 @@
 export * from './components/CreateModuleButton/CreateModuleButton';
+export * from './components/EditModuleCards/EditModuleCards.tsx';
 export * from './components/EditModuleInfo';
+export * from './components/EditModuleWrapper';
 export * from './components/FlipCard/FlipCard.tsx';
+export * from './components/ModuleControls';
 export * from './components/ModuleFlipCards';
 export * from './components/ModuleHead';
 export * from './components/ModulesList/ModulesList';
@@ -16,4 +19,6 @@ export * from './hooks/useGetModulesAllController.ts';
 export * from './hooks/useGetModulesUserController';
 export * from './hooks/usePutModuleController.ts';
 export * from './hooks/useTags.ts';
-export * from '@modules/vocabularyModule/components/EditModuleCards/EditModuleCards.tsx';
+export * from './types/ModuleSchema.ts';
+export * from './utils/moduleFromBackendFieldsTransform.ts';
+export * from './utils/moduleToBackendFieldsTransform.ts';

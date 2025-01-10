@@ -11,6 +11,7 @@ import {
   Group,
   Pill,
   PillsInput,
+  PillsInputProps,
   Text,
   useCombobox,
 } from '@mantine/core';
@@ -25,13 +26,18 @@ import { IconCheck } from '@tabler/icons-react';
 
 const CURRENT_COLOR_KEY: keyof TagColors = 'fontColor';
 
-interface ITagsInputProps {
+interface ITagsInputProps extends PillsInputProps {
   addTag: (tag: TagSchemaInfer) => void;
   removeTag: (tag: TagSchemaInfer['tag']) => void;
   tags: TagSchemaInfer[];
 }
 
-export const TagsInput: FC<ITagsInputProps> = props => {
+export const TagsInput: FC<ITagsInputProps> = ({
+  addTag,
+  removeTag,
+  tags,
+  ...attributes
+}) => {
   const controller = useGetTagsController();
   const { t } = useI18N();
   const [currentColor, setCurrentColor] = useState(BASE_TAG_COLOR);
@@ -55,12 +61,12 @@ export const TagsInput: FC<ITagsInputProps> = props => {
     }
   };
 
-  const values = props.tags.map(item => (
+  const values = tags.map(item => (
     <Pill
       key={item.tag}
       bg={item.backgroundColor}
       withRemoveButton
-      onRemove={() => props.removeTag(item.tag)}
+      onRemove={() => removeTag(item.tag)}
       h={'fit-content'}
     >
       <Text c={item.fontColor}>{item.tag}</Text>
@@ -69,7 +75,7 @@ export const TagsInput: FC<ITagsInputProps> = props => {
 
   const options = getUserTags()
     ?.filter(tagObj => {
-      const isAlreadyChose = props.tags.some(
+      const isAlreadyChose = tags.some(
         otherTagObj => otherTagObj.tag === tagObj.tag,
       );
       if (search.length === 0) {
@@ -103,9 +109,9 @@ export const TagsInput: FC<ITagsInputProps> = props => {
             <Flex gap={5}>
               <ActionIcon
                 display={search.length === 0 ? 'none' : 'block'}
-                disabled={props.tags.some(tagObj => tagObj.tag === search)}
+                disabled={tags.some(tagObj => tagObj.tag === search)}
                 onClick={() => {
-                  props.addTag({ tag: search, ...currentColor });
+                  addTag({ tag: search, ...currentColor });
                   setSearch('');
                 }}
               >
@@ -124,6 +130,7 @@ export const TagsInput: FC<ITagsInputProps> = props => {
               />
             </Flex>
           }
+          {...attributes}
         >
           <Pill.Group>
             {values}

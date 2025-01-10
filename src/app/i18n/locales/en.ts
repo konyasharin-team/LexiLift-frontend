@@ -55,6 +55,7 @@ const en: Resource = {
   },
   createModulePage: {
     createModule: 'Create module',
+    editModule: 'Edit module',
     moduleName: 'Module name',
     inputTags: 'Input tags',
     description: 'Description',
@@ -63,6 +64,8 @@ const en: Resource = {
     addCard: 'Add card',
     tagsNotFound: 'Tags not found',
     createdSuccess: 'Module created successfully',
+    wordAlreadyExistError: 'Word already exists in this module',
+    translationAlreadyExistError: 'Translation already exists in this module',
   },
   modulesErrors: {
     accessDenied: 'Access denied',
@@ -70,6 +73,8 @@ const en: Resource = {
   },
   modulePage: {
     wordsCount: 'Words count',
+    deleteError: 'Failed to delete module',
+    deleteSuccess: 'Module successfully deleted',
   },
   achievementsPage: {
     yourAchievements: 'Your achievements',

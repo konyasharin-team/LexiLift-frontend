@@ -10,13 +10,15 @@ export const moduleFromBackendFieldsTransform = (
   const parsedModule = ModuleBackendSchema.parse(module);
   return {
     tags: parsedModule.tags.map(tag => ({
-      ...tag,
+      fontColor: tag.fontColor,
+      backgroundColor: tag.backgroundColor,
       tag: tag.name,
     })),
-    words: parsedModule.words.map(word => ({
-      ...word,
-      translation: word.description,
-      img: word.pictureUrl,
+    words: parsedModule.words.map(wordObj => ({
+      id: wordObj.id,
+      word: wordObj.word,
+      translation: wordObj.description,
+      img: wordObj.pictureUrl,
     })),
   };
 };

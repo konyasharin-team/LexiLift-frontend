@@ -11,6 +11,11 @@ export const CreateModuleButton: FC = () => {
       radius="md"
       size="md"
       color="blue"
+      pos={'sticky'}
+      top={70}
+      style={{
+        zIndex: 1,
+      }}
       onClick={() => navigate(appPaths.MODULES_CREATE)}
     >
       Создать модуль

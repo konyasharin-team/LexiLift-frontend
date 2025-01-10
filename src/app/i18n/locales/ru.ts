@@ -54,6 +54,7 @@ const ru = {
   },
   createModulePage: {
     createModule: 'Создать модуль',
+    editModule: 'Обновить модуль',
     moduleName: 'Название модуля',
     inputTags: 'Введите теги',
     description: 'Описание',
@@ -62,6 +63,9 @@ const ru = {
     addCard: 'Добавить карточку',
     tagsNotFound: 'Тегов не найдено',
     createdSuccess: 'Модуль успешно создан',
+    updatedSuccess: 'Модуль успешно обновлен',
+    wordAlreadyExistError: 'Слово уже есть в данном модуле',
+    translationAlreadyExistError: 'Такой перевод уже есть в данном модуле',
   },
   modulesErrors: {
     accessDenied: 'Вам отказано в доступе к данному модулю',
@@ -69,6 +73,8 @@ const ru = {
   },
   modulePage: {
     wordsCount: 'Количество слов',
+    deleteError: 'Не удалось удалить модуль',
+    deleteSuccess: 'Модуль успешно удален',
   },
   achievementsPage: {
     yourAchievements: 'Ваши достижения',
