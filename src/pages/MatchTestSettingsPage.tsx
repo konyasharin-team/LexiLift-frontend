@@ -23,25 +23,19 @@ export const MatchTestSettingsPage: FC = () => {
   const { t } = useI18N();
   const { setMatchTestModule } = useActions();
   const navigate = useNavigate();
-
-  const formController = useMatchTestSettingsForm(
-    getModuleApiController.sender.response?.data.result
-      ? createBaseSettings(
-          moduleFromBackendFieldsTransform(
-            getModuleApiController.sender.response.data.result,
-          ).words,
-        )
-      : undefined,
-  );
+  const formController = useMatchTestSettingsForm();
 
   useRequestEvents(getModuleApiController.sender, {
     onSuccess: result => {
-      if (result)
+      if (result) {
+        formController.form.setValues(
+          createBaseSettings(moduleFromBackendFieldsTransform(result).words),
+        );
         setMatchTestModule({
           ...result,
           ...moduleFromBackendFieldsTransform(result),
         });
-      else navigate(appPaths.MODULES);
+      } else navigate(appPaths.MODULES);
     },
   });
 
@@ -51,8 +45,14 @@ export const MatchTestSettingsPage: FC = () => {
       error={getErrorTextWithEmpty(getModuleApiController.apiError?.type, {
         requestErrors: MODULES_ERRORS(t),
       })}
+      dependencies={[formController.form.values]}
     >
-      {() => <MatchTestSettingsPanel {...formController} />}
+      {result => (
+        <MatchTestSettingsPanel
+          {...formController}
+          maxWordsCount={result?.words.length}
+        />
+      )}
     </ControlledComponent>
   );
 };

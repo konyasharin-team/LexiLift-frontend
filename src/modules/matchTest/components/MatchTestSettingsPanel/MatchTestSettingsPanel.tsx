@@ -3,10 +3,13 @@ import { Form } from '@components/Form';
 import { MODULE_MIN_COUNT_WORDS, TEST_WORDS_PER_ROUND } from '@constants';
 import { Button, Flex, NumberInput } from '@mantine/core';
 import { IUseMatchTestSettingsFormReturn } from '@modules/matchTest';
-import { wordPairs } from '@modules/matchTest/data.ts';
+
+interface IMatchTestSettingsPanelProps extends IUseMatchTestSettingsFormReturn {
+  maxWordsCount?: number;
+}
 
 export const MatchTestSettingsPanel: FC<
-  IUseMatchTestSettingsFormReturn
+  IMatchTestSettingsPanelProps
 > = props => {
   return (
     <Form title={'Настройки теста'} onSubmit={props.form.onSubmit(props.save)}>
@@ -14,7 +17,7 @@ export const MatchTestSettingsPanel: FC<
         <NumberInput
           label={'Количество слов'}
           min={MODULE_MIN_COUNT_WORDS}
-          max={wordPairs.length}
+          max={props.maxWordsCount}
           {...props.form.getInputProps('wordsCount')}
         />
         <NumberInput
