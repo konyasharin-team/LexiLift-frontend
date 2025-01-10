@@ -1,6 +1,7 @@
 export * from './components/CreateModuleButton/CreateModuleButton';
 export * from './components/EditModuleCards/EditModuleCards.tsx';
 export * from './components/EditModuleInfo';
+export * from './components/EditModuleWrapper';
 export * from './components/FlipCard/FlipCard.tsx';
 export * from './components/ModuleControls';
 export * from './components/ModuleFlipCards';

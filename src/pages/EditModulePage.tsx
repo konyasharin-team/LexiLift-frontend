@@ -1,70 +1,62 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
+import { getErrorTextWithEmpty, IdSchema, useRequestEvents } from '@api';
+import { ControlledComponent } from '@components/ControlledComponent';
+import { idMiddleware, useParsedParams } from '@hooks';
 import { useI18N } from '@i18n';
-import { Affix, Button } from '@mantine/core';
 import {
   EditModuleCards,
   EditModuleInfo,
+  EditModuleWrapper,
+  moduleFromBackendFieldsTransform,
+  MODULES_ERRORS,
   moduleToBackendFieldsTransform,
-  useCreateModuleController,
   useEditModule,
+  useGetModuleAboutController,
+  usePutModuleController,
 } from '@modules/vocabularyModule';
-import { motion, Variants } from 'framer-motion';
-
-const wrapperVariants: Variants = {
-  off: {},
-  on: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
-  },
-};
 
 export const EditModulePage: FC = () => {
   const { t } = useI18N();
+  const params = useParsedParams(IdSchema, idMiddleware);
   const editModuleController = useEditModule();
-  const createModuleApiController = useCreateModuleController();
+  const getModuleApiController = useGetModuleAboutController(params);
+  const editModuleApiController = usePutModuleController(params);
 
-  useEffect(() => {
-    if (createModuleApiController.sender.isSuccess)
-      editModuleController.form.reset();
-  }, [createModuleApiController.sender.isSuccess]);
+  useRequestEvents(getModuleApiController.sender, {
+    onSuccess: result => {
+      if (result) {
+        editModuleController.form.setValues({
+          ...result,
+          ...moduleFromBackendFieldsTransform(result),
+        });
+      }
+    },
+  });
 
   return (
-    <form
-      onSubmit={editModuleController.form.onSubmit(values => {
-        if (editModuleController.cardsErrors.length === 0)
-          createModuleApiController.sender.mutate({
-            ...values,
-            ...moduleToBackendFieldsTransform(values),
-          });
+    <ControlledComponent
+      {...getModuleApiController.sender}
+      error={getErrorTextWithEmpty(getModuleApiController.apiError?.type, {
+        requestErrors: MODULES_ERRORS(t),
       })}
+      dependencies={[editModuleController.form.values]}
     >
-      <motion.div
-        variants={wrapperVariants}
-        initial={'off'}
-        animate={'on'}
-        style={{ overflow: 'hidden', width: '100%' }}
-      >
-        <EditModuleInfo {...editModuleController} />
-        <EditModuleCards {...editModuleController} />
-      </motion.div>
-      <Affix position={{ bottom: 20, right: 20 }} withinPortal={false}>
-        <Button
-          type={'submit'}
-          radius="md"
-          size="xl"
-          color="blue"
-          loading={createModuleApiController.sender.isPending}
-          disabled={
-            editModuleController.form.values.words.some(
-              card => card.word.length === 0 || card.translation.length === 0,
-            ) ||
-            !editModuleController.form.values.title ||
-            !editModuleController.form.values.description ||
-            editModuleController.cardsErrors.length !== 0
-          }
+      {() => (
+        <EditModuleWrapper
+          {...editModuleController}
+          loading={editModuleApiController.sender.isPending}
+          sendText={t.createModulePage.editModule}
+          onSubmit={values => {
+            editModuleApiController.sender.mutate({
+              ...values,
+              ...moduleToBackendFieldsTransform(values),
+            });
+          }}
         >
-          {t.createModulePage.createModule}
-        </Button>
-      </Affix>
-    </form>
+          <EditModuleInfo {...editModuleController} />
+          <EditModuleCards {...editModuleController} />
+        </EditModuleWrapper>
+      )}
+    </ControlledComponent>
   );
 };

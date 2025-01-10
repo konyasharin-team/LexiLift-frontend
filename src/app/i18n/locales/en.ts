@@ -55,6 +55,7 @@ const en: Resource = {
   },
   createModulePage: {
     createModule: 'Create module',
+    editModule: 'Edit module',
     moduleName: 'Module name',
     inputTags: 'Input tags',
     description: 'Description',

@@ -9,7 +9,7 @@ import {
   ModuleSchemaInfer,
   useDeleteModuleController,
 } from '@modules/vocabularyModule';
-import { appPaths } from '@routes';
+import { appPaths, generators } from '@routes';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 
 export const ModuleControls: FC<Pick<ModuleSchemaInfer, 'id'>> = props => {
@@ -37,7 +37,12 @@ export const ModuleControls: FC<Pick<ModuleSchemaInfer, 'id'>> = props => {
   return (
     <Flex h={'100%'} w={'100%'} justify={'flex-end'}>
       <MergedGroup elementWidth={64} elementHeight={40}>
-        <ActionIcon variant={'subtle'}>
+        <ActionIcon
+          variant={'subtle'}
+          onClick={() =>
+            navigate(generators.MODULES_GENERATORS.EDIT_MODULE(props.id))
+          }
+        >
           <IconEdit />
         </ActionIcon>
         <ActionIcon

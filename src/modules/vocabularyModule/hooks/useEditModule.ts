@@ -3,10 +3,13 @@ import { useForm } from '@mantine/form';
 import { useEditModuleErrors } from '@modules/vocabularyModule/hooks/useEditModuleErrors.ts';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
+export type Form = Pick<
+  ModuleSchemaInfer,
+  'tags' | 'title' | 'description' | 'words'
+>;
+
 export const useEditModule = () => {
-  const form = useForm<
-    Pick<ModuleSchemaInfer, 'tags' | 'title' | 'description' | 'words'>
-  >({
+  const form = useForm<Form>({
     initialValues: {
       tags: [],
       title: '',

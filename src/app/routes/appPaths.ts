@@ -6,6 +6,7 @@ export const appPaths = {
   NOT_FOUND: '/not-found',
   MODULES: '/modules',
   MODULE: '/modules/:id',
+  MODULE_EDIT: '/modules/:id/edit',
   FOLDERS: '/folders',
   MATCH_TEST: '/modules/match-test',
   MATCH_TEST_SETTINGS: '/modules/:id/match-test/settings',
