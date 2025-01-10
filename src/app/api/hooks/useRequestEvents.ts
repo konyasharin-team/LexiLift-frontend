@@ -34,5 +34,5 @@ export const useRequestEvents = <TResult, TError>(
     else if (data.isLoading) options?.onLoading?.();
     else if (data.isSuccess && data.response)
       options?.onSuccess?.(data.response.data.result);
-  }, [data.isLoading, data.isError, data.isSuccess]);
+  }, [data.isLoading, data.isError, data.isSuccess, data.response]);
 };

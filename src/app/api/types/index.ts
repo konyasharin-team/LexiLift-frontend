@@ -11,5 +11,6 @@ export * from './RequestErrors';
 export * from './Response';
 export * from './ResponsePromise';
 export * from './ServerError.ts';
+export * from './SuccessSchema.ts';
 export * from './UseMutationResult';
 export * from './UseQueryResult';

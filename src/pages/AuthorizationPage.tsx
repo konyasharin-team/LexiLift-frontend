@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { getErrorTextWithEmpty } from '@api';
 import { AlertGroup, useAlertGroup } from '@components/Alert';
-import { CenterPage } from '@components/CenterPage';
+import { Center } from '@components/Center';
 import { AuthorizationForm, useLoginController } from '@modules/authorization';
 
 export const AuthorizationPage: FC = () => {
@@ -24,10 +24,10 @@ export const AuthorizationPage: FC = () => {
   );
 
   return (
-    <CenterPage deltaY={100}>
+    <Center deltaY={100}>
       <AlertGroup {...alertGroupController.attributes}>
         <AuthorizationForm loginController={controller} />
       </AlertGroup>
-    </CenterPage>
+    </Center>
   );
 };

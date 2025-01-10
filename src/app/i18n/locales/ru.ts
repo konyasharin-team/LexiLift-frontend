@@ -54,12 +54,30 @@ const ru = {
   },
   createModulePage: {
     createModule: 'Создать модуль',
+    editModule: 'Обновить модуль',
     moduleName: 'Название модуля',
     inputTags: 'Введите теги',
     description: 'Описание',
     word: 'Слово',
     translation: 'Перевод',
     addCard: 'Добавить карточку',
+    tagsNotFound: 'Тегов не найдено',
+    createdSuccess: 'Модуль успешно создан',
+    updatedSuccess: 'Модуль успешно обновлен',
+    wordAlreadyExistError: 'Слово уже есть в данном модуле',
+    translationAlreadyExistError: 'Такой перевод уже есть в данном модуле',
+  },
+  modulesErrors: {
+    accessDenied: 'Вам отказано в доступе к данному модулю',
+    notFound: 'Модуль не найден',
+  },
+  modulePage: {
+    wordsCount: 'Количество слов',
+    deleteError: 'Не удалось удалить модуль',
+    deleteSuccess: 'Модуль успешно удален',
+  },
+  achievementsPage: {
+    yourAchievements: 'Ваши достижения',
   },
 };
 

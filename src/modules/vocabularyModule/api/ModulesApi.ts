@@ -6,10 +6,7 @@ import {
   ResponsePromise,
 } from '@api';
 import { CreateModuleBody } from '@modules/vocabularyModule/types/CreateModuleBody.ts';
-import {
-  ModuleBackendSchemaInfer,
-  ModuleSchemaInfer,
-} from '@modules/vocabularyModule/types/ModuleSchema.ts';
+import { ModuleBackendSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 import { ModulesErrorsSchemaInfer } from '@modules/vocabularyModule/types/ModulesErrorsSchema.ts';
 import { ModulesPaginationBackendSchemaInfer } from '@modules/vocabularyModule/types/ModulesPaginationSchema.ts';
 import { PutModuleBody } from '@modules/vocabularyModule/types/PutModuleBody.ts';
@@ -21,13 +18,16 @@ export class ModulesApi {
   public static PutModule(
     body: PutModuleBody,
     params: IdSchemaInfer,
-  ): ResponsePromise<ModuleSchemaInfer, IError<ModulesErrorsSchemaInfer>> {
+  ): ResponsePromise<undefined, IError<ModulesErrorsSchemaInfer>> {
     return this.Instance.put('/', body, { params });
   }
 
   public static PostModule(
     body: CreateModuleBody,
-  ): ResponsePromise<ModuleSchemaInfer, IError<ModulesErrorsSchemaInfer>> {
+  ): ResponsePromise<
+    ModuleBackendSchemaInfer,
+    IError<ModulesErrorsSchemaInfer>
+  > {
     return this.Instance.post('/', body);
   }
 

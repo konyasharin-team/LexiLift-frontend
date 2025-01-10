@@ -6,11 +6,9 @@ import { IUseMatchTestSettingsFormReturn } from '@modules/matchTest';
 import { appPaths } from '@routes';
 import { useActions } from '@store';
 
-export const useMatchTestSettingsForm = (
-  initialSettings: ITestSettings,
-): IUseMatchTestSettingsFormReturn => {
+export const useMatchTestSettingsForm = (): IUseMatchTestSettingsFormReturn => {
   const form = useForm<ITestSettings>({
-    initialValues: initialSettings,
+    initialValues: undefined,
     onValuesChange: values => {
       if (
         values.wordsCount <= TEST_WORDS_PER_ROUND ||

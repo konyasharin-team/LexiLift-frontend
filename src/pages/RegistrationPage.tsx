@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { getErrorTextWithEmpty } from '@api';
 import { AlertGroup, useAlertGroup } from '@components/Alert';
-import { CenterPage } from '@components/CenterPage';
+import { Center } from '@components/Center';
 import { useI18N } from '@i18n';
 import {
   ConfirmationForm,
@@ -37,7 +37,7 @@ export const RegistrationPage: FC = () => {
   );
 
   return (
-    <CenterPage deltaY={100}>
+    <Center deltaY={100}>
       <AlertGroup {...alertAttributes}>
         {step === registrationSteps.REGISTRATION ? (
           <RegistrationAnimatedChanger
@@ -48,6 +48,6 @@ export const RegistrationPage: FC = () => {
           <ConfirmationForm onSuccess={onConfirmSuccess} />
         )}
       </AlertGroup>
-    </CenterPage>
+    </Center>
   );
 };

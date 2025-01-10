@@ -1,9 +1,10 @@
-import { DictionaryItemSchemaInfer, ITestSettings } from '@app-types';
+import { ITestSettings } from '@app-types';
 import { IMatchTestResults } from '@modules/matchTest';
+import { ModuleSchemaInfer } from '@modules/vocabularyModule';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IState {
-  cards: DictionaryItemSchemaInfer[];
+  module: ModuleSchemaInfer | null;
   settings: ITestSettings | null;
   results: IMatchTestResults | null;
 }
@@ -11,7 +12,7 @@ interface IState {
 const initialState: IState = {
   settings: null,
   results: null,
-  cards: [],
+  module: null,
 };
 
 export const matchTestSlice = createSlice({
@@ -24,11 +25,11 @@ export const matchTestSlice = createSlice({
     setMatchTestResults: (state, action: PayloadAction<IMatchTestResults>) => {
       state.results = action.payload;
     },
-    setMatchTestCards: (
+    setMatchTestModule: (
       state,
-      action: PayloadAction<DictionaryItemSchemaInfer[]>,
+      action: PayloadAction<ModuleSchemaInfer | null>,
     ) => {
-      state.cards = action.payload;
+      state.module = action.payload;
     },
   },
 });
