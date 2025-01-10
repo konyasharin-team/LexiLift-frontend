@@ -7,18 +7,11 @@ import {
   IconFile,
   IconFolderFilled,
   IconLaurelWreath,
-  IconLayoutDashboardFilled,
   IconLogin2,
   IconTestPipe,
 } from '@tabler/icons-react';
 
 export const privateNavigation = (t: Resource): INavigationItem[] => [
-  {
-    icon: <IconLayoutDashboardFilled size={NAVIGATION_ICON_SIZE} />,
-    to: appPaths.MATCH_TEST_SETTINGS,
-    text: t.navigation.compareTest,
-    pathsToCompare: [appPaths.MATCH_TEST],
-  },
   {
     icon: <IconFolderFilled size={NAVIGATION_ICON_SIZE} />,
     to: appPaths.FOLDERS,
