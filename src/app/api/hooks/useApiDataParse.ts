@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BaseErrorSchema, IResponseSchemas, Response } from '@api';
+import { parse } from '@utils';
 import { z, ZodType } from 'zod';
 
 export const useApiDataParse = <
@@ -15,15 +16,15 @@ export const useApiDataParse = <
     defaultSchema: ZodType,
     data: T,
   ) => {
-    if (schema) return schema.parse(data);
-    else return defaultSchema.parse(data);
+    const schemaToCheck = schema ?? defaultSchema;
+    parse(schemaToCheck, data);
   };
 
   useEffect(() => {
     if (!responses) return;
     responses.forEach(response => {
       if (response) {
-        z.boolean().parse(response.data.success);
+        parse(z.boolean(), response.data.success);
         if (response.data.result)
           parseWithDefault(
             schemas?.resultSchema,
