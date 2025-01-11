@@ -15,15 +15,17 @@ export const useApiDataParse = <
     defaultSchema: ZodType,
     data: T,
   ) => {
-    if (schema) return schema.parse(data);
-    else return defaultSchema.parse(data);
+    const schemaToCheck = schema ?? defaultSchema;
+    if (import.meta.env.PROD) return schemaToCheck.safeParse(data);
+    else return schemaToCheck.parse(data);
   };
 
   useEffect(() => {
     if (!responses) return;
     responses.forEach(response => {
       if (response) {
-        z.boolean().parse(response.data.success);
+        if (import.meta.env.PROD) z.boolean().safeParse(response.data.success);
+        else z.boolean().parse(response.data.success);
         if (response.data.result)
           parseWithDefault(
             schemas?.resultSchema,
