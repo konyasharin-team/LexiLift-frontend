@@ -10,7 +10,6 @@ export const MatchTestBoard: FC<
   Pick<
     IUseMatchTestReturn,
     | 'items'
-    | 'setItems'
     | 'boardRef'
     | 'onDragEnd'
     | 'animations'
@@ -21,8 +20,7 @@ export const MatchTestBoard: FC<
   return (
     <Board
       items={props.items}
-      setItems={props.setItems}
-      boardRef={props.boardRef}
+      ref={props.boardRef}
       onDragEnd={props.onDragEnd}
       activeItemToReactNode={item => {
         if (item) {

@@ -9,6 +9,7 @@ import { store } from '@store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { mainTheme } from '@themes';
 import { I18NContextProviderBase } from '@i18n';
+import { NodesEditorsProvider } from '@modules/nodesEditor';
 
 import App from './App.tsx';
 
@@ -25,10 +26,12 @@ createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <MantineProvider theme={mainTheme}>
-            <I18NContextProviderBase>
-              <App />
-              <Notifications />
-            </I18NContextProviderBase>
+            <NodesEditorsProvider>
+              <I18NContextProviderBase>
+                <App />
+                <Notifications />
+              </I18NContextProviderBase>
+            </NodesEditorsProvider>
           </MantineProvider>
         </QueryClientProvider>
       </Provider>

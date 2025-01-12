@@ -13,6 +13,8 @@ export const appPaths = {
   MATCH_TEST_RESULTS: '/modules/match-test/results',
   COURSES: '/courses',
   COURSE: '/courses/:id',
+  COURSE_EDITOR: '/courses/:id/editor',
+  NEW_COURSE_EDITOR: '/courses/editor',
   PROFILE: '/profile',
   ACHIEVEMENTS: '/achievements',
 };

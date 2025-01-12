@@ -2,7 +2,6 @@ import { TestItemType } from '@app-types';
 import { IBoardItem, useBoardDraggableItem } from '@components/Board';
 import { useDroppable } from '@dnd-kit/core';
 import { mergeRefs } from '@mantine/hooks';
-import { IMatchTestCardDraggableData } from '@modules/matchTest/types/IMatchTestCardDraggableData.ts';
 import { IMatchTestCardDroppableData } from '@modules/matchTest/types/IMatchTestCardDroppableData.ts';
 
 export const useMatchTestDraggableCard = (
@@ -13,7 +12,7 @@ export const useMatchTestDraggableCard = (
   const { ref: dragRef, ...attributes } = useBoardDraggableItem({
     item: boardItem,
     disabled,
-    data: { type } as IMatchTestCardDraggableData,
+    data: { type },
   });
   const { setNodeRef: dropRef } = useDroppable({
     id: boardItem.id,
