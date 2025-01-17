@@ -20,7 +20,7 @@ interface IMatchTestDraggableCardProps extends IDraggableMatchTestCard {
 export const MatchTestDraggableCard: FC<IMatchTestDraggableCardProps> = memo(
   props => {
     const [className, setClassName] = useState<string | null>(null);
-    const { style, ...attributes } = useMatchTestDraggableCard(
+    const { attributes, ref } = useMatchTestDraggableCard(
       {
         id: props.id,
         coordinates: props.coordinates,
@@ -36,8 +36,11 @@ export const MatchTestDraggableCard: FC<IMatchTestDraggableCardProps> = memo(
 
     return (
       <MatchTestCard
+        className={className ?? undefined}
+        ref={ref}
+        {...attributes}
         style={{
-          ...style,
+          ...attributes.style,
           animationDuration: `${MATCH_CARD_ANIMATIONS_DURATION_SECONDS / MATCH_CARD_PAINT_ITERATIONS}s,
                               ${
                                 props.animation?.type === 'error'
@@ -48,8 +51,6 @@ export const MatchTestDraggableCard: FC<IMatchTestDraggableCardProps> = memo(
                               }s`,
           animationIterationCount: `${MATCH_CARD_PAINT_ITERATIONS}, ${props.animation?.type === 'error' ? MATCH_CARD_SHAKE_ITERATIONS : MATCH_CARD_HIDE_ITERATIONS}`,
         }}
-        className={className ?? undefined}
-        {...attributes}
       >
         {props.value}
       </MatchTestCard>

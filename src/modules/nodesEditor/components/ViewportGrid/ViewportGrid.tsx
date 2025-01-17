@@ -1,11 +1,15 @@
 import { forwardRef, ReactNode, useEffect, useState } from 'react';
-import { IBoardItem, useBoardDraggableItem } from '@components/Board';
+import { Board, IBoardItem, useBoardDraggableItem } from '@components/Board';
 import { Box } from '@mantine/core';
 import { mergeRefs } from '@mantine/hooks';
+import { useEditor } from '@modules/nodesEditor/hooks/useEditor.ts';
 import { IEditor } from '@modules/nodesEditor/types/IEditor.ts';
 import { IEditorElementData } from '@modules/nodesEditor/types/IEditorElementData.ts';
 
-interface IViewportGridProps extends IBoardItem, Pick<IEditor, 'content'> {
+interface IViewportGridProps
+  extends IBoardItem,
+    Pick<IEditor, 'content'>,
+    Partial<Pick<ReturnType<typeof useEditor>, 'onDragEnd'>> {
   children?: ReactNode;
 }
 
@@ -16,7 +20,7 @@ interface IViewportGridSize {
 
 export const ViewportGrid = forwardRef<HTMLDivElement, IViewportGridProps>(
   (props, externalRef) => {
-    const { ref, ...attributes } = useBoardDraggableItem({
+    const { ref, attributes } = useBoardDraggableItem({
       item: props,
       data: { type: 'viewport' } as IEditorElementData,
     });
@@ -70,7 +74,9 @@ export const ViewportGrid = forwardRef<HTMLDivElement, IViewportGridProps>(
         bg={'cyan'}
         {...attributes}
       >
-        {props.children}
+        <Board items={props.content} modifiers={[]} onDragEnd={props.onDragEnd}>
+          {props.children}
+        </Board>
       </Box>
     );
   },

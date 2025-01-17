@@ -6,13 +6,13 @@ import { IEditorElementData } from '@modules/nodesEditor/types/IEditorElementDat
 
 export const Node = forwardRef<HTMLDivElement, IBoardItem>(
   (props, externalRef) => {
-    const { ref, ...attributes } = useBoardDraggableItem({
+    const { ref, attributes } = useBoardDraggableItem({
       item: props,
       data: { type: 'node' } as IEditorElementData,
     });
 
     return (
-      <Paper ref={mergeRefs(ref, externalRef)} {...attributes}>
+      <Paper p={'md'} ref={mergeRefs(ref, externalRef)} {...attributes}>
         Node
       </Paper>
     );

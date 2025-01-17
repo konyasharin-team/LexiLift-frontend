@@ -12,29 +12,33 @@ export const useBoardDraggableItem = ({
   disabled = false,
   data,
 }: IUseBoardDraggableItemParams) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: item.id,
-    disabled,
-    data,
-  });
+  const { attributes, setNodeRef, transform, listeners, ...othersAttributes } =
+    useDraggable({
+      id: item.id,
+      disabled,
+      data,
+    });
 
   return {
-    ...attributes,
-    ...listeners,
-    ref: setNodeRef,
-    style: {
-      position: item.coordinates
-        ? 'absolute'
-        : ('relative' as Property.Position),
-      top: item.coordinates ? `${item.coordinates.y}px` : 'none',
-      left: item.coordinates ? `${item.coordinates.x}px` : 'none',
-      ...(transform
-        ? {
-            transform: `translate(${transform.x}px, ${transform.y}px)`,
-          }
-        : {
-            transform: `translate(0px, 0px)`,
-          }),
+    attributes: {
+      ...attributes,
+      ...listeners,
+      style: {
+        position: item.coordinates
+          ? 'absolute'
+          : ('relative' as Property.Position),
+        top: item.coordinates ? `${item.coordinates.y}px` : 'none',
+        left: item.coordinates ? `${item.coordinates.x}px` : 'none',
+        ...(transform
+          ? {
+              transform: `translate(${transform.x}px, ${transform.y}px)`,
+            }
+          : {
+              transform: `translate(0px, 0px)`,
+            }),
+      },
     },
+    ref: setNodeRef,
+    ...othersAttributes,
   };
 };
