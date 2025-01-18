@@ -44,7 +44,7 @@ export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
             <TextInput
               mr={'md'}
               mb={'xs'}
-              placeholder={t.courseEditorPage.inputNodeName}
+              placeholder={t.editorPage.inputNodeName}
               autoFocus={true}
               {...context.contextMenu.form.getInputProps('searchString')}
             />
@@ -63,7 +63,7 @@ export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
                 ))
               ) : (
                 <Center>
-                  <Text c={'gray'}>{t.courseEditorPage.nodesNotFound}</Text>
+                  <Text c={'gray'}>{t.editorPage.nodesNotFound}</Text>
                 </Center>
               )}
               {}

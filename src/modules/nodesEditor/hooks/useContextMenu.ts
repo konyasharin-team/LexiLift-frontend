@@ -40,8 +40,10 @@ export const useContextMenu = () => {
   useEffect(() => {
     setFoundNodes(
       form.values.searchString !== ''
-        ? NODES.filter(node => node.title.includes(form.values.searchString))
-        : NODES,
+        ? Object.values(NODES).filter(node =>
+            node.title.includes(form.values.searchString),
+          )
+        : Object.values(NODES),
     );
   }, [form.values.searchString]);
 

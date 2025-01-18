@@ -80,7 +80,7 @@ const en: Resource = {
   achievementsPage: {
     yourAchievements: 'Your achievements',
   },
-  courseEditorPage: {
+  editorPage: {
     inputNodeName: 'Input node name',
     showUnavailableNodes: 'Show unavailable nodes',
     nodesNotFound: 'Nodes not found',

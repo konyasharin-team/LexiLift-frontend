@@ -2,6 +2,7 @@ import { FC, useContext } from 'react';
 import { Box, useMantineTheme } from '@mantine/core';
 import { HEADER_HEIGHT } from '@modules/layout';
 import { EditorContext } from '@modules/nodesEditor';
+import { BaseNode } from '@modules/nodesEditor/components/BaseNode';
 import { ContextMenu } from '@modules/nodesEditor/components/ContextMenu';
 import {
   Background,
@@ -12,6 +13,10 @@ import {
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
+
+const nodeTypes = {
+  base: BaseNode,
+};
 
 export const Editor: FC = () => {
   const theme = useMantineTheme();
@@ -30,6 +35,7 @@ export const Editor: FC = () => {
         onNodesChange={context.editor.onNodesChange}
         onEdgesChange={context.editor.onEdgesChange}
         onContextMenu={context.contextMenu.onContextMenu}
+        nodeTypes={nodeTypes}
         {...context.editor.interactEvents}
       >
         <Controls />
