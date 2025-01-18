@@ -79,6 +79,11 @@ const ru = {
   achievementsPage: {
     yourAchievements: 'Ваши достижения',
   },
+  courseEditorPage: {
+    inputNodeName: 'Введите название узла',
+    showUnavailableNodes: 'Показать недоступные узлы',
+    nodesNotFound: 'Узлов не найдено',
+  },
 };
 
 export default ru;

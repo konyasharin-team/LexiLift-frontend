@@ -1,7 +1,8 @@
 import { FC, useContext } from 'react';
-import { Box } from '@mantine/core';
+import { Box, useMantineTheme } from '@mantine/core';
 import { HEADER_HEIGHT } from '@modules/layout';
 import { EditorContext } from '@modules/nodesEditor';
+import { ContextMenu } from '@modules/nodesEditor/components/ContextMenu';
 import {
   Background,
   BackgroundVariant,
@@ -13,15 +14,22 @@ import {
 import '@xyflow/react/dist/style.css';
 
 export const Editor: FC = () => {
-  const editor = useContext(EditorContext);
+  const theme = useMantineTheme();
+  const context = useContext(EditorContext);
 
+  if (!context) return undefined;
   return (
-    <Box w={'100%'} h={`calc(100vh - ${HEADER_HEIGHT}px)`}>
+    <Box
+      w={'100%'}
+      h={`calc(100vh - ${HEADER_HEIGHT}px - ${theme.spacing.xl})`}
+    >
       <ReactFlow
-        nodes={editor?.nodes}
-        edges={editor?.edges}
-        onNodesChange={editor?.onNodesChange}
-        onEdgesChange={editor?.onEdgesChange}
+        nodes={context.editor.nodes}
+        edges={context.editor.edges}
+        onNodesChange={context.editor.onNodesChange}
+        onEdgesChange={context.editor.onEdgesChange}
+        onContextMenu={context.contextMenu.onContextMenu}
+        {...context.editor.interactEvents}
       >
         <Controls />
         <MiniMap />
@@ -32,6 +40,10 @@ export const Editor: FC = () => {
           lineWidth={2}
         />
       </ReactFlow>
+      <ContextMenu
+        {...context.contextMenu}
+        items={context.contextMenu.foundNodes}
+      />
     </Box>
   );
 };
