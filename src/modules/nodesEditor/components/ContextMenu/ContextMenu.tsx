@@ -1,5 +1,4 @@
 import { forwardRef, useContext } from 'react';
-import { ICoordinates } from '@app-types';
 import { useI18N } from '@i18n';
 import {
   Box,
@@ -12,31 +11,25 @@ import {
   Transition,
   useMantineTheme,
 } from '@mantine/core';
+import { mergeRefs } from '@mantine/hooks';
 import { EditorContext } from '@modules/nodesEditor';
 import { ContextMenuItem } from '@modules/nodesEditor/components/ContextMenuItem';
-import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
 
-interface IContextMenuProps extends BoxProps {
-  isActive: boolean;
-  coordinates: ICoordinates;
-  items: Pick<INodeInfo, 'title'>[];
-}
-
-export const ContextMenu = forwardRef<HTMLDivElement, IContextMenuProps>(
-  ({ coordinates, isActive, items, ...attributes }, ref) => {
+export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
+  (props, ref) => {
     const context = useContext(EditorContext);
     const theme = useMantineTheme();
     const { t } = useI18N();
 
     if (!context) return undefined;
     return (
-      <Transition mounted={isActive}>
+      <Transition mounted={context.contextMenu.isActive}>
         {styles => (
           <Box
             pos={'absolute'}
-            top={coordinates.y}
-            left={coordinates.x}
-            ref={ref}
+            top={context.contextMenu.inContainer.coordinates.y}
+            left={context.contextMenu.inContainer.coordinates.x}
+            ref={mergeRefs(ref, context.contextMenu.inContainer.elementRef)}
             bg={theme.white}
             w={400}
             h={250}
@@ -46,7 +39,7 @@ export const ContextMenu = forwardRef<HTMLDivElement, IContextMenuProps>(
               ...styles,
               borderRadius: theme.radius.sm,
             }}
-            {...attributes}
+            {...props}
           >
             <TextInput
               mr={'md'}
@@ -61,12 +54,12 @@ export const ContextMenu = forwardRef<HTMLDivElement, IContextMenuProps>(
               offsetScrollbars={true}
               h={'80%'}
             >
-              {items.length > 0 ? (
-                items.map((item, i) => (
-                  <>
+              {context.contextMenu.foundNodes.length > 0 ? (
+                context.contextMenu.foundNodes.map((item, i) => (
+                  <Box key={i}>
                     {i !== 0 ? <Divider /> : undefined}
-                    <ContextMenuItem {...item} key={i} />
-                  </>
+                    <ContextMenuItem {...item} />
+                  </Box>
                 ))
               ) : (
                 <Center>

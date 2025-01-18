@@ -22,6 +22,7 @@ export const Editor: FC = () => {
     <Box
       w={'100%'}
       h={`calc(100vh - ${HEADER_HEIGHT}px - ${theme.spacing.xl})`}
+      ref={context.contextMenu.inContainer.containerRef}
     >
       <ReactFlow
         nodes={context.editor.nodes}
@@ -40,10 +41,7 @@ export const Editor: FC = () => {
           lineWidth={2}
         />
       </ReactFlow>
-      <ContextMenu
-        {...context.contextMenu}
-        items={context.contextMenu.foundNodes}
-      />
+      <ContextMenu />
     </Box>
   );
 };

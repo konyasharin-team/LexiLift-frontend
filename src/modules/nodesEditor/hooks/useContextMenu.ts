@@ -1,5 +1,6 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { ICoordinates } from '@app-types';
+import { useInContainer } from '@hooks';
 import { useForm } from '@mantine/form';
 import { useClickOutside } from '@mantine/hooks';
 import { NODES } from '@modules/nodesEditor/constants.ts';
@@ -8,8 +9,8 @@ import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
 export const useContextMenu = () => {
   const [foundNodes, setFoundNodes] = useState<INodeInfo[]>([]);
   const [isActive, setIsActive] = useState(false);
-  const [coordinates, setCoordinates] = useState<ICoordinates>({ x: 0, y: 0 });
-  const ref = useClickOutside(
+  const inContainer = useInContainer();
+  const ref = useClickOutside<HTMLDivElement>(
     () => setIsActive(false),
     ['mousedown', 'touchstart'],
   );
@@ -23,7 +24,16 @@ export const useContextMenu = () => {
   const onContextMenu = (e: MouseEvent) => {
     e.preventDefault();
     setIsActive(true);
-    setCoordinates({ x: e.clientX, y: e.clientY });
+    let newCoordinates: ICoordinates = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+    if (
+      newCoordinates.x + (ref.current?.getBoundingClientRect().width ?? 0) >
+      window.innerWidth
+    )
+      newCoordinates = { ...newCoordinates, x: window.innerWidth };
+    inContainer.setCoordinates(newCoordinates);
     form.setFieldValue('searchString', '');
   };
 
@@ -38,10 +48,10 @@ export const useContextMenu = () => {
   return {
     isActive,
     setIsActive,
-    coordinates,
     ref,
     onContextMenu,
     form,
     foundNodes,
+    inContainer,
   };
 };

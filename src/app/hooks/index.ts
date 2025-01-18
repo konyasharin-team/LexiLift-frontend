@@ -1,5 +1,6 @@
 export * from './useDependencies';
 export * from './useFinishingAnimations';
+export * from './useInContainer';
 export * from './useInitPage';
 export * from './useNotifications';
 export * from './useOn';
