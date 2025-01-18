@@ -1,9 +1,7 @@
 import { createContext, FC, ReactNode } from 'react';
-import { NodesEditorInfoSchemaInfer } from '@modules/nodesEditor';
-import { useEditor } from '@modules/nodesEditor/hooks/useEditor.ts';
+import { useEditor } from '@modules/nodesEditor';
 
-interface IEditorProviderProps
-  extends Pick<NodesEditorInfoSchemaInfer, 'name'> {
+interface IEditorProviderProps {
   children?: ReactNode;
 }
 
@@ -12,10 +10,9 @@ export const EditorContext = createContext<ReturnType<typeof useEditor> | null>(
 );
 
 export const EditorProvider: FC<IEditorProviderProps> = props => {
-  const viewportController = useEditor(props.name);
-
+  const editor = useEditor();
   return (
-    <EditorContext.Provider value={viewportController}>
+    <EditorContext.Provider value={editor}>
       {props.children}
     </EditorContext.Provider>
   );

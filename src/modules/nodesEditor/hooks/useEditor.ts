@@ -1,91 +1,46 @@
-import { useEffect, useState } from 'react';
-import { DataRef, DragEndEvent } from '@dnd-kit/core';
-import { NodesEditorInfoSchemaInfer } from '@modules/nodesEditor';
-import { EDITOR_GRID_BOARD_ID } from '@modules/nodesEditor/constants.ts';
-import { EditorMode } from '@modules/nodesEditor/types/EditorMode.ts';
-import { IEditor } from '@modules/nodesEditor/types/IEditor.ts';
-import { IEditorElementData } from '@modules/nodesEditor/types/IEditorElementData.ts';
+import { useCallback, useState } from 'react';
+import {
+  applyEdgeChanges,
+  applyNodeChanges,
+  Edge,
+  Node,
+  OnEdgesChange,
+  OnNodesChange,
+} from '@xyflow/react';
 
-export const useEditor = (name: NodesEditorInfoSchemaInfer['name']) => {
-  const [editor, setEditor] = useState<IEditor>({
-    id: 0,
-    mode: 'dragging',
-    name,
-    content: [
-      {
-        id: 0,
-        coordinates: { x: 0, y: 0 },
-      },
-    ],
-    viewport: {
-      id: EDITOR_GRID_BOARD_ID,
-      coordinates: {
-        x: 0,
-        y: 0,
-      },
-    },
-  });
+const initialNodes = [
+  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
+  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+];
+const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
-  useEffect(() => {
-    const onResize = () => {
-      setEditor({
-        ...editor,
-        viewport: {
-          ...editor.viewport,
-          coordinates: { x: 0, y: 0 },
-        },
-      });
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
+export const useEditor = () => {
+  const [nodes, setNodes] = useState<Node[]>(initialNodes);
+  const [edges, setEdges] = useState<Edge[]>(initialEdges);
 
-  const setMode = (newMode: EditorMode) => {
-    setEditor({
-      ...editor,
-      mode: newMode,
-    });
+  const addNode = (node: Omit<Node, 'id' | 'position'>) => {
+    setNodes([
+      ...nodes,
+      { id: `${nodes.length}`, position: { x: 0, y: 0 }, ...node },
+    ]);
   };
 
-  const onDragEnd = (e: DragEndEvent) => {
-    const data = e.active.data as DataRef<IEditorElementData>;
-    switch (data.current?.type) {
-      case 'viewport':
-        return setEditor({
-          ...editor,
-          viewport: {
-            ...editor.viewport,
-            coordinates: {
-              x: editor.viewport.coordinates.x + e.delta.x,
-              y: editor.viewport.coordinates.y + e.delta.y,
-            },
-          },
-        });
-      case 'node':
-        return setEditor({
-          ...editor,
-          content: editor.content.map(element => {
-            if (element.id === e.active.id)
-              return {
-                ...element,
-                coordinates: {
-                  x: element.coordinates
-                    ? element.coordinates.x + e.delta.x
-                    : 0,
-                  y: element.coordinates
-                    ? element.coordinates.y + e.delta.y
-                    : 0,
-                },
-              };
-            return element;
-          }),
-        });
-    }
-  };
+  const onNodesChange: OnNodesChange = useCallback(
+    changes => setNodes(nds => applyNodeChanges(changes, nds)),
+    [setNodes],
+  );
+  const onEdgesChange: OnEdgesChange = useCallback(
+    changes => setEdges(eds => applyEdgeChanges(changes, eds)),
+    [setEdges],
+  );
 
   return {
-    onDragEnd,
-    editor,
-    setMode,
+    nodes,
+    setNodes,
+    onNodesChange,
+    edges,
+    setEdges,
+    onEdgesChange,
+    addNode,
   };
 };

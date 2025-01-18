@@ -1,1 +1,1 @@
-export * from './EditorProvider.tsx';
+export * from './EditorProvider';
