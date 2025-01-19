@@ -157,6 +157,7 @@ export default tseslint.config(
         }
       ],
       "lines-between-class-members": ["error", "always"],
+      "@typescript-eslint/no-empty-object-type": 'off',
     },
     settings: {
       'boundaries/elements': [

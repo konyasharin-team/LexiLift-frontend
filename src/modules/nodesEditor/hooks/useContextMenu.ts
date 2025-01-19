@@ -5,9 +5,12 @@ import { useForm } from '@mantine/form';
 import { useClickOutside } from '@mantine/hooks';
 import { NODES } from '@modules/nodesEditor/constants.ts';
 import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
+import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 
 export const useContextMenu = () => {
-  const [foundNodes, setFoundNodes] = useState<INodeInfo[]>([]);
+  const [foundNodes, setFoundNodes] = useState<INodeInfo<Omit<IPin, 'id'>>[]>(
+    [],
+  );
   const [isActive, setIsActive] = useState(false);
   const inContainer = useInContainer();
   const ref = useClickOutside<HTMLDivElement>(

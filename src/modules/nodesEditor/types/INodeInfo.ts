@@ -1,7 +1,8 @@
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 
-export interface INodeInfo extends Record<string, unknown> {
+export interface INodeInfo<TPin extends Omit<IPin, 'id'> = IPin>
+  extends Record<string, unknown> {
   title: string;
-  out: IPin[];
-  in: IPin[];
+  out: TPin[];
+  in: TPin[];
 }

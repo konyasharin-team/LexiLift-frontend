@@ -1,10 +1,13 @@
 import { useCallback, useMemo, useState } from 'react';
 import { NODES } from '@modules/nodesEditor';
+import { AppEdge } from '@modules/nodesEditor/types/AppEdge.ts';
 import { AppNode } from '@modules/nodesEditor/types/AppNode.ts';
+import { generatePinsId } from '@modules/nodesEditor/utils/generatePinsId.ts';
 import {
+  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
-  Edge,
+  OnConnect,
   OnEdgesChange,
   OnNodesChange,
 } from '@xyflow/react';
@@ -14,21 +17,43 @@ interface IUseEditorOptions {
 }
 
 const initialNodes: AppNode[] = [
-  { id: '1', position: { x: 100, y: 0 }, type: 'base', data: NODES.test },
-  { id: '2', position: { x: 100, y: 100 }, type: 'base', data: NODES.dialog },
+  {
+    id: '1',
+    position: { x: 100, y: 0 },
+    type: 'base',
+    data: generatePinsId('1', NODES.test),
+  },
+  {
+    id: '2',
+    position: { x: 100, y: 100 },
+    type: 'base',
+    data: generatePinsId('2', NODES.dialog),
+  },
 ];
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2', sourceHandle: 'out-1-0' },
+const initialEdges: AppEdge[] = [
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+    sourceHandle: 'out-1-0',
+    type: 'base',
+  },
 ];
 
 export const useEditor = (options?: IUseEditorOptions) => {
   const [nodes, setNodes] = useState<AppNode[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [edges, setEdges] = useState<AppEdge[]>(initialEdges);
 
-  const addNode = (node: Omit<AppNode, 'id' | 'position'>) => {
+  const addNode = (
+    node: Omit<AppNode, 'id' | 'position'> & Partial<Pick<AppNode, 'position'>>,
+  ) => {
     setNodes([
       ...nodes,
-      { id: `${nodes.length}`, position: { x: 0, y: 0 }, ...node },
+      {
+        ...node,
+        id: `${nodes.length}`,
+        position: node.position ?? { x: 0, y: 0 },
+      },
     ]);
   };
 
@@ -36,8 +61,14 @@ export const useEditor = (options?: IUseEditorOptions) => {
     changes => setNodes(nds => applyNodeChanges(changes, nds)),
     [setNodes],
   );
-  const onEdgesChange: OnEdgesChange = useCallback(
+  const onEdgesChange: OnEdgesChange<AppEdge> = useCallback(
     changes => setEdges(eds => applyEdgeChanges(changes, eds)),
+    [setEdges],
+  );
+  const onConnect: OnConnect = useCallback(
+    connection => {
+      setEdges(oldEdges => addEdge({ ...connection, type: 'base' }, oldEdges));
+    },
     [setEdges],
   );
 
@@ -53,6 +84,7 @@ export const useEditor = (options?: IUseEditorOptions) => {
     nodes,
     setNodes,
     onNodesChange,
+    onConnect,
     edges,
     setEdges,
     onEdgesChange,

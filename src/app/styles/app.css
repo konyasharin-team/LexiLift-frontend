@@ -1,4 +1,5 @@
 @import "text.css";
+@import "reactFlow.css";
 
 * {
     box-sizing: border-box;

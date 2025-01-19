@@ -9,26 +9,26 @@ export const BASE_NODE_HEIGHT = 50;
 export const BASE_NODE_WIDTH = 150;
 export const PINS_GAP = 5;
 
-export const PIN_TRANSITION: IPin = {
+export const PIN_TRANSITION: Omit<IPin, 'id'> = {
   type: 'transition',
   color: {
-    outColor: '#dadada',
+    outColor: '#962626',
     innerColor: '#ffffff',
   },
 };
 
-export const PINS: IPin[] = [
+export const PINS: Omit<IPin, 'id'>[] = [
   PIN_TRANSITION,
   {
     type: 'base',
     color: {
-      outColor: '#dadada',
+      outColor: '#ee4545',
       innerColor: '#ffffff',
     },
   },
 ];
 
-export const NODES: Record<NodeType, INodeInfo> = {
+export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
   test: {
     title: 'test',
     in: [getPin('base'), getPin('transition')],

@@ -13,13 +13,12 @@ import { Position } from '@xyflow/react';
 import { Property } from 'csstype';
 
 interface IPinsGroupProps extends FlexProps {
-  nodeId: string;
   pins: IPin[];
   position: Position.Right | Position.Left;
 }
 
 export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
-  ({ position, pins, nodeId, ...attributes }, ref) => {
+  ({ position, pins, ...attributes }, ref) => {
     const absolutePosition =
       position === Position.Left
         ? {
@@ -49,13 +48,13 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
         {...absolutePosition}
         {...attributes}
       >
-        {pins.sort(sortPins).map((pin, i) => (
+        {pins.sort(sortPins).map(pin => (
           <Pin
             variant={pin.type}
-            id={`${position === Position.Left ? 'in' : 'out'}-${nodeId}-${i}`}
+            id={pin.id}
             type={position === Position.Left ? 'target' : 'source'}
             position={position}
-            key={i}
+            key={pin.id}
             color={pin.color}
           />
         ))}

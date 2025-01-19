@@ -28,13 +28,11 @@ export const BaseNode: FC<NodeProps<BaseNodeType>> = props => {
       </Center>
       <PinsGroup
         ref={leftGroupRef}
-        nodeId={props.id}
         pins={props.data.in}
         position={Position.Left}
       />
       <PinsGroup
         ref={rightGroupRef}
-        nodeId={props.id}
         pins={props.data.out}
         position={Position.Right}
       />
