@@ -1,0 +1,12 @@
+.interrupt.pin {
+    position: relative;
+    top: 0;
+}
+
+.pin.pinRight {
+    transform: translateX(50%);
+}
+
+.pin.pinLeft {
+    transform: translateX(-50%);
+}

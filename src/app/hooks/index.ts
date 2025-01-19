@@ -1,4 +1,5 @@
 export * from './useDependencies';
+export * from './useElementSize';
 export * from './useFinishingAnimations';
 export * from './useInContainer';
 export * from './useInitPage';

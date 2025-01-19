@@ -1,51 +1,43 @@
 import { FC } from 'react';
-import { Box, Flex, Text } from '@mantine/core';
+import { useElementSize } from '@hooks';
+import { Box, Center, Text } from '@mantine/core';
+import {
+  BASE_NODE_HEIGHT,
+  BASE_NODE_WIDTH,
+  PINS_PADDING,
+} from '@modules/nodesEditor';
+import { PinsGroup } from '@modules/nodesEditor/components/PinsGroup';
 import { BaseNodeType } from '@modules/nodesEditor/types/BaseNodeType.ts';
-import { Handle, NodeProps, Position } from '@xyflow/react';
-import clsx from 'clsx';
+import { NodeProps, Position } from '@xyflow/react';
 
 import styles from './BaseNode.module.css';
 
 export const BaseNode: FC<NodeProps<BaseNodeType>> = props => {
+  const { ref: leftGroupRef, height: leftGroupHeight } = useElementSize();
+  const { ref: rightGroupRef, height: rightGroupHeight } = useElementSize();
+
   return (
-    <Box className={styles.node}>
-      <Text>{props.data.title}</Text>
-      <Flex
-        justify={'space-evenly'}
-        pos={'absolute'}
-        direction={'column'}
-        top={0}
-        left={5}
-        h={'100%'}
-      >
-        {props.data.in.map((_, i) => (
-          <Handle
-            id={`in-${props.id}-${i}`}
-            type={'target'}
-            position={Position.Left}
-            className={clsx(styles.pin, styles.pinLeft)}
-            key={i}
-          />
-        ))}
-      </Flex>
-      <Flex
-        justify={'space-evenly'}
-        pos={'absolute'}
-        direction={'column'}
-        top={0}
-        right={5}
-        h={'100%'}
-      >
-        {props.data.out.map((_, i) => (
-          <Handle
-            id={`out-${props.id}-${i}`}
-            type={'source'}
-            position={Position.Right}
-            className={clsx(styles.pin, styles.pinRight)}
-            key={i}
-          />
-        ))}
-      </Flex>
+    <Box
+      className={styles.node}
+      h={Math.max(leftGroupHeight, rightGroupHeight, BASE_NODE_HEIGHT)}
+      w={BASE_NODE_WIDTH}
+      p={PINS_PADDING}
+    >
+      <Center h={'100%'}>
+        <Text>{props.data.title}</Text>
+      </Center>
+      <PinsGroup
+        ref={leftGroupRef}
+        nodeId={props.id}
+        pins={props.data.in}
+        position={Position.Left}
+      />
+      <PinsGroup
+        ref={rightGroupRef}
+        nodeId={props.id}
+        pins={props.data.out}
+        position={Position.Right}
+      />
     </Box>
   );
 };

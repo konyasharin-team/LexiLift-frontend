@@ -1,3 +1,9 @@
+import { PinType } from '@modules/nodesEditor/types/PinType.ts';
+
 export interface IPin {
-  color: string;
+  type: PinType;
+  color: {
+    outColor: string;
+    innerColor: string;
+  };
 }

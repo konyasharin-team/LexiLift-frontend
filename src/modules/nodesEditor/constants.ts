@@ -1,23 +1,51 @@
 import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
-import { NodeFormat } from '@modules/nodesEditor/types/NodeFormat.ts';
 import { NodeType } from '@modules/nodesEditor/types/NodeType.ts';
+import { getPin } from '@modules/nodesEditor/utils/getPin.ts';
 
-export const PINS: Record<NodeFormat, IPin> = {
-  base: {
-    color: '#dadada',
+export const PINS_PADDING = 8;
+export const PIN_SIZE = 10;
+export const BASE_NODE_HEIGHT = 50;
+export const BASE_NODE_WIDTH = 150;
+export const PINS_GAP = 5;
+
+export const PIN_TRANSITION: IPin = {
+  type: 'transition',
+  color: {
+    outColor: '#dadada',
+    innerColor: '#ffffff',
   },
 };
+
+export const PINS: IPin[] = [
+  PIN_TRANSITION,
+  {
+    type: 'base',
+    color: {
+      outColor: '#dadada',
+      innerColor: '#ffffff',
+    },
+  },
+];
 
 export const NODES: Record<NodeType, INodeInfo> = {
   test: {
     title: 'test',
-    in: [PINS.base, PINS.base],
-    out: [PINS.base, PINS.base, PINS.base, PINS.base, PINS.base],
+    in: [getPin('base'), getPin('transition')],
+    out: [
+      getPin('base'),
+      getPin('transition'),
+      getPin('base'),
+      getPin('base'),
+      getPin('base'),
+      getPin('base'),
+      getPin('base'),
+      getPin('base'),
+    ],
   },
   dialog: {
     title: 'dialog',
-    in: [PINS.base],
-    out: [],
+    in: [getPin('base')],
+    out: [getPin('base'), getPin('base')],
   },
 };
