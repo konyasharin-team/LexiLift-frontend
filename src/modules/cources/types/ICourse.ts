@@ -7,4 +7,5 @@ export interface ICourse {
   img: string;
   lessons: ILesson[];
   progress: number;
+  index: number;
 }
