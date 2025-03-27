@@ -1,6 +1,7 @@
 import { CSSProperties, FC } from 'react';
-import { PIN_SIZE } from '@modules/nodesEditor';
+import { PIN_SIZE, TRANSITION_BUTTON_SIZE } from '@modules/nodesEditor';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
+import { IconArrowBigRightFilled } from '@tabler/icons-react';
 import { Handle, HandleProps, Position } from '@xyflow/react';
 import clsx from 'clsx';
 
@@ -21,6 +22,7 @@ export const Pin: FC<IPinProps> = ({
     styles.interrupt,
     styles.pin,
     attributes.position === Position.Right ? styles.pinRight : styles.pinLeft,
+    variant === 'transition' ? styles.transition : undefined,
     className,
   );
   const mergedStyle: CSSProperties = {
@@ -30,6 +32,12 @@ export const Pin: FC<IPinProps> = ({
     width: PIN_SIZE,
     height: PIN_SIZE,
   };
+
+  const transitionButtonStyle: CSSProperties = {
+    height: TRANSITION_BUTTON_SIZE,
+    width: TRANSITION_BUTTON_SIZE,
+  };
+
   switch (variant) {
     case 'base':
       return (
@@ -43,9 +51,21 @@ export const Pin: FC<IPinProps> = ({
       return (
         <Handle
           className={mergedClassName}
-          style={mergedStyle}
+          style={{
+            ...style,
+            ...transitionButtonStyle,
+            borderColor: color.outColor,
+          }}
           {...attributes}
-        />
+        >
+          <IconArrowBigRightFilled
+            color={'white'}
+            style={{
+              ...transitionButtonStyle,
+              pointerEvents: 'none',
+            }}
+          />
+        </Handle>
       );
     default:
       return (

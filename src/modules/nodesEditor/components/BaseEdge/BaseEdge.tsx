@@ -17,17 +17,13 @@ export const BaseEdge: FC<EdgeProps<BaseEdgeType>> = props => {
     <BaseEdgeReactFlow
       path={edgePath}
       markerEnd={props.markerEnd}
-      z={1}
-      labelStyle={{
-        zIndex: 1,
-      }}
       style={{
         stroke: getLineColor(
           context.editor.nodes.find(node => node.id === props.source)?.data
             .out ?? [],
           props.sourceHandleId,
         ),
-        zIndex: 1,
+        zIndex: -10001,
         ...props.style,
       }}
     />

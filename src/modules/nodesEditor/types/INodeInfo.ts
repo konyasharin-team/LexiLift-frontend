@@ -5,4 +5,5 @@ export interface INodeInfo<TPin extends Omit<IPin, 'id'> = IPin>
   title: string;
   out: TPin[];
   in: TPin[];
+  icon?: string;
 }

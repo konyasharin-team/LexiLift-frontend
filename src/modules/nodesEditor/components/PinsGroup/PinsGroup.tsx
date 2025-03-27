@@ -5,9 +5,11 @@ import {
   PIN_SIZE,
   PINS_GAP,
   PINS_PADDING,
+  TRANSITION_BUTTON_SIZE,
 } from '@modules/nodesEditor';
 import { Pin } from '@modules/nodesEditor/components/Pin';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
+import { getIsHaveTransition } from '@modules/nodesEditor/utils/getIsHaveTransition.ts';
 import { sortPins } from '@modules/nodesEditor/utils/sortPins.ts';
 import { Position } from '@xyflow/react';
 import { Property } from 'csstype';
@@ -15,10 +17,11 @@ import { Property } from 'csstype';
 interface IPinsGroupProps extends FlexProps {
   pins: IPin[];
   position: Position.Right | Position.Left;
+  withStartPadding?: boolean;
 }
 
 export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
-  ({ position, pins, ...attributes }, ref) => {
+  ({ position, pins, withStartPadding, ...attributes }, ref) => {
     const absolutePosition =
       position === Position.Left
         ? {
@@ -26,10 +29,10 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
           }
         : { right: PINS_PADDING };
     const isSinglePin = pins.length <= 1;
-    const isHaveTransition = !!pins.find(pin => pin.type === 'transition');
+    const isHaveTransition = getIsHaveTransition(pins);
 
     const getJustify = (): Property.JustifyContent => {
-      if (isHaveTransition) return 'start';
+      if (isHaveTransition || withStartPadding) return 'start';
       if (isSinglePin) return 'center';
       return 'space-evenly';
     };
@@ -44,10 +47,18 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
         gap={PINS_GAP}
         pt={getJustify() === 'start' ? PINS_GAP : 0}
         pb={getJustify() === 'start' ? PINS_GAP : 0}
-        h={Math.max(pins.length * (PIN_SIZE + PINS_GAP), BASE_NODE_HEIGHT)}
+        mih={Math.max(pins.length * (PIN_SIZE + PINS_GAP), BASE_NODE_HEIGHT)}
         {...absolutePosition}
         {...attributes}
       >
+        {withStartPadding && (
+          <div
+            style={{
+              height: TRANSITION_BUTTON_SIZE,
+              width: TRANSITION_BUTTON_SIZE,
+            }}
+          />
+        )}
         {pins.sort(sortPins).map(pin => (
           <Pin
             variant={pin.type}

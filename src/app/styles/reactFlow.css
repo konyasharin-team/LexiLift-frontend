@@ -1,7 +1,12 @@
 .react-flow {
-    --edges-z-index: 1001
+    --edges-z-index: -1001;
+    --connection-lines-z-index: -1001
 }
 
 .react-flow__edges {
     z-index: var(--edges-z-index);
+}
+
+svg.react-flow__connectionline {
+    z-index: var(--connection-lines-z-index);
 }

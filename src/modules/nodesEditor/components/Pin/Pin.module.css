@@ -1,12 +1,25 @@
 .interrupt.pin {
     position: relative;
     top: 0;
+    transform: translateX(0);
 }
 
 .pin.pinRight {
-    transform: translateX(50%);
 }
 
 .pin.pinLeft {
-    transform: translateX(-50%);
+}
+
+.pin.transition {
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    background: transparent;
+    border: none;
+}
+
+.pin.transition svg {
+    position: absolute;
+    right: 0;
+    top: 0;
 }

@@ -8,11 +8,12 @@ export const PIN_SIZE = 10;
 export const BASE_NODE_HEIGHT = 50;
 export const BASE_NODE_WIDTH = 150;
 export const PINS_GAP = 5;
+export const TRANSITION_BUTTON_SIZE = 18;
 
 export const PIN_TRANSITION: Omit<IPin, 'id'> = {
   type: 'transition',
   color: {
-    outColor: '#962626',
+    outColor: '#dadada',
     innerColor: '#ffffff',
   },
 };
@@ -22,7 +23,7 @@ export const PINS: Omit<IPin, 'id'>[] = [
   {
     type: 'base',
     color: {
-      outColor: '#ee4545',
+      outColor: '#dadada',
       innerColor: '#ffffff',
     },
   },
@@ -30,8 +31,8 @@ export const PINS: Omit<IPin, 'id'>[] = [
 
 export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
   test: {
-    title: 'test',
-    in: [getPin('base'), getPin('transition')],
+    title: 'Test',
+    in: [getPin('base')],
     out: [
       getPin('base'),
       getPin('transition'),
@@ -44,7 +45,7 @@ export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
     ],
   },
   dialog: {
-    title: 'dialog',
+    title: 'Dialog',
     in: [getPin('base')],
     out: [getPin('base'), getPin('base')],
   },
