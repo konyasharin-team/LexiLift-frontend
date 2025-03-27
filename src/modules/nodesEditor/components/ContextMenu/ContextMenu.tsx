@@ -21,7 +21,7 @@ export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
     const context = useContext(EditorContext);
     const theme = useMantineTheme();
     const { t } = useI18N();
-    const { getViewport } = useReactFlow();
+    const { getViewport, getZoom } = useReactFlow();
 
     if (!context) return undefined;
     return (
@@ -63,14 +63,15 @@ export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
                     <ContextMenuItem
                       {...item}
                       onClick={() => {
+                        const zoom = getZoom();
                         const viewport = getViewport();
                         const coordinates =
                           context.contextMenu.inContainer.coordinates;
                         context.editor.addNode({
                           ...item,
                           position: {
-                            x: coordinates.x - viewport.x,
-                            y: coordinates.y - viewport.y,
+                            x: (coordinates.x - viewport.x) / zoom,
+                            y: (coordinates.y - viewport.y) / zoom,
                           },
                         });
                         context.contextMenu.setIsActive(false);
