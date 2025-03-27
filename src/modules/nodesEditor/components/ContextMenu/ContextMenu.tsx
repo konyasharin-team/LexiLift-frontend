@@ -14,12 +14,14 @@ import {
 import { mergeRefs } from '@mantine/hooks';
 import { EditorContext } from '@modules/nodesEditor';
 import { ContextMenuItem } from '@modules/nodesEditor/components/ContextMenuItem';
+import { useReactFlow } from '@xyflow/react';
 
 export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
   (props, ref) => {
     const context = useContext(EditorContext);
     const theme = useMantineTheme();
     const { t } = useI18N();
+    const { getViewport } = useReactFlow();
 
     if (!context) return undefined;
     return (
@@ -58,7 +60,22 @@ export const ContextMenu = forwardRef<HTMLDivElement, BoxProps>(
                 context.contextMenu.foundNodes.map((item, i) => (
                   <Box key={i}>
                     {i !== 0 ? <Divider /> : undefined}
-                    <ContextMenuItem {...item} />
+                    <ContextMenuItem
+                      {...item}
+                      onClick={() => {
+                        const viewport = getViewport();
+                        const coordinates =
+                          context.contextMenu.inContainer.coordinates;
+                        context.editor.addNode({
+                          ...item,
+                          position: {
+                            x: coordinates.x - viewport.x,
+                            y: coordinates.y - viewport.y,
+                          },
+                        });
+                        context.contextMenu.setIsActive(false);
+                      }}
+                    />
                   </Box>
                 ))
               ) : (

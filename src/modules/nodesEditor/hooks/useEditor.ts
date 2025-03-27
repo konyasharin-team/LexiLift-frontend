@@ -2,6 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 import { NODES } from '@modules/nodesEditor';
 import { AppEdge } from '@modules/nodesEditor/types/AppEdge.ts';
 import { AppNode } from '@modules/nodesEditor/types/AppNode.ts';
+import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
+import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 import { generatePinsId } from '@modules/nodesEditor/utils/generatePinsId.ts';
 import {
   addEdge,
@@ -45,14 +47,17 @@ export const useEditor = (options?: IUseEditorOptions) => {
   const [edges, setEdges] = useState<AppEdge[]>(initialEdges);
 
   const addNode = (
-    node: Omit<AppNode, 'id' | 'position'> & Partial<Pick<AppNode, 'position'>>,
+    node: INodeInfo<Omit<IPin, 'id'>> & Partial<Pick<AppNode, 'position'>>,
   ) => {
+    const id: string = `${nodes.length + 1}`;
     setNodes([
       ...nodes,
       {
         ...node,
-        id: `${nodes.length}`,
+        id,
         position: node.position ?? { x: 0, y: 0 },
+        data: generatePinsId(id, node),
+        type: 'base',
       },
     ]);
   };
