@@ -44,7 +44,9 @@ export const useContextMenu = () => {
     setFoundNodes(
       form.values.searchString !== ''
         ? Object.values(NODES).filter(node =>
-            node.title.includes(form.values.searchString),
+            node.title
+              .toLowerCase()
+              .includes(form.values.searchString.toLowerCase()),
           )
         : Object.values(NODES),
     );
