@@ -29,6 +29,7 @@ const ru = {
     oldPasswordPlaceholder: 'Ваш старый пароль',
     newPasswordPlaceholder: 'Ваш новый пароль',
     savePassword: 'Сохранить пароль',
+    deleteAccount: 'Удалить аккаунт',
   },
   avatarButton: {
     profile: 'Профиль',
@@ -60,6 +61,12 @@ const ru = {
     word: 'Слово',
     translation: 'Перевод',
     addCard: 'Добавить карточку',
+  },
+  deleteConfirmationModal: {
+    title: 'Вы действительное хотите удалить удалить аккаунт?',
+    defaultText: 'Подтвердите удаление аккаунта',
+    confirm: 'Подтвердить',
+    cancel: 'Отменить',
   },
 };
 

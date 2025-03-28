@@ -31,6 +31,7 @@ const en: Resource = {
     oldPasswordPlaceholder: 'Your old password',
     newPasswordPlaceholder: 'Your new password',
     savePassword: 'Save password',
+    deleteAccount: 'Delete account',
   },
   avatarButton: {
     profile: 'Profile',
@@ -61,6 +62,12 @@ const en: Resource = {
     word: 'Word',
     translation: 'Translation',
     addCard: 'Add card',
+  },
+  deleteConfirmationModal: {
+    title: 'Do you really want to delete delete account?',
+    defaultText: 'Confirm account deletion',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
   },
 };
 
