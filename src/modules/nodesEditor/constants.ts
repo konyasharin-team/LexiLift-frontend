@@ -6,7 +6,7 @@ import { getPin } from '@modules/nodesEditor/utils/getPin.ts';
 export const PINS_PADDING = 8;
 export const PIN_SIZE = 10;
 export const BASE_NODE_HEIGHT = 50;
-export const BASE_NODE_WIDTH = 150;
+export const BASE_NODE_WIDTH = 200;
 export const PINS_GAP = 5;
 export const TRANSITION_BUTTON_SIZE = 18;
 
@@ -16,6 +16,8 @@ export const PIN_TRANSITION: Omit<IPin, 'id'> = {
     outColor: '#dadada',
     innerColor: '#ffffff',
   },
+  title: 'Transition',
+  description: 'Transition to other node',
   size: TRANSITION_BUTTON_SIZE,
 };
 
@@ -27,6 +29,8 @@ export const PINS: Omit<IPin, 'id'>[] = [
       outColor: '#d51e1e',
       innerColor: '#ffffff',
     },
+    title: 'Condition',
+    description: 'Your condition',
     size: PIN_SIZE,
   },
 ];

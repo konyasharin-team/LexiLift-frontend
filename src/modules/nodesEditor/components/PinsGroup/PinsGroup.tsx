@@ -40,6 +40,7 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
       <Flex
         ref={ref}
         justify={getJustify()}
+        align={position === Position.Left ? 'end' : 'start'}
         pos={'absolute'}
         top={0}
         direction={'column'}
@@ -57,8 +58,7 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
             type={position === Position.Left ? 'target' : 'source'}
             position={position}
             key={pin.id}
-            color={pin.color}
-            size={pin.size}
+            pin={pin}
             wrapperSize={
               opposite ? Math.max(opposite[i]?.size, pin.size) : pin.size
             }

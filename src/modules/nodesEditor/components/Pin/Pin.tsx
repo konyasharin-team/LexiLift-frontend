@@ -1,15 +1,17 @@
-import { CSSProperties, FC, ReactNode } from 'react';
+import { CSSProperties, FC, ReactNode, useContext } from 'react';
+import { Text } from '@mantine/core';
+import { EditorContext } from '@modules/nodesEditor';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 import { PinVariant } from '@modules/nodesEditor/types/PinVariant.ts';
+import { getIsConnectedPin } from '@modules/nodesEditor/utils/getIsConnectedPin.ts';
 import { IconArrowBigRightFilled } from '@tabler/icons-react';
 import { Handle, HandleProps, Position } from '@xyflow/react';
 import clsx from 'clsx';
 
 import styles from './Pin.module.css';
 
-interface IPinProps
-  extends Omit<HandleProps, 'color'>,
-    Pick<IPin, 'color' | 'size'> {
+interface IPinProps extends Omit<HandleProps, 'color'> {
+  pin: IPin;
   variant: PinVariant;
   wrapperSize?: number;
 }
@@ -17,34 +19,40 @@ interface IPinProps
 export const Pin: FC<IPinProps> = ({
   variant,
   className,
-  color,
+  pin,
   style,
-  size,
   wrapperSize,
+  position,
   ...attributes
 }) => {
+  const context = useContext(EditorContext);
   const mergedClassName: string = clsx(
     styles.interrupt,
     styles.pin,
-    attributes.position === Position.Right ? styles.pinRight : styles.pinLeft,
+    position === Position.Right ? styles.pinRight : styles.pinLeft,
     variant === 'transition' ? styles.transition : undefined,
     className,
   );
   const mergedStyle: CSSProperties = {
     ...style,
-    borderColor: color.outColor,
-    backgroundColor: color.innerColor,
-    width: size,
-    height: size,
+    borderColor: pin.color.outColor,
+    backgroundColor: context
+      ? getIsConnectedPin(context.editor.edges, pin)
+        ? pin.color.outColor
+        : pin.color.innerColor
+      : pin.color.innerColor,
+    width: pin.size,
+    height: pin.size,
   };
 
   const wrap = (children: ReactNode) => {
     return (
-      <div
-        style={{ height: wrapperSize, width: wrapperSize }}
-        className={styles.wrapper}
-      >
-        {children}
+      <div className={styles.titleBlock}>
+        {position === Position.Right && <Text>{pin.title}</Text>}
+        <div style={{ height: wrapperSize }} className={styles.wrapper}>
+          {children}
+        </div>
+        {position === Position.Left && <Text>{pin.title}</Text>}
       </div>
     );
   };
@@ -55,6 +63,7 @@ export const Pin: FC<IPinProps> = ({
         <Handle
           className={mergedClassName}
           style={mergedStyle}
+          position={position}
           {...attributes}
         />,
       );
@@ -67,6 +76,7 @@ export const Pin: FC<IPinProps> = ({
             borderColor: 'none',
             backgroundColor: 'none',
           }}
+          position={position}
           {...attributes}
         >
           <IconArrowBigRightFilled
@@ -83,6 +93,7 @@ export const Pin: FC<IPinProps> = ({
     default:
       return wrap(
         <Handle
+          position={position}
           className={mergedClassName}
           style={mergedStyle}
           {...attributes}
