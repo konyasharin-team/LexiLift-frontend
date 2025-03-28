@@ -1,1 +1,1 @@
-export type PinType = 'transition' | 'base';
+export type PinType = 'transition' | 'boolean';

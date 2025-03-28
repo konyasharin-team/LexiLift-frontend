@@ -70,14 +70,13 @@ export const BaseNode: FC<NodeProps<BaseNodeType>> = props => {
           ref={leftGroupRef}
           pins={props.data.in}
           position={Position.Left}
-          withStartPadding={props.data.out.some(
-            pin => pin.type === 'transition',
-          )}
+          opposite={props.data.out}
         />
         <PinsGroup
           ref={rightGroupRef}
           pins={props.data.out}
           position={Position.Right}
+          opposite={props.data.in}
         />
       </Box>
     </Flex>

@@ -16,37 +16,35 @@ export const PIN_TRANSITION: Omit<IPin, 'id'> = {
     outColor: '#dadada',
     innerColor: '#ffffff',
   },
+  size: TRANSITION_BUTTON_SIZE,
 };
 
 export const PINS: Omit<IPin, 'id'>[] = [
   PIN_TRANSITION,
   {
-    type: 'base',
+    type: 'boolean',
     color: {
-      outColor: '#dadada',
+      outColor: '#d51e1e',
       innerColor: '#ffffff',
     },
+    size: PIN_SIZE,
   },
 ];
 
 export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
-  test: {
-    title: 'Test',
-    in: [getPin('base')],
-    out: [
-      getPin('base'),
-      getPin('transition'),
-      getPin('base'),
-      getPin('base'),
-      getPin('base'),
-      getPin('base'),
-      getPin('base'),
-      getPin('base'),
-    ],
+  branch: {
+    title: 'Branch',
+    in: [getPin('transition'), getPin('boolean')],
+    out: [getPin('transition'), getPin('transition')],
   },
   dialog: {
     title: 'Dialog',
-    in: [getPin('base')],
-    out: [getPin('base'), getPin('base')],
+    in: [getPin('transition'), getPin('boolean'), getPin('boolean')],
+    out: [
+      getPin('transition'),
+      getPin('boolean'),
+      getPin('boolean'),
+      getPin('boolean'),
+    ],
   },
 };

@@ -5,6 +5,8 @@ import { AppNode } from '@modules/nodesEditor/types/AppNode.ts';
 import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 import { generatePinsId } from '@modules/nodesEditor/utils/generatePinsId.ts';
+import { getNodeById } from '@modules/nodesEditor/utils/getNodeById.ts';
+import { getPinById } from '@modules/nodesEditor/utils/getPinById.ts';
 import {
   addEdge,
   applyEdgeChanges,
@@ -23,7 +25,7 @@ const initialNodes: AppNode[] = [
     id: '1',
     position: { x: 100, y: 0 },
     type: 'base',
-    data: generatePinsId('1', NODES.test),
+    data: generatePinsId('1', NODES.branch),
   },
   {
     id: '2',
@@ -32,15 +34,7 @@ const initialNodes: AppNode[] = [
     data: generatePinsId('2', NODES.dialog),
   },
 ];
-const initialEdges: AppEdge[] = [
-  {
-    id: 'e1-2',
-    source: '1',
-    target: '2',
-    sourceHandle: 'out-1-0',
-    type: 'base',
-  },
-];
+const initialEdges: AppEdge[] = [];
 
 export const useEditor = (options?: IUseEditorOptions) => {
   const [nodes, setNodes] = useState<AppNode[]>(initialNodes);
@@ -67,12 +61,27 @@ export const useEditor = (options?: IUseEditorOptions) => {
     [setNodes],
   );
   const onEdgesChange: OnEdgesChange<AppEdge> = useCallback(
-    changes => setEdges(eds => applyEdgeChanges(changes, eds)),
+    changes => {
+      setEdges(eds => applyEdgeChanges(changes, eds));
+    },
     [setEdges],
   );
   const onConnect: OnConnect = useCallback(
     connection => {
-      setEdges(oldEdges => addEdge({ ...connection, type: 'base' }, oldEdges));
+      const sourceNode = getNodeById(nodes, connection.source);
+      const targetNode = getNodeById(nodes, connection.target);
+      if (
+        sourceNode &&
+        targetNode &&
+        connection.sourceHandle &&
+        connection.targetHandle &&
+        getPinById(sourceNode, connection.sourceHandle, 'out')?.type ===
+          getPinById(targetNode, connection.targetHandle, 'in')?.type
+      ) {
+        setEdges(oldEdges =>
+          addEdge({ ...connection, type: 'base' }, oldEdges),
+        );
+      }
     },
     [setEdges],
   );

@@ -1,1 +1,1 @@
-export type NodeType = 'test' | 'dialog';
+export type NodeType = 'branch' | 'dialog';

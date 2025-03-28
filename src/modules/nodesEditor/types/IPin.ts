@@ -7,4 +7,5 @@ export interface IPin {
     outColor: string;
     innerColor: string;
   };
+  size: number;
 }

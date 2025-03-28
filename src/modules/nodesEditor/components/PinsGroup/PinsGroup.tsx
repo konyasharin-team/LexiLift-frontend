@@ -5,7 +5,6 @@ import {
   PIN_SIZE,
   PINS_GAP,
   PINS_PADDING,
-  TRANSITION_BUTTON_SIZE,
 } from '@modules/nodesEditor';
 import { Pin } from '@modules/nodesEditor/components/Pin';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
@@ -17,11 +16,11 @@ import { Property } from 'csstype';
 interface IPinsGroupProps extends FlexProps {
   pins: IPin[];
   position: Position.Right | Position.Left;
-  withStartPadding?: boolean;
+  opposite?: IPin[];
 }
 
 export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
-  ({ position, pins, withStartPadding, ...attributes }, ref) => {
+  ({ position, pins, opposite, ...attributes }, ref) => {
     const absolutePosition =
       position === Position.Left
         ? {
@@ -32,7 +31,7 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
     const isHaveTransition = getIsHaveTransition(pins);
 
     const getJustify = (): Property.JustifyContent => {
-      if (isHaveTransition || withStartPadding) return 'start';
+      if (isHaveTransition) return 'start';
       if (isSinglePin) return 'center';
       return 'space-evenly';
     };
@@ -51,22 +50,18 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
         {...absolutePosition}
         {...attributes}
       >
-        {withStartPadding && (
-          <div
-            style={{
-              height: TRANSITION_BUTTON_SIZE,
-              width: TRANSITION_BUTTON_SIZE,
-            }}
-          />
-        )}
-        {pins.sort(sortPins).map(pin => (
+        {pins.sort(sortPins).map((pin, i) => (
           <Pin
-            variant={pin.type}
+            variant={pin.type === 'transition' ? 'transition' : 'base'}
             id={pin.id}
             type={position === Position.Left ? 'target' : 'source'}
             position={position}
             key={pin.id}
             color={pin.color}
+            size={pin.size}
+            wrapperSize={
+              opposite ? Math.max(opposite[i]?.size, pin.size) : pin.size
+            }
           />
         ))}
       </Flex>

@@ -1,14 +1,17 @@
-import { CSSProperties, FC } from 'react';
-import { PIN_SIZE, TRANSITION_BUTTON_SIZE } from '@modules/nodesEditor';
+import { CSSProperties, FC, ReactNode } from 'react';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
+import { PinVariant } from '@modules/nodesEditor/types/PinVariant.ts';
 import { IconArrowBigRightFilled } from '@tabler/icons-react';
 import { Handle, HandleProps, Position } from '@xyflow/react';
 import clsx from 'clsx';
 
 import styles from './Pin.module.css';
 
-interface IPinProps extends Omit<HandleProps, 'color'>, Pick<IPin, 'color'> {
-  variant: IPin['type'];
+interface IPinProps
+  extends Omit<HandleProps, 'color'>,
+    Pick<IPin, 'color' | 'size'> {
+  variant: PinVariant;
+  wrapperSize?: number;
 }
 
 export const Pin: FC<IPinProps> = ({
@@ -16,6 +19,8 @@ export const Pin: FC<IPinProps> = ({
   className,
   color,
   style,
+  size,
+  wrapperSize,
   ...attributes
 }) => {
   const mergedClassName: string = clsx(
@@ -29,51 +34,59 @@ export const Pin: FC<IPinProps> = ({
     ...style,
     borderColor: color.outColor,
     backgroundColor: color.innerColor,
-    width: PIN_SIZE,
-    height: PIN_SIZE,
+    width: size,
+    height: size,
   };
 
-  const transitionButtonStyle: CSSProperties = {
-    height: TRANSITION_BUTTON_SIZE,
-    width: TRANSITION_BUTTON_SIZE,
+  const wrap = (children: ReactNode) => {
+    return (
+      <div
+        style={{ height: wrapperSize, width: wrapperSize }}
+        className={styles.wrapper}
+      >
+        {children}
+      </div>
+    );
   };
 
   switch (variant) {
     case 'base':
-      return (
+      return wrap(
         <Handle
           className={mergedClassName}
           style={mergedStyle}
           {...attributes}
-        />
+        />,
       );
     case 'transition':
-      return (
+      return wrap(
         <Handle
           className={mergedClassName}
           style={{
-            ...style,
-            ...transitionButtonStyle,
-            borderColor: color.outColor,
+            ...mergedStyle,
+            borderColor: 'none',
+            backgroundColor: 'none',
           }}
           {...attributes}
         >
           <IconArrowBigRightFilled
             color={'white'}
             style={{
-              ...transitionButtonStyle,
+              ...mergedStyle,
               pointerEvents: 'none',
+              borderColor: 'none',
+              backgroundColor: 'none',
             }}
           />
-        </Handle>
+        </Handle>,
       );
     default:
-      return (
+      return wrap(
         <Handle
           className={mergedClassName}
           style={mergedStyle}
           {...attributes}
-        />
+        />,
       );
   }
 };
