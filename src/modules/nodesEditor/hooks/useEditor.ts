@@ -83,7 +83,7 @@ export const useEditor = (options?: IUseEditorOptions) => {
         );
       }
     },
-    [setEdges],
+    [setEdges, nodes],
   );
 
   const interactEvents = useMemo(
