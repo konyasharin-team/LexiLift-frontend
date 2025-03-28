@@ -74,16 +74,32 @@ export const useEditor = (options?: IUseEditorOptions) => {
         sourceNode &&
         targetNode &&
         connection.sourceHandle &&
-        connection.targetHandle &&
-        getPinById(sourceNode, connection.sourceHandle, 'out')?.type ===
-          getPinById(targetNode, connection.targetHandle, 'in')?.type
+        connection.targetHandle
       ) {
-        setEdges(oldEdges =>
-          addEdge({ ...connection, type: 'base' }, oldEdges),
+        const sourcePin = getPinById(
+          sourceNode,
+          connection.sourceHandle,
+          'out',
         );
+        const targetPin = getPinById(targetNode, connection.targetHandle, 'in');
+        if (
+          sourcePin?.type === targetPin?.type && !targetPin?.withManyConnections
+            ? !edges.some(
+                edge =>
+                  edge.sourceHandle === connection.sourceHandle ||
+                  edge.sourceHandle === connection.targetHandle ||
+                  edge.targetHandle === connection.sourceHandle ||
+                  edge.targetHandle === connection.targetHandle,
+              )
+            : true
+        ) {
+          setEdges(oldEdges =>
+            addEdge({ ...connection, type: 'base' }, oldEdges),
+          );
+        }
       }
     },
-    [setEdges, nodes],
+    [setEdges, nodes, edges],
   );
 
   const interactEvents = useMemo(

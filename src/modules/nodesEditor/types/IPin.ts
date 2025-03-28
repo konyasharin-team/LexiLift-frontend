@@ -12,4 +12,5 @@ export interface IPin {
   size: number;
   title: string;
   description: string;
+  withManyConnections?: boolean;
 }

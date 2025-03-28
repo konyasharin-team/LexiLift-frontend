@@ -60,7 +60,7 @@ export const PinsGroup = forwardRef<HTMLDivElement, IPinsGroupProps>(
             key={pin.id}
             pin={pin}
             wrapperSize={
-              opposite ? Math.max(opposite[i]?.size, pin.size) : pin.size
+              opposite ? Math.max(opposite[i]?.size ?? 0, pin.size) : pin.size
             }
           />
         ))}

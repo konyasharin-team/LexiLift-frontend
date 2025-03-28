@@ -49,7 +49,10 @@ export const Pin: FC<IPinProps> = ({
     return (
       <div className={styles.titleBlock}>
         {position === Position.Right && <Text>{pin.title}</Text>}
-        <div style={{ height: wrapperSize }} className={styles.wrapper}>
+        <div
+          style={{ height: wrapperSize ?? 'auto' }}
+          className={styles.wrapper}
+        >
           {children}
         </div>
         {position === Position.Left && <Text>{pin.title}</Text>}

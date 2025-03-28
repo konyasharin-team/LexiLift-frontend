@@ -19,6 +19,7 @@ export const PIN_TRANSITION: Omit<IPin, 'id'> = {
   title: 'Transition',
   description: 'Transition to other node',
   size: TRANSITION_BUTTON_SIZE,
+  withManyConnections: true,
 };
 
 export const PINS: Omit<IPin, 'id'>[] = [
