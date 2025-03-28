@@ -36,6 +36,7 @@ export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
     title: 'Branch',
     in: [getPin('transition'), getPin('boolean')],
     out: [getPin('transition'), getPin('transition')],
+    color: '#9f9a9a',
   },
   dialog: {
     title: 'Dialog',
@@ -46,5 +47,6 @@ export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
       getPin('boolean'),
       getPin('boolean'),
     ],
+    color: '#6381e0',
   },
 };

@@ -37,7 +37,10 @@ export const BaseNode: FC<NodeProps<BaseNodeType>> = props => {
             borderTopLeftRadius: theme.radius.sm,
             borderTopRightRadius: theme.radius.sm,
           }}
-          bg={getGradient({ deg: 0, from: 'blue.3', to: 'blue.4' }, theme)}
+          bg={getGradient(
+            { deg: 75, from: props.data.color, to: '#f1f0f0' },
+            theme,
+          )}
         >
           <Flex direction={'column'} justify={'center'} h={'100%'}>
             <Text>{props.data.title}</Text>
@@ -49,7 +52,7 @@ export const BaseNode: FC<NodeProps<BaseNodeType>> = props => {
         w={BASE_NODE_WIDTH}
         p={PINS_PADDING}
         pos={'relative'}
-        bg={alpha(theme.colors.blue[5], isHasTransition ? 0.5 : 0.3)}
+        bg={alpha(props.data.color, isHasTransition ? 0.5 : 0.3)}
         style={
           isHasTransition
             ? {
