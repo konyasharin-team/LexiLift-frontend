@@ -1,7 +1,8 @@
 import { INodeInfo } from '@modules/nodesEditor/types/INodeInfo.ts';
 import { IPin } from '@modules/nodesEditor/types/IPin.ts';
 import { NodeType } from '@modules/nodesEditor/types/NodeType.ts';
-import { getPin } from '@modules/nodesEditor/utils/getPin.ts';
+
+import { branchNode, dialogNode } from './nodes';
 
 export const PINS_PADDING = 8;
 export const PIN_SIZE = 10;
@@ -37,21 +38,6 @@ export const PINS: Omit<IPin, 'id'>[] = [
 ];
 
 export const NODES: Record<NodeType, INodeInfo<Omit<IPin, 'id'>>> = {
-  branch: {
-    title: 'Branch',
-    in: [getPin('transition'), getPin('boolean')],
-    out: [getPin('transition'), getPin('transition')],
-    color: '#9f9a9a',
-  },
-  dialog: {
-    title: 'Dialog',
-    in: [getPin('transition'), getPin('boolean'), getPin('boolean')],
-    out: [
-      getPin('transition'),
-      getPin('boolean'),
-      getPin('boolean'),
-      getPin('boolean'),
-    ],
-    color: '#6381e0',
-  },
+  branch: branchNode,
+  dialog: dialogNode,
 };
