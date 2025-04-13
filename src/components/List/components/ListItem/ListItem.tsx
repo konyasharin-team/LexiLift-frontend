@@ -21,7 +21,7 @@ const variants: Variants = {
       type: 'spring',
       bounce: 0.4,
       duration: 0.8,
-      delay: index * 0.1,
+      delay: index * 0.5,
     },
   }),
   hovered: {
@@ -51,7 +51,7 @@ export const ListItem = forwardRef<HTMLDivElement, IListItemProps>(
           exit={{ scale: 0.8, opacity: 0 }}
           layout={true}
           custom={props.index % Math.floor(12 / span)}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
           style={{
             padding: theme.spacing.md,
             paddingRight: 0,
