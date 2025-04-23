@@ -6,6 +6,8 @@ export * from './components/RegistrationAnimatedChanger/RegistrationAnimatedChan
 export * from './constants.ts';
 export * from './data.ts';
 export * from './hooks/useChangePasswordController.ts';
+export * from './hooks/useDeleteAccount.ts';
+export * from './hooks/useDeleteAccountTarget.ts';
 export * from './hooks/useLoginController.ts';
 export * from './hooks/useLogoutController.ts';
 export * from './hooks/useLogoutTargetController.ts';
@@ -16,4 +18,5 @@ export * from './hooks/useWhoAmIController.ts';
 export * from './store';
 export * from './types/IAuthData.ts';
 export * from './types/IChangePasswordData.ts';
+export * from './types/IDeleteAccountTargetData.ts';
 export * from './types/ILogoutTargetData.ts';

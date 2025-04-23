@@ -10,11 +10,13 @@ import {
   ProfileChangePasswordForm,
   useChangePasswordController,
 } from '@modules/authorization';
+import { useDeleteAccount } from '@modules/authorization';
 
 export const ProfilePage: FC = () => {
   const { t } = useI18N();
   const [deleteModalOpened, setDeleteModalOpened] = useState(false);
   const controller = useChangePasswordController();
+  const deleteAccountController = useDeleteAccount();
   const alertGroupController = useAlertGroup([
     {
       type: 'error',
@@ -28,10 +30,15 @@ export const ProfilePage: FC = () => {
       text: t.profilePage.successfulChangingPassword,
       on: controller.sender.isSuccess,
     },
+    {
+      type: 'error',
+      text: getErrorTextWithEmpty(deleteAccountController.apiError?.type),
+      on: !!deleteAccountController.apiError,
+    },
   ]);
 
   const handleDeleteAccount = () => {
-    console.log('Account deleted');
+    deleteAccountController.sender.mutate();
     setDeleteModalOpened(false);
   };
 

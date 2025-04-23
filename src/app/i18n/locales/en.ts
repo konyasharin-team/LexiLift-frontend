@@ -65,7 +65,8 @@ const en: Resource = {
   },
   deleteConfirmationModal: {
     title: 'Do you really want to delete delete account?',
-    defaultText: 'Confirm account deletion',
+    defaultText:
+      'Confirm account deletion, your account will be deleted in 30 days',
     confirm: 'Confirm',
     cancel: 'Cancel',
   },
