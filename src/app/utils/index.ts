@@ -1,5 +1,6 @@
 export * from './arrays';
 export * from './generateKeys.ts';
+export * from './getControlledChildren';
 export * from './getNotificationColor.ts';
 export * from './notify.ts';
 export * from './parse.ts';

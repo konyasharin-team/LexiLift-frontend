@@ -8,4 +8,5 @@ export * from './types';
 export * from './utils/createInstance.ts';
 export * from './utils/getErrorText.ts';
 export * from './utils/getErrorTextWithEmpty.ts';
+export * from './utils/getResult';
 export * from './utils/transformPages.ts';

@@ -20,4 +20,12 @@ export const generators = {
       return appPaths.MODULE_EDIT.replace(':id', id.toString());
     },
   },
+  FOLDERS_GENERATORS: {
+    FOLDER: (id: number) => {
+      return `${appPaths.FOLDERS}/${id}`;
+    },
+    EDIT_FOLDER: (id: number) => {
+      return appPaths.FOLDER_EDIT.replace(':id', id.toString());
+    },
+  },
 };

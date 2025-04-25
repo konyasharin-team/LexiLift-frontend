@@ -68,9 +68,26 @@ const en: Resource = {
     wordAlreadyExistError: 'Word already exists in this module',
     translationAlreadyExistError: 'Translation already exists in this module',
   },
+  createFolderPage: {
+    createFolder: 'Create folder',
+    editFolder: 'Edit folder',
+    folderName: 'Folder name',
+    description: 'Description',
+    createdSuccess: 'Folder created successfully',
+    updatedSuccess: 'Folder updated successfully',
+  },
   modulesErrors: {
     accessDenied: 'Access denied',
     notFound: 'Module not found',
+  },
+  foldersErrors: {
+    accessDenied: 'Access denied',
+    notFound: 'Folder not found',
+  },
+  folderPage: {
+    modulesCount: 'Modules count',
+    deleteError: 'Failed to delete folder',
+    deleteSuccess: 'Folder successfully deleted',
   },
   modulePage: {
     wordsCount: 'Words count',
