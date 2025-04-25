@@ -9,6 +9,7 @@ export const appPaths = {
   MODULE_EDIT: '/modules/:id/edit',
   FOLDERS: '/folders',
   FOLDER: '/folders/:id',
+  FOLDER_EDIT: '/folders/:id/edit',
   MATCH_TEST: '/modules/match-test',
   MATCH_TEST_SETTINGS: '/modules/:id/match-test/settings',
   MATCH_TEST_RESULTS: '/modules/match-test/results',

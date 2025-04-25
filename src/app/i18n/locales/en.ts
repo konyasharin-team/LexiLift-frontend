@@ -78,6 +78,8 @@ const en: Resource = {
   },
   folderPage: {
     modulesCount: 'Modules count',
+    deleteError: 'Failed to delete folder',
+    deleteSuccess: 'Folder successfully deleted',
   },
   modulePage: {
     wordsCount: 'Words count',

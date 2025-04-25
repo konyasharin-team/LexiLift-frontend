@@ -1,6 +1,7 @@
 export * from './components/ControlledGetAbout';
 export * from './components/ControlledGetModules';
 export * from './components/CreateFolderButton/CreateFolder.tsx';
+export * from './components/FolderControls';
 export * from './components/FolderHead';
 export * from './components/FoldersList/FoldersList.tsx';
 export * from './constants';

@@ -77,6 +77,8 @@ const ru = {
   },
   folderPage: {
     modulesCount: 'Количество модулей',
+    deleteError: 'Не удалось удалить папку',
+    deleteSuccess: 'Папка успешно удалена',
   },
   modulePage: {
     wordsCount: 'Количество слов',

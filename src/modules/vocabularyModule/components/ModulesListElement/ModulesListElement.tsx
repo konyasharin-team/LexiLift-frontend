@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListItem } from '@components/List';
 import { Badge, Flex, Text } from '@mantine/core';
@@ -7,6 +7,7 @@ import { generators } from '@routes';
 
 interface IModulesListElement extends ModuleSchemaInfer {
   index: number;
+  controls?: ReactNode[];
 }
 
 export const ModulesListElement = forwardRef<
@@ -39,6 +40,9 @@ export const ModulesListElement = forwardRef<
             </Badge>
           ))}
         </Flex>
+      </Flex>
+      <Flex pos={'absolute'} right={15} top={0} gap={5} align={'center'}>
+        {props.controls}
       </Flex>
     </ListItem>
   );
