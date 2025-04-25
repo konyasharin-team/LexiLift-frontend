@@ -10,6 +10,7 @@ import { CreateFolderBody } from '@modules/folders/types/CreateFolderBody.ts';
 import { FoldersErrorsSchemaInfer } from '@modules/folders/types/FoldersErrorsSchema.ts';
 import { FoldersPaginationSchemaInfer } from '@modules/folders/types/FoldersPaginationSchema.ts';
 import { PutFolderBody } from '@modules/folders/types/PutFolderBody.ts';
+import { ModuleSchemaInfer } from '@modules/vocabularyModule';
 import { AxiosInstance } from 'axios';
 
 export class FoldersApi {
@@ -56,5 +57,11 @@ export class FoldersApi {
     params: IdSchemaInfer,
   ): ResponsePromise<FolderSchemaInfer, IError<FoldersErrorsSchemaInfer>> {
     return this.Instance.get('/about', { params });
+  }
+
+  public static GetFolderModules(
+    params: IdSchemaInfer,
+  ): ResponsePromise<ModuleSchemaInfer[], IError<FoldersErrorsSchemaInfer>> {
+    return this.Instance.get('/modules', { params: { folderId: params.id } });
   }
 }

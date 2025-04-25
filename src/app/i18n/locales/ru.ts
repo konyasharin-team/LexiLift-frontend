@@ -71,6 +71,13 @@ const ru = {
     accessDenied: 'Вам отказано в доступе к данному модулю',
     notFound: 'Модуль не найден',
   },
+  foldersErrors: {
+    accessDenied: 'Вам отказано в доступе к данной папке',
+    notFound: 'Папка не найдена',
+  },
+  folderPage: {
+    modulesCount: 'Количество модулей',
+  },
   modulePage: {
     wordsCount: 'Количество слов',
     deleteError: 'Не удалось удалить модуль',

@@ -6,6 +6,7 @@ import {
   CoursesPage,
   CreateModulePage,
   EditModulePage,
+  FolderPage,
   FoldersPage,
   MatchTestPage,
   MatchTestResultsPage,
@@ -79,6 +80,11 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.FOLDERS,
     element: <FoldersPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.FOLDER,
+    element: <FolderPage />,
     availableFor: [Roles.USER],
   },
   {

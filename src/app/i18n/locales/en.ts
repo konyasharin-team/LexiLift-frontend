@@ -72,6 +72,13 @@ const en: Resource = {
     accessDenied: 'Access denied',
     notFound: 'Module not found',
   },
+  foldersErrors: {
+    accessDenied: 'Access denied',
+    notFound: 'Folder not found',
+  },
+  folderPage: {
+    modulesCount: 'Modules count',
+  },
   modulePage: {
     wordsCount: 'Words count',
     deleteError: 'Failed to delete module',

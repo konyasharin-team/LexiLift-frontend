@@ -4,6 +4,7 @@ export * from './CoursePage.tsx';
 export * from './CoursesPage.tsx';
 export * from './CreateModulePage.tsx';
 export * from './EditModulePage.tsx';
+export * from './FolderPage';
 export * from './FoldersPage.tsx';
 export * from './MatchTestPage';
 export * from './MatchTestResultsPage.tsx';

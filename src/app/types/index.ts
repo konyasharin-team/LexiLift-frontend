@@ -1,4 +1,5 @@
 export * from './ArrayElement.ts';
+export * from './ControlledChildren';
 export * from './DictionaryCardSchema.ts';
 export * from './DictionaryItemSchema.ts';
 export * from './ICoordinates';
