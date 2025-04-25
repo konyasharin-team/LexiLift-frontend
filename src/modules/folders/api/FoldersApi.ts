@@ -64,4 +64,14 @@ export class FoldersApi {
   ): ResponsePromise<ModuleSchemaInfer[], IError<FoldersErrorsSchemaInfer>> {
     return this.Instance.get('/modules', { params: { folderId: params.id } });
   }
+
+  public static PostFolderModules(
+    params: IdSchemaInfer & {
+      moduleIds: ModuleSchemaInfer['id'][];
+    },
+  ) {
+    return this.Instance.post('/modules', {
+      params: { folderId: params.id, moduleIds: params.moduleIds },
+    });
+  }
 }

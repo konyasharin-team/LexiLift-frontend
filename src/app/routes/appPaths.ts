@@ -8,6 +8,7 @@ export const appPaths = {
   MODULE: '/modules/:id',
   MODULE_EDIT: '/modules/:id/edit',
   FOLDERS: '/folders',
+  FOLDERS_CREATE: '/folders/create',
   FOLDER: '/folders/:id',
   FOLDER_EDIT: '/folders/:id/edit',
   MATCH_TEST: '/modules/match-test',

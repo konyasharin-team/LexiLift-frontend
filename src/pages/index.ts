@@ -2,6 +2,7 @@ export * from './AchievementsPage.tsx';
 export * from './AuthorizationPage.tsx';
 export * from './CoursePage.tsx';
 export * from './CoursesPage.tsx';
+export * from './CreateFolderPage';
 export * from './CreateModulePage.tsx';
 export * from './EditModulePage.tsx';
 export * from './FolderPage';
