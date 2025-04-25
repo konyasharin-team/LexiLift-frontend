@@ -70,6 +70,10 @@ export const EditFolderPage: FC = () => {
                     module => !form.values.modules.some(id => module.id !== id),
                   )
                   .map(module => module.id);
+                console.log(
+                  getModulesResult.map(module => module.id),
+                  form.values.modules,
+                );
 
                 if (modulesToAdd.length)
                   addModulesController.sender.mutate({
