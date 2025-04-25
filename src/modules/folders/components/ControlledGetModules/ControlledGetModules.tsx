@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { DependencyList, FC } from 'react';
 import { getErrorTextWithEmpty } from '@api';
 import { ControlledChildren } from '@app-types';
 import { ControlledComponent } from '@components/ControlledComponent';
@@ -13,6 +13,7 @@ import { getControlledChildren } from '@utils';
 interface IControlledGetModulesProps {
   controller: ReturnType<typeof useGetFolderModulesController>;
   children: ControlledChildren<ModuleSchemaInfer[]>;
+  dependencies?: DependencyList;
 }
 
 export const ControlledGetModules: FC<IControlledGetModulesProps> = props => {
@@ -24,6 +25,7 @@ export const ControlledGetModules: FC<IControlledGetModulesProps> = props => {
       error={getErrorTextWithEmpty(props.controller.apiError?.type, {
         requestErrors: FOLDERS_ERRORS(t),
       })}
+      dependencies={props.dependencies}
     >
       {result => getControlledChildren(result, props.children)}
     </ControlledComponent>

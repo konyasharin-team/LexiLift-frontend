@@ -11,9 +11,10 @@ import { moduleFromBackendFieldsTransform } from '../../utils';
 import { ModulesListElement } from '../ModulesListElement';
 
 interface IModulesListProps {
+  withinChoose?: boolean;
   modules?: ModuleSchemaInfer[];
   getModulesUserController?: ReturnType<typeof useGetModulesUserController>;
-  controls?: ReactNode[];
+  controls?: (id: ModuleSchemaInfer['id']) => ReactNode[];
 }
 
 export const ModulesList: FC<IModulesListProps> = props => {
@@ -35,7 +36,8 @@ export const ModulesList: FC<IModulesListProps> = props => {
               <ModulesListElement
                 index={index}
                 key={module.id}
-                controls={props.controls}
+                withinChoose={props.withinChoose}
+                controls={props.controls?.(module.id)}
                 {...module}
                 {...moduleFromBackendFieldsTransform(module)}
               />
@@ -45,7 +47,8 @@ export const ModulesList: FC<IModulesListProps> = props => {
             <ModulesListElement
               index={index}
               key={module.id}
-              controls={props.controls}
+              withinChoose={props.withinChoose}
+              controls={props.controls?.(module.id)}
               {...module}
             />
           ))}

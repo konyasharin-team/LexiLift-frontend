@@ -16,7 +16,20 @@ export const useEditFolderForm = () => {
     },
   });
 
+  const addModule = (id: ModuleSchemaInfer['id']) => {
+    form.setValues({ ...form.values, modules: [...form.values.modules, id] });
+  };
+
+  const removeModule = (id: ModuleSchemaInfer['id']) => {
+    form.setValues({
+      ...form.values,
+      modules: form.values.modules.filter(otherId => otherId !== id),
+    });
+  };
+
   return {
     form,
+    addModule,
+    removeModule,
   };
 };

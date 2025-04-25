@@ -7,6 +7,7 @@ import { generators } from '@routes';
 
 interface IModulesListElement extends ModuleSchemaInfer {
   index: number;
+  withinChoose?: boolean;
   controls?: ReactNode[];
 }
 
@@ -19,7 +20,11 @@ export const ModulesListElement = forwardRef<
     <ListItem
       ref={ref}
       index={props.index}
-      onSelect={() => navigate(generators.MODULES_GENERATORS.MODULE(props.id))}
+      onSelect={
+        props.withinChoose
+          ? undefined
+          : () => navigate(generators.MODULES_GENERATORS.MODULE(props.id))
+      }
     >
       <Flex direction={'column'} justify={'space-between'} h={'100%'}>
         <div>

@@ -70,8 +70,24 @@ export class FoldersApi {
       moduleIds: ModuleSchemaInfer['id'][];
     },
   ) {
-    return this.Instance.post('/modules', {
+    return this.Instance.post('/modules', undefined, {
       params: { folderId: params.id, moduleIds: params.moduleIds },
+      paramsSerializer: {
+        indexes: null, // use brackets with indexes
+      },
+    });
+  }
+
+  public static DeleteFolderModules(
+    params: IdSchemaInfer & {
+      moduleIds: ModuleSchemaInfer['id'][];
+    },
+  ) {
+    return this.Instance.delete('/modules', {
+      params: { folderId: params.id, moduleIds: params.moduleIds },
+      paramsSerializer: {
+        indexes: null, // use brackets with indexes
+      },
     });
   }
 }

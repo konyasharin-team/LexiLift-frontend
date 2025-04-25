@@ -4,17 +4,12 @@ import { ModuleSchemaInfer } from '@modules/vocabularyModule';
 
 import { FoldersApi } from '../api/FoldersApi';
 
-interface IUseAddModulesToFolderParams extends Partial<IdSchemaInfer> {
-  moduleIds: ModuleSchemaInfer['id'][];
-}
-
-export const useAddModulesToFolder = (params: IUseAddModulesToFolderParams) => {
+export const useAddModulesToFolderController = () => {
   const controller = useMutation(
     {
-      mutationFn: params.id
-        ? () =>
-            FoldersApi.PostFolderModules({ ...params, id: params.id as number })
-        : undefined,
+      mutationFn: (
+        params: IdSchemaInfer & { moduleIds: ModuleSchemaInfer['id'][] },
+      ) => FoldersApi.PostFolderModules(params),
     },
     {
       errorSchema: FoldersErrorSchema,
