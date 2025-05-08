@@ -43,14 +43,8 @@ export const EditFolderPage: FC = () => {
   }, [getModulesResult, getAboutResult]);
 
   return (
-    <ControlledGetAbout
-      controller={getAboutController}
-      dependencies={[form.values]}
-    >
-      <ControlledGetModules
-        controller={getModulesController}
-        dependencies={[form.values]}
-      >
+    <ControlledGetAbout controller={getAboutController}>
+      <ControlledGetModules controller={getModulesController}>
         {getModulesResult && getAboutResult ? (
           <EditFolderWrapper
             form={form}

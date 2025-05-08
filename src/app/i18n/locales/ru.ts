@@ -87,6 +87,8 @@ const ru = {
     modulesCount: 'Количество модулей',
     deleteError: 'Не удалось удалить папку',
     deleteSuccess: 'Папка успешно удалена',
+    updatedSuccess: 'Папка успешно обновлена',
+    updatedError: 'Не удалось обновить папку',
   },
   modulePage: {
     wordsCount: 'Количество слов',
