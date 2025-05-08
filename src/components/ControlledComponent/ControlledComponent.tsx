@@ -22,7 +22,7 @@ export const ControlledComponent = <TResult, TError>(
 
   useEffect(() => {
     setContent(props.children?.(result));
-  }, props.dependencies ?? []);
+  }, props.dependencies ?? undefined);
 
   useRequestEvents(props, {
     onSuccess: newResult => {
