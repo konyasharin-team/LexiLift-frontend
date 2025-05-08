@@ -67,9 +67,28 @@ const ru = {
     wordAlreadyExistError: 'Слово уже есть в данном модуле',
     translationAlreadyExistError: 'Такой перевод уже есть в данном модуле',
   },
+  createFolderPage: {
+    createFolder: 'Создать папку',
+    editFolder: 'Обновить папку',
+    folderName: 'Название папки',
+    description: 'Описание',
+    createdSuccess: 'Папка успешно создана',
+    updatedSuccess: 'Папка успешно обновлена',
+  },
   modulesErrors: {
     accessDenied: 'Вам отказано в доступе к данному модулю',
     notFound: 'Модуль не найден',
+  },
+  foldersErrors: {
+    accessDenied: 'Вам отказано в доступе к данной папке',
+    notFound: 'Папка не найдена',
+  },
+  folderPage: {
+    modulesCount: 'Количество модулей',
+    deleteError: 'Не удалось удалить папку',
+    deleteSuccess: 'Папка успешно удалена',
+    updatedSuccess: 'Папка успешно обновлена',
+    updatedError: 'Не удалось обновить папку',
   },
   modulePage: {
     wordsCount: 'Количество слов',

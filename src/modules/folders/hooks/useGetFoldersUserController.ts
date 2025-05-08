@@ -1,8 +1,8 @@
-import { useInfiniteQuery } from '@api';
-import { FolderSchema } from '@modules/folders';
-import { FoldersApi } from '@modules/folders/api/FoldersApi.ts';
-import { FoldersErrorSchema } from '@modules/folders/types/FoldersErrorSchema.ts';
-import { z } from 'zod';
+import { PaginationContentSchema, useInfiniteQuery } from '@api';
+
+import { FoldersApi } from '../api/FoldersApi';
+import { FolderSchema } from '../types/FolderSchema';
+import { FoldersErrorSchema } from '../types/FoldersErrorSchema';
 
 export const useGetFoldersUserController = () => {
   const getFoldersUserController = useInfiniteQuery(
@@ -12,7 +12,7 @@ export const useGetFoldersUserController = () => {
         FoldersApi.GetFoldersUser({ pageNumber: pageParam, pageSize: 5 }),
     },
     {
-      resultSchema: z.array(FolderSchema),
+      resultSchema: PaginationContentSchema(FolderSchema),
       errorSchema: FoldersErrorSchema,
     },
   );

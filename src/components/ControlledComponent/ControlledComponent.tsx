@@ -21,12 +21,12 @@ export const ControlledComponent = <TResult, TError>(
   const [content, setContent] = useState<ReactNode>();
 
   useEffect(() => {
-    setContent(props.children(result));
-  }, props.dependencies ?? []);
+    setContent(props.children?.(result));
+  }, props.dependencies ?? undefined);
 
   useRequestEvents(props, {
     onSuccess: newResult => {
-      setContent(props.children(newResult));
+      setContent(props.children?.(newResult));
       setResult(newResult);
     },
     onLoading: () => {

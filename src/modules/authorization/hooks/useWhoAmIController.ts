@@ -20,6 +20,7 @@ export const useWhoAmIController = () => {
       queryKey: ['WHO_AM_I', tokens],
       queryFn: AuthApi.GetWhoAmI.bind(AuthApi),
       enabled: user !== null,
+      retry: false,
     },
     {
       resultSchema: UserSchema,
