@@ -31,6 +31,7 @@ const en: Resource = {
     oldPasswordPlaceholder: 'Your old password',
     newPasswordPlaceholder: 'Your new password',
     savePassword: 'Save password',
+    deleteAccount: 'Delete account',
   },
   avatarButton: {
     profile: 'Profile',
@@ -98,6 +99,13 @@ const en: Resource = {
   },
   achievementsPage: {
     yourAchievements: 'Your achievements',
+  },
+  deleteConfirmationModal: {
+    title: 'Do you really want to delete delete account?',
+    defaultText:
+      'Confirm account deletion, your account will be deleted in 30 days',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
   },
 };
 

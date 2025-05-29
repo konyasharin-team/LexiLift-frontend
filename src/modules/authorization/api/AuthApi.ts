@@ -1,6 +1,10 @@
 import { IError, IResponse } from '@api';
 import { createInstance } from '@api/utils/createInstance.ts';
-import { IChangePasswordData, ILogoutTargetData } from '@modules/authorization';
+import {
+  IChangePasswordData,
+  IDeleteAccountTargetData,
+  ILogoutTargetData,
+} from '@modules/authorization';
 import { ChangePasswordErrorsSchemaInfer } from '@modules/authorization/types/ChangePasswordErrorsSchema.ts';
 import { IAuthData } from '@modules/authorization/types/IAuthData.ts';
 import { RegistrationErrorsSchemaInfer } from '@modules/authorization/types/RegistrationErrorsSchema.ts';
@@ -63,5 +67,17 @@ export class AuthApi {
     data: ILogoutTargetData,
   ): Promise<AxiosResponse<IResponse<undefined, IError>>> {
     return this.Instance.delete('/logout/target', { params: data });
+  }
+
+  public static DeleteAccount(): Promise<
+    AxiosResponse<IResponse<undefined, IError>>
+  > {
+    return this.Instance.post('/deleteAccount');
+  }
+
+  public static DeleteAccountTarget(
+    data: IDeleteAccountTargetData,
+  ): Promise<AxiosResponse<IResponse<undefined, IError>>> {
+    return this.Instance.post('/deleteAccount/target', { params: data });
   }
 }
