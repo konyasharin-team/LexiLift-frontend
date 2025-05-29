@@ -21,7 +21,7 @@ const variants: Variants = {
       type: 'spring',
       bounce: 0.4,
       duration: 0.8,
-      delay: index * 0.1,
+      delay: index * 0.5,
     },
   }),
   hovered: {
@@ -51,7 +51,7 @@ export const ListItem = forwardRef<HTMLDivElement, IListItemProps>(
           exit={{ scale: 0.8, opacity: 0 }}
           layout={true}
           custom={props.index % Math.floor(12 / span)}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.2 }}
           style={{
             padding: theme.spacing.md,
             paddingRight: 0,
@@ -65,12 +65,17 @@ export const ListItem = forwardRef<HTMLDivElement, IListItemProps>(
           whileTap={props.onSelect ? 'selected' : undefined}
           onClick={props.onSelect}
         >
-          <ScrollArea h={'100%'} offsetScrollbars={'y'}>
+          <ScrollArea
+            h={'100%'}
+            offsetScrollbars={'y'}
+            scrollbars={'y'}
+            type="scroll"
+          >
             <Box
               h={
                 context?.height
                   ? `calc(${context.height}px - 2 * ${theme.spacing.md} - 5px)`
-                  : 'fit-content'
+                  : `fit-content`
               }
             >
               {props.children}
