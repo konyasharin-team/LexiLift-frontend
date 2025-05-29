@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Flex, Paper, Title, useMantineTheme } from '@mantine/core';
-import { IMatchTestResults } from '@modules/matchTest';
+import { MatchTestResults } from '@modules/matchTest';
 import { MatchTestResultsCardGroup } from '@modules/matchTest/components/MatchTestResultsCardGroup/MatchTestResultsCardGroup.tsx';
 import {
   IconCircleCheckFilled,
@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 
 import styles from './MatchTestResultsCard.module.css';
 
-export const MatchTestResultsCard: FC<IMatchTestResults> = props => {
+export const MatchTestResultsCard: FC<MatchTestResults> = props => {
   const theme = useMantineTheme();
 
   return (

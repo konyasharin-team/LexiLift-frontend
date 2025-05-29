@@ -8,6 +8,7 @@ import {
 import { ChangePasswordErrorsSchemaInfer } from '@modules/authorization/types/ChangePasswordErrorsSchema.ts';
 import { IAuthData } from '@modules/authorization/types/IAuthData.ts';
 import { RegistrationErrorsSchemaInfer } from '@modules/authorization/types/RegistrationErrorsSchema.ts';
+import { RegistrationReturnSchemaInfer } from '@modules/authorization/types/RegistrationReturnSchema.ts';
 import { TokensErrorsSchemaInfer } from '@modules/authorization/types/TokensErrorsSchema.ts';
 import { TokensSchemaInfer } from '@modules/authorization/types/TokensSchema.ts';
 import { UserSchemaInfer } from '@modules/authorization/types/UserSchema.ts';
@@ -19,7 +20,12 @@ export class AuthApi {
   public static PostRegistration(
     data: IAuthData,
   ): Promise<
-    AxiosResponse<IResponse<undefined, IError<RegistrationErrorsSchemaInfer>>>
+    AxiosResponse<
+      IResponse<
+        RegistrationReturnSchemaInfer,
+        IError<RegistrationErrorsSchemaInfer>
+      >
+    >
   > {
     return this.Instance.post('/register', data);
   }

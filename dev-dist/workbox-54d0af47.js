@@ -1,3 +1,4 @@
+ 
 define(['exports'], (function (exports) { 'use strict';
 
     // @ts-ignore
@@ -449,7 +450,7 @@ define(['exports'], (function (exports) { 'use strict';
     const isArrayOfClass = (value,
     // Need general type to do check later.
     expectedClass,
-     
+
     details) => {
       const error = new WorkboxError('not-array-of-class', details);
       if (!Array.isArray(value)) {
@@ -981,7 +982,7 @@ define(['exports'], (function (exports) { 'use strict';
               // Instead of passing an empty array in as params, use undefined.
               params = undefined;
             } else if (matchResult.constructor === Object &&
-             
+
             Object.keys(matchResult).length === 0) {
               // Instead of passing an empty object in as params, use undefined.
               params = undefined;
@@ -1400,9 +1401,9 @@ define(['exports'], (function (exports) { 'use strict';
           params
         }) => {
           // Params is type any, can't change right now.
-           
+
           const cacheKey = (params === null || params === void 0 ? void 0 : params.cacheKey) || this._precacheController.getCacheKeyForURL(request.url);
-           
+
           return cacheKey ? new Request(cacheKey, {
             headers: request.headers
           }) : request;
@@ -2056,7 +2057,7 @@ define(['exports'], (function (exports) { 'use strict';
               request: effectiveRequest,
               event: this.event,
               // params has a type any can't change right now.
-              params: this.params  
+              params: this.params
             }));
           }
           this._cacheKeys[key] = effectiveRequest;

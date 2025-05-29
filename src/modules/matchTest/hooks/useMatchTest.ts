@@ -12,9 +12,10 @@ import { IDraggableMatchTestCard } from '@modules/matchTest/types/IDraggableMatc
 import { IMatchTestAnimation } from '@modules/matchTest/types/IMatchTestAnimation.ts';
 import { IUseMatchTestReturn } from '@modules/matchTest/types/IUseMatchTestReturn.ts';
 import { onDragEnd } from '@modules/matchTest/utils/onDragEnd.ts';
+import { createBaseSettings } from '@modules/sharedTest';
 import { appPaths } from '@routes';
 import { useActions, useAppSelector } from '@store';
-import { createBaseSettings, getAnswers, toTime } from '@utils';
+import { getAnswers, toTime } from '@utils';
 
 export const useMatchTest = (
   initialDictionary: DictionaryItemSchemaInfer[],

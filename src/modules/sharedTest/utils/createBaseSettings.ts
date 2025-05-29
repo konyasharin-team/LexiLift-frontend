@@ -1,5 +1,6 @@
-import { DictionaryItemSchemaInfer, ITestSettings } from '@app-types';
+import { DictionaryItemSchemaInfer } from '@app-types';
 import { TEST_WORDS_PER_ROUND } from '@constants';
+import { ITestSettings } from '@modules/sharedTest';
 
 export const createBaseSettings = (
   module: DictionaryItemSchemaInfer[],

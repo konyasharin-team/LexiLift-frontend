@@ -25,6 +25,7 @@ export const ModulePage: FC = () => {
       error={getErrorTextWithEmpty(controller.apiError?.type, {
         requestErrors: MODULES_ERRORS(t),
       })}
+      dependencies={[]}
     >
       {result =>
         result ? (

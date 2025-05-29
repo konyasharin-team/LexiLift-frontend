@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ITestItem, ITestSettings } from '@app-types';
+import { ITestItem } from '@app-types';
+import { ITestSettings } from '@modules/sharedTest';
 import { shuffle } from '@utils';
 
 export const useRounds = (

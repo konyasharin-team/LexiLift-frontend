@@ -1,3 +1,4 @@
+/* eslint-disable */
 define(['exports'], (function (exports) { 'use strict';
 
     // @ts-ignore
@@ -49,6 +50,7 @@ define(['exports'], (function (exports) { 'use strict';
           inGroup = false;
         }
       };
+      // eslint-disable-next-line @typescript-eslint/ban-types
       const api = {};
       const loggerMethods = Object.keys(methodToColorMap);
       for (const key of loggerMethods) {
@@ -415,6 +417,7 @@ define(['exports'], (function (exports) { 'use strict';
     };
     const isInstance = (object,
     // Need the general type to do the check later.
+    // eslint-disable-next-line @typescript-eslint/ban-types
     expectedClass, details) => {
       if (!(object instanceof expectedClass)) {
         details['expectedClassName'] = expectedClass.name;
@@ -747,7 +750,9 @@ define(['exports'], (function (exports) { 'use strict';
         // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
         self.addEventListener('message', event => {
           // event.data is type 'any'
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           if (event.data && event.data.type === 'CACHE_URLS') {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const {
               payload
             } = event.data;
@@ -941,6 +946,7 @@ define(['exports'], (function (exports) { 'use strict';
         for (const route of routes) {
           let params;
           // route.match returns type any, not possible to change right now.
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           const matchResult = route.match({
             url,
             sameOrigin,
@@ -956,6 +962,7 @@ define(['exports'], (function (exports) { 'use strict';
               }
             }
             // See https://github.com/GoogleChrome/workbox/issues/2079
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             params = matchResult;
             if (Array.isArray(params) && params.length === 0) {
               // Instead of passing an empty array in as params, use undefined.
@@ -1248,6 +1255,7 @@ define(['exports'], (function (exports) { 'use strict';
     */
     // Callbacks to be executed whenever there's a quota error.
     // Can't change Function type right now.
+    // eslint-disable-next-line @typescript-eslint/ban-types
     const quotaErrorCallbacks = new Set();
 
     /*
@@ -1265,6 +1273,7 @@ define(['exports'], (function (exports) { 'use strict';
      * @memberof workbox-core
      */
     // Can't change Function type
+    // eslint-disable-next-line @typescript-eslint/ban-types
     function registerQuotaErrorCallback(callback) {
       {
         finalAssertExports.isType(callback, 'function', {
@@ -3594,7 +3603,7 @@ define(['exports'], (function (exports) { 'use strict';
           // Params is type any, can't change right now.
            
           const cacheKey = (params === null || params === void 0 ? void 0 : params.cacheKey) || this._precacheController.getCacheKeyForURL(request.url);
-           
+          /* eslint-enable */
           return cacheKey ? new Request(cacheKey, {
             headers: request.headers
           }) : request;
