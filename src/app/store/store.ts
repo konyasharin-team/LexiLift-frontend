@@ -1,5 +1,6 @@
 import { authSlice } from '@modules/authorization';
 import { layoutSlice } from '@modules/layout';
+import { learnTestSlice } from '@modules/learnTest';
 import { configureStore } from '@reduxjs/toolkit';
 import { matchTestSlice } from '@store/entities/matchTest/matchTestSlice.ts';
 
@@ -8,6 +9,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     matchTest: matchTestSlice.reducer,
     layout: layoutSlice.reducer,
+    learnTest: learnTestSlice.reducer,
   },
 });
 

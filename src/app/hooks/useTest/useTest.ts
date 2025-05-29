@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { IStatistics, ITestItem, ITestSettings } from '@app-types';
+import { IStatistics, ITestItem } from '@app-types';
 import { DictionaryItemSchemaInfer } from '@app-types/DictionaryItemSchema.ts';
 import { IUseTestReturn } from '@hooks/useTest/types/IUseTestReturn.ts';
+import { ITestSettings } from '@modules/sharedTest';
 import { shuffle } from '@utils';
 
 interface IUseTestOptions {

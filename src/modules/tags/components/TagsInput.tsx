@@ -151,6 +151,7 @@ export const TagsInput: FC<ITagsInputProps> = ({
         <ControlledComponent
           {...controller.sender}
           error={getErrorTextWithEmpty()}
+          dependencies={[]}
         >
           {result =>
             result && options?.length ? (

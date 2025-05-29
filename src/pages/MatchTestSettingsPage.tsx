@@ -1,43 +1,14 @@
 import { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getErrorTextWithEmpty, IdSchema, useRequestEvents } from '@api';
+import { getErrorTextWithEmpty } from '@api';
 import { ControlledComponent } from '@components/ControlledComponent';
-import { idMiddleware, useParsedParams } from '@hooks';
 import { useI18N } from '@i18n';
-import {
-  MatchTestSettingsPanel,
-  useMatchTestSettingsForm,
-} from '@modules/matchTest';
-import {
-  moduleFromBackendFieldsTransform,
-  MODULES_ERRORS,
-  useGetModuleAboutController,
-} from '@modules/vocabularyModule';
-import { appPaths } from '@routes';
-import { useActions } from '@store';
-import { createBaseSettings } from '@utils';
+import { MatchTestSettingsPanel } from '@modules/matchTest';
+import { useTestSettings } from '@modules/sharedTest';
+import { MODULES_ERRORS } from '@modules/vocabularyModule';
 
 export const MatchTestSettingsPage: FC = () => {
-  const parsedParams = useParsedParams(IdSchema, idMiddleware);
-  const getModuleApiController = useGetModuleAboutController(parsedParams);
   const { t } = useI18N();
-  const { setMatchTestModule } = useActions();
-  const navigate = useNavigate();
-  const formController = useMatchTestSettingsForm();
-
-  useRequestEvents(getModuleApiController.sender, {
-    onSuccess: result => {
-      if (result) {
-        formController.form.setValues(
-          createBaseSettings(moduleFromBackendFieldsTransform(result).words),
-        );
-        setMatchTestModule({
-          ...result,
-          ...moduleFromBackendFieldsTransform(result),
-        });
-      } else navigate(appPaths.MODULES);
-    },
-  });
+  const { formController, getModuleApiController } = useTestSettings('match');
 
   return (
     <ControlledComponent

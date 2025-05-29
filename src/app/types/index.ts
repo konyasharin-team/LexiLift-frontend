@@ -5,7 +5,6 @@ export * from './DictionaryItemSchema.ts';
 export * from './ICoordinates';
 export * from './IStatistics';
 export * from './ITestItem';
-export * from './ITestSettings';
 export * from './ITime';
 export * from './NotificationType';
 export * from './TestItemType';

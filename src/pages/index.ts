@@ -8,6 +8,8 @@ export * from './EditFolderPage';
 export * from './EditModulePage.tsx';
 export * from './FolderPage';
 export * from './FoldersPage.tsx';
+export * from './LearnTestPage';
+export * from './LearnTestSettingsPage';
 export * from './MatchTestPage';
 export * from './MatchTestResultsPage.tsx';
 export * from './MatchTestSettingsPage';
