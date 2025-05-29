@@ -25,7 +25,7 @@ export const ModuleFlipCards: FC<IModuleFlipCardsProps> = props => {
     <Box w={'100%'}>
       <Center>
         <Flex direction={'column'} gap={20} w={'100%'} h={600}>
-          <motion.div style={{ perspective: 500, height: '450px' }} ref={scope}>
+          <motion.div style={{ perspective: 500, height: 450 }} ref={scope}>
             <FlipCard
               word={controller.current?.word ?? ''}
               translation={controller.current?.translation ?? ''}

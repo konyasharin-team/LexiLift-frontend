@@ -1,3 +1,6 @@
-import { ModuleSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
+import { ModuleBackendSchemaInfer } from '@modules/vocabularyModule/types/ModuleSchema.ts';
 
-export type CreateModuleBody = Pick<ModuleSchemaInfer, 'title' | 'description'>;
+export type CreateModuleBody = Pick<
+  ModuleBackendSchemaInfer,
+  'title' | 'description' | 'tags' | 'words'
+>;

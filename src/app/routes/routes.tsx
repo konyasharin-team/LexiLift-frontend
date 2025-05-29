@@ -4,7 +4,11 @@ import {
   AuthorizationPage,
   CoursePage,
   CoursesPage,
+  CreateFolderPage,
+  CreateModulePage,
+  EditFolderPage,
   EditModulePage,
+  FolderPage,
   FoldersPage,
   MatchTestPage,
   MatchTestResultsPage,
@@ -15,6 +19,7 @@ import {
   RegistrationPage,
   TestPage,
 } from '@pages';
+import { CourseEditorPage } from '@pages/CourseEditorPage.tsx';
 
 import { IPrivateRoute } from './types/IPrivateRoute.ts';
 import { IRoute } from './types/IRoute.ts';
@@ -57,6 +62,11 @@ export const privateRoutes: IPrivateRoute[] = [
   },
   {
     path: appPaths.MODULES_CREATE,
+    element: <CreateModulePage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.MODULE_EDIT,
     element: <EditModulePage />,
     availableFor: [Roles.USER],
   },
@@ -76,6 +86,21 @@ export const privateRoutes: IPrivateRoute[] = [
     availableFor: [Roles.USER],
   },
   {
+    path: appPaths.FOLDER,
+    element: <FolderPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.FOLDERS_CREATE,
+    element: <CreateFolderPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.FOLDER_EDIT,
+    element: <EditFolderPage />,
+    availableFor: [Roles.USER],
+  },
+  {
     path: appPaths.COURSES,
     element: <CoursesPage />,
     availableFor: [Roles.USER],
@@ -83,6 +108,16 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.COURSE,
     element: <CoursePage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.COURSE_EDITOR,
+    element: <CourseEditorPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.NEW_COURSE_EDITOR,
+    element: <CourseEditorPage />,
     availableFor: [Roles.USER],
   },
   {

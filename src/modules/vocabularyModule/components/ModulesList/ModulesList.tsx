@@ -1,26 +1,59 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { transformPages } from '@api';
 import { List } from '@components/List';
-import { useGetModulesUserController } from '@modules/vocabularyModule';
-import { ModulesListElement } from '@modules/vocabularyModule/components/ModulesListElement/ModulesListElement.tsx';
-import { moduleBackendTransform } from '@modules/vocabularyModule/utils/moduleBackendTransform.ts';
+import { Center } from '@mantine/core';
+import {
+  ModuleSchemaInfer,
+  useGetModulesUserController,
+} from '@modules/vocabularyModule';
+
+import { moduleFromBackendFieldsTransform } from '../../utils';
+import { ModulesListElement } from '../ModulesListElement';
 
 interface IModulesListProps {
-  getModulesUserController: ReturnType<typeof useGetModulesUserController>;
+  withinChoose?: boolean;
+  modules?: ModuleSchemaInfer[];
+  getModulesUserController?: ReturnType<typeof useGetModulesUserController>;
+  controls?: (id: ModuleSchemaInfer['id']) => ReactNode[];
 }
 
 export const ModulesList: FC<IModulesListProps> = props => {
-  return (
+  const getIsEmpty = () => {
+    if (props.getModulesUserController) {
+      const sender = props.getModulesUserController.sender;
+      if (sender.data?.pages.length)
+        return !sender.data?.pages[0].data.result?.content.length;
+      return false;
+    }
+    return !props.modules?.length;
+  };
+
+  return !getIsEmpty() ? (
     <List span={3} height={150}>
-      {transformPages(props.getModulesUserController.sender, page => {
-        return page.data.result?.content.map((module, index) => (
-          <ModulesListElement
-            index={index}
-            key={module.id}
-            {...moduleBackendTransform(module)}
-          />
-        ));
-      })}
+      {props.getModulesUserController
+        ? transformPages(props.getModulesUserController.sender, page => {
+            return page.data.result?.content.map((module, index) => (
+              <ModulesListElement
+                index={index}
+                key={module.id}
+                withinChoose={props.withinChoose}
+                controls={props.controls?.(module.id)}
+                {...module}
+                {...moduleFromBackendFieldsTransform(module)}
+              />
+            ));
+          })
+        : props.modules?.map((module, index) => (
+            <ModulesListElement
+              index={index}
+              key={module.id}
+              withinChoose={props.withinChoose}
+              controls={props.controls?.(module.id)}
+              {...module}
+            />
+          ))}
     </List>
+  ) : (
+    <Center h={500}>Нет модулей</Center>
   );
 };

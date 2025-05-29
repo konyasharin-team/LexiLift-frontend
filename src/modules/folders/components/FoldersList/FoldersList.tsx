@@ -1,28 +1,32 @@
-import { Flex, Paper, Text } from '@mantine/core';
-import { CreateFolderButton } from '@modules/folders/components/CreateFolderButton/CreateFolder.tsx';
-import { foldersData } from '@modules/folders/data.ts';
+import { FC } from 'react';
+import { transformPages } from '@api';
+import { List } from '@components/List';
+import { Center } from '@mantine/core';
+import { useGetFoldersUserController } from '@modules/folders';
 
-export const FoldersList = () => {
-  return (
-    <>
-      <Flex justify="center">
-        <CreateFolderButton />
-      </Flex>
-      <Flex direction="column" gap={20} p={20}>
-        {foldersData.map((module, index) => (
-          <Flex justify="center" key={index}>
-            <Paper shadow="lg" radius="md" w="45%" withBorder>
-              <Text size="lg" p={20}>
-                {' '}
-                {module.title}
-              </Text>
-              <Text size="sm" p={20}>
-                Количество модулей: {module.count}
-              </Text>
-            </Paper>
-          </Flex>
-        ))}
-      </Flex>
-    </>
+import { FoldersListElement } from '../FoldersListElement';
+
+interface IFoldersListProps {
+  getFoldersUserController: ReturnType<typeof useGetFoldersUserController>;
+}
+
+export const FoldersList: FC<IFoldersListProps> = props => {
+  const getIsEmpty = () => {
+    const sender = props.getFoldersUserController.sender;
+    if (sender.data?.pages.length)
+      return !sender.data?.pages[0].data.result?.content.length;
+    return false;
+  };
+
+  return !getIsEmpty() ? (
+    <List span={3} height={150}>
+      {transformPages(props.getFoldersUserController.sender, page => {
+        return page.data.result?.content.map((folder, index) => (
+          <FoldersListElement index={index} key={folder.id} {...folder} />
+        ));
+      })}
+    </List>
+  ) : (
+    <Center h={500}>Нет папок</Center>
   );
 };

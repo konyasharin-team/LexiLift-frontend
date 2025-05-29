@@ -9,16 +9,16 @@ import {
   MatchTestWrapper,
   useMatchTest,
 } from '@modules/matchTest';
-import { wordPairs } from '@modules/matchTest/data.ts';
 import { appPaths } from '@routes';
 import { useAppSelector } from '@store';
 import { toTime } from '@utils';
 
 export const MatchTestPage: FC = () => {
-  const matchTest = useMatchTest(wordPairs);
-  const { settings } = useAppSelector(state => state.matchTest);
+  const { settings, module } = useAppSelector(state => state.matchTest);
+  const matchTest = useMatchTest(module?.words ?? []);
 
-  if (!settings) return <Navigate to={appPaths.MATCH_TEST_SETTINGS} />;
+  if (!settings || !module || module.words.length === 0)
+    return <Navigate to={appPaths.MATCH_TEST_SETTINGS} />;
   return (
     <MatchTestWrapper
       blurIsActive={!matchTest.isStarted}
@@ -41,7 +41,6 @@ export const MatchTestPage: FC = () => {
         onDragEnd={matchTest.onDragEnd}
         isStarted={matchTest.isStarted}
         items={matchTest.items}
-        setItems={matchTest.setItems}
         animations={matchTest.animations}
       />
     </MatchTestWrapper>

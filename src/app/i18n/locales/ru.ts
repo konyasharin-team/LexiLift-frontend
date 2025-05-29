@@ -46,7 +46,7 @@ const ru = {
   navigation: {
     compareTest: 'Тест на сопоставление (в разработке)',
     folders: 'Папки (в разработке)',
-    modules: 'Модули (в разработке)',
+    modules: 'Модули',
     courses: 'Курсы (в разработке)',
     test: 'Для тестирования',
     login: 'Вход',
@@ -54,12 +54,49 @@ const ru = {
   },
   createModulePage: {
     createModule: 'Создать модуль',
+    editModule: 'Обновить модуль',
     moduleName: 'Название модуля',
     inputTags: 'Введите теги',
     description: 'Описание',
     word: 'Слово',
     translation: 'Перевод',
     addCard: 'Добавить карточку',
+    tagsNotFound: 'Тегов не найдено',
+    createdSuccess: 'Модуль успешно создан',
+    updatedSuccess: 'Модуль успешно обновлен',
+    wordAlreadyExistError: 'Слово уже есть в данном модуле',
+    translationAlreadyExistError: 'Такой перевод уже есть в данном модуле',
+  },
+  createFolderPage: {
+    createFolder: 'Создать папку',
+    editFolder: 'Обновить папку',
+    folderName: 'Название папки',
+    description: 'Описание',
+    createdSuccess: 'Папка успешно создана',
+    updatedSuccess: 'Папка успешно обновлена',
+  },
+  modulesErrors: {
+    accessDenied: 'Вам отказано в доступе к данному модулю',
+    notFound: 'Модуль не найден',
+  },
+  foldersErrors: {
+    accessDenied: 'Вам отказано в доступе к данной папке',
+    notFound: 'Папка не найдена',
+  },
+  folderPage: {
+    modulesCount: 'Количество модулей',
+    deleteError: 'Не удалось удалить папку',
+    deleteSuccess: 'Папка успешно удалена',
+    updatedSuccess: 'Папка успешно обновлена',
+    updatedError: 'Не удалось обновить папку',
+  },
+  modulePage: {
+    wordsCount: 'Количество слов',
+    deleteError: 'Не удалось удалить модуль',
+    deleteSuccess: 'Модуль успешно удален',
+  },
+  achievementsPage: {
+    yourAchievements: 'Ваши достижения',
   },
 };
 

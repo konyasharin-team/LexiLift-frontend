@@ -1,0 +1,15 @@
+.element{
+    border: 1px solid var(--mantine-color-blue-8);
+    border-left-width: 0;
+}
+
+.element:first-child {
+    border-bottom-left-radius: var(--mantine-radius-md);
+    border-top-left-radius: var(--mantine-radius-md);
+    border-left-width: 1px;
+}
+
+.element:last-child {
+    border-bottom-right-radius: var(--mantine-radius-md);
+    border-top-right-radius: var(--mantine-radius-md);
+}

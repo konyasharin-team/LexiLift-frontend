@@ -55,12 +55,49 @@ const en: Resource = {
   },
   createModulePage: {
     createModule: 'Create module',
+    editModule: 'Edit module',
     moduleName: 'Module name',
     inputTags: 'Input tags',
     description: 'Description',
     word: 'Word',
     translation: 'Translation',
     addCard: 'Add card',
+    tagsNotFound: 'Tags not found',
+    createdSuccess: 'Module created successfully',
+    updatedSuccess: 'Module updated successfully',
+    wordAlreadyExistError: 'Word already exists in this module',
+    translationAlreadyExistError: 'Translation already exists in this module',
+  },
+  createFolderPage: {
+    createFolder: 'Create folder',
+    editFolder: 'Edit folder',
+    folderName: 'Folder name',
+    description: 'Description',
+    createdSuccess: 'Folder created successfully',
+    updatedSuccess: 'Folder updated successfully',
+  },
+  modulesErrors: {
+    accessDenied: 'Access denied',
+    notFound: 'Module not found',
+  },
+  foldersErrors: {
+    accessDenied: 'Access denied',
+    notFound: 'Folder not found',
+  },
+  folderPage: {
+    modulesCount: 'Modules count',
+    deleteError: 'Failed to delete folder',
+    deleteSuccess: 'Folder successfully deleted',
+    updatedSuccess: 'Folder successfully updated',
+    updatedError: 'Failed to update folder',
+  },
+  modulePage: {
+    wordsCount: 'Words count',
+    deleteError: 'Failed to delete module',
+    deleteSuccess: 'Module successfully deleted',
+  },
+  achievementsPage: {
+    yourAchievements: 'Your achievements',
   },
 };
 
