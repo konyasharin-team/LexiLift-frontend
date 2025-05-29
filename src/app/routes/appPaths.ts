@@ -20,4 +20,6 @@ export const appPaths = {
   NEW_COURSE_EDITOR: '/courses/editor',
   PROFILE: '/profile',
   ACHIEVEMENTS: '/achievements',
+  LEARN_TEST: '/modules/learn-test',
+  LEARN_TEST_SETTINGS: '/modules/:id/learn-test/settings',
 };

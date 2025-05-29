@@ -44,6 +44,7 @@ export const ModuleTestsButtons: FC<Pick<ModuleSchemaInfer, 'id'>> = props => {
       />
       <ModuleTestButton
         icon={<IconBooks size={ICON_SIZE} />}
+        path={generators.MODULES_GENERATORS.LEARN_TEST_SETTINGS(props.id)}
         text={'Изучение'}
       />
     </Flex>

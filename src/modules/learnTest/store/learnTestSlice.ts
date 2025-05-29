@@ -1,11 +1,11 @@
-import { MatchTestResults, MatchTestSettings } from '@modules/matchTest';
+import { LearnTestResults, LearnTestSettings } from '@modules/learnTest';
 import { ModuleSchemaInfer } from '@modules/vocabularyModule';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IState {
   module: ModuleSchemaInfer | null;
-  settings: MatchTestSettings | null;
-  results: MatchTestResults | null;
+  settings: LearnTestSettings | null;
+  results: LearnTestResults | null;
 }
 
 const initialState: IState = {
@@ -14,17 +14,17 @@ const initialState: IState = {
   module: null,
 };
 
-export const matchTestSlice = createSlice({
-  name: 'matchTest',
+export const learnTestSlice = createSlice({
+  name: 'learnTest',
   initialState,
   reducers: {
-    setMatchTestSettings: (state, action: PayloadAction<MatchTestSettings>) => {
+    setLearnTestSettings: (state, action: PayloadAction<LearnTestSettings>) => {
       state.settings = action.payload;
     },
-    setMatchTestResults: (state, action: PayloadAction<MatchTestResults>) => {
+    setLearnTestResults: (state, action: PayloadAction<LearnTestResults>) => {
       state.results = action.payload;
     },
-    setMatchTestModule: (
+    setLearnTestModule: (
       state,
       action: PayloadAction<ModuleSchemaInfer | null>,
     ) => {

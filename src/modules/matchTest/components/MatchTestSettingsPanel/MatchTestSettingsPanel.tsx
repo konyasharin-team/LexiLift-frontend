@@ -2,9 +2,11 @@ import { FC } from 'react';
 import { Form } from '@components/Form';
 import { MODULE_MIN_COUNT_WORDS, TEST_WORDS_PER_ROUND } from '@constants';
 import { Button, Flex, NumberInput } from '@mantine/core';
-import { IUseMatchTestSettingsFormReturn } from '@modules/matchTest';
+import { MatchTestSettings } from '@modules/matchTest';
+import { useTestSettingsForm } from '@modules/sharedTest';
 
-interface IMatchTestSettingsPanelProps extends IUseMatchTestSettingsFormReturn {
+interface IMatchTestSettingsPanelProps
+  extends ReturnType<typeof useTestSettingsForm<MatchTestSettings>> {
   maxWordsCount?: number;
 }
 

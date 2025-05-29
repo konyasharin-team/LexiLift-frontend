@@ -10,6 +10,8 @@ import {
   EditModulePage,
   FolderPage,
   FoldersPage,
+  LearnTestPage,
+  LearnTestSettingsPage,
   MatchTestPage,
   MatchTestResultsPage,
   MatchTestSettingsPage,
@@ -128,6 +130,16 @@ export const privateRoutes: IPrivateRoute[] = [
   {
     path: appPaths.ACHIEVEMENTS,
     element: <AchievementsPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.LEARN_TEST,
+    element: <LearnTestPage />,
+    availableFor: [Roles.USER],
+  },
+  {
+    path: appPaths.LEARN_TEST_SETTINGS,
+    element: <LearnTestSettingsPage />,
     availableFor: [Roles.USER],
   },
 ];
